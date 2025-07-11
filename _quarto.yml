@@ -1,0 +1,27 @@
+project:
+  type: book
+
+book:
+  title: "Bash for Bioinformatics"
+  author: "Ted Laderas"
+  date: "7/9/2025"
+  chapters:
+    - index.qmd
+    - 01_basics.qmd
+    - configuring.qmd
+
+glossary:
+  path: glossary.yml
+  popup: click
+  show: true
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+  pdf:
+    documentclass: scrreprt
+
+
+

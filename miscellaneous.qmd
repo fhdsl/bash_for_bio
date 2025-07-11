@@ -1,0 +1,57 @@
+---
+title: "Miscellaneous"
+---
+
+###  `hostname` What Machine am I on?
+
+One of the most confusing things about working on HPC is that sometimes you have a shell open on the head node, but oftentimes, you are on a worker node. 
+
+Your totem for telling which node you're in is `hostname`, which will give you the host name of the machine you're on.
+
+For example, if I used `grabnode` to grab a `gizmo` node for interactive work, I can check which node I'm in by using:
+
+```bash
+hostname
+```
+
+```
+gizmok164
+```
+If you're confused about which node you're in, remember `hostname`. It will save you from making mistakes, especially when using utilities like `screen`.
+
+### Try it out
+
+After logging into `rhino`, try running `hostname`. What host are you on?
+
+
+## Workflows
+
+### One Workflow: `/fh/fast/` and `/fh/temp/`
+
+One approach is to have your scripts also live in your project folder in `fast`. Then, you can sync the project in `/fh/fast/` over to `/fh/temp/`, run the scripts in `/fh/temp/`, and then sync the two folders again. You can do the file sync'ing in both directions with Motuz (@sec-motuz), which has its own advantages. 
+
+If you want to go this route, you should think about using a Folder Based Workflow (@sec-project), where everything lives in a folder. 
+
+Another thing to consider is to have a backup of the scripts that is either on your own machine or in GitHub. You can do this by using your `.gitignore` to exclude the data and results. 
+
+```{mermaid}
+graph LR
+    A["Fast\n/fh/fast/my_lab/project/\nRaw Data & Scripts"] --"a. Sync Data & scripts"-->B
+    B["Temp\n/fh/temp/my_lab/project\nb. Run Scripts here"] --"c. Sync results"-->A
+```
+
+
+### Another Approach
+
+Below is a a diagram with another way to work with these multiple filesystems. 
+
+a. We transfer the raw files to be processed from `/fh/fast/` to our directory `/fh/temp/`. For example, a set of `.bam` files.
+b. We run our scripts from `/home/`, on the raw files in `/fh/temp/` and produce results in `/fh/temp/`.
+c. We transfer our results from `/fh/temp/` to `/fh/fast/`.
+
+```{mermaid}
+graph TD
+    A["Home Directory\n/home/tladera2/\nScripts"] --"b. run scripts"--> C
+    B["Fast\n/fh/fast/tladera2\nResearch Data"] --"a. transfer raw files"--> C
+    C["Temp\n/fh/temp/tladera2"] --"c. transfer results"--> B
+```

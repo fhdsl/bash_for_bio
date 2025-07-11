@@ -1,0 +1,13 @@
+# Bash for Bio {.unnumbered}
+
+## Terminology
+
+We know that not all of us have the same vocabulary. We try to define terminology as much as possible. These are indicated by double underlines such as this:
+
+{{<glossary "Compute Job">}}
+
+You can click and hold on the term to define it.
+
+## Reference Text
+
+We will be using Julia Evan's Bite Size Bash as our reference text. 

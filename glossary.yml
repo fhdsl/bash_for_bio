@@ -1,0 +1,35 @@
+Shell: |
+  A command processor that we interact with via text. In our case, the Shell we're interacting with is on the server.
+
+Bash: |
+  Short for *Bourne* *Again* *Shell* - it is the command processor that is typically run in a text window, has its own programming language and syntax.
+
+Terminal: |
+  The program on our own machine that we use to interact with a shell (usually on a remote machine)
+
+Directory: |
+  A container in which we save files. Can be nested (that is, have a directory inside a directory)
+  
+Node: |
+  Usually a single remote machine that is part of a cluster
+  
+Cluster: |
+  A grouping of machines that can be used to run compute jobs
+  
+Compute Job: |
+  A single task for a machine to execute, such as running bwa on a file
+  
+metadata: |
+  Information about a file, such as the filename, or size of the file
+
+alias: |
+  A "nickname"
+  
+node: |
+  A single computer in a compute cluster. 
+  
+driver node: |
+  The boss of the other nodes in the cluster
+  
+
+

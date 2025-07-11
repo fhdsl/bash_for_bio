@@ -1,0 +1,368 @@
+---
+title: "Navigating the Bash Filesystem"
+---
+
+## Learning Objectives
+
+By the end of this session, you should be able to:
+
+- **Utilize** the bash terminal
+- **Navigate**, and copy data to the different filesystems available at Fred Hutch.
+- **Set Permissions** and **execute** a bash script 
+- **Find** help on the system
+
+## Map of the Material
+
+```{mermaid}
+flowchart TD
+    A[Signing In] --> B[pwd: Find Current Directory]
+    B --> C[cd: change directory]
+    C --> D[Absolute vs Relative Paths]
+    D --> E[mv/cp: move files around]
+    D --> F[chmod: set permissions]
+    F --> G[execute a script]
+```
+
+:::{.callout-note}
+## Reminder about Terminology
+
+Defined words are double underlined. You can click and hold on them to see the definition. Try it below!
+
+{{< glossary metadata>}}
+:::
+
+## Navigating the Bash Terminal
+
+> We recommend that you review the material for Intro to Command Line and know the following: Changing directories, 
+
+By default, when you log into a remote system such as `rhino`, you are in a {{< glossary bash>}} {{< glossary shell >}}.
+
+:::{.callout}
+## A helpful key: `<Up Arrow>`
+
+The <Up Arrow> key will let you cycle through your history, or previous executed commands. This can be super helpful if you have typed a long command with a syntax error. You can use `<Up Arrow>` to fix mistakes and run that command again.
+:::
+
+## Setting Yourself Up for Success
+
+So we have logged into `rhino`. Now what?
+
+## Navigating the Filesystems
+
+### `pwd` Where Am I? 
+
+The `pwd` command (short for *present working directory*) will let you know your current location in the filesystem. Knowing your current directory is critical when using *relative* file paths.
+
+If I run `pwd` right after signing into `rhino`
+
+## Going `/home`: `~/` {#sec-home}
+
+There is one important file alias you should always remember: `~/` is shorthand for your own home directory.
+
+Depending on the linux distribution, this can be a different location. On the FH filesystem, when I use `~/`, it maps to:
+
+`/home/tladera2/`
+
+The home directory is also important because it is where your configuration files live, such as `.bashrc` (see @sec-bashrc).
+
+Depending on how you work, you may want to store your scripts and workflows in `/home/`. Some people prefer to keep their scripts, data, and results in a single folder. This is not really practical for most genomics projects, unless you are saving processed data. For more info, see @sec-project.
+
+:::{.callout}
+## Your current working directory
+
+There is an alias for your current directory: `.` (the period sign).
+
+This becomes useful when you want to output files to your current location.
+:::
+
+### `du`: How much space?
+
+One of the things we can do is check for disk usage with the `du` command. If I run `du` by itself on the command line, it will give me the disk usage of all folders and files in our current directory.
+
+```
+
+```
+
+There is an option called `-d` that lets us specify the *depth*. `-d 1` will give us only the file sizes of the top level folders in our directory:
+
+```bash
+du -d 1 
+```
+
+If we want to specify `du` to scan only a single folder, we can give the folder name.
+
+```bash
+du -d Desktop
+```
+
+:::{.callout}
+### Try it out
+
+Navigate into the `bash_for_bio` repository. 
+
+Try checking the disk usage using `du` for the `Desktop` folder in your `/home` directory (mine is `/home/tladera2`).
+
+```bash
+du -d 1
+```
+
+Try out using `du -d 2` on your home directory:
+
+```bash
+du -d 2 /home/tladera2
+```
+:::
+
+## FH users: the main filesystems {#sec-filesystems}
+
+When working on the Fred Hutch HPC, there are four main filesystems you should consider:
+
+- `/home/` - The home filesystem. Your scripts can live here. Also where your configuration files (such as `.bashrc`) live. Can be accessed using `~/`.
+- `/fh/fast/` (also known as fast) - Research storage. Raw files and processed results should live here. 
+- `/fh/temp/` (also known as temp) - The temporary filesystem. This filesystem is faster to access for gizmo nodes on the cluster, so files can be copied to for computation. The output files you generate should be moved back into an appropriate folder on `/fh/fast/`. Note that files on `/fh/temp/` will be deleted after 30 days. 
+- `/fh/regulated/` - A secure filesystem meant for NIH regulated data. If you are processing data that is regulated under the current NIH guidelines, you will process it here.
+
+So, how do we utilize these filesystems? We first have to familiarize ourselves with *absolute* vs *relative* paths.
+
+## Absolute versus relative paths {#sec-paths}
+
+You may be wondering what the deal is, and whether it's necessary to know this. When you are processing files, it is important to understand the difference.
+
+**Absolute paths** contain all the information needed to find a file in a file system from the root `/` directory. For example, this would be an absolute path:
+
+```
+/fh/fast/laderast/immuno_project/raw_data/chr2.fa.gz
+```
+
+In terms of folder structure, this is what this looks like:
+
+```
+/
+├── fh
+│   └──fast
+│       └──laderast
+|            └──immuno_project
+│                 └──raw_data
+│                    └──chr2.fa.gz
+```
+
+Absolute paths always start with `/`, because that is the root directory, where all the top folders and files live. 
+
+**Relative paths** break up an absolute path into two pieces of information: 1) your current directory and 2) the path *relative* to that directory. Relative paths are really helpful because things don't break when you move your folder or files. 
+
+
+If my current working directory is the directory `/fh/fast/laderas_t/immuno_project/`, then the relative path to that same file would be:
+
+```
+raw_data/chr2.fa.gz
+```
+
+We can visualize the relative path like this, where our working directory is indicated by a star
+
+```
+/
+├── fh/fast/laderast/immuno_project/ *
+|      ^working directory        └──raw_data
+│                                   └──chr2.fa.gz
+                                    ^relative path
+```
+
+
+Note that this relative path does not start with a `/`, because our current directory isn't the root directory. Relative paths are incredibly useful when scripting in a reproducible manner, such as using project-based workflows to process files in a single folder.
+
+## Grabbing Stuff from GitHub
+
+For the rest of the exercises, we'll be grabbing the scripts from github using `git clone`. 
+
+```bash
+git clone https://github.com/fhdsl/bash_for_bio
+```
+
+:::{.callout}
+## `<TAB>` is for autocompletion of paths
+
+Never underestimate the usefulness of the `<TAB>` key, which triggers autocompletion on the command line. It can help you complete paths to files and save you a lot of typing.
+
+For example, say I have a path that I want to navigate to
+
+`/home/tladera2/my_long_path`
+
+I can type in the first part of the path and then hit `<TAB>`:
+
+`/home/tladera2/my_<TAB>` 
+
+And if the prefix `my_` is unique in my folder, it will autocomplete the path:
+
+`/home/tladera2/my_long_path`
+
+Note that we need to use enough of the folder name so that completing it is unambiguous. If there are multiple choices, then autocomplete will list all of them.
+:::
+
+:::{.callout}
+## Try it Out
+
+```bash
+
+```
+:::
+
+## File Permissions {#sec-permissions}
+
+File permissions are {{< glossary metadata>}} that are attached to file objects. They are how the system prevents certain files from being modified or restricting access of these files to certain people or groups.
+
+All files have the following level of access permissions:
+
+|Level|Description|
+|-----|-----------|
+|Owner-level|The owner of the file|
+|Group-level|The group of the file|
+|Everyone|The rest of the world|
+
+For example, if I'm the owner of the file, I can restrict the type of access to only myself (owner-level), the group I'm in (Group-level), or make the file freely available to everyone on the system (Everyone).
+
+Each level has the following type of access:
+
+|Type|Description|Abbreviation|Example|
+|----|-----------|------------|-------|
+|Read|Level can only read contents of file|`r`|A list of users in a text file|
+|Write|Level can write to the file|`w`|Appending an entry to the end of a log|
+|Execute|Level can run the file as an executable|`x`|samtools|
+
+You can see the permissions for a file using the `ls -l <FILENAME>`. For example: 
+
+```bash
+ls -l scripts
+```
+
+will give me the following line:
+
+```bash
+-rwxrwxrwx 1 tladera2  staff  16 Jul 11 11:05 tell_the_time.sh
+```
+
+
+
+The cardinal rule to remember is that: 
+
+> If you want to run a file as an executable, you (or your group) needs to have executable level permission.
+
+For example, if I want to run a script called `run_samtools.sh` in my directory like this:
+
+```
+./run_samtools.sh my_bam_file.bam
+```
+
+I will need to have execute privileges at the user, group, or others level.
+
+We can change the permissions of our files using the `chmod` command. 
+
+:::{.callout}
+## Helpful unix permissions situations
+
+I tend to just go by memory when setting file permissions. If I have collaborators who just want to set 
+
+|Situation|Command|
+|---------|-------|
+|Only I can execute/read/write a file|`chmod 700 <filename>`|
+|Only I and my group can read a file|`chmod 110 <filename>` |
+|Grant my group read permissions|`chmod 710 <filename>`|
+|Make executable/read/write by all|`chmod 777 <filename>`|
+:::
+
+:::{.callout}
+## Even if you don't have execute permissions
+
+With bash scripts, you can still run them if you have `read` permissions. You can still run bash scripts by using the `bash` command:
+
+```
+bash run_samtools.sh my_bam_file.bam
+```
+:::
+
+### Try it out
+
+What are the permissions for the GitHub repo (bash_for_bio) that you just downloaded?
+
+
+
+
+
+
+
+## Moving Things Around {#sec-moving}
+
+A lot of the time, we need to move files between shared filesystems. One filesystem might be good at storage and be backed up on a regular basis, while another filesystem might be better for temporary work on the cluster. 
+
+You might be familiar with `mv`, which lets you move files around in Unix. One thing to keep in mind when you're `mv`ing things to a new folder that there is a difference between:
+
+```bash
+mv log.txt my_folder   ## renames log.txt to my_folder
+```
+
+and
+
+```bash
+mv log.txt my_folder/  ## moves log.txt to be in my_folder
+```
+This is one thing that still trips me up all the time. 
+
+This is one situation where using a GUI such as Motuz (@sec-motuz) can be very helpful. You don't have to worry about accidentally renaming files. 
+
+Other tools for sync'ing between filesystems include `rsync`, which requires careful reading of documentation. 
+
+:::{.callout}
+### Things I always forget: the difference between `/home/mydir/`  and `home/mydir/`
+
+Some things that trip me up all the time. The difference between 
+
+```bash
+/home/mydir/    #absolute path
+```
+and 
+
+```bash
+home/mydir/     #relative path
+```
+The first one is an *absolute path*, and the second is a *relative path*. Your clue is the leading `/` at the beginning of a path. If you're getting `file not found` messages, check to make sure the path is the right format.
+:::
+
+### Keep Everything in Folders
+
+We need to talk about code and data organization. For the FH system, we have a `/home/` directory, and if we have generated research data, a `/fh/fast/` directory. If we want our scripts to live in `/home/` and our data is in `/fh/temp/`, we'll need to refer to each of these file locations.
+
+Ideally, we want to make the naming conventions of our code and our data as similar as possible.
+
+
+:::{.callout-note}
+## Try it Out
+
+Copy the script `tell_the_time.sh` in the `scripts/` directory to your current location. 
+
+Make the script executable.
+:::
+
+## Running a Bash Script
+
+Ok, now we have a bash script `tell_the_time.sh` in our current directory, how do we run it?
+
+Because the script is not on our `$PATH` (@sec-path), we'll need to use `./` to execute it. `./` is an alias for the current folder, and it is an indicator to bash that the command we want to execute is in our current folder.
+
+```bash
+tladera2$ ./tell_the_time.sh
+```
+
+If we haven't set the permissions (@sec-permissions) correctly, we'll get this message:
+
+```
+bash: ./scripts/tell_the_time.sh: Permission denied
+```
+
+But if we have execute access, we'll get something like this:
+
+```
+Fri Jul 11 13:27:47 PDT 2025
+```
+
+Which is the current date and time.
+
+

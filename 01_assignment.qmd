@@ -1,0 +1,21 @@
+---
+title: "Week 1 Exercises"
+---
+
+1. Use `du` to check the disk usage of two folders in your `/home/` directory. 
+
+```bash
+du 
+```
+
+2. Copy a file from my directory to your own home directory.
+
+`/home/tladera2/bash_for_bio/run_this.sh`
+
+Change the script to executable:
+
+`chmod`
+
+Try running it:
+
+`./run_this.sh`
