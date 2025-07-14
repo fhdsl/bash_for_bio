@@ -2,20 +2,30 @@
 title: "Appendix: Configuring your Shell"
 ---
 
-## `.bashrc`: Where do I put my configuration?
+## `.bashrc`: Where do I put my configuration? {#sec-bashrc}
 
 There is a file in your home directory called `.bashrc`. This is where you can customize the way the Bash shell behaves.
 
 There are 2 things you should know how to set:
 
 - Aliases
-- Environment Variables
+- Environment Variables, especially `$PATH`
+
+## An example `.bashrc` file
+
+
 
 ## Aliases
 
+Aliases are shortcuts for commands. You can specify them using `alias` as a line in your `.bashrc` file:
 
+```
+alias ll='ls -la'
+```
 
+We are defining an alias called `ll` that runs `ls -la` (long listing for directory for all files) here. Once
 
+Some people even add aliases for things they mistype frequently.
 
 ## Environment Variables {#sec-environment}
 
@@ -48,14 +58,6 @@ echo $PATH
 /home/tladera2/.local/bin:/home/tladera2/gems/bin:/home/tladera2/.nvm/versions/node/v21.7.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/ [....]
 ```
 
-:::{.callout-note}
-## Environment Variables in Windows
-
-Since we're mostly going to be working in a Unix environment, we're not going to touch on Windows environment variables. However, there is also a `$PATH` environment variable that you can set.
-
-I recommend looking at the PowerShell documentation for more information about Windows-specific environment variables
-:::
-
 ### Setting Environment Variables
 
 In Bash, we use the `export` command to declare an environment variable. For example, if we wanted to declare the environment variable `$SAMTOOLS_PATH` we'd do the following:
@@ -75,7 +77,7 @@ export SAMTOOLS_PATH = "/home/tladera2/miniconda/bin/"
 Another thing to note is that we declare environment variables differently than we use them. If we wanted to use `SAMTOOLS_PATH` in a script, we use a dollar sign (`$`) in front of it:
 
 ```bash
-$SAMTOOLS_PATH/samtools view -c $input_file
+${SAMTOOLS_PATH}/samtools view -c $input_file
 ```
 In this case, the value of `$SAMTOOLS_PATH` will be expanded (substituted) to give the overall path:
 
@@ -94,6 +96,11 @@ export PATH=$PATH:/home/tladera2/samtools/
 ```
 
 In this line, we are adding the path `/home/tladera2/samtools/` to our `$PATH` environment variable. Note that how we refer to the `PATH` variable is different depending on which side the variable is on of the equals sign. 
+
+:::{.callout-note}
+## Order matters in your `$PATH`
+
+:::
 
 TLDR: We declare the variable using `export PATH` (no dollar sign) and we append to the variable using `$PATH` (with dollar sign). This is something that trips me up all the time. 
 
@@ -121,7 +128,8 @@ to save us some typing across our scripts. We can use this new environment varia
 export my_file_location=$TCR_FILE_HOME/fasta_files/
 ```
 
-### `.bashrc` versus `.bash_profile` {#sec-bashrc}
+:::{.callout-note}
+## `.bashrc` versus `.bash_profile` {#sec-bashrc-profile}
 
 Ok, what's the difference between `.bashrc` and `.bash_profile`?
 
@@ -136,6 +144,7 @@ source ~/.bashrc
 ```
 
 That way, everything in the `.bashrc` file is loaded when you log in interactively.
+:::
 
 ## Project/folder based workflows {#sec-project}
 

@@ -1,5 +1,32 @@
 # Bash for Bio {.unnumbered}
 
+## Who this course is for
+
+- Have you needed to align a bunch of FASTA files and not know how to do it? 
+- Do you want to automate an R or Python script you wrote to work on a bunch of files?
+- Do you want to do all of this on a high performance cluster ({{<glossary HPC>}})?
+
+If so, this course is for you! We will learn enough bash scripting to do useful things on the Fred Hutch cluster. 
+
+## Learning Objectives
+
+- **Articulate** basic HPC architecture concepts and why they’re useful in your work
+- **Apply** bash scripting to execute alignment, and Python/R scripts
+- **Navigate** and **process** data on the different filesystems available at FH
+- **Leverage** bash scripting to execute jobs on a high performance cluster.
+- **Execute** batch processing of multiple files in a project
+- **Manage** software dependencies reproducibly using container-based technologies such as Docker/Apptainer containers or EasyBuild modules
+
+## Prerequisites
+
+- You will need an account on `rhino` and know how to connect to it through VPN
+- We highly recommend reviewing  [Intro to Command Line](https://hutchdatascience.org/Intro_to_Command_Line/) and [Cluster 101](https://hutchdatascience.org/FH_Cluster_101/)
+- Basic knowledge of the following commands:
+  - `ls`
+  - `cd` and basic directory navigation
+  - `mv`/`cp`/`mkdir`/`rm`
+
+:::{.callout-note}
 ## Terminology
 
 We know that not all of us have the same vocabulary. We try to define terminology as much as possible. These are indicated by double underlines such as this:
@@ -7,7 +34,21 @@ We know that not all of us have the same vocabulary. We try to define terminolog
 {{<glossary "Compute Job">}}
 
 You can click and hold on the term to define it.
+:::
+
+## Schedule
+
+|Week|Topics|
+|----|------|
+|Preclass|Review [Intro to Command Line](https://hutchdatascience.org/Intro_to_Command_Line/) and [Cluster 101](https://hutchdatascience.org/FH_Cluster_101/)|
+|Week 1|[Filesystem Basics](01_basics.qmd)|
+|Week 2|Writing and Running Bash Scripts|
+|Week 3|Batch Processing and HPC Jobs|
+|Week 4|Testing Scripts/Workflow Managers|
+|On your own time|[Configuring your Bash Shell](configuring.qmd)|
+
 
 ## Reference Text
 
-We will be using Julia Evan's Bite Size Bash as our reference text. 
+- We will be using Julia Evan's [Bite Size Bash](https://wizardzines.com/zines/bite-size-bash/) as our reference text. Julia's explanations are incredibly clear and it will be a valuable reference even beyond this course. You will receive the PDF as part of class.
+- If you want to know the true power of the command line, I recommend [Data Science at the Command Line]().

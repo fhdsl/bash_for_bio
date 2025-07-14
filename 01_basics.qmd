@@ -6,9 +6,9 @@ title: "Navigating the Bash Filesystem"
 
 By the end of this session, you should be able to:
 
-- **Utilize** the bash terminal
-- **Navigate**, and copy data to the different filesystems available at Fred Hutch.
-- **Set Permissions** and **execute** a bash script 
+- **Navigate** and **copy** data to the different filesystems available at Fred Hutch.
+- **Explain** the difference between *absolute* and *relative* file paths.
+- **Set** Permissions on and **execute** a bash script 
 - **Find** help on the system
 
 ## Map of the Material
@@ -37,6 +37,8 @@ Defined words are double underlined. You can click and hold on them to see the d
 
 By default, when you log into a remote system such as `rhino`, you are in a {{< glossary bash>}} {{< glossary shell >}}.
 
+Why is it a bash shell? Bash is the default shell for linux systems, especially for high performance clusters (HPCs), and there are some quirks about navigating around the command line you should be aware of.
+
 :::{.callout}
 ## A helpful key: `<Up Arrow>`
 
@@ -53,11 +55,17 @@ So we have logged into `rhino`. Now what?
 
 The `pwd` command (short for *present working directory*) will let you know your current location in the filesystem. Knowing your current directory is critical when using *relative* file paths.
 
-If I run `pwd` right after signing into `rhino`
+If I run `pwd` right after signing into `rhino` I get:
+
+```
+/home/tladera2
+```
+
+You should have a similar path, except with your user name. This is your *home directory* - where you have a limited amount of space to store scripts and other files. Don't worry, the majority of your data is stored elsewhere ()
 
 ## Going `/home`: `~/` {#sec-home}
 
-There is one important file alias you should always remember: `~/` is shorthand for your own home directory.
+There is one important file alias you should always remember: `~/` is shorthand for your own *home directory*.
 
 Depending on the linux distribution, this can be a different location. On the FH filesystem, when I use `~/`, it maps to:
 
@@ -77,39 +85,54 @@ This becomes useful when you want to output files to your current location.
 
 ### `du`: How much space?
 
-One of the things we can do is check for disk usage with the `du` command. If I run `du` by itself on the command line, it will give me the disk usage of all folders and files in our current directory.
-
-```
-
-```
+One of the things we can do is check for disk usage with the `du` command. If I run `du` by itself on the command line, it will give me the disk usage of all folders and files in our current directory, which is a lot of output.
 
 There is an option called `-d` that lets us specify the *depth*. `-d 1` will give us only the file sizes of the top level folders in our directory:
 
 ```bash
-du -d 1 
+du -d 1 .
+```
+
+Here are the first few lines of my `du` output. 
+
+```
+630440	./Code
+32	./Downloads
+32	./Pictures
+2495144	./miniconda3
+64	./.launch-rstudio-server
+72	./.ipynb_checkpoints
+64	./.qt
+1616	./.config
+32	./Music
+32	./Desktop
 ```
 
 If we want to specify `du` to scan only a single folder, we can give the folder name.
 
 ```bash
-du -d Desktop
+du -d 1 Desktop
+```
+
+I have nothing really stored in my `Desktop/` folder, so I get the following:
+
+```
+32	Desktop/
 ```
 
 :::{.callout}
 ### Try it out
 
-Navigate into the `bash_for_bio` repository. 
-
 Try checking the disk usage using `du` for the `Desktop` folder in your `/home` directory (mine is `/home/tladera2`).
 
 ```bash
-du -d 1
+du -d 1 --------/
 ```
 
 Try out using `du -d 2` on your home directory:
 
 ```bash
-du -d 2 /home/tladera2
+du -d 2 ~/
 ```
 :::
 
@@ -122,11 +145,27 @@ When working on the Fred Hutch HPC, there are four main filesystems you should c
 - `/fh/temp/` (also known as temp) - The temporary filesystem. This filesystem is faster to access for gizmo nodes on the cluster, so files can be copied to for computation. The output files you generate should be moved back into an appropriate folder on `/fh/fast/`. Note that files on `/fh/temp/` will be deleted after 30 days. 
 - `/fh/regulated/` - A secure filesystem meant for NIH regulated data. If you are processing data that is regulated under the current NIH guidelines, you will process it here.
 
-So, how do we utilize these filesystems? We first have to familiarize ourselves with *absolute* vs *relative* paths.
+So, how do we utilize these filesystems? We will be running commands like this:
+
+```bash
+ml BWA                                                # <1>
+bwa mem -M -t 2                                       # <2>
+/fh/fast/reference_data/chr20                         # <3>
+/fh/fast/laderas_t/raw_data/na12878_1.fq              # <4>
+/fh/fast/laderas_t/raw_data/na12878_2.fq              # <4>
+> /hpc/temp/laderas_t/aligned_data/na12878_1.sam      # <5>   
+```
+1. Load bwa software
+2. Start `bwa mem` (aligner)
+3. path of genome index
+4. path of paired end reads files
+5. path of output
+
+To understand the above, We first have to familiarize ourselves with *absolute* vs *relative* paths.
 
 ## Absolute versus relative paths {#sec-paths}
 
-You may be wondering what the deal is, and whether it's necessary to know this. When you are processing files, it is important to understand the difference.
+You may have muddled with file paths, and maybe have used absolute paths to specify the location . When you are processing files, it is important to understand the difference.
 
 **Absolute paths** contain all the information needed to find a file in a file system from the root `/` directory. For example, this would be an absolute path:
 
@@ -134,22 +173,23 @@ You may be wondering what the deal is, and whether it's necessary to know this. 
 /fh/fast/laderast/immuno_project/raw_data/chr2.fa.gz
 ```
 
+Absolute paths always start with `/`, because that is the root directory, where all the top folders and files live. 
+
 In terms of folder structure, this is what this looks like:
 
-```
-/
-├── fh
+```bash
+/                                     # <1>
+├── fh                                # <2>
 │   └──fast
 │       └──laderast
 |            └──immuno_project
 │                 └──raw_data
 │                    └──chr2.fa.gz
 ```
-
-Absolute paths always start with `/`, because that is the root directory, where all the top folders and files live. 
+1. Root directory
+2. Folders in root directory
 
 **Relative paths** break up an absolute path into two pieces of information: 1) your current directory and 2) the path *relative* to that directory. Relative paths are really helpful because things don't break when you move your folder or files. 
-
 
 If my current working directory is the directory `/fh/fast/laderas_t/immuno_project/`, then the relative path to that same file would be:
 
@@ -157,26 +197,20 @@ If my current working directory is the directory `/fh/fast/laderas_t/immuno_proj
 raw_data/chr2.fa.gz
 ```
 
-We can visualize the relative path like this, where our working directory is indicated by a star
-
-```
-/
-├── fh/fast/laderast/immuno_project/ *
-|      ^working directory        └──raw_data
-│                                   └──chr2.fa.gz
-                                    ^relative path
-```
-
-
-Note that this relative path does not start with a `/`, because our current directory isn't the root directory. Relative paths are incredibly useful when scripting in a reproducible manner, such as using project-based workflows to process files in a single folder.
-
-## Grabbing Stuff from GitHub
-
-For the rest of the exercises, we'll be grabbing the scripts from github using `git clone`. 
+We can visualize the relative path like this, where our working directory is indicated by a star:
 
 ```bash
-git clone https://github.com/fhdsl/bash_for_bio
+/                                                      # <1>
+├── fh/fast/laderast/immuno_project/                   # <2>
+|                                   └──raw_data        # <3>
+│                                      └──chr2.fa.gz   # <3>
+                                    
 ```
+1. The root directory
+2. Our working directory
+3. Our relative path
+
+Note that this relative path does not start with a `/`, because our current directory isn't the root directory. Relative paths are incredibly useful when scripting in a reproducible manner, such as using project-based workflows to process files in a single folder.
 
 :::{.callout}
 ## `<TAB>` is for autocompletion of paths
@@ -197,6 +231,16 @@ And if the prefix `my_` is unique in my folder, it will autocomplete the path:
 
 Note that we need to use enough of the folder name so that completing it is unambiguous. If there are multiple choices, then autocomplete will list all of them.
 :::
+
+## Grabbing Stuff from GitHub
+
+For the rest of the exercises, we'll be grabbing the scripts from github using `git clone`. 
+
+```bash
+git clone https://github.com/fhdsl/bash_for_bio
+```
+
+
 
 :::{.callout}
 ## Try it Out

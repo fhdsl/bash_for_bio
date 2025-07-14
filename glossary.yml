@@ -14,7 +14,7 @@ Node: |
   Usually a single remote machine that is part of a cluster
   
 Cluster: |
-  A grouping of machines that can be used to run compute jobs
+  A grouping of machines that can be used to run compute jobs. Consists of a head node and compute nodes.
   
 Compute Job: |
   A single task for a machine to execute, such as running bwa on a file
@@ -23,13 +23,16 @@ metadata: |
   Information about a file, such as the filename, or size of the file
 
 alias: |
-  A "nickname"
+  A "nickname" or a shortcut for a command.
   
 node: |
   A single computer in a compute cluster. 
   
 driver node: |
-  The boss of the other nodes in the cluster
+  The boss of the other nodes in the cluster. Also known as the head node.
   
-
-
+compute node: |
+  A node to be used for running computational jobs. The driver node is its boss. 
+  
+HPC: |
+  Short for High Performance Cluster.
