@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.30">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1&nbsp; Navigating the Bash Filesystem – Bash for Bioinformatics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./02_scripting.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/quarto-contrib/glossary/glossary.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01_basics.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Navigating the Bash Filesystem</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Bash for Bioinformatics</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bash for Bio</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_basics.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Navigating the Bash Filesystem</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_scripting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction to Scripting</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_batch.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Batch Processing and Submitting Jobs</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./configuring.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Appendix: Configuring your Shell</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./miscellaneous.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Miscellaneous</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">1.1</span> Learning Objectives</a></li>
+  <li><a href="#map-of-the-material" id="toc-map-of-the-material" class="nav-link" data-scroll-target="#map-of-the-material"><span class="header-section-number">1.2</span> Map of the Material</a></li>
+  <li><a href="#navigating-the-bash-terminal" id="toc-navigating-the-bash-terminal" class="nav-link" data-scroll-target="#navigating-the-bash-terminal"><span class="header-section-number">1.3</span> Navigating the Bash Terminal</a></li>
+  <li><a href="#setting-yourself-up-for-success" id="toc-setting-yourself-up-for-success" class="nav-link" data-scroll-target="#setting-yourself-up-for-success"><span class="header-section-number">1.4</span> Setting Yourself Up for Success</a></li>
+  <li><a href="#navigating-the-filesystems" id="toc-navigating-the-filesystems" class="nav-link" data-scroll-target="#navigating-the-filesystems"><span class="header-section-number">1.5</span> Navigating the Filesystems</a>
+  <ul class="collapse">
+  <li><a href="#pwd-where-am-i" id="toc-pwd-where-am-i" class="nav-link" data-scroll-target="#pwd-where-am-i"><span class="header-section-number">1.5.1</span> <code>pwd</code> Where Am I?</a></li>
+  </ul></li>
+  <li><a href="#sec-home" id="toc-sec-home" class="nav-link" data-scroll-target="#sec-home"><span class="header-section-number">1.6</span> Going <code>/home</code>: <code>~/</code></a>
+  <ul class="collapse">
+  <li><a href="#du-how-much-space" id="toc-du-how-much-space" class="nav-link" data-scroll-target="#du-how-much-space"><span class="header-section-number">1.6.1</span> <code>du</code>: How much space?</a></li>
+  </ul></li>
+  <li><a href="#sec-filesystems" id="toc-sec-filesystems" class="nav-link" data-scroll-target="#sec-filesystems"><span class="header-section-number">1.7</span> FH users: the main filesystems</a></li>
+  <li><a href="#sec-paths" id="toc-sec-paths" class="nav-link" data-scroll-target="#sec-paths"><span class="header-section-number">1.8</span> Absolute versus relative paths</a></li>
+  <li><a href="#grabbing-stuff-from-github" id="toc-grabbing-stuff-from-github" class="nav-link" data-scroll-target="#grabbing-stuff-from-github"><span class="header-section-number">1.9</span> Grabbing Stuff from GitHub</a></li>
+  <li><a href="#sec-permissions" id="toc-sec-permissions" class="nav-link" data-scroll-target="#sec-permissions"><span class="header-section-number">1.10</span> File Permissions</a>
+  <ul class="collapse">
+  <li><a href="#try-it-out-1" id="toc-try-it-out-1" class="nav-link" data-scroll-target="#try-it-out-1"><span class="header-section-number">1.10.1</span> Try it out</a></li>
+  </ul></li>
+  <li><a href="#sec-moving" id="toc-sec-moving" class="nav-link" data-scroll-target="#sec-moving"><span class="header-section-number">1.11</span> Moving Things Around</a>
+  <ul class="collapse">
+  <li><a href="#keep-everything-in-folders" id="toc-keep-everything-in-folders" class="nav-link" data-scroll-target="#keep-everything-in-folders"><span class="header-section-number">1.11.1</span> Keep Everything in Folders</a></li>
+  </ul></li>
+  <li><a href="#running-a-bash-script" id="toc-running-a-bash-script" class="nav-link" data-scroll-target="#running-a-bash-script"><span class="header-section-number">1.12</span> Running a Bash Script</a></li>
+  <li><a href="#running-an-r-or-python-script-on-the-command-line" id="toc-running-an-r-or-python-script-on-the-command-line" class="nav-link" data-scroll-target="#running-an-r-or-python-script-on-the-command-line"><span class="header-section-number">1.13</span> Running an R or Python Script on the command line</a>
+  <ul class="collapse">
+  <li><a href="#r-users" id="toc-r-users" class="nav-link" data-scroll-target="#r-users"><span class="header-section-number">1.13.1</span> R Users</a></li>
+  </ul></li>
+  <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap"><span class="header-section-number">1.14</span> Recap</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Navigating the Bash Filesystem</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="learning-objectives" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">1.1</span> Learning Objectives</h2>
+<p>By the end of this session, you should be able to:</p>
+<ul>
+<li><strong>Navigate</strong> and <strong>copy</strong> data to the different filesystems available at Fred Hutch.</li>
+<li><strong>Explain</strong> the difference between <em>absolute</em> and <em>relative</em> file paths.</li>
+<li><strong>Set</strong> Permissions on and <strong>execute</strong> a bash script</li>
+<li><strong>Find</strong> help on the system</li>
+</ul>
+</section>
+<section id="map-of-the-material" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="map-of-the-material"><span class="header-section-number">1.2</span> Map of the Material</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+    A[Signing In] --&gt; B[pwd: Find Current Directory]
+    B --&gt; C[cd: change directory]
+    C --&gt; D[Absolute vs Relative Paths]
+    D --&gt; E[mv/cp: move files around]
+    D --&gt; F[chmod: set permissions]
+    F --&gt; G[execute a script]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Reminder about Terminology
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Defined words are double underlined. You can click and hold on them to see the definition. Try it below!</p>
+<p><button class="glossary"><span class="def">Information about a file or dataset, such as the filename, or date created.</span>metadata</button></p>
+</div>
+</div>
+</section>
+<section id="navigating-the-bash-terminal" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="navigating-the-bash-terminal"><span class="header-section-number">1.3</span> Navigating the Bash Terminal</h2>
+<blockquote class="blockquote">
+<p>We recommend that you review the material for Intro to Command Line and know the following: Changing directories,</p>
+</blockquote>
+<p>By default, when you log into a remote system such as <code>rhino</code>, you are in a <button class="glossary"><span class="def">Short for Bourne Again Shell - it is the command processor that is typically run in a text window, has its own programming language and syntax.</span>bash</button> <button class="glossary"><span class="def"></span>shell</button>.</p>
+<p>Why is it a bash shell? Bash is the default shell for linux systems, especially for high performance clusters (HPCs), and there are some quirks about navigating around the command line you should be aware of.</p>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+A helpful key: <code>&lt;Up Arrow&gt;</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <up arrow=""> key will let you cycle through your history, or previous executed commands. This can be super helpful if you have typed a long command with a syntax error. You can use <code>&lt;Up Arrow&gt;</code> to fix mistakes and run that command again.</up></p>
+</div>
+</div>
+</section>
+<section id="setting-yourself-up-for-success" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="setting-yourself-up-for-success"><span class="header-section-number">1.4</span> Setting Yourself Up for Success</h2>
+<p>So we have logged into <code>rhino</code>. Now what?</p>
+</section>
+<section id="navigating-the-filesystems" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="navigating-the-filesystems"><span class="header-section-number">1.5</span> Navigating the Filesystems</h2>
+<section id="pwd-where-am-i" class="level3" data-number="1.5.1">
+<h3 data-number="1.5.1" class="anchored" data-anchor-id="pwd-where-am-i"><span class="header-section-number">1.5.1</span> <code>pwd</code> Where Am I?</h3>
+<p>The <code>pwd</code> command (short for <em>present working directory</em>) will let you know your current location in the filesystem. Knowing your current directory is critical when using <em>relative</em> file paths.</p>
+<p>If I run <code>pwd</code> right after signing into <code>rhino</code> I get:</p>
+<pre><code>/home/tladera2</code></pre>
+<p>You should have a similar path, except with your user name. This is your <em>home directory</em> - where you have a limited amount of space to store scripts and other files. Don’t worry, the majority of your data is stored elsewhere ()</p>
+</section>
+</section>
+<section id="sec-home" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="sec-home"><span class="header-section-number">1.6</span> Going <code>/home</code>: <code>~/</code></h2>
+<p>There is one important file alias you should always remember: <code>~/</code> is shorthand for your own <em>home directory</em>.</p>
+<p>Depending on the linux distribution, this can be a different location. On the FH filesystem, when I use <code>~/</code>, it maps to:</p>
+<p><code>/home/tladera2/</code></p>
+<p>The home directory is also important because it is where your configuration files live, such as <code>.bashrc</code> (see <a href="configuring.html#sec-bashrc" class="quarto-xref"><span>Section 4.1</span></a>).</p>
+<p>Depending on how you work, you may want to store your scripts and workflows in <code>/home/</code>. Some people prefer to keep their scripts, data, and results in a single folder. This is not really practical for most genomics projects, unless you are saving processed data. For more info, see <a href="configuring.html#sec-project" class="quarto-xref"><span>Section 4.5</span></a>.</p>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Your current working directory
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>There is an alias for your current directory: <code>.</code> (the period sign).</p>
+<p>This becomes useful when you want to output files to your current location.</p>
+</div>
+</div>
+<section id="du-how-much-space" class="level3" data-number="1.6.1">
+<h3 data-number="1.6.1" class="anchored" data-anchor-id="du-how-much-space"><span class="header-section-number">1.6.1</span> <code>du</code>: How much space?</h3>
+<p>One of the things we can do is check for disk usage with the <code>du</code> command. If I run <code>du</code> by itself on the command line, it will give me the disk usage of all folders and files in our current directory, which is a lot of output.</p>
+<p>There is an option called <code>-d</code> that lets us specify the <em>depth</em>. <code>-d 1</code> will give us only the file sizes of the top level folders in our directory:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-d</span> 1 .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Here are the first few lines of my <code>du</code> output.</p>
+<pre><code>630440  ./Code
+32  ./Downloads
+32  ./Pictures
+2495144 ./miniconda3
+64  ./.launch-rstudio-server
+72  ./.ipynb_checkpoints
+64  ./.qt
+1616    ./.config
+32  ./Music
+32  ./Desktop</code></pre>
+<p>If we want to specify <code>du</code> to scan only a single folder, we can give the folder name.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-d</span> 1 Desktop</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>I have nothing really stored in my <code>Desktop/</code> folder, so I get the following:</p>
+<pre><code>32  Desktop/</code></pre>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Try it out
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Try checking the disk usage using <code>du</code> for the <code>Desktop</code> folder in your <code>/home</code> directory (mine is <code>/home/tladera2</code>).</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-d</span> 1 <span class="at">--------</span>/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Try out using <code>du -d 2</code> on your home directory:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-d</span> 2 ~/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-filesystems" class="level2" data-number="1.7">
+<h2 data-number="1.7" class="anchored" data-anchor-id="sec-filesystems"><span class="header-section-number">1.7</span> FH users: the main filesystems</h2>
+<p>When working on the Fred Hutch HPC, there are four main filesystems you should consider:</p>
+<ul>
+<li><code>/home/</code> - The home filesystem. Your scripts can live here. Also where your configuration files (such as <code>.bashrc</code>) live. Can be accessed using <code>~/</code>.</li>
+<li><code>/fh/fast/</code> (also known as <code>fast</code>) - Research storage. Raw files and processed results should live here.</li>
+<li><code>/hpc/temp/</code> (also known as <code>temp</code>) - The temporary filesystem. This filesystem is faster to access for gizmo nodes on the cluster, so files can be copied to for computation. The output files you generate should be moved back into an appropriate folder on <code>/fh/fast/</code>. Note that files on <code>/fh/temp/</code> will be deleted after 30 days.</li>
+<li><code>/fh/regulated/</code> - A secure filesystem meant for NIH regulated data. If you are processing data that is regulated under the current NIH guidelines, you will process it here.</li>
+</ul>
+<p>So, how do we utilize these filesystems? We will be running commands like this:</p>
+<div class="sourceCode" id="annotated-cell-6"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-6-1" class="code-annotation-target"><a href="#annotated-cell-6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> BWA</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-6-2" class="code-annotation-target"><a href="#annotated-cell-6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">bwa</span> mem <span class="at">-M</span> <span class="at">-t</span> 2</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-6-3" class="code-annotation-target"><a href="#annotated-cell-6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">/fh/fast/reference_data/chr20</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-6-4" class="code-annotation-target"><a href="#annotated-cell-6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">/fh/fast/laderas_t/raw_data/na12878_1.fq</span></span>
+<span id="annotated-cell-6-5"><a href="#annotated-cell-6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">/fh/fast/laderas_t/raw_data/na12878_2.fq</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-6-6" class="code-annotation-target"><a href="#annotated-cell-6-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> /hpc/temp/laderas_t/aligned_data/na12878_1.sam</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-6" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-6" data-code-lines="1" data-code-annotation="1">Load bwa software</span>
+</dd>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-6" data-code-lines="2" data-code-annotation="2">Start <code>bwa mem</code> (aligner)</span>
+</dd>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-6" data-code-lines="3" data-code-annotation="3">path of genome index</span>
+</dd>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-6" data-code-lines="4,5" data-code-annotation="4">path of paired end reads files</span>
+</dd>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-6" data-code-lines="6" data-code-annotation="5">path of output</span>
+</dd>
+</dl>
+<p>To understand the above, We first have to familiarize ourselves with <em>absolute</em> vs <em>relative</em> paths.</p>
+</section>
+<section id="sec-paths" class="level2" data-number="1.8">
+<h2 data-number="1.8" class="anchored" data-anchor-id="sec-paths"><span class="header-section-number">1.8</span> Absolute versus relative paths</h2>
+<p>You may have muddled with file paths, and maybe have used absolute paths to specify the location of a file. When you are processing files, it is important to understand the difference.</p>
+<p><strong>Absolute paths</strong> contain all the information needed to find a file in a file system from the root <code>/</code> directory. For example, this would be an absolute path:</p>
+<pre><code>/fh/fast/laderast/immuno_project/raw_data/chr2.fa.gz</code></pre>
+<p>Absolute paths always start with <code>/</code>, because that is the root directory, where all the top folders and files live.</p>
+<p>In terms of folder structure, this is what this looks like:</p>
+<div class="sourceCode" id="annotated-cell-8"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-8-1" class="code-annotation-target"><a href="#annotated-cell-8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-8-2" class="code-annotation-target"><a href="#annotated-cell-8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> fh</span>
+<span id="annotated-cell-8-3"><a href="#annotated-cell-8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └──fast</span>
+<span id="annotated-cell-8-4"><a href="#annotated-cell-8-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>       └──laderast</span>
+<span id="annotated-cell-8-5"><a href="#annotated-cell-8-5" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span>            <span class="ex">└──immuno_project</span></span>
+<span id="annotated-cell-8-6"><a href="#annotated-cell-8-6" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>                 └──raw_data</span>
+<span id="annotated-cell-8-7"><a href="#annotated-cell-8-7" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>                    └──chr2.fa.gz</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-8" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-8" data-code-lines="1" data-code-annotation="1">Root directory</span>
+</dd>
+<dt data-target-cell="annotated-cell-8" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-8" data-code-lines="2" data-code-annotation="2">Folders in root directory</span>
+</dd>
+</dl>
+<p><strong>Relative paths</strong> break up an absolute path into two pieces of information: 1) your current directory and 2) the path <em>relative</em> to that directory. Relative paths are really helpful because things don’t break when you move your folder or files.</p>
+<p>If my current working directory is the directory <code>/fh/fast/laderas_t/immuno_project/</code>, then the relative path to that same file would be:</p>
+<pre><code>raw_data/chr2.fa.gz</code></pre>
+<p>We can visualize the relative path like this, where our working directory is indicated by a star:</p>
+<div class="sourceCode" id="annotated-cell-10"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><a class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-10-1" class="code-annotation-target"><a href="#annotated-cell-10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-10-2" class="code-annotation-target"><a href="#annotated-cell-10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> fh/fast/laderast/immuno_project/</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-10-3" class="code-annotation-target"><a href="#annotated-cell-10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span>                                   <span class="ex">└──raw_data</span></span>
+<span id="annotated-cell-10-4"><a href="#annotated-cell-10-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>                                      └──chr2.fa.gz</span>
+<span id="annotated-cell-10-5"><a href="#annotated-cell-10-5" aria-hidden="true" tabindex="-1"></a>                                    </span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-10" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-10" data-code-lines="1" data-code-annotation="1">The root directory</span>
+</dd>
+<dt data-target-cell="annotated-cell-10" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-10" data-code-lines="2" data-code-annotation="2">Our working directory</span>
+</dd>
+<dt data-target-cell="annotated-cell-10" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-10" data-code-lines="3,4" data-code-annotation="3">Our relative path</span>
+</dd>
+</dl>
+<p>Note that this relative path does not start with a <code>/</code>, because our current directory isn’t the root directory. Relative paths are incredibly useful when scripting in a reproducible manner, such as using project-based workflows to process files in a single folder.</p>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<code>&lt;TAB&gt;</code> is for autocompletion of paths
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Never underestimate the usefulness of the <code>&lt;TAB&gt;</code> key, which triggers autocompletion on the command line. It can help you complete paths to files and save you a lot of typing.</p>
+<p>For example, say I have a path that I want to navigate to</p>
+<p><code>/home/tladera2/my_long_path</code></p>
+<p>I can type in the first part of the path and then hit <code>&lt;TAB&gt;</code>:</p>
+<p><code>/home/tladera2/my_&lt;TAB&gt;</code></p>
+<p>And if the prefix <code>my_</code> is unique in my folder, it will autocomplete the path:</p>
+<p><code>/home/tladera2/my_long_path</code></p>
+<p>Note that we need to use enough of the folder name so that completing it is unambiguous. If there are multiple choices, then autocomplete will list all of them.</p>
+</div>
+</div>
+</section>
+<section id="grabbing-stuff-from-github" class="level2" data-number="1.9">
+<h2 data-number="1.9" class="anchored" data-anchor-id="grabbing-stuff-from-github"><span class="header-section-number">1.9</span> Grabbing Stuff from GitHub</h2>
+<p>For the rest of the exercises for today, we’ll be grabbing the scripts from github using <code>git clone</code>.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/fhdsl/bash_for_bio_scripts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This will create a folder called <code>bash_for_bio_scripts/</code> in our current directory.</p>
+</section>
+<section id="sec-permissions" class="level2" data-number="1.10">
+<h2 data-number="1.10" class="anchored" data-anchor-id="sec-permissions"><span class="header-section-number">1.10</span> File Permissions</h2>
+<p>File permissions are <button class="glossary"><span class="def">Information about a file or dataset, such as the filename, or date created.</span>metadata</button> that are attached to file objects. They are how the system prevents certain files from being modified or restricting access of these files to certain people or groups.</p>
+<p>All files have the following level of access permissions:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Level</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Owner-level</td>
+<td>The owner of the file</td>
+</tr>
+<tr class="even">
+<td>Group-level</td>
+<td>The group of the file</td>
+</tr>
+<tr class="odd">
+<td>Everyone</td>
+<td>The rest of the world</td>
+</tr>
+</tbody>
+</table>
+<p>For example, if I’m the owner of the file, I can restrict the type of access to only myself (owner-level), the group I’m in (Group-level), or make the file freely available to everyone on the system (Everyone).</p>
+<p>Each level has the following type of access:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 32%">
+<col style="width: 35%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Description</th>
+<th>Abbreviation</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Read</td>
+<td>Level can only read contents of file</td>
+<td><code>r</code></td>
+<td>A list of users in a text file</td>
+</tr>
+<tr class="even">
+<td>Write</td>
+<td>Level can write to the file</td>
+<td><code>w</code></td>
+<td>Appending an entry to the end of a log</td>
+</tr>
+<tr class="odd">
+<td>Execute</td>
+<td>Level can run the file as an executable</td>
+<td><code>x</code></td>
+<td>samtools</td>
+</tr>
+</tbody>
+</table>
+<p>You can see the permissions for a file using the <code>ls -l &lt;FILENAME&gt;</code>. For example:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> scripts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>will give me the following line:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">-rwxrwxrwx</span> 1 tladera2  staff  16 Jul 11 11:05 tell_the_time.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The cardinal rule to remember is that:</p>
+<blockquote class="blockquote">
+<p>If you want to run a file as an executable, you (or your group) needs to have executable level permission.</p>
+</blockquote>
+<p>For example, if I want to run a script called <code>run_samtools.sh</code> in my directory like this:</p>
+<pre><code>./run_samtools.sh my_bam_file.bam</code></pre>
+<p>I will need to have execute privileges at the user, group, or others level.</p>
+<p>We can change the permissions of our files using the <code>chmod</code> command.</p>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Helpful unix permissions situations
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>I tend to just go by memory when setting file permissions. If I have collaborators who just want to set</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Situation</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Only I can execute/read/write a file</td>
+<td><code>chmod 700 &lt;filename&gt;</code></td>
+</tr>
+<tr class="even">
+<td>Only I and my group can read a file</td>
+<td><code>chmod 110 &lt;filename&gt;</code></td>
+</tr>
+<tr class="odd">
+<td>Grant my group read permissions</td>
+<td><code>chmod 710 &lt;filename&gt;</code></td>
+</tr>
+<tr class="even">
+<td>Make executable/read/write by all</td>
+<td><code>chmod 777 &lt;filename&gt;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Even if you don’t have execute permissions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>With bash scripts, you can still run them if you have <code>read</code> permissions. You can still run bash scripts by using the <code>bash</code> command:</p>
+<pre><code>bash run_samtools.sh my_bam_file.bam</code></pre>
+</div>
+</div>
+<section id="try-it-out-1" class="level3" data-number="1.10.1">
+<h3 data-number="1.10.1" class="anchored" data-anchor-id="try-it-out-1"><span class="header-section-number">1.10.1</span> Try it out</h3>
+<p>What are the permissions for the GitHub repo (bash_for_bio) that you just downloaded?</p>
+</section>
+</section>
+<section id="sec-moving" class="level2" data-number="1.11">
+<h2 data-number="1.11" class="anchored" data-anchor-id="sec-moving"><span class="header-section-number">1.11</span> Moving Things Around</h2>
+<p>A lot of the time, we need to move files between shared filesystems. One filesystem might be good at storage and be backed up on a regular basis, while another filesystem might be better for temporary work on the cluster.</p>
+<p>You might be familiar with <code>mv</code>, which lets you move files around in Unix. One thing to keep in mind when you’re <code>mv</code>ing things to a new folder that there is a difference between:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> log.txt my_folder   <span class="co">## renames log.txt to my_folder</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>and</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> log.txt my_folder/  <span class="co">## moves log.txt to be in my_folder</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This is one thing that still trips me up all the time.</p>
+<p>This is one situation where using a GUI such as Motuz (<span class="quarto-unresolved-ref">?sec-motuz</span>) can be very helpful. You don’t have to worry about accidentally renaming files.</p>
+<p>Other tools for sync’ing between filesystems include <code>rsync</code>, which requires careful reading of documentation.</p>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Things I always forget: the difference between <code>/home/mydir/</code> and <code>home/mydir/</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Some things that trip me up all the time. The difference between</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/home/mydir/</span>    <span class="co">#absolute path</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>and</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">home/mydir/</span>     <span class="co">#relative path</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The first one is an <em>absolute path</em>, and the second is a <em>relative path</em>. Your clue is the leading <code>/</code> at the beginning of a path. If you’re getting <code>file not found</code> messages, check to make sure the path is the right format.</p>
+</div>
+</div>
+<section id="keep-everything-in-folders" class="level3" data-number="1.11.1">
+<h3 data-number="1.11.1" class="anchored" data-anchor-id="keep-everything-in-folders"><span class="header-section-number">1.11.1</span> Keep Everything in Folders</h3>
+<p>We need to talk about code and data organization. For the FH system, we have a <code>/home/</code> directory, and if we have generated research data, a <code>/fh/fast/</code> directory. If we want our scripts to live in <code>/home/</code> and our data is in <code>/fh/temp/</code>, we’ll need to refer to each of these file locations.</p>
+<p>Ideally, we want to make the naming conventions of our code and our data as similar as possible.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Try it Out
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Copy the script <code>tell_the_time.sh</code> in the <code>scripts/</code> directory to your current location.</p>
+<p>Make the script executable.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="running-a-bash-script" class="level2" data-number="1.12">
+<h2 data-number="1.12" class="anchored" data-anchor-id="running-a-bash-script"><span class="header-section-number">1.12</span> Running a Bash Script</h2>
+<p>Ok, now we have a bash script <code>tell_the_time.sh</code> in our current directory, how do we run it?</p>
+<p>Because the script is not on our <code>$PATH</code> (<a href="configuring.html#sec-path" class="quarto-xref"><span>Section 4.4.2</span></a>), we’ll need to use <code>./</code> to execute it. <code>./</code> is an alias for the current folder, and it is an indicator to bash that the command we want to execute is in our current folder.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tladera2$</span> ./tell_the_time.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If we haven’t set the permissions (<a href="#sec-permissions" class="quarto-xref"><span>Section 1.10</span></a>) correctly, we’ll get this message:</p>
+<pre><code>bash: ./scripts/tell_the_time.sh: Permission denied</code></pre>
+<p>But if we have execute access, we’ll get something like this:</p>
+<pre><code>Fri Jul 11 13:27:47 PDT 2025</code></pre>
+<p>Which is the current date and time.</p>
+</section>
+<section id="running-an-r-or-python-script-on-the-command-line" class="level2" data-number="1.13">
+<h2 data-number="1.13" class="anchored" data-anchor-id="running-an-r-or-python-script-on-the-command-line"><span class="header-section-number">1.13</span> Running an R or Python Script on the command line</h2>
+<section id="r-users" class="level3" data-number="1.13.1">
+<h3 data-number="1.13.1" class="anchored" data-anchor-id="r-users"><span class="header-section-number">1.13.1</span> R Users</h3>
+<p>You might not be aware that there are multiple ways to run R:</p>
+<ol type="1">
+<li>as an interactive console, which is what we usually use in an IDE such as RStudio</li>
+<li>on the command line using the <code>RScript</code> command</li>
+</ol>
+</section>
+</section>
+<section id="recap" class="level2" data-number="1.14">
+<h2 data-number="1.14" class="anchored" data-anchor-id="recap"><span class="header-section-number">1.14</span> Recap</h2>
+<p>We learned the following this week:</p>
+<ul>
+<li><strong>Navigate</strong> and <strong>copy</strong> data to the different filesystems available at Fred Hutch.</li>
+<li><strong>Explain</strong> the difference between <em>absolute</em> and <em>relative</em> file paths.</li>
+<li><strong>Set</strong> Permissions on and <strong>execute</strong> a bash script</li>
+<li><strong>Find</strong> help on the system</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="Bash for Bio">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Bash for Bio</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./02_scripting.html" class="pagination-link" aria-label="Introduction to Scripting">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction to Scripting</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

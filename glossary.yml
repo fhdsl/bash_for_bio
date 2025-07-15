@@ -10,6 +10,14 @@ Terminal: |
 Directory: |
   A container in which we save files. Can be nested (that is, have a directory inside a directory)
   
+metadata: |
+  Information about a file or dataset, such as the filename, or date created. 
+  
 Batch Processing: |
   A way to automate processing a number of files. For example, we might have a folder of .bam files and want to check the counts on each of them.
-  
+
+cluster: |
+  A networked group of computers. Usually contains a driver node and compute nodes
+
+Compute Job: |
+  A task that we have assigned a computer to run. This computer can be a compute node in a cluster, or our own machine.

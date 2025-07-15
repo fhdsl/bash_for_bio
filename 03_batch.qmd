@@ -1,5 +1,5 @@
 ---
-title: "Batch Processing"
+title: "Batch Processing and Submitting Jobs"
 ---
 
 ## Batch Processing Basics: Iterating using `xargs` {#sec-xargs}
@@ -134,3 +134,18 @@ Trust me; you don't want to have to handle iterating through a huge directory an
 ### For more information
 
 <https://www.baeldung.com/linux/xargs-multiple-arguments>
+
+
+## Batching on HPC
+
+
+
+## Containers
+
+GATK (the genome analysis toolkit) is one common container that we can use for analysis.
+
+:::{.callout}
+## The WILDS Docker Library
+
+The Data Science Lab 
+:::

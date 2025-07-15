@@ -141,8 +141,8 @@ du -d 2 ~/
 When working on the Fred Hutch HPC, there are four main filesystems you should consider:
 
 - `/home/` - The home filesystem. Your scripts can live here. Also where your configuration files (such as `.bashrc`) live. Can be accessed using `~/`.
-- `/fh/fast/` (also known as fast) - Research storage. Raw files and processed results should live here. 
-- `/fh/temp/` (also known as temp) - The temporary filesystem. This filesystem is faster to access for gizmo nodes on the cluster, so files can be copied to for computation. The output files you generate should be moved back into an appropriate folder on `/fh/fast/`. Note that files on `/fh/temp/` will be deleted after 30 days. 
+- `/fh/fast/` (also known as `fast`) - Research storage. Raw files and processed results should live here. 
+- `/hpc/temp/` (also known as `temp`) - The temporary filesystem. This filesystem is faster to access for gizmo nodes on the cluster, so files can be copied to for computation. The output files you generate should be moved back into an appropriate folder on `/fh/fast/`. Note that files on `/fh/temp/` will be deleted after 30 days. 
 - `/fh/regulated/` - A secure filesystem meant for NIH regulated data. If you are processing data that is regulated under the current NIH guidelines, you will process it here.
 
 So, how do we utilize these filesystems? We will be running commands like this:
@@ -165,7 +165,7 @@ To understand the above, We first have to familiarize ourselves with *absolute* 
 
 ## Absolute versus relative paths {#sec-paths}
 
-You may have muddled with file paths, and maybe have used absolute paths to specify the location . When you are processing files, it is important to understand the difference.
+You may have muddled with file paths, and maybe have used absolute paths to specify the location of a file. When you are processing files, it is important to understand the difference.
 
 **Absolute paths** contain all the information needed to find a file in a file system from the root `/` directory. For example, this would be an absolute path:
 
@@ -234,21 +234,13 @@ Note that we need to use enough of the folder name so that completing it is unam
 
 ## Grabbing Stuff from GitHub
 
-For the rest of the exercises, we'll be grabbing the scripts from github using `git clone`. 
+For the rest of the exercises for today, we'll be grabbing the scripts from github using `git clone`. 
 
 ```bash
-git clone https://github.com/fhdsl/bash_for_bio
+git clone https://github.com/fhdsl/bash_for_bio_scripts
 ```
 
-
-
-:::{.callout}
-## Try it Out
-
-```bash
-
-```
-:::
+This will create a folder called `bash_for_bio_scripts/` in our current directory. 
 
 ## File Permissions {#sec-permissions}
 
@@ -283,8 +275,6 @@ will give me the following line:
 ```bash
 -rwxrwxrwx 1 tladera2  staff  16 Jul 11 11:05 tell_the_time.sh
 ```
-
-
 
 The cardinal rule to remember is that: 
 
@@ -408,6 +398,15 @@ Fri Jul 11 13:27:47 PDT 2025
 ```
 
 Which is the current date and time.
+
+## Running an R or Python Script on the command line
+
+### R Users
+
+You might not be aware that there are multiple ways to run R: 
+
+1) as an interactive console, which is what we usually use in an IDE such as RStudio
+2) on the command line using the `RScript` command
 
 ## Recap
 

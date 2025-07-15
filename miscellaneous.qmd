@@ -192,3 +192,23 @@ We'll use pipes and pipelines not only in starting a bunch of jobs using batch s
 
 <https://swcarpentry.github.io/shell-novice/04-pipefilter/index.html>
 <https://datascienceatthecommandline.com/2e/chapter-2-getting-started.html?q=stdin#combining-command-line-tools>
+
+
+## `basename` can be very handy when on workers
+
+If we are processing a bunch of files on a worker, we need a way to get the bare filename from a path. We will take advantage of this when we run process multiple files on the worker.
+
+For example:
+
+```
+basename /mnt/project/worker_scripts/srun-script.sh
+```
+
+This will return:
+
+```
+srun-script.sh
+```
+
+Which can be really handy when we name our outputs. This command is so handy it is used in WDL. 
+

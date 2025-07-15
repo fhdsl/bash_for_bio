@@ -249,21 +249,5 @@ Bash would look for the variable `$my_var_1`, which doesn't exist. So use the cu
 
 There is an alternate method for variable expansion which we will use when we call a *sub-shell* - a shell within a shell, much like in our `xargs` command above. We need to use parentheses `()` to expand them within the sub-shell, but not the top-shell. We'll use this when we process multiple files within a single worker.
 
-### `basename` can be very handy when on workers
-
-If we are processing a bunch of files on a worker, we need a way to get the bare filename from a path. We will take advantage of this when we run process multiple files on the worker.
-
-For example:
-
-```
-basename /mnt/project/worker_scripts/srun-script.sh
-```
-
-This will return:
-
-```
-srun-script.sh
-```
-
-Which can be really handy when we name our outputs. This command is so handy it is used in WDL. 
+## Putting it all together
 
