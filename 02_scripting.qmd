@@ -62,9 +62,21 @@ Let's talk about the two problems:
 1) How do we find executables on a cluster, and 
 2) how do we load them up and run them?
 
-### A empty environment
+### Is my software already installed?
 
-Say we want to see if `samtools` is installed on our HPC. One of the key commands you can use to find software is the `which` command.
+Say we want to see if `samtools` is installed on our HPC. One of the key commands you can use to find software is the `which` command. If your software is installed, `which` will give you the path where the software is installed. For example, I can see if `bash` is installed:
+
+```bash
+which bash
+```
+
+Which gives me the response:
+
+```
+/bin/bash
+```
+
+So, let's see if `samtools` is installed: 
 
 ```
 which samtools
@@ -72,7 +84,7 @@ which samtools
 
 Which gives no response, so where is `samtools`?
 
-If we don't have `samtools` immediately available, how do we find it on our system? We can use environment modules to load software.
+If we don't have `samtools` immediately available, how do we find it on our system? On the HPC system, We can use environment modules to load software.
 
 ### Environment Modules
 
@@ -156,7 +168,6 @@ The `>` in the script means that we are going to direct the *output* of `samtool
 If we didn't do this, `samtools_count.sh` would output everything to console.
 
 Much more info about this when we talk about the different outputs to console. 
-
 :::
 
 ### Positional Arguments such as `$1`
@@ -187,6 +198,7 @@ For this script, we would switch the positions of `$1` and `$2`.
 #!/bin/bash/
 samtools stats $2 > $1
 ```
+:::
 
 ## `module purge`
 
@@ -198,10 +210,9 @@ module purge
 
 This line will unload the modules from memory. It's good practice to unload modules when you're done with them, especially since they have complex chains of dependencies, and the versions of these dependencies can interfere with other packages.
 
-
 ## Variables in Bash Scripts {#sec-bash-variables}
 
-We've already encountered a placeholder variable, `%`, that we used in running `xargs`. Let's talk about declaring variables in bash scripts and using them using variable expansion. 
+We saw a little bit about using `$1`, which is a *variable* in our Bash scripts. Let's talk about declaring variables in bash scripts and using them using variable expansion.
 
 In Bash, we can declare a variable by using `<variable_name>=<value>`. Note there are no spaces between the variable (`my_variable`), equals sign, and the value (`"ggplot2"`).
 
@@ -214,6 +225,7 @@ echo "My favorite R package is ${my_variable}"
 ```
 My favorite R package is ggplot2
 ```
+
 Take a look at line 3 above. We expand the variable (that is, we substitute the actual variable) by using `${my_variable}` in our `echo` statement.
 
 In general, when expanding a variable in a quoted string, it is better to use `${my_variable}` (the variable name in curly brackets). This is especially important when using the variable name as part of a string:
@@ -239,7 +251,7 @@ There is an alternate method for variable expansion which we will use when we ca
 
 ### `basename` can be very handy when on workers
 
-If we are processing a bunch of files on a worker, we need a way to get the bare filename from a `dxfuse` path. We will take advantage of this when we run process multiple files on the worker.
+If we are processing a bunch of files on a worker, we need a way to get the bare filename from a path. We will take advantage of this when we run process multiple files on the worker.
 
 For example:
 
@@ -255,90 +267,3 @@ srun-script.sh
 
 Which can be really handy when we name our outputs. This command is so handy it is used in WDL. 
 
-## Quoting and Escaping Filenames in Bash
-
-One point of confusion is when do you quote things in Bash? When do you use single quotes (`'`) versus double-quotes (`"`)? When do you use `\` to escape characters?
-
-Let's talk about some quoting rules in Bash. I've tried to make things as simplified and  generalized as possible, rather than stating all of the rules for each quote.
-
-1. If you have spaces in a filename, use double quotes (`"chr 1.bam"`)
-1. If you have a single quote in the filename, use double quotes to wrap it (`"ted's file.bam"`)
-1. Only escape characters when necessary - if you can solve a problem with quotes, use them
-1. If you need to preserve an escaped character, use single quotes
-
-Let's go over each of these with an example.
-
-### If you have spaces in a filename, use double quotes (Most common)
-
-For example, if your filename is `chr 1 file.bam`, then use double quotes in your argument
-
-```
-samtools view -c "chr 1 file.bam"
-```
-
-### If you have a single quote in the name, use double quotes to wrap it (less common)
-
-Say you have a file called `ted's new file.bam`. This can be a problem when you are calling it, especially because of the single quote.
-
-In this case, you can do this:
-
-```
-samtools view -c "ted's new file.bam"
-```
-
-### Only escape characters when necessary (less common)
-
-There are a number of special characters (such as Tab, and Newline) that can be specified as escape characters. In double quotes, characters such as `$` are signals to Bash to expand or evaluate code. 
-
-Say that someone had a `$` in their file name such as `Thi$file is money.bam`
-
-How do we refer to it? We can escape the character with a backslash `\`:
-
-```
-samtools view -c "Thi\$file is money.bam"
-```
-The backslash is a clue to Bash that we don't want variable expansion in this case. Without it, bash would look for a variable called `$file`. 
-
-### If you need to preserve an escaped character, use single quotes (least common)
-
-This is rarely used, but if you need to keep an escaped character in your filename, you can use single quotes. Say we have a filename called `Thi\$file.bam` and you need that backslash in the file name (btw, please don't do this), you can use single quotes to preserve that backslash:
-
-```
-samtools view -c 'Thi\$file.bam'
-```
-
-Again, hopefully you won't need this.
-
-### For More Info
-
-<https://www.grymoire.com/Unix/Quote.html#uh-3>
-
-:::{.callout-note}
-## What about backticks?
-
-Backticks (`` ` ``) are an old way to do command evaluation in Bash. For example, if we run the following on the command-line:
-
-```
-echo "there are `ls -l | wc -l` files in this directory"
-```
-Will produce:
-
-```
-there are       36 files in this directory
-```
-
-Their use is deprecated, so you should be using `$()` in your command evaluations instead:
-
-```
-echo "there are $(ls -l | wc -l) files in this directory"
-```
-:::
- 
-:::{.callout-note}
-## What about X use case?
-
-There are a lot of rules for Bash variable expansion and quoting that I don't cover here. I try to show you a way to do things that work in multiple situations on the cluster.
-
-That's why I focus on double quotes for filenames and `${}` for variable expansion in general. They will work whether your Bash script is on the command line or in an App, or in WDL. 
-
-:::

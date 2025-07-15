@@ -8,7 +8,10 @@ book:
   chapters:
     - index.qmd
     - 01_basics.qmd
+    - 02_scripting.qmd
+    - 03_batch.qmd
     - configuring.qmd
+    - miscellaneous.qmd
 
 glossary:
   path: glossary.yml

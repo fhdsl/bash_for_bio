@@ -55,3 +55,140 @@ graph TD
     B["Fast\n/fh/fast/tladera2\nResearch Data"] --"a. transfer raw files"--> C
     C["Temp\n/fh/temp/tladera2"] --"c. transfer results"--> B
 ```
+
+## Quoting and Escaping Filenames in Bash
+
+One point of confusion is when do you quote things in Bash? When do you use single quotes (`'`) versus double-quotes (`"`)? When do you use `\` to escape characters?
+
+Let's talk about some quoting rules in Bash. I've tried to make things as simplified and  generalized as possible, rather than stating all of the rules for each quote.
+
+1. If you have spaces in a filename, use double quotes (`"chr 1.bam"`)
+1. If you have a single quote in the filename, use double quotes to wrap it (`"ted's file.bam"`)
+1. Only escape characters when necessary - if you can solve a problem with quotes, use them
+1. If you need to preserve an escaped character, use single quotes
+
+Let's go over each of these with an example.
+
+### If you have spaces in a filename, use double quotes (Most common)
+
+For example, if your filename is `chr 1 file.bam`, then use double quotes in your argument
+
+```
+samtools view -c "chr 1 file.bam"
+```
+
+### If you have a single quote in the name, use double quotes to wrap it (less common)
+
+Say you have a file called `ted's new file.bam`. This can be a problem when you are calling it, especially because of the single quote.
+
+In this case, you can do this:
+
+```
+samtools view -c "ted's new file.bam"
+```
+
+### Only escape characters when necessary (less common)
+
+There are a number of special characters (such as Tab, and Newline) that can be specified as escape characters. In double quotes, characters such as `$` are signals to Bash to expand or evaluate code. 
+
+Say that someone had a `$` in their file name such as `Thi$file is money.bam`
+
+How do we refer to it? We can escape the character with a backslash `\`:
+
+```
+samtools view -c "Thi\$file is money.bam"
+```
+The backslash is a clue to Bash that we don't want variable expansion in this case. Without it, bash would look for a variable called `$file`. 
+
+### If you need to preserve an escaped character, use single quotes (least common)
+
+This is rarely used, but if you need to keep an escaped character in your filename, you can use single quotes. Say we have a filename called `Thi\$file.bam` and you need that backslash in the file name (btw, please don't do this), you can use single quotes to preserve that backslash: 
+
+```
+samtools view -c 'Thi\$file.bam'
+```
+
+Again, hopefully you won't need this.
+
+### For More Info
+
+<https://www.grymoire.com/Unix/Quote.html#uh-3>
+
+:::{.callout-note}
+## What about backticks?
+
+Backticks (`` ` ``) are an old way to do command evaluation in Bash. For example, if we run the following on the command-line:
+
+```
+echo "there are `ls -l | wc -l` files in this directory"
+```
+Will produce:
+
+```
+there are       36 files in this directory
+```
+
+Their use is deprecated, so you should be using `$()` in your command evaluations instead:
+
+```
+echo "there are $(ls -l | wc -l) files in this directory"
+```
+:::
+ 
+:::{.callout-note}
+## What about X use case?
+
+There are a lot of rules for Bash variable expansion and quoting that I don't cover here. I try to show you a way to do things that work in multiple situations on the cluster.
+
+That's why I focus on double quotes for filenames and `${}` for variable expansion in general. They will work whether your Bash script is on the command line or in an App, or in WDL. 
+
+:::
+
+## Using pipes: STDIN, STDOUT, STDERR
+
+We will need to use pipes to chain our commands together. Specifically, we need to take a command that generates a list of files on the cluster shared filesystem, and then spawns individual jobs to process each file. For this reason, understanding a little bit more about how pipes (`|`) work in Bash is helpful.
+
+If we want to understand how to chain our scripts together into a pipeline, it is helpful to know about the different streams that are available to the utilities.
+
+:::{#fig-std}
+```{mermaid}
+graph LR
+  A(STDIN) --> E[run_samtools.sh]
+  E --> B(STDOUT)
+  E --> C(STDERR)
+```
+Inputs/outputs to a script
+:::
+
+Every script has three streams available to it: Standard In (STDIN), Standard Out (STDOUT), and Standard Error (STDERR) (@fig-std).
+
+STDIN contains information that is directed to the input of a script (usually text output via STDOUT from another script).
+
+Why do these matter? To work in a Unix pipeline, a script must be able to utilize STDIN, and generate STDOUT, and STDERR.
+
+Specifically, in pipelines, STDOUT of a script (here it's `run_samtools`) is directed into STDIN of another command (here `wc`, or word count)
+
+:::{#fig-pipe}
+```{mermaid}
+graph LR
+  E[run_samtools.sh] --> B(STDOUT)
+  B --> F{"|"}
+  E --> C(STDERR)
+  F --> D("STDIN (wc)")
+  D --> G[wc]
+```
+Piping a script `run_samtools.sh` into another command (`wc`)
+:::
+
+We will mostly use STDOUT in our bash scripts, but STDERR can be really helpful in debugging what's going wrong. 
+
+:::{.callout-note}
+## Why this is important on the Cluster
+
+We'll use pipes and pipelines not only in starting a bunch of jobs using batch scripting on our home computer, but also when we are processing files within a job.
+:::
+
+### For more info about pipes and pipelines
+
+<https://swcarpentry.github.io/shell-novice/04-pipefilter/index.html>
+<https://datascienceatthecommandline.com/2e/chapter-2-getting-started.html?q=stdin#combining-command-line-tools>
