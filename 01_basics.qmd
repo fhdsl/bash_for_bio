@@ -409,4 +409,11 @@ Fri Jul 11 13:27:47 PDT 2025
 
 Which is the current date and time.
 
+## Recap
 
+We learned the following this week:
+
+- **Navigate** and **copy** data to the different filesystems available at Fred Hutch.
+- **Explain** the difference between *absolute* and *relative* file paths.
+- **Set** Permissions on and **execute** a bash script 
+- **Find** help on the system

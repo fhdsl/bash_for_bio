@@ -1,0 +1,344 @@
+---
+title: "Introduction to Scripting"
+---
+
+## What we're working towards
+
+By the end of this session, you should be able to understand and run this shell script.
+
+```bash
+#!/bin/bash
+module load SAMtools/1.19.2-GCC-13.2.0  #load the module
+samtools view -c $1 > $1.counts.txt     #run the script 
+module purge                            #purge the module
+```
+
+It seems a little intimidating, but we will take this apart line by line. 
+
+## Motivation
+
+There is a rule in programming: if you do something more than 3 times, you should consider making it into a script or function.
+
+For example, imagine that you use `samtools view -c` all the time with certain options and you want to save the output. You can put this command and options into a shell script that takes named files as an argument (such as `samcount.sh`. Instead of typing `samtools stat` over and over again, you can run
+
+```bash
+./samcount.sh my_file.bam
+```
+
+## Editing on a Linux Machine
+
+On the `rhino` machines, we have the option to use the `nano` editor. `nano` is the most like a word processor or code editors.
+
+- Open a file in `nano`: `nano <filename>`
+- Save and quit: `<CTRL> + x` and then  `yes`
+- Navigate in file: using the arrow keys will work
+- Find in file: `<CTRL> + w`
+- Copy from outside the terminal (dependent on terminal program)
+
+### Try it Out
+
+## The first line: the she-bang
+
+What's this first line?
+
+```bash
+#!/bin/bash
+```
+
+the `#!` is known as a she-bang - it's a signal to Linux what shell interpreter to use when running the script on the command line. In our case, we want to use `bash`.
+
+The she-bang is necessary if you want to run the script without using the `bash` command (after you have made it executable):
+
+```bash
+./samcount.sh chr1.sam
+```
+
+## Software Modules
+
+Ok, we've gotten comfortable navigating around the HPC filesystem. Now how do we run executables on files?
+
+Let's talk about the two problems: 
+
+1) How do we find executables on a cluster, and 
+2) how do we load them up and run them?
+
+### A empty environment
+
+Say we want to see if `samtools` is installed on our HPC. One of the key commands you can use to find software is the `which` command.
+
+```
+which samtools
+```
+
+Which gives no response, so where is `samtools`?
+
+If we don't have `samtools` immediately available, how do we find it on our system? We can use environment modules to load software.
+
+### Environment Modules
+
+Before you install your own versions of software, it's important to realize that this problem may be solved for you.
+
+Your first stop should be looking for environment modules on the HPC. Not all HPCs have these, but if they have them, this should be your first stop to find executables. 
+
+`lmod` is a system for loading and unloading software modules. It is usually installed on HPCs. The commands all start with `module`, and there are a number of ones that are useful for you.
+
+- `module avail`
+- `module load`
+- `module purge`
+
+If you want to see the current list of available modules and their names, [check them out here](https://sciwiki.fredhutch.org/scicomputing/compute_scientificSoftware/).
+
+Looking for `samtools` on that page, we discovered the name of our module:
+
+```
+SAMtools
+```
+
+So, that's what we'll use to load up `samtools`.
+
+### `module load`
+
+Here's the next line of the script:
+
+```bash
+module load SAMtools/1.19.2-GCC-13.2.0  #load the module
+```
+
+Our module name is `SAMtools`, and the `1.19.2-GCC-13.2.0` after it is the version of that module. 
+
+
+:::{.callout-note}
+## For FH Users: Modules benefit everyone
+
+If there is a particular bit of software that you need to run on the FH cluster that's not there, make sure to request it from SciComp. Someone else probably needs it and so making it known so they can add it as a Environment module will help other people.
+:::
+
+
+:::{.callout}
+## For FH Users
+
+On the FH cluster, `ml` is a handy command that combines `module load` and `module avail`.
+
+You can load a module with `ml <module_name>`.
+:::
+
+### Tip: Load only as many modules as you need at a time
+
+One of the big issues with bioinformatics software is that the toolchain (the software dependencies needed to run the software) can be different. So when possible, load only one or two modules at a time for each step of your analysis. When you're done with that step, use `module purge` to clear out the software environment.
+
+## `$1`: A Positional argument {#sec-positional}
+
+The next line of our script is this:
+
+```bash
+samtools view -c $1 > $1.counts.txt  
+```
+
+Let's take a look at the command that we're running first. We're going to run `samtools view -c`, which will give us counts on an incoming `bam` or `sam` file and save it in a file. We want to be able to run our script like this:
+
+```bash
+bash samtools_count.sh my_file.bam 
+```
+
+When we run it like that, `samtools_count.sh` will run `samtools view -c` like this:
+
+```bash
+samtools view -c my_file.bam > my_file.bam.counts.txt
+```
+
+So what's going on here is that there is some substitution using common arguments. Let's look at these.
+
+:::{.callout}
+## `>` - redirecting outputs to a file
+
+The `>` in the script means that we are going to direct the *output* of `samtools view -c` into a file. 
+
+If we didn't do this, `samtools_count.sh` would output everything to console.
+
+Much more info about this when we talk about the different outputs to console. 
+
+:::
+
+### Positional Arguments such as `$1`
+
+How did the script know where to substitute each of our arguments? It has to do with the argument variables. Arguments (terms that follow our command) are indexed starting with the number 1. We can access the value at the first position using the special variable `$1`. 
+
+Note that this works even in quotes.
+
+So, to unpack our script, we are substituting our first argument for the `$1`, and our second argument for the `$2` in our script. 
+
+:::{.callout-note}
+## Test yourself
+
+How would we rewrite `sam_run.sh` if we wanted to specify the output file as the first argument and the bam file as the second argument?
+
+```bash
+#!/bin/bash/
+samtools stats $1 > $2
+```
+:::
+
+:::{.callout-note collapse="true"}
+## Answer
+
+For this script, we would switch the positions of `$1` and `$2`.
+
+```bash
+#!/bin/bash/
+samtools stats $2 > $1
+```
+
+## `module purge`
+
+The last line of our script is:
+
+```
+module purge
+```
+
+This line will unload the modules from memory. It's good practice to unload modules when you're done with them, especially since they have complex chains of dependencies, and the versions of these dependencies can interfere with other packages.
+
+
+## Variables in Bash Scripts {#sec-bash-variables}
+
+We've already encountered a placeholder variable, `%`, that we used in running `xargs`. Let's talk about declaring variables in bash scripts and using them using variable expansion. 
+
+In Bash, we can declare a variable by using `<variable_name>=<value>`. Note there are no spaces between the variable (`my_variable`), equals sign, and the value (`"ggplot2"`).
+
+```bash
+my_variable="ggplot2"
+
+echo "My favorite R package is ${my_variable}"
+```
+
+```
+My favorite R package is ggplot2
+```
+Take a look at line 3 above. We expand the variable (that is, we substitute the actual variable) by using `${my_variable}` in our `echo` statement.
+
+In general, when expanding a variable in a quoted string, it is better to use `${my_variable}` (the variable name in curly brackets). This is especially important when using the variable name as part of a string:
+
+```bash
+my_var="chr1"
+echo "${my_var}_1.vcf.gz"
+```
+
+```
+chr1_1.vcf.gz
+```
+
+If we didn't use the braces here, like this:
+
+```
+echo "$my_var_1.vcf.gz"
+```
+
+Bash would look for the variable `$my_var_1`, which doesn't exist. So use the curly braces `{}` when you expand variables. It's safer overall. 
+
+There is an alternate method for variable expansion which we will use when we call a *sub-shell* - a shell within a shell, much like in our `xargs` command above. We need to use parentheses `()` to expand them within the sub-shell, but not the top-shell. We'll use this when we process multiple files within a single worker.
+
+### `basename` can be very handy when on workers
+
+If we are processing a bunch of files on a worker, we need a way to get the bare filename from a `dxfuse` path. We will take advantage of this when we run process multiple files on the worker.
+
+For example:
+
+```
+basename /mnt/project/worker_scripts/srun-script.sh
+```
+
+This will return:
+
+```
+srun-script.sh
+```
+
+Which can be really handy when we name our outputs. This command is so handy it is used in WDL. 
+
+## Quoting and Escaping Filenames in Bash
+
+One point of confusion is when do you quote things in Bash? When do you use single quotes (`'`) versus double-quotes (`"`)? When do you use `\` to escape characters?
+
+Let's talk about some quoting rules in Bash. I've tried to make things as simplified and  generalized as possible, rather than stating all of the rules for each quote.
+
+1. If you have spaces in a filename, use double quotes (`"chr 1.bam"`)
+1. If you have a single quote in the filename, use double quotes to wrap it (`"ted's file.bam"`)
+1. Only escape characters when necessary - if you can solve a problem with quotes, use them
+1. If you need to preserve an escaped character, use single quotes
+
+Let's go over each of these with an example.
+
+### If you have spaces in a filename, use double quotes (Most common)
+
+For example, if your filename is `chr 1 file.bam`, then use double quotes in your argument
+
+```
+samtools view -c "chr 1 file.bam"
+```
+
+### If you have a single quote in the name, use double quotes to wrap it (less common)
+
+Say you have a file called `ted's new file.bam`. This can be a problem when you are calling it, especially because of the single quote.
+
+In this case, you can do this:
+
+```
+samtools view -c "ted's new file.bam"
+```
+
+### Only escape characters when necessary (less common)
+
+There are a number of special characters (such as Tab, and Newline) that can be specified as escape characters. In double quotes, characters such as `$` are signals to Bash to expand or evaluate code. 
+
+Say that someone had a `$` in their file name such as `Thi$file is money.bam`
+
+How do we refer to it? We can escape the character with a backslash `\`:
+
+```
+samtools view -c "Thi\$file is money.bam"
+```
+The backslash is a clue to Bash that we don't want variable expansion in this case. Without it, bash would look for a variable called `$file`. 
+
+### If you need to preserve an escaped character, use single quotes (least common)
+
+This is rarely used, but if you need to keep an escaped character in your filename, you can use single quotes. Say we have a filename called `Thi\$file.bam` and you need that backslash in the file name (btw, please don't do this), you can use single quotes to preserve that backslash:
+
+```
+samtools view -c 'Thi\$file.bam'
+```
+
+Again, hopefully you won't need this.
+
+### For More Info
+
+<https://www.grymoire.com/Unix/Quote.html#uh-3>
+
+:::{.callout-note}
+## What about backticks?
+
+Backticks (`` ` ``) are an old way to do command evaluation in Bash. For example, if we run the following on the command-line:
+
+```
+echo "there are `ls -l | wc -l` files in this directory"
+```
+Will produce:
+
+```
+there are       36 files in this directory
+```
+
+Their use is deprecated, so you should be using `$()` in your command evaluations instead:
+
+```
+echo "there are $(ls -l | wc -l) files in this directory"
+```
+:::
+ 
+:::{.callout-note}
+## What about X use case?
+
+There are a lot of rules for Bash variable expansion and quoting that I don't cover here. I try to show you a way to do things that work in multiple situations on the cluster.
+
+That's why I focus on double quotes for filenames and `${}` for variable expansion in general. They will work whether your Bash script is on the command line or in an App, or in WDL. 
+
+:::

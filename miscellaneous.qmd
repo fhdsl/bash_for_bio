@@ -26,9 +26,9 @@ After logging into `rhino`, try running `hostname`. What host are you on?
 
 ## Workflows
 
-### One Workflow: `/fh/fast/` and `/fh/temp/`
+### One Workflow: `/fh/fast/` and `/hpc/temp/`
 
-One approach is to have your scripts also live in your project folder in `fast`. Then, you can sync the project in `/fh/fast/` over to `/fh/temp/`, run the scripts in `/fh/temp/`, and then sync the two folders again. You can do the file sync'ing in both directions with Motuz (@sec-motuz), which has its own advantages. 
+One approach is to have your scripts also live in your project folder in `fast`. Then, you can sync the project in `/fh/fast/` over to `/hpc/temp/`, run the scripts in `/hpc/temp/`, and then sync the two folders again. You can do the file sync'ing in both directions with Motuz (@sec-motuz), which has its own advantages. 
 
 If you want to go this route, you should think about using a Folder Based Workflow (@sec-project), where everything lives in a folder. 
 
@@ -37,7 +37,7 @@ Another thing to consider is to have a backup of the scripts that is either on y
 ```{mermaid}
 graph LR
     A["Fast\n/fh/fast/my_lab/project/\nRaw Data & Scripts"] --"a. Sync Data & scripts"-->B
-    B["Temp\n/fh/temp/my_lab/project\nb. Run Scripts here"] --"c. Sync results"-->A
+    B["Temp\n/hpc/temp/my_lab/project\nb. Run Scripts here"] --"c. Sync results"-->A
 ```
 
 
