@@ -37,14 +37,14 @@ On the `rhino` machines, we have the option to use the `nano` editor. `nano` is 
 
 ### Try it Out
 
-## The first line: the she-bang
+## The first line: the she-bang {#sec-shebang}
 
 What's this first line?
 
 ```bash
 #!/bin/bash
 ```
-
+ 
 the `#!` is known as a she-bang - it's a signal to Linux what shell interpreter to use when running the script on the command line. In our case, we want to use `bash`.
 
 The she-bang is necessary if you want to run the script without using the `bash` command (after you have made it executable):
@@ -53,7 +53,7 @@ The she-bang is necessary if you want to run the script without using the `bash`
 ./samcount.sh chr1.sam
 ```
 
-## Software Modules
+## Software Modules {#sec-modules}
 
 Ok, we've gotten comfortable navigating around the HPC filesystem. Now how do we run executables on files?
 

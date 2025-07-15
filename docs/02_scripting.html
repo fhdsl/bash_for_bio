@@ -194,8 +194,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#try-it-out" id="toc-try-it-out" class="nav-link" data-scroll-target="#try-it-out"><span class="header-section-number">2.3.1</span> Try it Out</a></li>
   </ul></li>
-  <li><a href="#the-first-line-the-she-bang" id="toc-the-first-line-the-she-bang" class="nav-link" data-scroll-target="#the-first-line-the-she-bang"><span class="header-section-number">2.4</span> The first line: the she-bang</a></li>
-  <li><a href="#software-modules" id="toc-software-modules" class="nav-link" data-scroll-target="#software-modules"><span class="header-section-number">2.5</span> Software Modules</a>
+  <li><a href="#sec-shebang" id="toc-sec-shebang" class="nav-link" data-scroll-target="#sec-shebang"><span class="header-section-number">2.4</span> The first line: the she-bang</a></li>
+  <li><a href="#sec-modules" id="toc-sec-modules" class="nav-link" data-scroll-target="#sec-modules"><span class="header-section-number">2.5</span> Software Modules</a>
   <ul class="collapse">
   <li><a href="#is-my-software-already-installed" id="toc-is-my-software-already-installed" class="nav-link" data-scroll-target="#is-my-software-already-installed"><span class="header-section-number">2.5.1</span> Is my software already installed?</a></li>
   <li><a href="#environment-modules" id="toc-environment-modules" class="nav-link" data-scroll-target="#environment-modules"><span class="header-section-number">2.5.2</span> Environment Modules</a></li>
@@ -263,16 +263,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 data-number="2.3.1" class="anchored" data-anchor-id="try-it-out"><span class="header-section-number">2.3.1</span> Try it Out</h3>
 </section>
 </section>
-<section id="the-first-line-the-she-bang" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="the-first-line-the-she-bang"><span class="header-section-number">2.4</span> The first line: the she-bang</h2>
+<section id="sec-shebang" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="sec-shebang"><span class="header-section-number">2.4</span> The first line: the she-bang</h2>
 <p>What’s this first line?</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>the <code>#!</code> is known as a she-bang - it’s a signal to Linux what shell interpreter to use when running the script on the command line. In our case, we want to use <code>bash</code>.</p>
 <p>The she-bang is necessary if you want to run the script without using the <code>bash</code> command (after you have made it executable):</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./samcount.sh</span> chr1.sam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="software-modules" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="software-modules"><span class="header-section-number">2.5</span> Software Modules</h2>
+<section id="sec-modules" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="sec-modules"><span class="header-section-number">2.5</span> Software Modules</h2>
 <p>Ok, we’ve gotten comfortable navigating around the HPC filesystem. Now how do we run executables on files?</p>
 <p>Let’s talk about the two problems:</p>
 <ol type="1">

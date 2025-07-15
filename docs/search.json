@@ -84,7 +84,7 @@
     "href": "01_basics.html#map-of-the-material",
     "title": "1  Navigating the Bash Filesystem",
     "section": "1.2 Map of the Material",
-    "text": "1.2 Map of the Material\n\n\n\n\n\nflowchart TD\n    A[Signing In] --&gt; B[pwd: Find Current Directory]\n    B --&gt; C[cd: change directory]\n    C --&gt; D[Absolute vs Relative Paths]\n    D --&gt; E[mv/cp: move files around]\n    D --&gt; F[chmod: set permissions]\n    F --&gt; G[execute a script]\n\n\n\n\n\n\n\n\n\n\n\n\nReminder about Terminology\n\n\n\nDefined words are double underlined. You can click and hold on them to see the definition. Try it below!\nInformation about a file or dataset, such as the filename, or date created.metadata",
+    "text": "1.2 Map of the Material\n\n\n\n\n\nflowchart TD\n    A[Signing In] --&gt; B[pwd: Find Current Directory]\n    B --&gt; D[Absolute vs Relative Paths]\n    D --&gt; F[chmod: set permissions]\n    F --&gt; G[execute a script]\n\n\n\n\n\n\n\n\n\n\n\n\nReminder about Terminology\n\n\n\nDefined words are double underlined. You can click and hold on them to see the definition. Try it below!\nInformation about a file or dataset, such as the filename, or date created.metadata",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Navigating the Bash Filesystem</span>"
     ]
@@ -94,7 +94,7 @@
     "href": "01_basics.html#navigating-the-bash-terminal",
     "title": "1  Navigating the Bash Filesystem",
     "section": "1.3 Navigating the Bash Terminal",
-    "text": "1.3 Navigating the Bash Terminal\n\nWe recommend that you review the material for Intro to Command Line and know the following: Changing directories,\n\nBy default, when you log into a remote system such as rhino, you are in a Short for Bourne Again Shell - it is the command processor that is typically run in a text window, has its own programming language and syntax.bash shell.\nWhy is it a bash shell? Bash is the default shell for linux systems, especially for high performance clusters (HPCs), and there are some quirks about navigating around the command line you should be aware of.\n\n\n\n\n\n\nA helpful key: &lt;Up Arrow&gt;\n\n\n\nThe  key will let you cycle through your history, or previous executed commands. This can be super helpful if you have typed a long command with a syntax error. You can use &lt;Up Arrow&gt; to fix mistakes and run that command again.",
+    "text": "1.3 Navigating the Bash Terminal\n\nWe recommend that you review the material for Intro to Command Line and know the following: Changing directories,\n\nBy default, when you log into a remote system such as rhino, you are in a bash A command processor that we interact with via text. In our case, the Shell we’re interacting with is on the server.shell.\nWhy is it a bash shell? Bash is the default shell for linux systems, especially for high performance clusters (HPCs), and there are some quirks about navigating around the command line you should be aware of.\n\n\n\n\n\n\nA helpful key: &lt;Up Arrow&gt;\n\n\n\nThe  key will let you cycle through your history, or previous executed commands. This can be super helpful if you have typed a long command with a syntax error. You can use &lt;Up Arrow&gt; to fix mistakes and run that command again.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Navigating the Bash Filesystem</span>"
     ]
@@ -324,7 +324,7 @@
     "href": "03_batch.html#batching-on-hpc",
     "title": "3  Batch Processing and Submitting Jobs",
     "section": "3.2 Batching on HPC",
-    "text": "3.2 Batching on HPC",
+    "text": "3.2 Batching on HPC\nNow we can\n\n3.2.1 SLURM Scripts\nSLURM scripts are a special kind of shell script that contain additional information for the SLURM manager. This includes:\n\nNumber of nodes (machines) to request\nMemory and CPU requirements for each machine\n\nWe specify these using a special kind of comment: SLURM directives. Directives begin a line with #SBATCH\n\n\n3.2.2 SLURM Directives\n#!/bin/bash\n1#SBATCH --nodes=1\n2#SBATCH --array=1-6\n3#SBATCH --tasks-per-node=3\n4#SBATCH --cpus-per-task=1\n5#SBATCH --mem-per-cpu=1gb\n6#SBATCH --time=00:05:00\n7./samtools_opt sort SRR1576820_000$SLURM_ARRAY_TASK_ID.bam -o SRR1576820_000$SLURM_ARRAY_TASK_ID.sorted.bam\n\n1\n\nrequest 1 node\n\n2\n\nstart an array\n\n3\n\nWe want our node to do 3 tasks at the same time\n\n4\n\nAsk for 1 CPUs per task (3 * 1 = 3 total requested CPUs)\n\n5\n\nrequest 1 gigabyte per cpu\n\n6\n\nask for 5 minutes on the node\n\n7\n\nRun samtools sort on a bam file,\n\n\n\n\n3.2.3 Job Arrays\nThis line:\n#SBATCH --array=1-6 \nWill start a job array.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Batch Processing and Submitting Jobs</span>"
     ]
@@ -444,7 +444,7 @@
     "href": "01_basics.html#running-an-r-or-python-script-on-the-command-line",
     "title": "1  Navigating the Bash Filesystem",
     "section": "1.13 Running an R or Python Script on the command line",
-    "text": "1.13 Running an R or Python Script on the command line\n\n1.13.1 R Users\nYou might not be aware that there are multiple ways to run R:\n\nas an interactive console, which is what we usually use in an IDE such as RStudio\non the command line using the RScript command",
+    "text": "1.13 Running an R or Python Script on the command line\n\n1.13.1 Loading the fhR or fhPython modules\nBefore we can run our software, we’ll need to load up either R or\nWe’ll talk more about software modules next week (Section 2.5).\n\n\n1.13.2 R Users\nYou might not be aware that there are multiple ways to run R:\n\nas an interactive console, which is what we usually use in an IDE such as RStudio\non the command line using the Rscript command.\n\nRscript my_r_script.R\n\n\n1.13.3 Python Users\nPython users are much more aware that you can run Python scripts on the command line:\npython3 my_python_script.py\nWithin a shell script, you can also use a shebang (Section 2.4) to make your script executable by providing the location of python3:\n#!/bin/python3\npython3 my_python_script.py",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Navigating the Bash Filesystem</span>"
     ]
@@ -457,6 +457,36 @@
     "text": "3.3 Containers\nGATK (the genome analysis toolkit) is one common container that we can use for analysis.\n\n\n\n\n\n\nThe WILDS Docker Library\n\n\n\nThe Data Science Lab",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Batch Processing and Submitting Jobs</span>"
+    ]
+  },
+  {
+    "objectID": "02_scripting.html#sec-shebang",
+    "href": "02_scripting.html#sec-shebang",
+    "title": "2  Introduction to Scripting",
+    "section": "2.4 The first line: the she-bang",
+    "text": "2.4 The first line: the she-bang\nWhat’s this first line?\n#!/bin/bash\nthe #! is known as a she-bang - it’s a signal to Linux what shell interpreter to use when running the script on the command line. In our case, we want to use bash.\nThe she-bang is necessary if you want to run the script without using the bash command (after you have made it executable):\n./samcount.sh chr1.sam",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction to Scripting</span>"
+    ]
+  },
+  {
+    "objectID": "01_basics.html#next-week",
+    "href": "01_basics.html#next-week",
+    "title": "1  Navigating the Bash Filesystem",
+    "section": "1.15 Next Week",
+    "text": "1.15 Next Week\nWe’ll focus on adding arguments to our scripts.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Navigating the Bash Filesystem</span>"
+    ]
+  },
+  {
+    "objectID": "02_scripting.html#sec-modules",
+    "href": "02_scripting.html#sec-modules",
+    "title": "2  Introduction to Scripting",
+    "section": "2.5 Software Modules",
+    "text": "2.5 Software Modules\nOk, we’ve gotten comfortable navigating around the HPC filesystem. Now how do we run executables on files?\nLet’s talk about the two problems:\n\nHow do we find executables on a cluster, and\nhow do we load them up and run them?\n\n\n2.5.1 Is my software already installed?\nSay we want to see if samtools is installed on our HPC. One of the key commands you can use to find software is the which command. If your software is installed, which will give you the path where the software is installed. For example, I can see if bash is installed:\nwhich bash\nWhich gives me the response:\n/bin/bash\nSo, let’s see if samtools is installed:\nwhich samtools\nWhich gives no response, so where is samtools?\nIf we don’t have samtools immediately available, how do we find it on our system? On the HPC system, We can use environment modules to load software.\n\n\n2.5.2 Environment Modules\nBefore you install your own versions of software, it’s important to realize that this problem may be solved for you.\nYour first stop should be looking for environment modules on the HPC. Not all HPCs have these, but if they have them, this should be your first stop to find executables.\nlmod is a system for loading and unloading software modules. It is usually installed on HPCs. The commands all start with module, and there are a number of ones that are useful for you.\n\nmodule avail\nmodule load\nmodule purge\n\nIf you want to see the current list of available modules and their names, check them out here.\nLooking for samtools on that page, we discovered the name of our module:\nSAMtools\nSo, that’s what we’ll use to load up samtools.\n\n\n2.5.3 module load\nHere’s the next line of the script:\nmodule load SAMtools/1.19.2-GCC-13.2.0  #load the module\nOur module name is SAMtools, and the 1.19.2-GCC-13.2.0 after it is the version of that module.\n\n\n\n\n\n\nFor FH Users: Modules benefit everyone\n\n\n\nIf there is a particular bit of software that you need to run on the FH cluster that’s not there, make sure to request it from SciComp. Someone else probably needs it and so making it known so they can add it as a Environment module will help other people.\n\n\n\n\n\n\n\n\nFor FH Users\n\n\n\nOn the FH cluster, ml is a handy command that combines module load and module avail.\nYou can load a module with ml &lt;module_name&gt;.\n\n\n\n\n2.5.4 Tip: Load only as many modules as you need at a time\nOne of the big issues with bioinformatics software is that the toolchain (the software dependencies needed to run the software) can be different. So when possible, load only one or two modules at a time for each step of your analysis. When you’re done with that step, use module purge to clear out the software environment.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction to Scripting</span>"
     ]
   }
 ]

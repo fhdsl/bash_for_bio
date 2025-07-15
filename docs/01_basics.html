@@ -218,9 +218,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#running-a-bash-script" id="toc-running-a-bash-script" class="nav-link" data-scroll-target="#running-a-bash-script"><span class="header-section-number">1.12</span> Running a Bash Script</a></li>
   <li><a href="#running-an-r-or-python-script-on-the-command-line" id="toc-running-an-r-or-python-script-on-the-command-line" class="nav-link" data-scroll-target="#running-an-r-or-python-script-on-the-command-line"><span class="header-section-number">1.13</span> Running an R or Python Script on the command line</a>
   <ul class="collapse">
-  <li><a href="#r-users" id="toc-r-users" class="nav-link" data-scroll-target="#r-users"><span class="header-section-number">1.13.1</span> R Users</a></li>
+  <li><a href="#loading-the-fhr-or-fhpython-modules" id="toc-loading-the-fhr-or-fhpython-modules" class="nav-link" data-scroll-target="#loading-the-fhr-or-fhpython-modules"><span class="header-section-number">1.13.1</span> Loading the <code>fhR</code> or <code>fhPython</code> modules</a></li>
+  <li><a href="#r-users" id="toc-r-users" class="nav-link" data-scroll-target="#r-users"><span class="header-section-number">1.13.2</span> R Users</a></li>
+  <li><a href="#python-users" id="toc-python-users" class="nav-link" data-scroll-target="#python-users"><span class="header-section-number">1.13.3</span> Python Users</a></li>
   </ul></li>
   <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap"><span class="header-section-number">1.14</span> Recap</a></li>
+  <li><a href="#next-week" id="toc-next-week" class="nav-link" data-scroll-target="#next-week"><span class="header-section-number">1.15</span> Next Week</a></li>
   </ul>
 </nav>
     </div>
@@ -265,9 +268,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div>
 <pre class="mermaid mermaid-js">flowchart TD
     A[Signing In] --&gt; B[pwd: Find Current Directory]
-    B --&gt; C[cd: change directory]
-    C --&gt; D[Absolute vs Relative Paths]
-    D --&gt; E[mv/cp: move files around]
+    B --&gt; D[Absolute vs Relative Paths]
     D --&gt; F[chmod: set permissions]
     F --&gt; G[execute a script]
 </pre>
@@ -286,7 +287,7 @@ Reminder about Terminology
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Defined words are double underlined. You can click and hold on them to see the definition. Try it below!</p>
+<p>Defined words are double underlined. You can <em>click and hold</em> on them to see the definition. Try it below!</p>
 <p><button class="glossary"><span class="def">Information about a file or dataset, such as the filename, or date created.</span>metadata</button></p>
 </div>
 </div>
@@ -296,7 +297,7 @@ Reminder about Terminology
 <blockquote class="blockquote">
 <p>We recommend that you review the material for Intro to Command Line and know the following: Changing directories,</p>
 </blockquote>
-<p>By default, when you log into a remote system such as <code>rhino</code>, you are in a <button class="glossary"><span class="def">Short for Bourne Again Shell - it is the command processor that is typically run in a text window, has its own programming language and syntax.</span>bash</button> <button class="glossary"><span class="def"></span>shell</button>.</p>
+<p>By default, when you log into a remote system such as <code>rhino</code>, you are in a <button class="glossary"><span class="def"></span>bash</button> <button class="glossary"><span class="def">A command processor that we interact with via text. In our case, the Shell we’re interacting with is on the server.</span>shell</button>.</p>
 <p>Why is it a bash shell? Bash is the default shell for linux systems, especially for high performance clusters (HPCs), and there are some quirks about navigating around the command line you should be aware of.</p>
 <div class="callout callout-style-simple callout-none no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -694,13 +695,27 @@ Try it Out
 </section>
 <section id="running-an-r-or-python-script-on-the-command-line" class="level2" data-number="1.13">
 <h2 data-number="1.13" class="anchored" data-anchor-id="running-an-r-or-python-script-on-the-command-line"><span class="header-section-number">1.13</span> Running an R or Python Script on the command line</h2>
-<section id="r-users" class="level3" data-number="1.13.1">
-<h3 data-number="1.13.1" class="anchored" data-anchor-id="r-users"><span class="header-section-number">1.13.1</span> R Users</h3>
+<section id="loading-the-fhr-or-fhpython-modules" class="level3" data-number="1.13.1">
+<h3 data-number="1.13.1" class="anchored" data-anchor-id="loading-the-fhr-or-fhpython-modules"><span class="header-section-number">1.13.1</span> Loading the <code>fhR</code> or <code>fhPython</code> modules</h3>
+<p>Before we can run our software, we’ll need to load up either R or</p>
+<p>We’ll talk more about software modules next week (<a href="02_scripting.html#sec-modules" class="quarto-xref"><span>Section 2.5</span></a>).</p>
+</section>
+<section id="r-users" class="level3" data-number="1.13.2">
+<h3 data-number="1.13.2" class="anchored" data-anchor-id="r-users"><span class="header-section-number">1.13.2</span> R Users</h3>
 <p>You might not be aware that there are multiple ways to run R:</p>
 <ol type="1">
 <li>as an interactive console, which is what we usually use in an IDE such as RStudio</li>
-<li>on the command line using the <code>RScript</code> command</li>
+<li>on the command line using the <code>Rscript</code> command.</li>
 </ol>
+<pre><code>Rscript my_r_script.R</code></pre>
+</section>
+<section id="python-users" class="level3" data-number="1.13.3">
+<h3 data-number="1.13.3" class="anchored" data-anchor-id="python-users"><span class="header-section-number">1.13.3</span> Python Users</h3>
+<p>Python users are much more aware that you can run Python scripts on the command line:</p>
+<pre><code>python3 my_python_script.py</code></pre>
+<p>Within a shell script, you can also use a shebang (<a href="02_scripting.html#sec-shebang" class="quarto-xref"><span>Section 2.4</span></a>) to make your script executable by providing the location of <code>python3</code>:</p>
+<pre><code>#!/bin/python3
+python3 my_python_script.py</code></pre>
 </section>
 </section>
 <section id="recap" class="level2" data-number="1.14">
@@ -712,6 +727,10 @@ Try it Out
 <li><strong>Set</strong> Permissions on and <strong>execute</strong> a bash script</li>
 <li><strong>Find</strong> help on the system</li>
 </ul>
+</section>
+<section id="next-week" class="level2" data-number="1.15">
+<h2 data-number="1.15" class="anchored" data-anchor-id="next-week"><span class="header-section-number">1.15</span> Next Week</h2>
+<p>We’ll focus on adding <em>arguments</em> to our scripts.</p>
 
 
 </section>

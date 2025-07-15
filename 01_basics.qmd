@@ -16,9 +16,7 @@ By the end of this session, you should be able to:
 ```{mermaid}
 flowchart TD
     A[Signing In] --> B[pwd: Find Current Directory]
-    B --> C[cd: change directory]
-    C --> D[Absolute vs Relative Paths]
-    D --> E[mv/cp: move files around]
+    B --> D[Absolute vs Relative Paths]
     D --> F[chmod: set permissions]
     F --> G[execute a script]
 ```
@@ -26,7 +24,7 @@ flowchart TD
 :::{.callout-note}
 ## Reminder about Terminology
 
-Defined words are double underlined. You can click and hold on them to see the definition. Try it below!
+Defined words are double underlined. You can *click and hold* on them to see the definition. Try it below!
 
 {{< glossary metadata>}}
 :::
@@ -401,12 +399,37 @@ Which is the current date and time.
 
 ## Running an R or Python Script on the command line
 
+### Loading the `fhR` or `fhPython` modules
+
+Before we can run our software, we'll need to load up either R or 
+
+We'll talk more about software modules next week (@sec-modules). 
+
 ### R Users
 
 You might not be aware that there are multiple ways to run R: 
 
 1) as an interactive console, which is what we usually use in an IDE such as RStudio
-2) on the command line using the `RScript` command
+2) on the command line using the `Rscript` command.
+
+```
+Rscript my_r_script.R
+```
+
+### Python Users
+
+Python users are much more aware that you can run Python scripts on the command line:
+
+```
+python3 my_python_script.py
+```
+
+Within a shell script, you can also use a shebang (@sec-shebang) to make your script executable by providing the location of `python3`:
+
+```
+#!/bin/python3
+python3 my_python_script.py
+```
 
 ## Recap
 
@@ -416,3 +439,7 @@ We learned the following this week:
 - **Explain** the difference between *absolute* and *relative* file paths.
 - **Set** Permissions on and **execute** a bash script 
 - **Find** help on the system
+
+## Next Week
+
+We'll focus on adding *arguments* to our scripts.

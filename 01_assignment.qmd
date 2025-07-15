@@ -5,7 +5,7 @@ title: "Week 1 Exercises"
 1. Use `du` to check the disk usage of two folders in your `/home/` directory. 
 
 ```bash
-du 
+du -d 1
 ```
 
 2. Copy a file from my directory to your own home directory.
@@ -14,8 +14,10 @@ du
 
 Change the script to executable:
 
-`chmod`
+`chmod --- run_this.sh`
 
 Try running it:
 
 `./run_this.sh`
+
+3. Take a look at `r_example.R` or `python_example.py`. Load up the `fhR` or `fhPython` modules using `module load`. Make the script of your choice executable and run it on the command line with `Rscript` or `python3`.

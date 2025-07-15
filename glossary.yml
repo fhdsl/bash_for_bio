@@ -21,3 +21,31 @@ cluster: |
 
 Compute Job: |
   A task that we have assigned a computer to run. This computer can be a compute node in a cluster, or our own machine.
+  
+Registry: |
+  collection of repositories that you pull docker images from. Example repositories include DockerHub and Quay.io.
+  
+Image: |
+  what you download from a registry - the "recipe" for building the software environment. Stored in a registry. use `apptainer pull` to get image from a registry. Can also generate image from a Dockerfile
+
+Container: | 
+  The executable software environment actually installed and running on a machine. Runnable. Generate from `docker pull` from a repository.
+
+Snapshot File: | 
+  An single archive file (`.tar.gz`) that contains the Docker container. Generate using `docker save` on a container.  Also known as an *image file*. 
+
+Dockerfile: | 
+  A file that specifies how to install software and its dependencies. You often base a Dockerfile on an existing Docker image
+
+Tag: | 
+  A bit of metadata that is used to *version* a container. 
+
+workflow: |
+  A way to process files through a sequence of steps. Also known as a pipeline
+  
+workflow manager: |
+  A system that works with the cluster manager to orchestrate processing data through a workflow
+  
+WDL: |
+  Short for Workflow Description Language. A standard for specifying a workflow, which includes describing inputs, saving intermediate outputs, and outputting processed files.
+  
