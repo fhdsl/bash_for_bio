@@ -201,8 +201,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#slurm-scripts" id="toc-slurm-scripts" class="nav-link" data-scroll-target="#slurm-scripts"><span class="header-section-number">3.2.1</span> SLURM Scripts</a></li>
   <li><a href="#slurm-directives" id="toc-slurm-directives" class="nav-link" data-scroll-target="#slurm-directives"><span class="header-section-number">3.2.2</span> SLURM Directives</a></li>
   <li><a href="#job-arrays" id="toc-job-arrays" class="nav-link" data-scroll-target="#job-arrays"><span class="header-section-number">3.2.3</span> Job Arrays</a></li>
+  <li><a href="#processing-files-using-job-arrays" id="toc-processing-files-using-job-arrays" class="nav-link" data-scroll-target="#processing-files-using-job-arrays"><span class="header-section-number">3.2.4</span> Processing files using Job Arrays</a></li>
   </ul></li>
-  <li><a href="#containers" id="toc-containers" class="nav-link" data-scroll-target="#containers"><span class="header-section-number">3.3</span> Containers</a></li>
+  <li><a href="#containers" id="toc-containers" class="nav-link" data-scroll-target="#containers"><span class="header-section-number">3.3</span> Containers</a>
+  <ul class="collapse">
+  <li><a href="#what-is-a-container" id="toc-what-is-a-container" class="nav-link" data-scroll-target="#what-is-a-container"><span class="header-section-number">3.3.1</span> What is a Container?</a></li>
+  <li><a href="#docker-vs.-apptainer" id="toc-docker-vs.-apptainer" class="nav-link" data-scroll-target="#docker-vs.-apptainer"><span class="header-section-number">3.3.2</span> Docker vs.&nbsp;Apptainer</a></li>
+  <li><a href="#common-containers-for-bioinformatics" id="toc-common-containers-for-bioinformatics" class="nav-link" data-scroll-target="#common-containers-for-bioinformatics"><span class="header-section-number">3.3.3</span> Common Containers for Bioinformatics</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -417,12 +423,104 @@ Why this is important on HPC
 <h3 data-number="3.2.3" class="anchored" data-anchor-id="job-arrays"><span class="header-section-number">3.2.3</span> Job Arrays</h3>
 <p>This line:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=1-6 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Will start a job array.</p>
+<p>Will start a job array. This will create a variable called <code>$SLURM_ARRAY_TASK_ID</code> that will cycle through the numbers 1-6. Let’s try a simpler script to show what’s going on:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| filename: sbatch_test.sh</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=1-5</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --nodes=1</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"</span><span class="va">${SLURM_ARRAY_TASK_ID}</span><span class="st"> job"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This is a minimal script that will execute 5 subjobs. It will cycle through the job array and print the array number for each job.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> sbatch_test.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>On submitting, we will get this message:</p>
+<pre><code>Submitted batch job 26328834</code></pre>
+<p>And if we look for the output files:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> slurm-26328834_<span class="pp">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We will get the following output:</p>
+<pre><code>-rw-rw---- 1 tladera2 g_tladera2 8 Jul 15 13:50 slurm-26328834_1.out
+-rw-rw---- 1 tladera2 g_tladera2 8 Jul 15 13:50 slurm-26328834_2.out
+-rw-rw---- 1 tladera2 g_tladera2 8 Jul 15 13:50 slurm-26328834_3.out
+-rw-rw---- 1 tladera2 g_tladera2 8 Jul 15 13:50 slurm-26328834_4.out
+-rw-rw---- 1 tladera2 g_tladera2 8 Jul 15 13:50 slurm-26328834_5.out</code></pre>
+<p>Taking a look at one of these files using <code>cat</code>:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> slurm-26328834_3.out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We’ll see this:</p>
+<pre><code>3 job</code></pre>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+  A["sbatch sbatch_test.sh"] --"1"--&gt; B
+  B["echo 1 job"]
+  A --"2"--&gt; C["echo 2 job"]
+  A --"3"--&gt; D["echo 3 job"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>What happened here? <code>sbatch</code> submitted our job array as 5 different subjobs to 5 different nodes under a single job id. Each node then outputs a file with the subjob id that contains the job number.</p>
+</section>
+<section id="processing-files-using-job-arrays" class="level3" data-number="3.2.4">
+<h3 data-number="3.2.4" class="anchored" data-anchor-id="processing-files-using-job-arrays"><span class="header-section-number">3.2.4</span> Processing files using Job Arrays</h3>
+<p>So now we know that <code>${SLURM_ARRAY_TASK_ID}</code> will let us specify a subjob within our</p>
 </section>
 </section>
 <section id="containers" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="containers"><span class="header-section-number">3.3</span> Containers</h2>
-<p>GATK (the genome analysis toolkit) is one common container that we can use for analysis.</p>
+<p>We already learned about software modules (<a href="02_scripting.html#sec-modules" class="quarto-xref"><span>Section 2.5</span></a>). There is an alternative way to use software: containers.</p>
+<section id="what-is-a-container" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="what-is-a-container"><span class="header-section-number">3.3.1</span> What is a Container?</h3>
+<p>A container is a self-contained unit of software. It contains everything needed to run the software on a variety of machines. If you have the container software installed on your machine, it doesn’t matter whether it is MacOS, Linux, or Windows - the container will behave consistently across different operating systems and architectures.</p>
+<p>The container has the following contents:</p>
+<ul>
+<li><strong>Software</strong> - The software we want to run in a container. For bioinformatics work, this is usually something like an aligner like <code>bwa</code>, or utilities such as <code>samtools</code></li>
+<li><strong>Software Dependencies</strong> - various software packages needed to run the software. For example, if we wanted to run <code>tidyverse</code> in a container, we need to have <code>R</code> installed in the container as well</li>
+<li><strong>Filesystem</strong> - containers have their own isolated filesystem that can be connected to the “outside world” - everything outside of the container. We’ll learn more about customizing these with bind paths (<span class="quarto-unresolved-ref">?sec-bindpaths</span>).</li>
+</ul>
+<p>In short, the container has everything needed to run the software. It is not a full operating system, but a smaller mini-version that cuts out a lot of cruft.</p>
+<p>Containers are ephemeral. They leverage the the file system of their host to manage files. These are called both <em>Volumes</em> (the Docker term) and Bind Paths (the apptainer term).</p>
+</section>
+<section id="docker-vs.-apptainer" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="docker-vs.-apptainer"><span class="header-section-number">3.3.2</span> Docker vs.&nbsp;Apptainer</h3>
+<p>There are two basic ways to run Docker containers:</p>
+<ol type="1">
+<li>Using the Docker software</li>
+<li>Using the Apptainer software (for HPC systems)</li>
+</ol>
+<p>In general, Docker is used on systems where you have a high level of access to the system. This is because docker uses a special user group called <code>docker</code> that has essentially root level privileges.</p>
+<p>This is not the case for HPC systems, which are shared. This is when we use Apptainer (which used to be called Singularity), which requires a much lower level of user privileges to execute tasks. For more info, see <span class="quarto-unresolved-ref">?sec-open-container</span> .</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Be Secure
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Before we get started, security is always a concern when running containers. The <code>docker</code> group has elevated status on a system, so we need to be careful that when we’re running them, they aren’t introducing any system vulnerabilities. Note that on HPC systems, the main mechanism for running containers is <code>apptainer</code>, which is designed to be more secure.</p>
+<p>These are mostly important when running containers that are web-servers or part of a web stack, but it is also important to think about when running jobs on HPC.</p>
+<p>Here are some guidelines to think about when you are working with a container.</p>
+<ul>
+<li><strong>Use vendor-specific Docker Images when possible</strong>.</li>
+<li><strong>Use container scanners to spot potential vulnerabilities</strong>. DockerHub has a vulnerability scanner that scans your Docker images for potential vulnerabilities.</li>
+<li><strong>Avoid kitchen-sink images</strong>. One issue is when an image is built on top of many other images. It makes it really difficult to plug vulnerabilities. When in doubt, use images from trusted people and organizations. At the very least, look at the Dockerfile to see that suspicious software isn’t being installed.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="common-containers-for-bioinformatics" class="level3" data-number="3.3.3">
+<h3 data-number="3.3.3" class="anchored" data-anchor-id="common-containers-for-bioinformatics"><span class="header-section-number">3.3.3</span> Common Containers for Bioinformatics</h3>
+<ul>
+<li>GATK (the genome analysis toolkit) is one common container that we can use for analysis.</li>
+<li></li>
+</ul>
 <div class="callout callout-style-simple callout-none no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -438,6 +536,7 @@ The WILDS Docker Library
 </div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

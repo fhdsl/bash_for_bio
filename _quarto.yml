@@ -11,6 +11,7 @@ book:
     - 01_basics.qmd
     - 02_scripting.qmd
     - 03_batch.qmd
+    - 04_containers_workflows.qmd
     - configuring.qmd
     - miscellaneous.qmd
 

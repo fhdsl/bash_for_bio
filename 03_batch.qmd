@@ -179,7 +179,7 @@ This line:
 
 Will start a job array. This will create a variable called `$SLURM_ARRAY_TASK_ID` that will cycle through the numbers 1-6. Let's try a simpler script to show what's going on:
 
-```{bash}
+```bash
 #| eval: false
 #| filename: sbatch_test.sh
 #!/bin/bash
@@ -190,7 +190,7 @@ echo "${SLURM_ARRAY_TASK_ID} job"
 
 This is a minimal script that will execute 5 subjobs. It will cycle through the job array and print the array number for each job.
 
-```{bash}
+```bash
 #| eval: false
 sbatch sbatch_test.sh
 ```
@@ -204,7 +204,7 @@ Submitted batch job 26328834
 And if we look for the output files:
 
 ```bash
-tladera2@rhino01:~$ ls -l slurm-26328834_*
+ls -l slurm-26328834_*
 ```
 
 We will get the following output:
@@ -229,7 +229,19 @@ We'll see this:
 3 job
 ```
 
-What happened here? `sbatch` submitted our job array as 5 different subjobs to 5 different nodes under a single job id. Each node then output a 
+```{mermaid}
+graph TD
+  A["sbatch sbatch_test.sh"] --"1"--> B
+  B["echo 1 job"]
+  A --"2"--> C["echo 2 job"]
+  A --"3"--> D["echo 3 job"]
+```
+
+What happened here? `sbatch` submitted our job array as 5 different subjobs to 5 different nodes under a single job id. Each node then outputs a file with the subjob id that contains the job number. 
+
+### Processing files using Job Arrays
+
+So now we know that `${SLURM_ARRAY_TASK_ID}` will let us specify a subjob within our 
 
 ## Containers
 
