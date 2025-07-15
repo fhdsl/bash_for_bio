@@ -181,7 +181,7 @@ So, to unpack our script, we are substituting our first argument for the `$1`, a
 :::{.callout-note}
 ## Test yourself
 
-How would we rewrite `sam_run.sh` if we wanted to specify the output file as the first argument and the bam file as the second argument?
+How would we rewrite `sam_run.sh` (shown below) if we wanted to specify the output file as the first argument and the bam file as the second argument?
 
 ```bash
 #!/bin/bash/
@@ -209,6 +209,15 @@ module purge
 ```
 
 This line will unload the modules from memory. It's good practice to unload modules when you're done with them, especially since they have complex chains of dependencies, and the versions of these dependencies can interfere with other packages.
+
+:::{.callout}
+## Processing Files Best Practices
+
+One thing to remember is to not touch the raw data. The original files should remain untouched.
+
+A good way to do this is to have your outputs saved in a different folder.
+:::
+
 
 ## Variables in Bash Scripts {#sec-bash-variables}
 

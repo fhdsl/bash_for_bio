@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; Introduction to Scripting – Bash for Bioinformatics</title>
+<title>4&nbsp; Containers and Workflows – Bash for Bioinformatics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./03_batch.html" rel="next">
-<link href="./01_basics.html" rel="prev">
+<link href="./configuring.html" rel="next">
+<link href="./03_batch.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -104,6 +104,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 </head>
@@ -117,7 +120,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02_scripting.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction to Scripting</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04_containers_workflows.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Containers and Workflows</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -156,7 +159,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_scripting.html" class="sidebar-item-text sidebar-link active">
+  <a href="./02_scripting.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction to Scripting</span></span></a>
   </div>
 </li>
@@ -168,7 +171,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04_containers_workflows.html" class="sidebar-item-text sidebar-link">
+  <a href="./04_containers_workflows.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Containers and Workflows</span></span></a>
   </div>
 </li>
@@ -194,27 +197,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#what-were-working-towards" id="toc-what-were-working-towards" class="nav-link active" data-scroll-target="#what-were-working-towards"><span class="header-section-number">2.1</span> What we’re working towards</a></li>
-  <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation"><span class="header-section-number">2.2</span> Motivation</a></li>
-  <li><a href="#editing-on-a-linux-machine" id="toc-editing-on-a-linux-machine" class="nav-link" data-scroll-target="#editing-on-a-linux-machine"><span class="header-section-number">2.3</span> Editing on a Linux Machine</a>
+  <li><a href="#sec-containers" id="toc-sec-containers" class="nav-link active" data-scroll-target="#sec-containers"><span class="header-section-number">4.1</span> Working with containers</a></li>
+  <li><a href="#visual-table-of-contents" id="toc-visual-table-of-contents" class="nav-link" data-scroll-target="#visual-table-of-contents"><span class="header-section-number">4.2</span> Visual Table of Contents</a></li>
+  <li><a href="#sec-open-container" id="toc-sec-open-container" class="nav-link" data-scroll-target="#sec-open-container"><span class="header-section-number">4.3</span> Opening Shells in Containers for Testing</a>
   <ul class="collapse">
-  <li><a href="#try-it-out" id="toc-try-it-out" class="nav-link" data-scroll-target="#try-it-out"><span class="header-section-number">2.3.1</span> Try it Out</a></li>
+  <li><a href="#pulling-a-docker-container" id="toc-pulling-a-docker-container" class="nav-link" data-scroll-target="#pulling-a-docker-container"><span class="header-section-number">4.3.1</span> Pulling a Docker Container</a></li>
   </ul></li>
-  <li><a href="#sec-shebang" id="toc-sec-shebang" class="nav-link" data-scroll-target="#sec-shebang"><span class="header-section-number">2.4</span> The first line: the she-bang</a></li>
-  <li><a href="#sec-modules" id="toc-sec-modules" class="nav-link" data-scroll-target="#sec-modules"><span class="header-section-number">2.5</span> Software Modules</a>
+  <li><a href="#opening-a-shell-in-a-container-with-apptainer-shell" id="toc-opening-a-shell-in-a-container-with-apptainer-shell" class="nav-link" data-scroll-target="#opening-a-shell-in-a-container-with-apptainer-shell"><span class="header-section-number">4.4</span> Opening a Shell in a Container with <code>apptainer shell</code></a></li>
+  <li><a href="#sec-bindpaths" id="toc-sec-bindpaths" class="nav-link" data-scroll-target="#sec-bindpaths"><span class="header-section-number">4.5</span> Testing out bind paths in containers</a>
   <ul class="collapse">
-  <li><a href="#is-my-software-already-installed" id="toc-is-my-software-already-installed" class="nav-link" data-scroll-target="#is-my-software-already-installed"><span class="header-section-number">2.5.1</span> Is my software already installed?</a></li>
-  <li><a href="#environment-modules" id="toc-environment-modules" class="nav-link" data-scroll-target="#environment-modules"><span class="header-section-number">2.5.2</span> Environment Modules</a></li>
-  <li><a href="#module-load" id="toc-module-load" class="nav-link" data-scroll-target="#module-load"><span class="header-section-number">2.5.3</span> <code>module load</code></a></li>
-  <li><a href="#tip-load-only-as-many-modules-as-you-need-at-a-time" id="toc-tip-load-only-as-many-modules-as-you-need-at-a-time" class="nav-link" data-scroll-target="#tip-load-only-as-many-modules-as-you-need-at-a-time"><span class="header-section-number">2.5.4</span> Tip: Load only as many modules as you need at a time</a></li>
+  <li><a href="#testing-in-the-apptainer-shell" id="toc-testing-in-the-apptainer-shell" class="nav-link" data-scroll-target="#testing-in-the-apptainer-shell"><span class="header-section-number">4.5.1</span> Testing in the Apptainer Shell</a></li>
+  <li><a href="#exiting-the-container-when-youre-done" id="toc-exiting-the-container-when-youre-done" class="nav-link" data-scroll-target="#exiting-the-container-when-youre-done"><span class="header-section-number">4.5.2</span> Exiting the container when you’re done</a></li>
   </ul></li>
-  <li><a href="#sec-positional" id="toc-sec-positional" class="nav-link" data-scroll-target="#sec-positional"><span class="header-section-number">2.6</span> <code>$1</code>: A Positional argument</a>
-  <ul class="collapse">
-  <li><a href="#positional-arguments-such-as-1" id="toc-positional-arguments-such-as-1" class="nav-link" data-scroll-target="#positional-arguments-such-as-1"><span class="header-section-number">2.6.1</span> Positional Arguments such as <code>$1</code></a></li>
-  </ul></li>
-  <li><a href="#module-purge" id="toc-module-purge" class="nav-link" data-scroll-target="#module-purge"><span class="header-section-number">2.7</span> <code>module purge</code></a></li>
-  <li><a href="#sec-bash-variables" id="toc-sec-bash-variables" class="nav-link" data-scroll-target="#sec-bash-variables"><span class="header-section-number">2.8</span> Variables in Bash Scripts</a></li>
-  <li><a href="#putting-it-all-together" id="toc-putting-it-all-together" class="nav-link" data-scroll-target="#putting-it-all-together"><span class="header-section-number">2.9</span> Putting it all together</a></li>
+  <li><a href="#testing-outside-of-the-container" id="toc-testing-outside-of-the-container" class="nav-link" data-scroll-target="#testing-outside-of-the-container"><span class="header-section-number">4.6</span> Testing outside of the container</a></li>
+  <li><a href="#apptainer-cache" id="toc-apptainer-cache" class="nav-link" data-scroll-target="#apptainer-cache"><span class="header-section-number">4.7</span> Apptainer Cache</a></li>
+  <li><a href="#entrypoints" id="toc-entrypoints" class="nav-link" data-scroll-target="#entrypoints"><span class="header-section-number">4.8</span> Entrypoints</a></li>
+  <li><a href="#more-info" id="toc-more-info" class="nav-link" data-scroll-target="#more-info"><span class="header-section-number">4.9</span> More Info</a></li>
   </ul>
 </nav>
     </div>
@@ -223,7 +221,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction to Scripting</span></h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Containers and Workflows</span></h1>
 </div>
 
 
@@ -240,219 +238,164 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="what-were-working-towards" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="what-were-working-towards"><span class="header-section-number">2.1</span> What we’re working towards</h2>
-<p>By the end of this session, you should be able to understand and run this shell script.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load SAMtools/1.19.2-GCC-13.2.0  <span class="co">#load the module</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-c</span> <span class="va">$1</span> <span class="op">&gt;</span> <span class="va">$1</span>.counts.txt     <span class="co">#run the script </span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge                            <span class="co">#purge the module</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>It seems a little intimidating, but we will take this apart line by line.</p>
+<section id="sec-containers" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="sec-containers"><span class="header-section-number">4.1</span> Working with containers</h2>
+<p>I think the hardest thing about working with containers is wrapping your head around the indirectness of them. You are running software with its own internal filesystem and the challenges are getting the container to “see” folders/paths outside of it.</p>
 </section>
-<section id="motivation" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="motivation"><span class="header-section-number">2.2</span> Motivation</h2>
-<p>There is a rule in programming: if you do something more than 3 times, you should consider making it into a script or function.</p>
-<p>For example, imagine that you use <code>samtools view -c</code> all the time with certain options and you want to save the output. You can put this command and options into a shell script that takes named files as an argument (such as <code>samcount.sh</code>. Instead of typing <code>samtools stat</code> over and over again, you can run</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./samcount.sh</span> my_file.bam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="visual-table-of-contents" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="visual-table-of-contents"><span class="header-section-number">4.2</span> Visual Table of Contents</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+   B["Open Shell in Container\n(with Bindpaths)"]
+   B --&gt; D[Test Scripts in container]
+   D --&gt; E[Exit Container]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 </section>
-<section id="editing-on-a-linux-machine" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="editing-on-a-linux-machine"><span class="header-section-number">2.3</span> Editing on a Linux Machine</h2>
-<p>On the <code>rhino</code> machines, we have the option to use the <code>nano</code> editor. <code>nano</code> is the most like a word processor or code editors.</p>
+<section id="sec-open-container" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="sec-open-container"><span class="header-section-number">4.3</span> Opening Shells in Containers for Testing</h2>
+<p>In this section, we talk about testing scripts in a container using <code>apptainer</code>. We use <code>apptainer</code> (formerly Singularity) in order to run Docker containers on a shared HPC system. This is because Docker itself requires root-level privileges, which is not secure on shared systems.</p>
+<p>In order to do our testing, we’ll first pull the Docker container, map our bind point (so our container can access files outside of its file system), and then run scripts in the container.</p>
+<p>Even if you aren’t going to frequently use Apptainer in your work, I recommend trying an interactive shell in a container at least once or twice to learn about the container filesystem and conceptually understand how you connect it to the external filesystem.</p>
+<section id="pulling-a-docker-container" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="pulling-a-docker-container"><span class="header-section-number">4.3.1</span> Pulling a Docker Container</h3>
+<p>Let’s pull a docker container from the Docker registry. Note we have to specify <code>docker://</code> when we pull the container, because Apptainer has its own internal format called SIF.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> pull docker://biocontainers/samtools:v1.9-4-deb_cv1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="opening-a-shell-in-a-container-with-apptainer-shell" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="opening-a-shell-in-a-container-with-apptainer-shell"><span class="header-section-number">4.4</span> Opening a Shell in a Container with <code>apptainer shell</code></h2>
+<p>When you’re getting started, opening a shell using Apptainer can help you test out things like filepaths and how they’re accessed in the container. It’s hard to get an intuition for how file I/O works with containers until you can see the limited view from the container.</p>
+<p>By default, apptainers can see your current directory and navigate to the files in it.</p>
+<p>You can open an Apptainer shell in a container using <code>apptainer shell</code>. Remember to use <code>docker://</code> before the container name. For example:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> shell docker://biocontainers/samtools:v1.9-4-deb_cv1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This will load the <code>apptainer</code> module, and then open a Bash shell in the container using <code>apptainer shell</code>. Once you’re in the container, you can test code, especially seeing whether your files can be seen by the container (see <a href="#sec-bindpaths" class="quarto-xref"><span>Section 4.5</span></a>). 90% of the issues with using Docker containers has to do with bind paths, so we’ll talk about that next.</p>
+<p>Once you’re in the shell, you can take a look at where <code>samtools</code> is installed:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> samtools</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note that the container filesystem is isolated, and we need to explicitly build connections to it (called bind paths) to get files in and out. We’ll talk more about this in the next section.</p>
+<p>Once we’re done testing scripts in our containers, we can exit the shell and get back into the node.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">exit</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Opening a Shell in a Docker Container with Docker
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For the most part, due to security reasons, we don’t use <code>docker</code> on HPC systems. In short, the <code>docker</code> group essentially has root-level access to the machine, and it’s not a good for security on a shared resource like an HPC. However, if you have admin level access (for example, on your own laptop), you can open up an interactive shell with <code>docker run</code>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-it</span> biocontainers/samtools:v1.9-4-deb_cv1 /bin/bash</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This will open a bash shell much like <code>apptainer shell</code>. Note that volumes (the docker equivalent of bind paths) are specified differently in Docker compared to Apptainer.</p>
+</div>
+</div>
+</section>
+<section id="sec-bindpaths" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="sec-bindpaths"><span class="header-section-number">4.5</span> Testing out bind paths in containers</h2>
+<p>One thing to keep in mind is that every container has its own filesystem. One of the hardest things to wrap your head around for containers is how their filesystems work, and how to access files that are outside of the container filesystem. We’ll call any filesystems outside of the container <em>external filesystems</em> to make the discussion a little easier.</p>
+<p>By default, the containers have access to your current working directory. We could make this where our scripts live (such as <code>/home/tladera2/</code>), but because our data is elsewhere, we’ll need to specify that location (<code>/fh/fast/mylab/</code>) as well.</p>
+<p>The main mechanism we have in Apptainer to access the external filesystem are <em>bind paths</em>. Much like mounting a drive, we can bind directories from the external filesystem using these bind points.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+   B["External Directory\n/fh/fast/mydata/"] 
+   B --read--&gt; C
+   C --write--&gt; B
+   A["Container Filesystem\n/mydata/"]--write--&gt;C("--bind /fh/fast/mydata/:/mydata/")
+   C --read--&gt; A
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>I think of bind paths as “tunnels” that give access to particular folders in the external filesystem. Once the tunnel is open, we can access data files, process them, and save them using the bind path.</p>
+<p>Say my data lives in <code>/fh/fast/mydata/</code>. Then I can specify a bind point in my <code>apptainer shell</code> and <code>apptainer run</code> commands.</p>
+<p>We can do this with the <code>--bind</code> option:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> shell <span class="at">--bind</span> /fh/fast/mydata:/mydata docker://biocontainers/samtools:v1.9-4-deb_cv1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note that the bind syntax doesn’t have the trailing slash (<code>/</code>). That is, note that it is:</p>
+<pre><code>--bind /fh/fast/mydata: ....</code></pre>
+<p>Rather than</p>
+<pre><code>--bind /fh/fast/mydata/: ....</code></pre>
+<p>Now our <code>/fh/fast/mydata/</code> folder will be available as <code>/mydata/</code> in my container. We can read and write files to this bind point. For example, I’d refer to the <code>.bam</code> file <code>/fh/fast/mydata/my_bam_file.bam</code> as:</p>
+<pre><code>samtools view -c /mydata/my_bam_file.bam</code></pre>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+WDL makes this way easier
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A major point of failure with Apptainer scripting is when our scripts aren’t using the right bind paths.</p>
+<p>This is one reason we recommend writing WDL Workflows and a workflow engine (such as Cromwell) to run your workflows. You don’t have to worry that your bind points are setup correctly, because they are handled by the workflow engine.</p>
+</div>
+</div>
+<section id="testing-in-the-apptainer-shell" class="level3" data-number="4.5.1">
+<h3 data-number="4.5.1" class="anchored" data-anchor-id="testing-in-the-apptainer-shell"><span class="header-section-number">4.5.1</span> Testing in the Apptainer Shell</h3>
+<p>Ok, now we have a bind point, so now we can test our script in the shell. For example, we can see if we are invoking <code>samtools</code> in the correct way and that our bind points work.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-c</span> /mydata/my_bam_file.bam <span class="op">&gt;</span> /mydata/bam_counts.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Again, trying out scripts in the container is the best way to understand what the container can and can’t see.</p>
+</section>
+<section id="exiting-the-container-when-youre-done" class="level3" data-number="4.5.2">
+<h3 data-number="4.5.2" class="anchored" data-anchor-id="exiting-the-container-when-youre-done"><span class="header-section-number">4.5.2</span> Exiting the container when you’re done</h3>
+<p>You can <code>exit</code>, like any shell you open. You should be out of the container. Confirm by using <code>hostname</code> to make sure you’re out of the container.</p>
+</section>
+</section>
+<section id="testing-outside-of-the-container" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="testing-outside-of-the-container"><span class="header-section-number">4.6</span> Testing outside of the container</h2>
+<p>Let’s take everything that we learned and put it in a script that we can run on the HPC:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Script to samtools view -c an input file:</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Usage: ./run_sam.sh &lt;my_bam_file.bam&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Outputs a count file: my_bam_file.bam.counts.txt</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> run <span class="at">--bind</span> /fh/fast/mydata:/mydata docker://biocontainers/samtools:v1.9-4-deb_cv1 samtools view <span class="at">-c</span> /mydata/<span class="va">$1</span> <span class="op">&gt;</span> /mydata/<span class="va">$1</span>.counts.txt</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#apptainer cache clean</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We can use this script by the following command:</p>
+<pre><code>./run_sam.sh chr1.bam </code></pre>
+<p>And it will output a file called <code>chr1.bam.counts.txt</code>.</p>
+</section>
+<section id="apptainer-cache" class="level2" data-number="4.7">
+<h2 data-number="4.7" class="anchored" data-anchor-id="apptainer-cache"><span class="header-section-number">4.7</span> Apptainer Cache</h2>
+<p><a href="https://apptainer.org/docs/user/1.0/build_env.html">The apptainer cache</a> is where your docker images live. They are translated to the native apptainer <code>.sif</code> format.</p>
+<p>You can see what’s in your cache by using</p>
+<pre><code>apptainer cache list</code></pre>
+<p>By default the cache lives at <code>~/.apptainer/cache</code>.</p>
+<p>If you need to clear out the cache, you can run</p>
+<pre><code>apptainer cache clean</code></pre>
+<p>to clear out the cache.</p>
+<p>There are a number of environment variables (<a href="configuring.html#sec-environment" class="quarto-xref"><span>Section 4.4</span></a>) that can be set, including login tokens for pulling from a private registry. <a href="https://apptainer.org/docs/user/1.0/build_env.html#environment-variables">More information is here</a>.</p>
+</section>
+<section id="entrypoints" class="level2" data-number="4.8">
+<h2 data-number="4.8" class="anchored" data-anchor-id="entrypoints"><span class="header-section-number">4.8</span> Entrypoints</h2>
+<p>You can think of an entrypoint as a way of automatically starting something up in your container when you run it. For example, if you have a web stack container, one of the things you want to start is a web server when you start running it.</p>
+<p>The main reason to be aware of entrypoints is when they exist in a Dockerfile. It is important to know what is started when you start running a container.</p>
+</section>
+<section id="more-info" class="level2" data-number="4.9">
+<h2 data-number="4.9" class="anchored" data-anchor-id="more-info"><span class="header-section-number">4.9</span> More Info</h2>
 <ul>
-<li>Open a file in <code>nano</code>: <code>nano &lt;filename&gt;</code></li>
-<li>Save and quit: <code>&lt;CTRL&gt; + x</code> and then <code>yes</code></li>
-<li>Navigate in file: using the arrow keys will work</li>
-<li>Find in file: <code>&lt;CTRL&gt; + w</code></li>
-<li>Copy from outside the terminal (dependent on terminal program)</li>
+<li><a href="https://hsf-training.github.io/hsf-training-singularity-webpage/07-file-sharing/index.html">Carpentries Section on Apptainer Paths</a> - this is an excellent resource if you want to dive deeper into undestanding container filesystems and bind points.</li>
+<li><a href="https://apptainer.org/docs/user/main/bind_paths_and_mounts.html#bind-examples">Apptainer Documentation on Bind Paths</a>. There are a lot of good examples here on how to set up bind paths.</li>
+<li><a href="https://apptainer.org/docs/user/main/bind_paths_and_mounts.html">More about bind paths and other options</a>.</li>
 </ul>
-<section id="try-it-out" class="level3" data-number="2.3.1">
-<h3 data-number="2.3.1" class="anchored" data-anchor-id="try-it-out"><span class="header-section-number">2.3.1</span> Try it Out</h3>
-</section>
-</section>
-<section id="sec-shebang" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="sec-shebang"><span class="header-section-number">2.4</span> The first line: the she-bang</h2>
-<p>What’s this first line?</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>the <code>#!</code> is known as a she-bang - it’s a signal to Linux what shell interpreter to use when running the script on the command line. In our case, we want to use <code>bash</code>.</p>
-<p>The she-bang is necessary if you want to run the script without using the <code>bash</code> command (after you have made it executable):</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./samcount.sh</span> chr1.sam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="sec-modules" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="sec-modules"><span class="header-section-number">2.5</span> Software Modules</h2>
-<p>Ok, we’ve gotten comfortable navigating around the HPC filesystem. Now how do we run executables on files?</p>
-<p>Let’s talk about the two problems:</p>
-<ol type="1">
-<li>How do we find executables on a cluster, and</li>
-<li>how do we load them up and run them?</li>
-</ol>
-<section id="is-my-software-already-installed" class="level3" data-number="2.5.1">
-<h3 data-number="2.5.1" class="anchored" data-anchor-id="is-my-software-already-installed"><span class="header-section-number">2.5.1</span> Is my software already installed?</h3>
-<p>Say we want to see if <code>samtools</code> is installed on our HPC. One of the key commands you can use to find software is the <code>which</code> command. If your software is installed, <code>which</code> will give you the path where the software is installed. For example, I can see if <code>bash</code> is installed:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> bash</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Which gives me the response:</p>
-<pre><code>/bin/bash</code></pre>
-<p>So, let’s see if <code>samtools</code> is installed:</p>
-<pre><code>which samtools</code></pre>
-<p>Which gives no response, so where is <code>samtools</code>?</p>
-<p>If we don’t have <code>samtools</code> immediately available, how do we find it on our system? On the HPC system, We can use environment modules to load software.</p>
-</section>
-<section id="environment-modules" class="level3" data-number="2.5.2">
-<h3 data-number="2.5.2" class="anchored" data-anchor-id="environment-modules"><span class="header-section-number">2.5.2</span> Environment Modules</h3>
-<p>Before you install your own versions of software, it’s important to realize that this problem may be solved for you.</p>
-<p>Your first stop should be looking for environment modules on the HPC. Not all HPCs have these, but if they have them, this should be your first stop to find executables.</p>
-<p><code>lmod</code> is a system for loading and unloading software modules. It is usually installed on HPCs. The commands all start with <code>module</code>, and there are a number of ones that are useful for you.</p>
-<ul>
-<li><code>module avail</code></li>
-<li><code>module load</code></li>
-<li><code>module purge</code></li>
-</ul>
-<p>If you want to see the current list of available modules and their names, <a href="https://sciwiki.fredhutch.org/scicomputing/compute_scientificSoftware/">check them out here</a>.</p>
-<p>Looking for <code>samtools</code> on that page, we discovered the name of our module:</p>
-<pre><code>SAMtools</code></pre>
-<p>So, that’s what we’ll use to load up <code>samtools</code>.</p>
-</section>
-<section id="module-load" class="level3" data-number="2.5.3">
-<h3 data-number="2.5.3" class="anchored" data-anchor-id="module-load"><span class="header-section-number">2.5.3</span> <code>module load</code></h3>
-<p>Here’s the next line of the script:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load SAMtools/1.19.2-GCC-13.2.0  <span class="co">#load the module</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Our module name is <code>SAMtools</code>, and the <code>1.19.2-GCC-13.2.0</code> after it is the version of that module.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-For FH Users: Modules benefit everyone
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>If there is a particular bit of software that you need to run on the FH cluster that’s not there, make sure to request it from SciComp. Someone else probably needs it and so making it known so they can add it as a Environment module will help other people.</p>
-</div>
-</div>
-<div class="callout callout-style-simple callout-none no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-For FH Users
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>On the FH cluster, <code>ml</code> is a handy command that combines <code>module load</code> and <code>module avail</code>.</p>
-<p>You can load a module with <code>ml &lt;module_name&gt;</code>.</p>
-</div>
-</div>
-</section>
-<section id="tip-load-only-as-many-modules-as-you-need-at-a-time" class="level3" data-number="2.5.4">
-<h3 data-number="2.5.4" class="anchored" data-anchor-id="tip-load-only-as-many-modules-as-you-need-at-a-time"><span class="header-section-number">2.5.4</span> Tip: Load only as many modules as you need at a time</h3>
-<p>One of the big issues with bioinformatics software is that the toolchain (the software dependencies needed to run the software) can be different. So when possible, load only one or two modules at a time for each step of your analysis. When you’re done with that step, use <code>module purge</code> to clear out the software environment.</p>
-</section>
-</section>
-<section id="sec-positional" class="level2" data-number="2.6">
-<h2 data-number="2.6" class="anchored" data-anchor-id="sec-positional"><span class="header-section-number">2.6</span> <code>$1</code>: A Positional argument</h2>
-<p>The next line of our script is this:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-c</span> <span class="va">$1</span> <span class="op">&gt;</span> <span class="va">$1</span>.counts.txt  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Let’s take a look at the command that we’re running first. We’re going to run <code>samtools view -c</code>, which will give us counts on an incoming <code>bam</code> or <code>sam</code> file and save it in a file. We want to be able to run our script like this:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> samtools_count.sh my_file.bam </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>When we run it like that, <code>samtools_count.sh</code> will run <code>samtools view -c</code> like this:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-c</span> my_file.bam <span class="op">&gt;</span> my_file.bam.counts.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>So what’s going on here is that there is some substitution using common arguments. Let’s look at these.</p>
-<div class="callout callout-style-simple callout-none no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<code>&gt;</code> - redirecting outputs to a file
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The <code>&gt;</code> in the script means that we are going to direct the <em>output</em> of <code>samtools view -c</code> into a file.</p>
-<p>If we didn’t do this, <code>samtools_count.sh</code> would output everything to console.</p>
-<p>Much more info about this when we talk about the different outputs to console.</p>
-</div>
-</div>
-<section id="positional-arguments-such-as-1" class="level3" data-number="2.6.1">
-<h3 data-number="2.6.1" class="anchored" data-anchor-id="positional-arguments-such-as-1"><span class="header-section-number">2.6.1</span> Positional Arguments such as <code>$1</code></h3>
-<p>How did the script know where to substitute each of our arguments? It has to do with the argument variables. Arguments (terms that follow our command) are indexed starting with the number 1. We can access the value at the first position using the special variable <code>$1</code>.</p>
-<p>Note that this works even in quotes.</p>
-<p>So, to unpack our script, we are substituting our first argument for the <code>$1</code>, and our second argument for the <code>$2</code> in our script.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Test yourself
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>How would we rewrite <code>sam_run.sh</code> (shown below) if we wanted to specify the output file as the first argument and the bam file as the second argument?</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash/</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> stats <span class="va">$1</span> <span class="op">&gt;</span> <span class="va">$2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Answer
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>For this script, we would switch the positions of <code>$1</code> and <code>$2</code>.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash/</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> stats <span class="va">$2</span> <span class="op">&gt;</span> <span class="va">$1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="module-purge" class="level2" data-number="2.7">
-<h2 data-number="2.7" class="anchored" data-anchor-id="module-purge"><span class="header-section-number">2.7</span> <code>module purge</code></h2>
-<p>The last line of our script is:</p>
-<pre><code>module purge</code></pre>
-<p>This line will unload the modules from memory. It’s good practice to unload modules when you’re done with them, especially since they have complex chains of dependencies, and the versions of these dependencies can interfere with other packages.</p>
-<div class="callout callout-style-simple callout-none no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Processing Files Best Practices
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>One thing to remember is to not touch the raw data. The original files should remain untouched.</p>
-<p>A good way to do this is to have your outputs saved in a different folder.</p>
-</div>
-</div>
-</section>
-<section id="sec-bash-variables" class="level2" data-number="2.8">
-<h2 data-number="2.8" class="anchored" data-anchor-id="sec-bash-variables"><span class="header-section-number">2.8</span> Variables in Bash Scripts</h2>
-<p>We saw a little bit about using <code>$1</code>, which is a <em>variable</em> in our Bash scripts. Let’s talk about declaring variables in bash scripts and using them using variable expansion.</p>
-<p>In Bash, we can declare a variable by using <code>&lt;variable_name&gt;=&lt;value&gt;</code>. Note there are no spaces between the variable (<code>my_variable</code>), equals sign, and the value (<code>"ggplot2"</code>).</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="va">my_variable</span><span class="op">=</span><span class="st">"ggplot2"</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"My favorite R package is </span><span class="va">${my_variable}</span><span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre><code>My favorite R package is ggplot2</code></pre>
-<p>Take a look at line 3 above. We expand the variable (that is, we substitute the actual variable) by using <code>${my_variable}</code> in our <code>echo</code> statement.</p>
-<p>In general, when expanding a variable in a quoted string, it is better to use <code>${my_variable}</code> (the variable name in curly brackets). This is especially important when using the variable name as part of a string:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="va">my_var</span><span class="op">=</span><span class="st">"chr1"</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"</span><span class="va">${my_var}</span><span class="st">_1.vcf.gz"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre><code>chr1_1.vcf.gz</code></pre>
-<p>If we didn’t use the braces here, like this:</p>
-<pre><code>echo "$my_var_1.vcf.gz"</code></pre>
-<p>Bash would look for the variable <code>$my_var_1</code>, which doesn’t exist. So use the curly braces <code>{}</code> when you expand variables. It’s safer overall.</p>
-<p>There is an alternate method for variable expansion which we will use when we call a <em>sub-shell</em> - a shell within a shell, much like in our <code>xargs</code> command above. We need to use parentheses <code>()</code> to expand them within the sub-shell, but not the top-shell. We’ll use this when we process multiple files within a single worker.</p>
-</section>
-<section id="putting-it-all-together" class="level2" data-number="2.9">
-<h2 data-number="2.9" class="anchored" data-anchor-id="putting-it-all-together"><span class="header-section-number">2.9</span> Putting it all together</h2>
 
 
 </section>
@@ -859,13 +802,13 @@ Processing Files Best Practices
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./01_basics.html" class="pagination-link" aria-label="Navigating the Bash Filesystem">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Navigating the Bash Filesystem</span></span>
+      <a href="./03_batch.html" class="pagination-link" aria-label="Batch Processing and Submitting Jobs">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Batch Processing and Submitting Jobs</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./03_batch.html" class="pagination-link" aria-label="Batch Processing and Submitting Jobs">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Batch Processing and Submitting Jobs</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./configuring.html" class="pagination-link" aria-label="Appendix: Configuring your Shell">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Appendix: Configuring your Shell</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
