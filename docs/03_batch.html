@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./configuring.html" rel="next">
+<link href="./04_containers_workflows.html" rel="next">
 <link href="./02_scripting.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -171,14 +171,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./04_containers_workflows.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Containers and Workflows</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./configuring.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Appendix: Configuring your Shell</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Appendix: Configuring your Shell</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./miscellaneous.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Miscellaneous</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Miscellaneous</span></span></a>
   </div>
 </li>
     </ul>
@@ -480,7 +486,7 @@ Why this is important on HPC
 <ul>
 <li><strong>Software</strong> - The software we want to run in a container. For bioinformatics work, this is usually something like an aligner like <code>bwa</code>, or utilities such as <code>samtools</code></li>
 <li><strong>Software Dependencies</strong> - various software packages needed to run the software. For example, if we wanted to run <code>tidyverse</code> in a container, we need to have <code>R</code> installed in the container as well</li>
-<li><strong>Filesystem</strong> - containers have their own isolated filesystem that can be connected to the “outside world” - everything outside of the container. We’ll learn more about customizing these with bind paths (<span class="quarto-unresolved-ref">?sec-bindpaths</span>).</li>
+<li><strong>Filesystem</strong> - containers have their own isolated filesystem that can be connected to the “outside world” - everything outside of the container. We’ll learn more about customizing these with bind paths (<a href="04_containers_workflows.html#sec-bindpaths" class="quarto-xref"><span>Section 4.5</span></a>).</li>
 </ul>
 <p>In short, the container has everything needed to run the software. It is not a full operating system, but a smaller mini-version that cuts out a lot of cruft.</p>
 <p>Containers are ephemeral. They leverage the the file system of their host to manage files. These are called both <em>Volumes</em> (the Docker term) and Bind Paths (the apptainer term).</p>
@@ -493,7 +499,7 @@ Why this is important on HPC
 <li>Using the Apptainer software (for HPC systems)</li>
 </ol>
 <p>In general, Docker is used on systems where you have a high level of access to the system. This is because docker uses a special user group called <code>docker</code> that has essentially root level privileges.</p>
-<p>This is not the case for HPC systems, which are shared. This is when we use Apptainer (which used to be called Singularity), which requires a much lower level of user privileges to execute tasks. For more info, see <span class="quarto-unresolved-ref">?sec-open-container</span> .</p>
+<p>This is not the case for HPC systems, which are shared. This is when we use Apptainer (which used to be called Singularity), which requires a much lower level of user privileges to execute tasks. For more info, see <a href="04_containers_workflows.html#sec-open-container" class="quarto-xref"><span>Section 4.3</span></a> .</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -946,8 +952,8 @@ The WILDS Docker Library
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./configuring.html" class="pagination-link" aria-label="Appendix: Configuring your Shell">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Appendix: Configuring your Shell</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./04_containers_workflows.html" class="pagination-link" aria-label="Containers and Workflows">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Containers and Workflows</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

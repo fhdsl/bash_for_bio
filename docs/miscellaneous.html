@@ -259,7 +259,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="one-workflow-fhfast-and-hpctemp" class="level3" data-number="6.1.1">
 <h3 data-number="6.1.1" class="anchored" data-anchor-id="one-workflow-fhfast-and-hpctemp"><span class="header-section-number">6.1.1</span> One Workflow: <code>/fh/fast/</code> and <code>/hpc/temp/</code></h3>
 <p>One approach is to have your scripts also live in your project folder in <code>fast</code>. Then, you can sync the project in <code>/fh/fast/</code> over to <code>/hpc/temp/</code>, run the scripts in <code>/hpc/temp/</code>, and then sync the two folders again. You can do the file sync’ing in both directions with Motuz (<span class="quarto-unresolved-ref">?sec-motuz</span>), which has its own advantages.</p>
-<p>If you want to go this route, you should think about using a Folder Based Workflow (<a href="configuring.html#sec-project" class="quarto-xref"><span>Section 4.5</span></a>), where everything lives in a folder.</p>
+<p>If you want to go this route, you should think about using a Folder Based Workflow (<a href="configuring.html#sec-project" class="quarto-xref"><span>Section 5.5</span></a>), where everything lives in a folder.</p>
 <p>Another thing to consider is to have a backup of the scripts that is either on your own machine or in GitHub. You can do this by using your <code>.gitignore</code> to exclude the data and results.</p>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">

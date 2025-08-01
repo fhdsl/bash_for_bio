@@ -215,6 +215,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#module-purge" id="toc-module-purge" class="nav-link" data-scroll-target="#module-purge"><span class="header-section-number">2.7</span> <code>module purge</code></a></li>
   <li><a href="#sec-bash-variables" id="toc-sec-bash-variables" class="nav-link" data-scroll-target="#sec-bash-variables"><span class="header-section-number">2.8</span> Variables in Bash Scripts</a></li>
   <li><a href="#putting-it-all-together" id="toc-putting-it-all-together" class="nav-link" data-scroll-target="#putting-it-all-together"><span class="header-section-number">2.9</span> Putting it all together</a></li>
+  <li><a href="#aligning-a-file" id="toc-aligning-a-file" class="nav-link" data-scroll-target="#aligning-a-file"><span class="header-section-number">2.10</span> Aligning a file</a></li>
   </ul>
 </nav>
     </div>
@@ -267,15 +268,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <section id="try-it-out" class="level3" data-number="2.3.1">
 <h3 data-number="2.3.1" class="anchored" data-anchor-id="try-it-out"><span class="header-section-number">2.3.1</span> Try it Out</h3>
+<p>Try making your own file called <code>my_file.txt</code>:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> my_file.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Add some text to it.</p>
+<p>Use CTRL-X to exit, and make sure to select “Yes” to save.</p>
 </section>
 </section>
 <section id="sec-shebang" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="sec-shebang"><span class="header-section-number">2.4</span> The first line: the she-bang</h2>
 <p>What’s this first line?</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>the <code>#!</code> is known as a she-bang - it’s a signal to Linux what shell interpreter to use when running the script on the command line. In our case, we want to use <code>bash</code>.</p>
 <p>The she-bang is necessary if you want to run the script without using the <code>bash</code> command (after you have made it executable):</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./samcount.sh</span> chr1.sam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./samcount.sh</span> chr1.sam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="sec-modules" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="sec-modules"><span class="header-section-number">2.5</span> Software Modules</h2>
@@ -288,7 +293,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="is-my-software-already-installed" class="level3" data-number="2.5.1">
 <h3 data-number="2.5.1" class="anchored" data-anchor-id="is-my-software-already-installed"><span class="header-section-number">2.5.1</span> Is my software already installed?</h3>
 <p>Say we want to see if <code>samtools</code> is installed on our HPC. One of the key commands you can use to find software is the <code>which</code> command. If your software is installed, <code>which</code> will give you the path where the software is installed. For example, I can see if <code>bash</code> is installed:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> bash</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> bash</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Which gives me the response:</p>
 <pre><code>/bin/bash</code></pre>
 <p>So, let’s see if <code>samtools</code> is installed:</p>
@@ -314,7 +319,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="module-load" class="level3" data-number="2.5.3">
 <h3 data-number="2.5.3" class="anchored" data-anchor-id="module-load"><span class="header-section-number">2.5.3</span> <code>module load</code></h3>
 <p>Here’s the next line of the script:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load SAMtools/1.19.2-GCC-13.2.0  <span class="co">#load the module</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load SAMtools/1.19.2-GCC-13.2.0  <span class="co">#load the module</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Our module name is <code>SAMtools</code>, and the <code>1.19.2-GCC-13.2.0</code> after it is the version of that module.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -346,17 +351,17 @@ For FH Users
 </section>
 <section id="tip-load-only-as-many-modules-as-you-need-at-a-time" class="level3" data-number="2.5.4">
 <h3 data-number="2.5.4" class="anchored" data-anchor-id="tip-load-only-as-many-modules-as-you-need-at-a-time"><span class="header-section-number">2.5.4</span> Tip: Load only as many modules as you need at a time</h3>
-<p>One of the big issues with bioinformatics software is that the toolchain (the software dependencies needed to run the software) can be different. So when possible, load only one or two modules at a time for each step of your analysis. When you’re done with that step, use <code>module purge</code> to clear out the software environment.</p>
+<p>One of the big issues with bioinformatics software is that the toolchain (the software dependencies needed to run the software) can be different for different executables. So when possible, load only one or two modules at a time for each step of your analysis. When you’re done with that step, use <code>module purge</code> to clear out the software environment.</p>
 </section>
 </section>
 <section id="sec-positional" class="level2" data-number="2.6">
 <h2 data-number="2.6" class="anchored" data-anchor-id="sec-positional"><span class="header-section-number">2.6</span> <code>$1</code>: A Positional argument</h2>
 <p>The next line of our script is this:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-c</span> <span class="va">$1</span> <span class="op">&gt;</span> <span class="va">$1</span>.counts.txt  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-c</span> <span class="va">$1</span> <span class="op">&gt;</span> <span class="va">$1</span>.counts.txt  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Let’s take a look at the command that we’re running first. We’re going to run <code>samtools view -c</code>, which will give us counts on an incoming <code>bam</code> or <code>sam</code> file and save it in a file. We want to be able to run our script like this:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> samtools_count.sh my_file.bam </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> samtools_count.sh my_file.bam </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>When we run it like that, <code>samtools_count.sh</code> will run <code>samtools view -c</code> like this:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-c</span> my_file.bam <span class="op">&gt;</span> my_file.bam.counts.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-c</span> my_file.bam <span class="op">&gt;</span> my_file.bam.counts.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>So what’s going on here is that there is some substitution using common arguments. Let’s look at these.</p>
 <div class="callout callout-style-simple callout-none no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -389,8 +394,8 @@ Test yourself
 </div>
 <div class="callout-body-container callout-body">
 <p>How would we rewrite <code>sam_run.sh</code> (shown below) if we wanted to specify the output file as the first argument and the bam file as the second argument?</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash/</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> stats <span class="va">$1</span> <span class="op">&gt;</span> <span class="va">$2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash/</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> stats <span class="va">$1</span> <span class="op">&gt;</span> <span class="va">$2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -406,8 +411,8 @@ Answer
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>For this script, we would switch the positions of <code>$1</code> and <code>$2</code>.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash/</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> stats <span class="va">$2</span> <span class="op">&gt;</span> <span class="va">$1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash/</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> stats <span class="va">$2</span> <span class="op">&gt;</span> <span class="va">$1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -437,22 +442,32 @@ Processing Files Best Practices
 <h2 data-number="2.8" class="anchored" data-anchor-id="sec-bash-variables"><span class="header-section-number">2.8</span> Variables in Bash Scripts</h2>
 <p>We saw a little bit about using <code>$1</code>, which is a <em>variable</em> in our Bash scripts. Let’s talk about declaring variables in bash scripts and using them using variable expansion.</p>
 <p>In Bash, we can declare a variable by using <code>&lt;variable_name&gt;=&lt;value&gt;</code>. Note there are no spaces between the variable (<code>my_variable</code>), equals sign, and the value (<code>"ggplot2"</code>).</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="va">my_variable</span><span class="op">=</span><span class="st">"ggplot2"</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"My favorite R package is </span><span class="va">${my_variable}</span><span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="va">my_variable</span><span class="op">=</span><span class="st">"ggplot2"</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"My favorite R package is </span><span class="va">${my_variable}</span><span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre><code>My favorite R package is ggplot2</code></pre>
 <p>Take a look at line 3 above. We expand the variable (that is, we substitute the actual variable) by using <code>${my_variable}</code> in our <code>echo</code> statement.</p>
 <p>In general, when expanding a variable in a quoted string, it is better to use <code>${my_variable}</code> (the variable name in curly brackets). This is especially important when using the variable name as part of a string:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="va">my_var</span><span class="op">=</span><span class="st">"chr1"</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"</span><span class="va">${my_var}</span><span class="st">_1.vcf.gz"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="va">my_var</span><span class="op">=</span><span class="st">"chr1"</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"</span><span class="va">${my_var}</span><span class="st">_1.vcf.gz"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre><code>chr1_1.vcf.gz</code></pre>
 <p>If we didn’t use the braces here, like this:</p>
 <pre><code>echo "$my_var_1.vcf.gz"</code></pre>
 <p>Bash would look for the variable <code>$my_var_1</code>, which doesn’t exist. So use the curly braces <code>{}</code> when you expand variables. It’s safer overall.</p>
-<p>There is an alternate method for variable expansion which we will use when we call a <em>sub-shell</em> - a shell within a shell, much like in our <code>xargs</code> command above. We need to use parentheses <code>()</code> to expand them within the sub-shell, but not the top-shell. We’ll use this when we process multiple files within a single worker.</p>
+<p>There is an alternate method for variable expansion which we will use when we call a <em>sub-shell</em> - a shell within a shell. We need to use parentheses <code>()</code> to expand them within the sub-shell, but not the top-shell. We’ll use this when we process multiple files within a single worker.</p>
 </section>
 <section id="putting-it-all-together" class="level2" data-number="2.9">
 <h2 data-number="2.9" class="anchored" data-anchor-id="putting-it-all-together"><span class="header-section-number">2.9</span> Putting it all together</h2>
+<p>We can run the script on a file using</p>
+</section>
+<section id="aligning-a-file" class="level2" data-number="2.10">
+<h2 data-number="2.10" class="anchored" data-anchor-id="aligning-a-file"><span class="header-section-number">2.10</span> Aligning a file</h2>
+<p>How about running the <code>bwa-mem</code> aligner? Let’s run a FASTQ file into it:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/Bash</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load BWA/0.7.17-GCCcore-11.2.0</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="va">REF_GENOME</span><span class="op">=</span><span class="st">"/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa"</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="ex">bwa</span> mem <span class="va">${REF_GENOME}</span> <span class="va">$1</span> <span class="op">&gt;</span> <span class="va">$1</span>.aligned.sam</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 </section>

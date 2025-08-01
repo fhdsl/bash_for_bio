@@ -94,7 +94,7 @@
     "href": "01_basics.html#navigating-the-bash-terminal",
     "title": "1  Navigating the Bash Filesystem",
     "section": "1.3 Navigating the Bash Terminal",
-    "text": "1.3 Navigating the Bash Terminal\n\nWe recommend that you review the material for Intro to Command Line and know the following: Changing directories,\n\nBy default, when you log into a remote system such as rhino, you are in a bash A command processor that we interact with via text. In our case, the Shell we’re interacting with is on the server.shell.\nWhy is it a bash shell? Bash is the default shell for linux systems, especially for high performance clusters (HPCs), and there are some quirks about navigating around the command line you should be aware of.\n\n\n\n\n\n\nA helpful key: &lt;Up Arrow&gt;\n\n\n\nThe  key will let you cycle through your history, or previous executed commands. This can be super helpful if you have typed a long command with a syntax error. You can use &lt;Up Arrow&gt; to fix mistakes and run that command again.",
+    "text": "1.3 Navigating the Bash Terminal\n\nWe recommend that you review the material for Intro to Command Line and know the following: Changing directories,\n\nBy default, when you log into a remote system such as rhino, you are in a Short for Bourne Again Shell - it is the command processor that is typically run in a text window, has its own programming language and syntax.bash A command processor that we interact with via text. In our case, the Shell we’re interacting with is on the server.shell.\nWhy is it a bash shell? Bash is the default shell for linux systems, especially for high performance clusters (HPCs), and there are some quirks about navigating around the command line you should be aware of.\n\n\n\n\n\n\nA helpful key: &lt;Up Arrow&gt;\n\n\n\nThe  key will let you cycle through your history, or previous executed commands. This can be super helpful if you have typed a long command with a syntax error. You can use &lt;Up Arrow&gt; to fix mistakes and run that command again.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Navigating the Bash Filesystem</span>"
     ]
@@ -124,7 +124,7 @@
     "href": "01_basics.html#sec-home",
     "title": "1  Navigating the Bash Filesystem",
     "section": "1.6 Going /home: ~/",
-    "text": "1.6 Going /home: ~/\nThere is one important file alias you should always remember: ~/ is shorthand for your own home directory.\nDepending on the linux distribution, this can be a different location. On the FH filesystem, when I use ~/, it maps to:\n/home/tladera2/\nThe home directory is also important because it is where your configuration files live, such as .bashrc (see Section 4.1).\nDepending on how you work, you may want to store your scripts and workflows in /home/. Some people prefer to keep their scripts, data, and results in a single folder. This is not really practical for most genomics projects, unless you are saving processed data. For more info, see Section 4.5.\n\n\n\n\n\n\nYour current working directory\n\n\n\nThere is an alias for your current directory: . (the period sign).\nThis becomes useful when you want to output files to your current location.\n\n\n\n1.6.1 du: How much space?\nOne of the things we can do is check for disk usage with the du command. If I run du by itself on the command line, it will give me the disk usage of all folders and files in our current directory, which is a lot of output.\nThere is an option called -d that lets us specify the depth. -d 1 will give us only the file sizes of the top level folders in our directory:\ndu -d 1 .\nHere are the first few lines of my du output.\n630440  ./Code\n32  ./Downloads\n32  ./Pictures\n2495144 ./miniconda3\n64  ./.launch-rstudio-server\n72  ./.ipynb_checkpoints\n64  ./.qt\n1616    ./.config\n32  ./Music\n32  ./Desktop\nIf we want to specify du to scan only a single folder, we can give the folder name.\ndu -d 1 Desktop\nI have nothing really stored in my Desktop/ folder, so I get the following:\n32  Desktop/\n\n\n\n\n\n\nTry it out\n\n\n\nTry checking the disk usage using du for the Desktop folder in your /home directory (mine is /home/tladera2).\ndu -d 1 --------/\nTry out using du -d 2 on your home directory:\ndu -d 2 ~/",
+    "text": "1.6 Going /home: ~/\nThere is one important file alias you should always remember: ~/ is shorthand for your own home directory.\nDepending on the linux distribution, this can be a different location. On the FH filesystem, when I use ~/, it maps to:\n/home/tladera2/\nThe home directory is also important because it is where your configuration files live, such as .bashrc (see Section 5.1).\nDepending on how you work, you may want to store your scripts and workflows in /home/. Some people prefer to keep their scripts, data, and results in a single folder. This is not really practical for most genomics projects, unless you are saving processed data. For more info, see Section 5.5.\n\n\n\n\n\n\nYour current working directory\n\n\n\nThere is an alias for your current directory: . (the period sign).\nThis becomes useful when you want to output files to your current location.\n\n\n\n1.6.1 du: How much space?\nOne of the things we can do is check for disk usage with the du command. If I run du by itself on the command line, it will give me the disk usage of all folders and files in our current directory, which is a lot of output.\nThere is an option called -d that lets us specify the depth. -d 1 will give us only the file sizes of the top level folders in our directory:\ndu -d 1 .\nHere are the first few lines of my du output.\n630440  ./Code\n32  ./Downloads\n32  ./Pictures\n2495144 ./miniconda3\n64  ./.launch-rstudio-server\n72  ./.ipynb_checkpoints\n64  ./.qt\n1616    ./.config\n32  ./Music\n32  ./Desktop\nIf we want to specify du to scan only a single folder, we can give the folder name.\ndu -d 1 Desktop\nI have nothing really stored in my Desktop/ folder, so I get the following:\n32  Desktop/\n\n\n\n\n\n\nTry it out\n\n\n\nTry checking the disk usage using du for the Desktop folder in your /home directory (mine is /home/tladera2).\ndu -d 1 --------/\nTry out using du -d 2 on your home directory:\ndu -d 2 ~/",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Navigating the Bash Filesystem</span>"
     ]
@@ -174,7 +174,17 @@
     "href": "01_basics.html#sec-moving",
     "title": "1  Navigating the Bash Filesystem",
     "section": "1.11 Moving Things Around",
-    "text": "1.11 Moving Things Around\nA lot of the time, we need to move files between shared filesystems. One filesystem might be good at storage and be backed up on a regular basis, while another filesystem might be better for temporary work on the cluster.\nYou might be familiar with mv, which lets you move files around in Unix. One thing to keep in mind when you’re mving things to a new folder that there is a difference between:\nmv log.txt my_folder   ## renames log.txt to my_folder\nand\nmv log.txt my_folder/  ## moves log.txt to be in my_folder\nThis is one thing that still trips me up all the time.\nThis is one situation where using a GUI such as Motuz (?sec-motuz) can be very helpful. You don’t have to worry about accidentally renaming files.\nOther tools for sync’ing between filesystems include rsync, which requires careful reading of documentation.\n\n\n\n\n\n\nThings I always forget: the difference between /home/mydir/ and home/mydir/\n\n\n\nSome things that trip me up all the time. The difference between\n/home/mydir/    #absolute path\nand\nhome/mydir/     #relative path\nThe first one is an absolute path, and the second is a relative path. Your clue is the leading / at the beginning of a path. If you’re getting file not found messages, check to make sure the path is the right format.\n\n\n\n1.11.1 Keep Everything in Folders\nWe need to talk about code and data organization. For the FH system, we have a /home/ directory, and if we have generated research data, a /fh/fast/ directory. If we want our scripts to live in /home/ and our data is in /fh/temp/, we’ll need to refer to each of these file locations.\nIdeally, we want to make the naming conventions of our code and our data as similar as possible.\n\n\n\n\n\n\nTry it Out\n\n\n\nCopy the script tell_the_time.sh in the scripts/ directory to your current location.\nMake the script executable.",
+    "text": "1.11 Moving Things Around\nA lot of the time, we need to move files between shared filesystems. One filesystem might be good at storage and be backed up on a regular basis, while another filesystem might be better for temporary work on the cluster.\nYou might be familiar with mv, which lets you move files around in Unix. One thing to keep in mind when you’re mving things to a new folder that there is a difference between:\nmv log.txt my_folder   ## renames log.txt to my_folder\nand\nmv log.txt my_folder/  ## moves log.txt to be in my_folder\nThis is one thing that still trips me up all the time.\nThis is one situation where using a GUI such as Motuz (?sec-motuz) can be very helpful. You don’t have to worry about accidentally renaming files.\nOther tools for sync’ing between filesystems include rsync, which requires careful reading of documentation.\n\n\n\n\n\n\nThings I always forget: the difference between /home/mydir/ and home/mydir/\n\n\n\nSome things that trip me up all the time. The difference between\n/home/mydir/    #absolute path\nand\nhome/mydir/     #relative path\nThe first one is an absolute path, and the second is a relative path. Your clue is the leading / at the beginning of a path. If you’re getting file not found messages, check to make sure the path is the right format.\n\n\n\n1.11.1 Keep Everything in Folders\nWe need to talk about code and data organization. For the FH system, we have a /home/ directory, and if we have generated research data, a /fh/fast/ directory. If we want our scripts to live in /home/ and our data is in /fh/temp/, we’ll need to refer to each of these file locations.\nIdeally, we want to make the naming conventions of our code and our data as similar as possible.\n\n\n\n\n\n\nTry it Out\n\n\n\nCopy the script tell_the_time.sh in the scripts/ directory to your home directory.\nMake the script executable.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Navigating the Bash Filesystem</span>"
+    ]
+  },
+  {
+    "objectID": "01_basics.html#whats-in-the-script",
+    "href": "01_basics.html#whats-in-the-script",
+    "title": "1  Navigating the Bash Filesystem",
+    "section": "1.12 What’s in the script",
+    "text": "1.12 What’s in the script\nWe can see what’s in the script by using cat:\ncat tell_the_time.sh\nAnd you’ll get the following:\n#!/bin/bash\ndate",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Navigating the Bash Filesystem</span>"
     ]
@@ -183,8 +193,18 @@
     "objectID": "01_basics.html#running-a-bash-script",
     "href": "01_basics.html#running-a-bash-script",
     "title": "1  Navigating the Bash Filesystem",
-    "section": "1.12 Running a Bash Script",
-    "text": "1.12 Running a Bash Script\nOk, now we have a bash script tell_the_time.sh in our current directory, how do we run it?\nBecause the script is not on our $PATH (Section 4.4.2), we’ll need to use ./ to execute it. ./ is an alias for the current folder, and it is an indicator to bash that the command we want to execute is in our current folder.\ntladera2$ ./tell_the_time.sh\nIf we haven’t set the permissions (Section 1.10) correctly, we’ll get this message:\nbash: ./scripts/tell_the_time.sh: Permission denied\nBut if we have execute access, we’ll get something like this:\nFri Jul 11 13:27:47 PDT 2025\nWhich is the current date and time.",
+    "section": "1.13 Running a Bash Script",
+    "text": "1.13 Running a Bash Script\nOk, now we have a bash script tell_the_time.sh in our current directory, how do we run it?\nBecause the script is not on our $PATH (Section 5.4.2), we’ll need to use ./ to execute it. ./ is an alias for the current folder, and it is an indicator to bash that the command we want to execute is in our current folder.\ntladera2$ ./tell_the_time.sh\nIf we haven’t set the permissions (Section 1.10) correctly, we’ll get this message:\nbash: ./scripts/tell_the_time.sh: Permission denied\nBut if we have execute access, we’ll get something like this:\nFri Jul 11 13:27:47 PDT 2025\nWhich is the current date and time.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Navigating the Bash Filesystem</span>"
+    ]
+  },
+  {
+    "objectID": "01_basics.html#running-an-r-or-python-script-on-the-command-line",
+    "href": "01_basics.html#running-an-r-or-python-script-on-the-command-line",
+    "title": "1  Navigating the Bash Filesystem",
+    "section": "1.14 Running an R or Python Script on the command line",
+    "text": "1.14 Running an R or Python Script on the command line\n\n1.14.1 Loading the fhR or fhPython modules\nBefore we can run our software, we’ll need to load up either R or\nWe’ll talk more about software modules next week (Section 2.5).\n\n\n1.14.2 R Users\nYou might not be aware that there are multiple ways to run R:\n\nas an interactive console, which is what we usually use in an IDE such as RStudio\non the command line using the Rscript command.\n\nRscript my_r_script.R\n\n\n1.14.3 Python Users\nPython users are much more aware that you can run Python scripts on the command line:\npython3 my_python_script.py\nWithin a shell script, you can also use a shebang (Section 2.4) to make your script executable by providing the location of python3:\n#!/bin/python3\npython3 my_python_script.py",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Navigating the Bash Filesystem</span>"
     ]
@@ -193,8 +213,18 @@
     "objectID": "01_basics.html#recap",
     "href": "01_basics.html#recap",
     "title": "1  Navigating the Bash Filesystem",
-    "section": "1.14 Recap",
-    "text": "1.14 Recap\nWe learned the following this week:\n\nNavigate and copy data to the different filesystems available at Fred Hutch.\nExplain the difference between absolute and relative file paths.\nSet Permissions on and execute a bash script\nFind help on the system",
+    "section": "1.15 Recap",
+    "text": "1.15 Recap\nWe learned the following this week:\n\nNavigate and copy data to the different filesystems available at Fred Hutch.\nExplain the difference between absolute and relative file paths.\nSet Permissions on and execute a bash script\nFind help on the system",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Navigating the Bash Filesystem</span>"
+    ]
+  },
+  {
+    "objectID": "01_basics.html#next-week",
+    "href": "01_basics.html#next-week",
+    "title": "1  Navigating the Bash Filesystem",
+    "section": "1.16 Next Week",
+    "text": "1.16 Next Week\nWe’ll focus on adding arguments to our scripts.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Navigating the Bash Filesystem</span>"
     ]
@@ -234,14 +264,14 @@
     "href": "02_scripting.html#editing-on-a-linux-machine",
     "title": "2  Introduction to Scripting",
     "section": "2.3 Editing on a Linux Machine",
-    "text": "2.3 Editing on a Linux Machine\nOn the rhino machines, we have the option to use the nano editor. nano is the most like a word processor or code editors.\n\nOpen a file in nano: nano &lt;filename&gt;\nSave and quit: &lt;CTRL&gt; + x and then yes\nNavigate in file: using the arrow keys will work\nFind in file: &lt;CTRL&gt; + w\nCopy from outside the terminal (dependent on terminal program)\n\n\n2.3.1 Try it Out",
+    "text": "2.3 Editing on a Linux Machine\nOn the rhino machines, we have the option to use the nano editor. nano is the most like a word processor or code editors.\n\nOpen a file in nano: nano &lt;filename&gt;\nSave and quit: &lt;CTRL&gt; + x and then yes\nNavigate in file: using the arrow keys will work\nFind in file: &lt;CTRL&gt; + w\nCopy from outside the terminal (dependent on terminal program)\n\n\n2.3.1 Try it Out\nTry making your own file called my_file.txt:\nnano my_file.txt\nAdd some text to it.\nUse CTRL-X to exit, and make sure to select “Yes” to save.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction to Scripting</span>"
     ]
   },
   {
-    "objectID": "02_scripting.html#the-first-line-the-she-bang",
-    "href": "02_scripting.html#the-first-line-the-she-bang",
+    "objectID": "02_scripting.html#sec-shebang",
+    "href": "02_scripting.html#sec-shebang",
     "title": "2  Introduction to Scripting",
     "section": "2.4 The first line: the she-bang",
     "text": "2.4 The first line: the she-bang\nWhat’s this first line?\n#!/bin/bash\nthe #! is known as a she-bang - it’s a signal to Linux what shell interpreter to use when running the script on the command line. In our case, we want to use bash.\nThe she-bang is necessary if you want to run the script without using the bash command (after you have made it executable):\n./samcount.sh chr1.sam",
@@ -250,11 +280,11 @@
     ]
   },
   {
-    "objectID": "02_scripting.html#software-modules",
-    "href": "02_scripting.html#software-modules",
+    "objectID": "02_scripting.html#sec-modules",
+    "href": "02_scripting.html#sec-modules",
     "title": "2  Introduction to Scripting",
     "section": "2.5 Software Modules",
-    "text": "2.5 Software Modules\nOk, we’ve gotten comfortable navigating around the HPC filesystem. Now how do we run executables on files?\nLet’s talk about the two problems:\n\nHow do we find executables on a cluster, and\nhow do we load them up and run them?\n\n\n2.5.1 Is my software already installed?\nSay we want to see if samtools is installed on our HPC. One of the key commands you can use to find software is the which command. If your software is installed, which will give you the path where the software is installed. For example, I can see if bash is installed:\nwhich bash\nWhich gives me the response:\n/bin/bash\nSo, let’s see if samtools is installed:\nwhich samtools\nWhich gives no response, so where is samtools?\nIf we don’t have samtools immediately available, how do we find it on our system? On the HPC system, We can use environment modules to load software.\n\n\n2.5.2 Environment Modules\nBefore you install your own versions of software, it’s important to realize that this problem may be solved for you.\nYour first stop should be looking for environment modules on the HPC. Not all HPCs have these, but if they have them, this should be your first stop to find executables.\nlmod is a system for loading and unloading software modules. It is usually installed on HPCs. The commands all start with module, and there are a number of ones that are useful for you.\n\nmodule avail\nmodule load\nmodule purge\n\nIf you want to see the current list of available modules and their names, check them out here.\nLooking for samtools on that page, we discovered the name of our module:\nSAMtools\nSo, that’s what we’ll use to load up samtools.\n\n\n2.5.3 module load\nHere’s the next line of the script:\nmodule load SAMtools/1.19.2-GCC-13.2.0  #load the module\nOur module name is SAMtools, and the 1.19.2-GCC-13.2.0 after it is the version of that module.\n\n\n\n\n\n\nFor FH Users: Modules benefit everyone\n\n\n\nIf there is a particular bit of software that you need to run on the FH cluster that’s not there, make sure to request it from SciComp. Someone else probably needs it and so making it known so they can add it as a Environment module will help other people.\n\n\n\n\n\n\n\n\nFor FH Users\n\n\n\nOn the FH cluster, ml is a handy command that combines module load and module avail.\nYou can load a module with ml &lt;module_name&gt;.\n\n\n\n\n2.5.4 Tip: Load only as many modules as you need at a time\nOne of the big issues with bioinformatics software is that the toolchain (the software dependencies needed to run the software) can be different. So when possible, load only one or two modules at a time for each step of your analysis. When you’re done with that step, use module purge to clear out the software environment.",
+    "text": "2.5 Software Modules\nOk, we’ve gotten comfortable navigating around the HPC filesystem. Now how do we run executables on files?\nLet’s talk about the two problems:\n\nHow do we find executables on a cluster, and\nhow do we load them up and run them?\n\n\n2.5.1 Is my software already installed?\nSay we want to see if samtools is installed on our HPC. One of the key commands you can use to find software is the which command. If your software is installed, which will give you the path where the software is installed. For example, I can see if bash is installed:\nwhich bash\nWhich gives me the response:\n/bin/bash\nSo, let’s see if samtools is installed:\nwhich samtools\nWhich gives no response, so where is samtools?\nIf we don’t have samtools immediately available, how do we find it on our system? On the HPC system, We can use environment modules to load software.\n\n\n2.5.2 Environment Modules\nBefore you install your own versions of software, it’s important to realize that this problem may be solved for you.\nYour first stop should be looking for environment modules on the HPC. Not all HPCs have these, but if they have them, this should be your first stop to find executables.\nlmod is a system for loading and unloading software modules. It is usually installed on HPCs. The commands all start with module, and there are a number of ones that are useful for you.\n\nmodule avail\nmodule load\nmodule purge\n\nIf you want to see the current list of available modules and their names, check them out here.\nLooking for samtools on that page, we discovered the name of our module:\nSAMtools\nSo, that’s what we’ll use to load up samtools.\n\n\n2.5.3 module load\nHere’s the next line of the script:\nmodule load SAMtools/1.19.2-GCC-13.2.0  #load the module\nOur module name is SAMtools, and the 1.19.2-GCC-13.2.0 after it is the version of that module.\n\n\n\n\n\n\nFor FH Users: Modules benefit everyone\n\n\n\nIf there is a particular bit of software that you need to run on the FH cluster that’s not there, make sure to request it from SciComp. Someone else probably needs it and so making it known so they can add it as a Environment module will help other people.\n\n\n\n\n\n\n\n\nFor FH Users\n\n\n\nOn the FH cluster, ml is a handy command that combines module load and module avail.\nYou can load a module with ml &lt;module_name&gt;.\n\n\n\n\n2.5.4 Tip: Load only as many modules as you need at a time\nOne of the big issues with bioinformatics software is that the toolchain (the software dependencies needed to run the software) can be different for different executables. So when possible, load only one or two modules at a time for each step of your analysis. When you’re done with that step, use module purge to clear out the software environment.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction to Scripting</span>"
     ]
@@ -284,7 +314,7 @@
     "href": "02_scripting.html#sec-bash-variables",
     "title": "2  Introduction to Scripting",
     "section": "2.8 Variables in Bash Scripts",
-    "text": "2.8 Variables in Bash Scripts\nWe saw a little bit about using $1, which is a variable in our Bash scripts. Let’s talk about declaring variables in bash scripts and using them using variable expansion.\nIn Bash, we can declare a variable by using &lt;variable_name&gt;=&lt;value&gt;. Note there are no spaces between the variable (my_variable), equals sign, and the value (\"ggplot2\").\nmy_variable=\"ggplot2\"\n\necho \"My favorite R package is ${my_variable}\"\nMy favorite R package is ggplot2\nTake a look at line 3 above. We expand the variable (that is, we substitute the actual variable) by using ${my_variable} in our echo statement.\nIn general, when expanding a variable in a quoted string, it is better to use ${my_variable} (the variable name in curly brackets). This is especially important when using the variable name as part of a string:\nmy_var=\"chr1\"\necho \"${my_var}_1.vcf.gz\"\nchr1_1.vcf.gz\nIf we didn’t use the braces here, like this:\necho \"$my_var_1.vcf.gz\"\nBash would look for the variable $my_var_1, which doesn’t exist. So use the curly braces {} when you expand variables. It’s safer overall.\nThere is an alternate method for variable expansion which we will use when we call a sub-shell - a shell within a shell, much like in our xargs command above. We need to use parentheses () to expand them within the sub-shell, but not the top-shell. We’ll use this when we process multiple files within a single worker.",
+    "text": "2.8 Variables in Bash Scripts\nWe saw a little bit about using $1, which is a variable in our Bash scripts. Let’s talk about declaring variables in bash scripts and using them using variable expansion.\nIn Bash, we can declare a variable by using &lt;variable_name&gt;=&lt;value&gt;. Note there are no spaces between the variable (my_variable), equals sign, and the value (\"ggplot2\").\nmy_variable=\"ggplot2\"\n\necho \"My favorite R package is ${my_variable}\"\nMy favorite R package is ggplot2\nTake a look at line 3 above. We expand the variable (that is, we substitute the actual variable) by using ${my_variable} in our echo statement.\nIn general, when expanding a variable in a quoted string, it is better to use ${my_variable} (the variable name in curly brackets). This is especially important when using the variable name as part of a string:\nmy_var=\"chr1\"\necho \"${my_var}_1.vcf.gz\"\nchr1_1.vcf.gz\nIf we didn’t use the braces here, like this:\necho \"$my_var_1.vcf.gz\"\nBash would look for the variable $my_var_1, which doesn’t exist. So use the curly braces {} when you expand variables. It’s safer overall.\nThere is an alternate method for variable expansion which we will use when we call a sub-shell - a shell within a shell. We need to use parentheses () to expand them within the sub-shell, but not the top-shell. We’ll use this when we process multiple files within a single worker.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction to Scripting</span>"
     ]
@@ -294,7 +324,17 @@
     "href": "02_scripting.html#putting-it-all-together",
     "title": "2  Introduction to Scripting",
     "section": "2.9 Putting it all together",
-    "text": "2.9 Putting it all together",
+    "text": "2.9 Putting it all together\nWe can run the script on a file using",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction to Scripting</span>"
+    ]
+  },
+  {
+    "objectID": "02_scripting.html#aligning-a-file",
+    "href": "02_scripting.html#aligning-a-file",
+    "title": "2  Introduction to Scripting",
+    "section": "2.10 Aligning a file",
+    "text": "2.10 Aligning a file\nHow about running the bwa-mem aligner? Let’s run a FASTQ file into it:\n#!/bin/Bash\nmodule load BWA/0.7.17-GCCcore-11.2.0\nREF_GENOME=\"/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa\"\nbwa mem ${REF_GENOME} $1 &gt; $1.aligned.sam\nmodule purge",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction to Scripting</span>"
     ]
@@ -330,163 +370,13 @@
     ]
   },
   {
-    "objectID": "configuring.html",
-    "href": "configuring.html",
-    "title": "4  Appendix: Configuring your Shell",
-    "section": "",
-    "text": "4.1 .bashrc: Where do I put my configuration?\nThere is a file in your home directory called .bashrc. This is where you can customize the way the Bash shell behaves.\nThere are 2 things you should know how to set:",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Appendix: Configuring your Shell</span>"
-    ]
-  },
-  {
-    "objectID": "configuring.html#sec-bashrc",
-    "href": "configuring.html#sec-bashrc",
-    "title": "4  Appendix: Configuring your Shell",
-    "section": "",
-    "text": "Aliases\nEnvironment Variables, especially $PATH",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Appendix: Configuring your Shell</span>"
-    ]
-  },
-  {
-    "objectID": "configuring.html#an-example-.bashrc-file",
-    "href": "configuring.html#an-example-.bashrc-file",
-    "title": "4  Appendix: Configuring your Shell",
-    "section": "4.2 An example .bashrc file",
-    "text": "4.2 An example .bashrc file",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Appendix: Configuring your Shell</span>"
-    ]
-  },
-  {
-    "objectID": "configuring.html#aliases",
-    "href": "configuring.html#aliases",
-    "title": "4  Appendix: Configuring your Shell",
-    "section": "4.3 Aliases",
-    "text": "4.3 Aliases\nAliases are shortcuts for commands. You can specify them using alias as a line in your .bashrc file:\nalias ll='ls -la'\nWe are defining an alias called ll that runs ls -la (long listing for directory for all files) here. Once\nSome people even add aliases for things they mistype frequently.",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Appendix: Configuring your Shell</span>"
-    ]
-  },
-  {
-    "objectID": "configuring.html#sec-environment",
-    "href": "configuring.html#sec-environment",
-    "title": "4  Appendix: Configuring your Shell",
-    "section": "4.4 Environment Variables",
-    "text": "4.4 Environment Variables\nEnvironment variables are variables which can be seen globally in the Linux (or Windows) system across executables.\nYou can get a list of all set environment variables by using the env command. Here’s an example from my own system:\nenv\nSHELL=/bin/bash\nNVM_INC=/home/tladera2/.nvm/versions/node/v21.7.1/include/node\nWSL_DISTRO_NAME=Ubuntu\nNAME=2QM6TV3\nPWD=/home/tladera2\nLOGNAME=tladera2\n[....]\nOne common environment variable you may have seen is $JAVA_HOME, which is used to find the Java Software Development Kit (SDK). (I usually encounter it when a software application yells at me when I haven’t set it.)\nYou can see whether an environment variable is set using echo, such as\necho $PATH\n/home/tladera2/.local/bin:/home/tladera2/gems/bin:/home/tladera2/.nvm/versions/node/v21.7.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/ [....]\n\n4.4.1 Setting Environment Variables\nIn Bash, we use the export command to declare an environment variable. For example, if we wanted to declare the environment variable $SAMTOOLS_PATH we’d do the following:\n# works: note no spaces\nexport SAMTOOLS_PATH=\"/home/tladera2/miniconda/bin/\"\nOne thing to note is that spacing matters when you declare environment variables. For example, this won’t declare the $SAMTOOLS_PATH variable:\n# won't work because of spaces\nexport SAMTOOLS_PATH = \"/home/tladera2/miniconda/bin/\"\nAnother thing to note is that we declare environment variables differently than we use them. If we wanted to use SAMTOOLS_PATH in a script, we use a dollar sign ($) in front of it:\n${SAMTOOLS_PATH}/samtools view -c $input_file\nIn this case, the value of $SAMTOOLS_PATH will be expanded (substituted) to give the overall path:\n/home/tladera2/miniconda/bin/samtools view -c $input_file\n\n\n4.4.2 A Very Special Environment Variable: $PATH\nThe most important environment variable is the $PATH variable. This variable is important because it determines where to search for software executables (also called binaries). If you have softwware installed by a package manager (such as miniconda), you may need to add the location of your executables to your $PATH.\nWe can add more directories to the $PATH by appending to it. You might have seen the following bit of code in your .bashrc:\nexport PATH=$PATH:/home/tladera2/samtools/\nIn this line, we are adding the path /home/tladera2/samtools/ to our $PATH environment variable. Note that how we refer to the PATH variable is different depending on which side the variable is on of the equals sign.\n\n\n\n\n\n\nOrder matters in your $PATH\n\n\n\n\n\n\nTLDR: We declare the variable using export PATH (no dollar sign) and we append to the variable using $PATH (with dollar sign). This is something that trips me up all the time.\n\n\n\n\n\n\nFor FH Users\n\n\n\nIn general, when you use environment modules on gizmo, you do not need to modify your $PATH variable. You mostly need to modify it when you are compiling executables so that the system can find them. Be sure to use which to see where the environment module is actually located:\nwhich samtools\n\n\n\n\n4.4.3 Making your own environment variables\nOne of the difficulties with working on a cluster is that your scripts may be in one filesystem (/home/), and your data might be in another filesystem (/fh/fast/). And it might be recommended that you transfer over files to a faster-access filesystem (/fh/temp/) to process them.\nYou can set your own environment variables for use in your own scripts. For example, we might define a $TCR_FILE_HOME variable:\nexport TCR_FILE_HOME=/fh/fast/my_tcr_project/\nto save us some typing across our scripts. We can use this new environment variable like any other existing environment variable:\n#!/bin/Bash\nexport my_file_location=$TCR_FILE_HOME/fasta_files/\n\n\n\n\n\n\n.bashrc versus .bash_profile\n\n\n\nOk, what’s the difference between .bashrc and .bash_profile?\nThe main difference is when these two files are sourced. bash_profile is used when you do an interactive login, and .bashrc is used for non-interactive shells.\n.bashrc should contain the environment variables that you use all the time, such as $PATH and $JAVA_HOME for example.\nYou can get the best of both worlds by including the following line in your .bash_profile:\nsource ~/.bashrc\nThat way, everything in the .bashrc file is loaded when you log in interactively.",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Appendix: Configuring your Shell</span>"
-    ]
-  },
-  {
-    "objectID": "configuring.html#sec-project",
-    "href": "configuring.html#sec-project",
-    "title": "4  Appendix: Configuring your Shell",
-    "section": "4.5 Project/folder based workflows",
-    "text": "4.5 Project/folder based workflows\nOn a particular machine, using absolute paths is safe. However, you do this at the cost of portability - code that you write on one machine may not run on another.\nIf you ever anticipate doing the analysis on a separate machine, using project structures with relative paths is the safest. For example, you may want to move from the on-premise FH system to working with the data in AWS.\nHere’s one example of putting everything into a single folder:\nmy_project\n├── data\n│   ├── chr1.fa.gz\n│   ├── chr2.fa.gz\n│   └── chr3.fa.gz\n├── results\n├── run_workflow.sh\n└── scripts\n    └── run_bowtie.sh\nIn the above example, our project is named my_project, and there are three folders inside it: data/, results/, and scripts/. Our main script for running is my_project/run_workflow.sh. Because this script is in the root folder, we can refer to the data/ folder to process files:\n./scripts/run_bowtie.sh data/*.fa.gz results/\nWhen we run run_workflow.sh, it will execute run_bowtie.sh on all of the files in data/, and save them in results/, resulting in the following updated structure.\nmy_project\n├── data\n│   ├── chr1.fa.gz\n│   ├── chr2.fa.gz\n│   └── chr3.fa.gz\n├── results\n│   ├── chr1.bam\n│   ├── chr2.bam\n│   └── chr3.bam\n├── run_workflow.sh\n└── scripts\n    └── run_bowtie.sh\nYou may have seen relative paths such as ../another_directory/ - the .. means to go up a directory in the file hierarchy, and then look in that directory for the another_directory/ directory. I try to avoid using relative paths like these.\nIn general for portability and reproducibility, you will want to use relative paths within a directory, and avoid using relative paths like ../../my_folder, where you are navigating up. In general, use relative paths to navigate down.\n\n\n\n\n\n\nWhy This is Important\n\n\n\nWhen you start executing scripts, it’s important to know where the results go. When you execute SAMtools on a file in /fh/temp/, for example, where does the output go?\nWorkflow Runners such as Cromwell and Nextflow will output into certain file structures by default. This can be changed, but knowing the default behavior is super helpful when you don’t specify an output directory.",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Appendix: Configuring your Shell</span>"
-    ]
-  },
-  {
-    "objectID": "miscellaneous.html",
-    "href": "miscellaneous.html",
-    "title": "6  Miscellaneous",
-    "section": "",
-    "text": "6.0.1 hostname What Machine am I on?\nOne of the most confusing things about working on HPC is that sometimes you have a shell open on the head node, but oftentimes, you are on a worker node.\nYour totem for telling which node you’re in is hostname, which will give you the host name of the machine you’re on.\nFor example, if I used grabnode to grab a gizmo node for interactive work, I can check which node I’m in by using:\nIf you’re confused about which node you’re in, remember hostname. It will save you from making mistakes, especially when using utilities like screen.",
-    "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Miscellaneous</span>"
-    ]
-  },
-  {
-    "objectID": "miscellaneous.html#workflows",
-    "href": "miscellaneous.html#workflows",
-    "title": "6  Miscellaneous",
-    "section": "6.1 Workflows",
-    "text": "6.1 Workflows\n\n6.1.1 One Workflow: /fh/fast/ and /hpc/temp/\nOne approach is to have your scripts also live in your project folder in fast. Then, you can sync the project in /fh/fast/ over to /hpc/temp/, run the scripts in /hpc/temp/, and then sync the two folders again. You can do the file sync’ing in both directions with Motuz (?sec-motuz), which has its own advantages.\nIf you want to go this route, you should think about using a Folder Based Workflow (Section 4.5), where everything lives in a folder.\nAnother thing to consider is to have a backup of the scripts that is either on your own machine or in GitHub. You can do this by using your .gitignore to exclude the data and results.\n\n\n\n\n\ngraph LR\n    A[\"Fast\\n/fh/fast/my_lab/project/\\nRaw Data & Scripts\"] --\"a. Sync Data & scripts\"--&gt;B\n    B[\"Temp\\n/hpc/temp/my_lab/project\\nb. Run Scripts here\"] --\"c. Sync results\"--&gt;A\n\n\n\n\n\n\n\n\n6.1.2 Another Approach\nBelow is a a diagram with another way to work with these multiple filesystems.\n\nWe transfer the raw files to be processed from /fh/fast/ to our directory /fh/temp/. For example, a set of .bam files.\nWe run our scripts from /home/, on the raw files in /fh/temp/ and produce results in /fh/temp/.\nWe transfer our results from /fh/temp/ to /fh/fast/.\n\n\n\n\n\n\ngraph TD\n    A[\"Home Directory\\n/home/tladera2/\\nScripts\"] --\"b. run scripts\"--&gt; C\n    B[\"Fast\\n/fh/fast/tladera2\\nResearch Data\"] --\"a. transfer raw files\"--&gt; C\n    C[\"Temp\\n/fh/temp/tladera2\"] --\"c. transfer results\"--&gt; B",
-    "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Miscellaneous</span>"
-    ]
-  },
-  {
-    "objectID": "miscellaneous.html#quoting-and-escaping-filenames-in-bash",
-    "href": "miscellaneous.html#quoting-and-escaping-filenames-in-bash",
-    "title": "6  Miscellaneous",
-    "section": "6.2 Quoting and Escaping Filenames in Bash",
-    "text": "6.2 Quoting and Escaping Filenames in Bash\nOne point of confusion is when do you quote things in Bash? When do you use single quotes (') versus double-quotes (\")? When do you use \\ to escape characters?\nLet’s talk about some quoting rules in Bash. I’ve tried to make things as simplified and generalized as possible, rather than stating all of the rules for each quote.\n\nIf you have spaces in a filename, use double quotes (\"chr 1.bam\")\nIf you have a single quote in the filename, use double quotes to wrap it (\"ted's file.bam\")\nOnly escape characters when necessary - if you can solve a problem with quotes, use them\nIf you need to preserve an escaped character, use single quotes\n\nLet’s go over each of these with an example.\n\n6.2.1 If you have spaces in a filename, use double quotes (Most common)\nFor example, if your filename is chr 1 file.bam, then use double quotes in your argument\nsamtools view -c \"chr 1 file.bam\"\n\n\n6.2.2 If you have a single quote in the name, use double quotes to wrap it (less common)\nSay you have a file called ted's new file.bam. This can be a problem when you are calling it, especially because of the single quote.\nIn this case, you can do this:\nsamtools view -c \"ted's new file.bam\"\n\n\n6.2.3 Only escape characters when necessary (less common)\nThere are a number of special characters (such as Tab, and Newline) that can be specified as escape characters. In double quotes, characters such as $ are signals to Bash to expand or evaluate code.\nSay that someone had a $ in their file name such as Thi$file is money.bam\nHow do we refer to it? We can escape the character with a backslash \\:\nsamtools view -c \"Thi\\$file is money.bam\"\nThe backslash is a clue to Bash that we don’t want variable expansion in this case. Without it, bash would look for a variable called $file.\n\n\n6.2.4 If you need to preserve an escaped character, use single quotes (least common)\nThis is rarely used, but if you need to keep an escaped character in your filename, you can use single quotes. Say we have a filename called Thi\\$file.bam and you need that backslash in the file name (btw, please don’t do this), you can use single quotes to preserve that backslash:\nsamtools view -c 'Thi\\$file.bam'\nAgain, hopefully you won’t need this.\n\n\n6.2.5 For More Info\nhttps://www.grymoire.com/Unix/Quote.html#uh-3\n\n\n\n\n\n\nWhat about backticks?\n\n\n\nBackticks (`) are an old way to do command evaluation in Bash. For example, if we run the following on the command-line:\necho \"there are `ls -l | wc -l` files in this directory\"\nWill produce:\nthere are       36 files in this directory\nTheir use is deprecated, so you should be using $() in your command evaluations instead:\necho \"there are $(ls -l | wc -l) files in this directory\"\n\n\n\n\n\n\n\n\nWhat about X use case?\n\n\n\nThere are a lot of rules for Bash variable expansion and quoting that I don’t cover here. I try to show you a way to do things that work in multiple situations on the cluster.\nThat’s why I focus on double quotes for filenames and ${} for variable expansion in general. They will work whether your Bash script is on the command line or in an App, or in WDL.",
-    "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Miscellaneous</span>"
-    ]
-  },
-  {
-    "objectID": "miscellaneous.html#using-pipes-stdin-stdout-stderr",
-    "href": "miscellaneous.html#using-pipes-stdin-stdout-stderr",
-    "title": "6  Miscellaneous",
-    "section": "6.3 Using pipes: STDIN, STDOUT, STDERR",
-    "text": "6.3 Using pipes: STDIN, STDOUT, STDERR\nWe will need to use pipes to chain our commands together. Specifically, we need to take a command that generates a list of files on the cluster shared filesystem, and then spawns individual jobs to process each file. For this reason, understanding a little bit more about how pipes (|) work in Bash is helpful.\nIf we want to understand how to chain our scripts together into a pipeline, it is helpful to know about the different streams that are available to the utilities.\n\n\n\n\n\n\n\n\ngraph LR\n  A(STDIN) --&gt; E[run_samtools.sh]\n  E --&gt; B(STDOUT)\n  E --&gt; C(STDERR)\n\n\n\n\n\n\n\n\nFigure 6.1: Inputs/outputs to a script\n\n\n\nEvery script has three streams available to it: Standard In (STDIN), Standard Out (STDOUT), and Standard Error (STDERR) (Figure 6.1).\nSTDIN contains information that is directed to the input of a script (usually text output via STDOUT from another script).\nWhy do these matter? To work in a Unix pipeline, a script must be able to utilize STDIN, and generate STDOUT, and STDERR.\nSpecifically, in pipelines, STDOUT of a script (here it’s run_samtools) is directed into STDIN of another command (here wc, or word count)\n\n\n\n\n\n\n\n\ngraph LR\n  E[run_samtools.sh] --&gt; B(STDOUT)\n  B --&gt; F{\"|\"}\n  E --&gt; C(STDERR)\n  F --&gt; D(\"STDIN (wc)\")\n  D --&gt; G[wc]\n\n\n\n\n\n\n\n\nFigure 6.2: Piping a script run_samtools.sh into another command (wc)\n\n\n\nWe will mostly use STDOUT in our bash scripts, but STDERR can be really helpful in debugging what’s going wrong.\n\n\n\n\n\n\nWhy this is important on the Cluster\n\n\n\nWe’ll use pipes and pipelines not only in starting a bunch of jobs using batch scripting on our home computer, but also when we are processing files within a job.\n\n\n\n6.3.1 For more info about pipes and pipelines\nhttps://swcarpentry.github.io/shell-novice/04-pipefilter/index.html https://datascienceatthecommandline.com/2e/chapter-2-getting-started.html?q=stdin#combining-command-line-tools",
-    "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Miscellaneous</span>"
-    ]
-  },
-  {
-    "objectID": "miscellaneous.html#basename-can-be-very-handy-when-on-workers",
-    "href": "miscellaneous.html#basename-can-be-very-handy-when-on-workers",
-    "title": "6  Miscellaneous",
-    "section": "6.4 basename can be very handy when on workers",
-    "text": "6.4 basename can be very handy when on workers\nIf we are processing a bunch of files on a worker, we need a way to get the bare filename from a path. We will take advantage of this when we run process multiple files on the worker.\nFor example:\nbasename /mnt/project/worker_scripts/srun-script.sh\nThis will return:\nsrun-script.sh\nWhich can be really handy when we name our outputs. This command is so handy it is used in WDL.",
-    "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Miscellaneous</span>"
-    ]
-  },
-  {
-    "objectID": "01_basics.html#running-an-r-or-python-script-on-the-command-line",
-    "href": "01_basics.html#running-an-r-or-python-script-on-the-command-line",
-    "title": "1  Navigating the Bash Filesystem",
-    "section": "1.13 Running an R or Python Script on the command line",
-    "text": "1.13 Running an R or Python Script on the command line\n\n1.13.1 Loading the fhR or fhPython modules\nBefore we can run our software, we’ll need to load up either R or\nWe’ll talk more about software modules next week (Section 2.5).\n\n\n1.13.2 R Users\nYou might not be aware that there are multiple ways to run R:\n\nas an interactive console, which is what we usually use in an IDE such as RStudio\non the command line using the Rscript command.\n\nRscript my_r_script.R\n\n\n1.13.3 Python Users\nPython users are much more aware that you can run Python scripts on the command line:\npython3 my_python_script.py\nWithin a shell script, you can also use a shebang (Section 2.4) to make your script executable by providing the location of python3:\n#!/bin/python3\npython3 my_python_script.py",
-    "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Navigating the Bash Filesystem</span>"
-    ]
-  },
-  {
     "objectID": "03_batch.html#containers",
     "href": "03_batch.html#containers",
     "title": "3  Batch Processing and Submitting Jobs",
     "section": "3.3 Containers",
-    "text": "3.3 Containers\nWe already learned about software modules (Section 2.5). There is an alternative way to use software: containers.\n\n3.3.1 What is a Container?\nA container is a self-contained unit of software. It contains everything needed to run the software on a variety of machines. If you have the container software installed on your machine, it doesn’t matter whether it is MacOS, Linux, or Windows - the container will behave consistently across different operating systems and architectures.\nThe container has the following contents:\n\nSoftware - The software we want to run in a container. For bioinformatics work, this is usually something like an aligner like bwa, or utilities such as samtools\nSoftware Dependencies - various software packages needed to run the software. For example, if we wanted to run tidyverse in a container, we need to have R installed in the container as well\nFilesystem - containers have their own isolated filesystem that can be connected to the “outside world” - everything outside of the container. We’ll learn more about customizing these with bind paths (?sec-bindpaths).\n\nIn short, the container has everything needed to run the software. It is not a full operating system, but a smaller mini-version that cuts out a lot of cruft.\nContainers are ephemeral. They leverage the the file system of their host to manage files. These are called both Volumes (the Docker term) and Bind Paths (the apptainer term).\n\n\n3.3.2 Docker vs. Apptainer\nThere are two basic ways to run Docker containers:\n\nUsing the Docker software\nUsing the Apptainer software (for HPC systems)\n\nIn general, Docker is used on systems where you have a high level of access to the system. This is because docker uses a special user group called docker that has essentially root level privileges.\nThis is not the case for HPC systems, which are shared. This is when we use Apptainer (which used to be called Singularity), which requires a much lower level of user privileges to execute tasks. For more info, see ?sec-open-container .\n\n\n\n\n\n\nBe Secure\n\n\n\nBefore we get started, security is always a concern when running containers. The docker group has elevated status on a system, so we need to be careful that when we’re running them, they aren’t introducing any system vulnerabilities. Note that on HPC systems, the main mechanism for running containers is apptainer, which is designed to be more secure.\nThese are mostly important when running containers that are web-servers or part of a web stack, but it is also important to think about when running jobs on HPC.\nHere are some guidelines to think about when you are working with a container.\n\nUse vendor-specific Docker Images when possible.\nUse container scanners to spot potential vulnerabilities. DockerHub has a vulnerability scanner that scans your Docker images for potential vulnerabilities.\nAvoid kitchen-sink images. One issue is when an image is built on top of many other images. It makes it really difficult to plug vulnerabilities. When in doubt, use images from trusted people and organizations. At the very least, look at the Dockerfile to see that suspicious software isn’t being installed.\n\n\n\n\n\n3.3.3 Common Containers for Bioinformatics\n\nGATK (the genome analysis toolkit) is one common container that we can use for analysis.\n\n\n\n\n\n\n\n\nThe WILDS Docker Library\n\n\n\nThe Data Science Lab",
+    "text": "3.3 Containers\nWe already learned about software modules (Section 2.5). There is an alternative way to use software: containers.\n\n3.3.1 What is a Container?\nA container is a self-contained unit of software. It contains everything needed to run the software on a variety of machines. If you have the container software installed on your machine, it doesn’t matter whether it is MacOS, Linux, or Windows - the container will behave consistently across different operating systems and architectures.\nThe container has the following contents:\n\nSoftware - The software we want to run in a container. For bioinformatics work, this is usually something like an aligner like bwa, or utilities such as samtools\nSoftware Dependencies - various software packages needed to run the software. For example, if we wanted to run tidyverse in a container, we need to have R installed in the container as well\nFilesystem - containers have their own isolated filesystem that can be connected to the “outside world” - everything outside of the container. We’ll learn more about customizing these with bind paths (Section 4.5).\n\nIn short, the container has everything needed to run the software. It is not a full operating system, but a smaller mini-version that cuts out a lot of cruft.\nContainers are ephemeral. They leverage the the file system of their host to manage files. These are called both Volumes (the Docker term) and Bind Paths (the apptainer term).\n\n\n3.3.2 Docker vs. Apptainer\nThere are two basic ways to run Docker containers:\n\nUsing the Docker software\nUsing the Apptainer software (for HPC systems)\n\nIn general, Docker is used on systems where you have a high level of access to the system. This is because docker uses a special user group called docker that has essentially root level privileges.\nThis is not the case for HPC systems, which are shared. This is when we use Apptainer (which used to be called Singularity), which requires a much lower level of user privileges to execute tasks. For more info, see Section 4.3 .\n\n\n\n\n\n\nBe Secure\n\n\n\nBefore we get started, security is always a concern when running containers. The docker group has elevated status on a system, so we need to be careful that when we’re running them, they aren’t introducing any system vulnerabilities. Note that on HPC systems, the main mechanism for running containers is apptainer, which is designed to be more secure.\nThese are mostly important when running containers that are web-servers or part of a web stack, but it is also important to think about when running jobs on HPC.\nHere are some guidelines to think about when you are working with a container.\n\nUse vendor-specific Docker Images when possible.\nUse container scanners to spot potential vulnerabilities. DockerHub has a vulnerability scanner that scans your Docker images for potential vulnerabilities.\nAvoid kitchen-sink images. One issue is when an image is built on top of many other images. It makes it really difficult to plug vulnerabilities. When in doubt, use images from trusted people and organizations. At the very least, look at the Dockerfile to see that suspicious software isn’t being installed.\n\n\n\n\n\n3.3.3 Common Containers for Bioinformatics\n\nGATK (the genome analysis toolkit) is one common container that we can use for analysis.\n\n\n\n\n\n\n\n\nThe WILDS Docker Library\n\n\n\nThe Data Science Lab",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Batch Processing and Submitting Jobs</span>"
-    ]
-  },
-  {
-    "objectID": "02_scripting.html#sec-shebang",
-    "href": "02_scripting.html#sec-shebang",
-    "title": "2  Introduction to Scripting",
-    "section": "2.4 The first line: the she-bang",
-    "text": "2.4 The first line: the she-bang\nWhat’s this first line?\n#!/bin/bash\nthe #! is known as a she-bang - it’s a signal to Linux what shell interpreter to use when running the script on the command line. In our case, we want to use bash.\nThe she-bang is necessary if you want to run the script without using the bash command (after you have made it executable):\n./samcount.sh chr1.sam",
-    "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction to Scripting</span>"
-    ]
-  },
-  {
-    "objectID": "01_basics.html#next-week",
-    "href": "01_basics.html#next-week",
-    "title": "1  Navigating the Bash Filesystem",
-    "section": "1.15 Next Week",
-    "text": "1.15 Next Week\nWe’ll focus on adding arguments to our scripts.",
-    "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Navigating the Bash Filesystem</span>"
-    ]
-  },
-  {
-    "objectID": "02_scripting.html#sec-modules",
-    "href": "02_scripting.html#sec-modules",
-    "title": "2  Introduction to Scripting",
-    "section": "2.5 Software Modules",
-    "text": "2.5 Software Modules\nOk, we’ve gotten comfortable navigating around the HPC filesystem. Now how do we run executables on files?\nLet’s talk about the two problems:\n\nHow do we find executables on a cluster, and\nhow do we load them up and run them?\n\n\n2.5.1 Is my software already installed?\nSay we want to see if samtools is installed on our HPC. One of the key commands you can use to find software is the which command. If your software is installed, which will give you the path where the software is installed. For example, I can see if bash is installed:\nwhich bash\nWhich gives me the response:\n/bin/bash\nSo, let’s see if samtools is installed:\nwhich samtools\nWhich gives no response, so where is samtools?\nIf we don’t have samtools immediately available, how do we find it on our system? On the HPC system, We can use environment modules to load software.\n\n\n2.5.2 Environment Modules\nBefore you install your own versions of software, it’s important to realize that this problem may be solved for you.\nYour first stop should be looking for environment modules on the HPC. Not all HPCs have these, but if they have them, this should be your first stop to find executables.\nlmod is a system for loading and unloading software modules. It is usually installed on HPCs. The commands all start with module, and there are a number of ones that are useful for you.\n\nmodule avail\nmodule load\nmodule purge\n\nIf you want to see the current list of available modules and their names, check them out here.\nLooking for samtools on that page, we discovered the name of our module:\nSAMtools\nSo, that’s what we’ll use to load up samtools.\n\n\n2.5.3 module load\nHere’s the next line of the script:\nmodule load SAMtools/1.19.2-GCC-13.2.0  #load the module\nOur module name is SAMtools, and the 1.19.2-GCC-13.2.0 after it is the version of that module.\n\n\n\n\n\n\nFor FH Users: Modules benefit everyone\n\n\n\nIf there is a particular bit of software that you need to run on the FH cluster that’s not there, make sure to request it from SciComp. Someone else probably needs it and so making it known so they can add it as a Environment module will help other people.\n\n\n\n\n\n\n\n\nFor FH Users\n\n\n\nOn the FH cluster, ml is a handy command that combines module load and module avail.\nYou can load a module with ml &lt;module_name&gt;.\n\n\n\n\n2.5.4 Tip: Load only as many modules as you need at a time\nOne of the big issues with bioinformatics software is that the toolchain (the software dependencies needed to run the software) can be different. So when possible, load only one or two modules at a time for each step of your analysis. When you’re done with that step, use module purge to clear out the software environment.",
-    "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction to Scripting</span>"
     ]
   },
   {
@@ -554,7 +444,7 @@
     "href": "04_containers_workflows.html#apptainer-cache",
     "title": "4  Containers and Workflows",
     "section": "4.7 Apptainer Cache",
-    "text": "4.7 Apptainer Cache\nThe apptainer cache is where your docker images live. They are translated to the native apptainer .sif format.\nYou can see what’s in your cache by using\napptainer cache list\nBy default the cache lives at ~/.apptainer/cache.\nIf you need to clear out the cache, you can run\napptainer cache clean\nto clear out the cache.\nThere are a number of environment variables (Section 4.4) that can be set, including login tokens for pulling from a private registry. More information is here.",
+    "text": "4.7 Apptainer Cache\nThe apptainer cache is where your docker images live. They are translated to the native apptainer .sif format.\nYou can see what’s in your cache by using\napptainer cache list\nBy default the cache lives at ~/.apptainer/cache.\nIf you need to clear out the cache, you can run\napptainer cache clean\nto clear out the cache.\nThere are a number of environment variables (Section 5.4) that can be set, including login tokens for pulling from a private registry. More information is here.",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Containers and Workflows</span>"
     ]
@@ -577,6 +467,116 @@
     "text": "4.9 More Info\n\nCarpentries Section on Apptainer Paths - this is an excellent resource if you want to dive deeper into undestanding container filesystems and bind points.\nApptainer Documentation on Bind Paths. There are a lot of good examples here on how to set up bind paths.\nMore about bind paths and other options.",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Containers and Workflows</span>"
+    ]
+  },
+  {
+    "objectID": "configuring.html",
+    "href": "configuring.html",
+    "title": "5  Appendix: Configuring your Shell",
+    "section": "",
+    "text": "5.1 .bashrc: Where do I put my configuration?\nThere is a file in your home directory called .bashrc. This is where you can customize the way the Bash shell behaves.\nThere are 2 things you should know how to set:",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Appendix: Configuring your Shell</span>"
+    ]
+  },
+  {
+    "objectID": "configuring.html#sec-bashrc",
+    "href": "configuring.html#sec-bashrc",
+    "title": "5  Appendix: Configuring your Shell",
+    "section": "",
+    "text": "Aliases\nEnvironment Variables, especially $PATH",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Appendix: Configuring your Shell</span>"
+    ]
+  },
+  {
+    "objectID": "configuring.html#an-example-.bashrc-file",
+    "href": "configuring.html#an-example-.bashrc-file",
+    "title": "5  Appendix: Configuring your Shell",
+    "section": "5.2 An example .bashrc file",
+    "text": "5.2 An example .bashrc file",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Appendix: Configuring your Shell</span>"
+    ]
+  },
+  {
+    "objectID": "configuring.html#aliases",
+    "href": "configuring.html#aliases",
+    "title": "5  Appendix: Configuring your Shell",
+    "section": "5.3 Aliases",
+    "text": "5.3 Aliases\nAliases are shortcuts for commands. You can specify them using alias as a line in your .bashrc file:\nalias ll='ls -la'\nWe are defining an alias called ll that runs ls -la (long listing for directory for all files) here. Once\nSome people even add aliases for things they mistype frequently.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Appendix: Configuring your Shell</span>"
+    ]
+  },
+  {
+    "objectID": "configuring.html#sec-environment",
+    "href": "configuring.html#sec-environment",
+    "title": "5  Appendix: Configuring your Shell",
+    "section": "5.4 Environment Variables",
+    "text": "5.4 Environment Variables\nEnvironment variables are variables which can be seen globally in the Linux (or Windows) system across executables.\nYou can get a list of all set environment variables by using the env command. Here’s an example from my own system:\nenv\nSHELL=/bin/bash\nNVM_INC=/home/tladera2/.nvm/versions/node/v21.7.1/include/node\nWSL_DISTRO_NAME=Ubuntu\nNAME=2QM6TV3\nPWD=/home/tladera2\nLOGNAME=tladera2\n[....]\nOne common environment variable you may have seen is $JAVA_HOME, which is used to find the Java Software Development Kit (SDK). (I usually encounter it when a software application yells at me when I haven’t set it.)\nYou can see whether an environment variable is set using echo, such as\necho $PATH\n/home/tladera2/.local/bin:/home/tladera2/gems/bin:/home/tladera2/.nvm/versions/node/v21.7.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/ [....]\n\n5.4.1 Setting Environment Variables\nIn Bash, we use the export command to declare an environment variable. For example, if we wanted to declare the environment variable $SAMTOOLS_PATH we’d do the following:\n# works: note no spaces\nexport SAMTOOLS_PATH=\"/home/tladera2/miniconda/bin/\"\nOne thing to note is that spacing matters when you declare environment variables. For example, this won’t declare the $SAMTOOLS_PATH variable:\n# won't work because of spaces\nexport SAMTOOLS_PATH = \"/home/tladera2/miniconda/bin/\"\nAnother thing to note is that we declare environment variables differently than we use them. If we wanted to use SAMTOOLS_PATH in a script, we use a dollar sign ($) in front of it:\n${SAMTOOLS_PATH}/samtools view -c $input_file\nIn this case, the value of $SAMTOOLS_PATH will be expanded (substituted) to give the overall path:\n/home/tladera2/miniconda/bin/samtools view -c $input_file\n\n\n5.4.2 A Very Special Environment Variable: $PATH\nThe most important environment variable is the $PATH variable. This variable is important because it determines where to search for software executables (also called binaries). If you have softwware installed by a package manager (such as miniconda), you may need to add the location of your executables to your $PATH.\nWe can add more directories to the $PATH by appending to it. You might have seen the following bit of code in your .bashrc:\nexport PATH=$PATH:/home/tladera2/samtools/\nIn this line, we are adding the path /home/tladera2/samtools/ to our $PATH environment variable. Note that how we refer to the PATH variable is different depending on which side the variable is on of the equals sign.\n\n\n\n\n\n\nOrder matters in your $PATH\n\n\n\n\n\n\nTLDR: We declare the variable using export PATH (no dollar sign) and we append to the variable using $PATH (with dollar sign). This is something that trips me up all the time.\n\n\n\n\n\n\nFor FH Users\n\n\n\nIn general, when you use environment modules on gizmo, you do not need to modify your $PATH variable. You mostly need to modify it when you are compiling executables so that the system can find them. Be sure to use which to see where the environment module is actually located:\nwhich samtools\n\n\n\n\n5.4.3 Making your own environment variables\nOne of the difficulties with working on a cluster is that your scripts may be in one filesystem (/home/), and your data might be in another filesystem (/fh/fast/). And it might be recommended that you transfer over files to a faster-access filesystem (/fh/temp/) to process them.\nYou can set your own environment variables for use in your own scripts. For example, we might define a $TCR_FILE_HOME variable:\nexport TCR_FILE_HOME=/fh/fast/my_tcr_project/\nto save us some typing across our scripts. We can use this new environment variable like any other existing environment variable:\n#!/bin/Bash\nexport my_file_location=$TCR_FILE_HOME/fasta_files/\n\n\n\n\n\n\n.bashrc versus .bash_profile\n\n\n\nOk, what’s the difference between .bashrc and .bash_profile?\nThe main difference is when these two files are sourced. bash_profile is used when you do an interactive login, and .bashrc is used for non-interactive shells.\n.bashrc should contain the environment variables that you use all the time, such as $PATH and $JAVA_HOME for example.\nYou can get the best of both worlds by including the following line in your .bash_profile:\nsource ~/.bashrc\nThat way, everything in the .bashrc file is loaded when you log in interactively.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Appendix: Configuring your Shell</span>"
+    ]
+  },
+  {
+    "objectID": "configuring.html#sec-project",
+    "href": "configuring.html#sec-project",
+    "title": "5  Appendix: Configuring your Shell",
+    "section": "5.5 Project/folder based workflows",
+    "text": "5.5 Project/folder based workflows\nOn a particular machine, using absolute paths is safe. However, you do this at the cost of portability - code that you write on one machine may not run on another.\nIf you ever anticipate doing the analysis on a separate machine, using project structures with relative paths is the safest. For example, you may want to move from the on-premise FH system to working with the data in AWS.\nHere’s one example of putting everything into a single folder:\nmy_project\n├── data\n│   ├── chr1.fa.gz\n│   ├── chr2.fa.gz\n│   └── chr3.fa.gz\n├── results\n├── run_workflow.sh\n└── scripts\n    └── run_bowtie.sh\nIn the above example, our project is named my_project, and there are three folders inside it: data/, results/, and scripts/. Our main script for running is my_project/run_workflow.sh. Because this script is in the root folder, we can refer to the data/ folder to process files:\n./scripts/run_bowtie.sh data/*.fa.gz results/\nWhen we run run_workflow.sh, it will execute run_bowtie.sh on all of the files in data/, and save them in results/, resulting in the following updated structure.\nmy_project\n├── data\n│   ├── chr1.fa.gz\n│   ├── chr2.fa.gz\n│   └── chr3.fa.gz\n├── results\n│   ├── chr1.bam\n│   ├── chr2.bam\n│   └── chr3.bam\n├── run_workflow.sh\n└── scripts\n    └── run_bowtie.sh\nYou may have seen relative paths such as ../another_directory/ - the .. means to go up a directory in the file hierarchy, and then look in that directory for the another_directory/ directory. I try to avoid using relative paths like these.\nIn general for portability and reproducibility, you will want to use relative paths within a directory, and avoid using relative paths like ../../my_folder, where you are navigating up. In general, use relative paths to navigate down.\n\n\n\n\n\n\nWhy This is Important\n\n\n\nWhen you start executing scripts, it’s important to know where the results go. When you execute SAMtools on a file in /fh/temp/, for example, where does the output go?\nWorkflow Runners such as Cromwell and Nextflow will output into certain file structures by default. This can be changed, but knowing the default behavior is super helpful when you don’t specify an output directory.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Appendix: Configuring your Shell</span>"
+    ]
+  },
+  {
+    "objectID": "miscellaneous.html",
+    "href": "miscellaneous.html",
+    "title": "6  Miscellaneous",
+    "section": "",
+    "text": "6.0.1 hostname What Machine am I on?\nOne of the most confusing things about working on HPC is that sometimes you have a shell open on the head node, but oftentimes, you are on a worker node.\nYour totem for telling which node you’re in is hostname, which will give you the host name of the machine you’re on.\nFor example, if I used grabnode to grab a gizmo node for interactive work, I can check which node I’m in by using:\nIf you’re confused about which node you’re in, remember hostname. It will save you from making mistakes, especially when using utilities like screen.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Miscellaneous</span>"
+    ]
+  },
+  {
+    "objectID": "miscellaneous.html#workflows",
+    "href": "miscellaneous.html#workflows",
+    "title": "6  Miscellaneous",
+    "section": "6.1 Workflows",
+    "text": "6.1 Workflows\n\n6.1.1 One Workflow: /fh/fast/ and /hpc/temp/\nOne approach is to have your scripts also live in your project folder in fast. Then, you can sync the project in /fh/fast/ over to /hpc/temp/, run the scripts in /hpc/temp/, and then sync the two folders again. You can do the file sync’ing in both directions with Motuz (?sec-motuz), which has its own advantages.\nIf you want to go this route, you should think about using a Folder Based Workflow (Section 5.5), where everything lives in a folder.\nAnother thing to consider is to have a backup of the scripts that is either on your own machine or in GitHub. You can do this by using your .gitignore to exclude the data and results.\n\n\n\n\n\ngraph LR\n    A[\"Fast\\n/fh/fast/my_lab/project/\\nRaw Data & Scripts\"] --\"a. Sync Data & scripts\"--&gt;B\n    B[\"Temp\\n/hpc/temp/my_lab/project\\nb. Run Scripts here\"] --\"c. Sync results\"--&gt;A\n\n\n\n\n\n\n\n\n6.1.2 Another Approach\nBelow is a a diagram with another way to work with these multiple filesystems.\n\nWe transfer the raw files to be processed from /fh/fast/ to our directory /fh/temp/. For example, a set of .bam files.\nWe run our scripts from /home/, on the raw files in /fh/temp/ and produce results in /fh/temp/.\nWe transfer our results from /fh/temp/ to /fh/fast/.\n\n\n\n\n\n\ngraph TD\n    A[\"Home Directory\\n/home/tladera2/\\nScripts\"] --\"b. run scripts\"--&gt; C\n    B[\"Fast\\n/fh/fast/tladera2\\nResearch Data\"] --\"a. transfer raw files\"--&gt; C\n    C[\"Temp\\n/fh/temp/tladera2\"] --\"c. transfer results\"--&gt; B",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Miscellaneous</span>"
+    ]
+  },
+  {
+    "objectID": "miscellaneous.html#quoting-and-escaping-filenames-in-bash",
+    "href": "miscellaneous.html#quoting-and-escaping-filenames-in-bash",
+    "title": "6  Miscellaneous",
+    "section": "6.2 Quoting and Escaping Filenames in Bash",
+    "text": "6.2 Quoting and Escaping Filenames in Bash\nOne point of confusion is when do you quote things in Bash? When do you use single quotes (') versus double-quotes (\")? When do you use \\ to escape characters?\nLet’s talk about some quoting rules in Bash. I’ve tried to make things as simplified and generalized as possible, rather than stating all of the rules for each quote.\n\nIf you have spaces in a filename, use double quotes (\"chr 1.bam\")\nIf you have a single quote in the filename, use double quotes to wrap it (\"ted's file.bam\")\nOnly escape characters when necessary - if you can solve a problem with quotes, use them\nIf you need to preserve an escaped character, use single quotes\n\nLet’s go over each of these with an example.\n\n6.2.1 If you have spaces in a filename, use double quotes (Most common)\nFor example, if your filename is chr 1 file.bam, then use double quotes in your argument\nsamtools view -c \"chr 1 file.bam\"\n\n\n6.2.2 If you have a single quote in the name, use double quotes to wrap it (less common)\nSay you have a file called ted's new file.bam. This can be a problem when you are calling it, especially because of the single quote.\nIn this case, you can do this:\nsamtools view -c \"ted's new file.bam\"\n\n\n6.2.3 Only escape characters when necessary (less common)\nThere are a number of special characters (such as Tab, and Newline) that can be specified as escape characters. In double quotes, characters such as $ are signals to Bash to expand or evaluate code.\nSay that someone had a $ in their file name such as Thi$file is money.bam\nHow do we refer to it? We can escape the character with a backslash \\:\nsamtools view -c \"Thi\\$file is money.bam\"\nThe backslash is a clue to Bash that we don’t want variable expansion in this case. Without it, bash would look for a variable called $file.\n\n\n6.2.4 If you need to preserve an escaped character, use single quotes (least common)\nThis is rarely used, but if you need to keep an escaped character in your filename, you can use single quotes. Say we have a filename called Thi\\$file.bam and you need that backslash in the file name (btw, please don’t do this), you can use single quotes to preserve that backslash:\nsamtools view -c 'Thi\\$file.bam'\nAgain, hopefully you won’t need this.\n\n\n6.2.5 For More Info\nhttps://www.grymoire.com/Unix/Quote.html#uh-3\n\n\n\n\n\n\nWhat about backticks?\n\n\n\nBackticks (`) are an old way to do command evaluation in Bash. For example, if we run the following on the command-line:\necho \"there are `ls -l | wc -l` files in this directory\"\nWill produce:\nthere are       36 files in this directory\nTheir use is deprecated, so you should be using $() in your command evaluations instead:\necho \"there are $(ls -l | wc -l) files in this directory\"\n\n\n\n\n\n\n\n\nWhat about X use case?\n\n\n\nThere are a lot of rules for Bash variable expansion and quoting that I don’t cover here. I try to show you a way to do things that work in multiple situations on the cluster.\nThat’s why I focus on double quotes for filenames and ${} for variable expansion in general. They will work whether your Bash script is on the command line or in an App, or in WDL.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Miscellaneous</span>"
+    ]
+  },
+  {
+    "objectID": "miscellaneous.html#using-pipes-stdin-stdout-stderr",
+    "href": "miscellaneous.html#using-pipes-stdin-stdout-stderr",
+    "title": "6  Miscellaneous",
+    "section": "6.3 Using pipes: STDIN, STDOUT, STDERR",
+    "text": "6.3 Using pipes: STDIN, STDOUT, STDERR\nWe will need to use pipes to chain our commands together. Specifically, we need to take a command that generates a list of files on the cluster shared filesystem, and then spawns individual jobs to process each file. For this reason, understanding a little bit more about how pipes (|) work in Bash is helpful.\nIf we want to understand how to chain our scripts together into a pipeline, it is helpful to know about the different streams that are available to the utilities.\n\n\n\n\n\n\n\n\ngraph LR\n  A(STDIN) --&gt; E[run_samtools.sh]\n  E --&gt; B(STDOUT)\n  E --&gt; C(STDERR)\n\n\n\n\n\n\n\n\nFigure 6.1: Inputs/outputs to a script\n\n\n\nEvery script has three streams available to it: Standard In (STDIN), Standard Out (STDOUT), and Standard Error (STDERR) (Figure 6.1).\nSTDIN contains information that is directed to the input of a script (usually text output via STDOUT from another script).\nWhy do these matter? To work in a Unix pipeline, a script must be able to utilize STDIN, and generate STDOUT, and STDERR.\nSpecifically, in pipelines, STDOUT of a script (here it’s run_samtools) is directed into STDIN of another command (here wc, or word count)\n\n\n\n\n\n\n\n\ngraph LR\n  E[run_samtools.sh] --&gt; B(STDOUT)\n  B --&gt; F{\"|\"}\n  E --&gt; C(STDERR)\n  F --&gt; D(\"STDIN (wc)\")\n  D --&gt; G[wc]\n\n\n\n\n\n\n\n\nFigure 6.2: Piping a script run_samtools.sh into another command (wc)\n\n\n\nWe will mostly use STDOUT in our bash scripts, but STDERR can be really helpful in debugging what’s going wrong.\n\n\n\n\n\n\nWhy this is important on the Cluster\n\n\n\nWe’ll use pipes and pipelines not only in starting a bunch of jobs using batch scripting on our home computer, but also when we are processing files within a job.\n\n\n\n6.3.1 For more info about pipes and pipelines\nhttps://swcarpentry.github.io/shell-novice/04-pipefilter/index.html https://datascienceatthecommandline.com/2e/chapter-2-getting-started.html?q=stdin#combining-command-line-tools",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Miscellaneous</span>"
+    ]
+  },
+  {
+    "objectID": "miscellaneous.html#basename-can-be-very-handy-when-on-workers",
+    "href": "miscellaneous.html#basename-can-be-very-handy-when-on-workers",
+    "title": "6  Miscellaneous",
+    "section": "6.4 basename can be very handy when on workers",
+    "text": "6.4 basename can be very handy when on workers\nIf we are processing a bunch of files on a worker, we need a way to get the bare filename from a path. We will take advantage of this when we run process multiple files on the worker.\nFor example:\nbasename /mnt/project/worker_scripts/srun-script.sh\nThis will return:\nsrun-script.sh\nWhich can be really handy when we name our outputs. This command is so handy it is used in WDL.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Miscellaneous</span>"
     ]
   }
 ]
