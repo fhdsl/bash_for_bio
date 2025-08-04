@@ -77,6 +77,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/quarto-contrib/glossary/glossary.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -197,23 +198,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-xargs" id="toc-sec-xargs" class="nav-link active" data-scroll-target="#sec-xargs"><span class="header-section-number">3.1</span> Batch Processing Basics: Iterating using <code>xargs</code></a>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">3.1</span> Learning Objectives</a></li>
+  <li><a href="#using-for-loops-to-cycle-through-files" id="toc-using-for-loops-to-cycle-through-files" class="nav-link" data-scroll-target="#using-for-loops-to-cycle-through-files"><span class="header-section-number">3.2</span> Using <code>for</code> loops to cycle through files</a></li>
+  <li><a href="#sec-xargs" id="toc-sec-xargs" class="nav-link" data-scroll-target="#sec-xargs"><span class="header-section-number">3.3</span> Advanced Batch Processing: Iterating using <code>xargs</code></a>
   <ul class="collapse">
-  <li><a href="#the-basic-xargs-pattern" id="toc-the-basic-xargs-pattern" class="nav-link" data-scroll-target="#the-basic-xargs-pattern"><span class="header-section-number">3.1.1</span> The Basic <code>xargs</code> pattern</a></li>
-  <li><a href="#for-more-information" id="toc-for-more-information" class="nav-link" data-scroll-target="#for-more-information"><span class="header-section-number">3.1.2</span> For more information</a></li>
+  <li><a href="#the-basic-xargs-pattern" id="toc-the-basic-xargs-pattern" class="nav-link" data-scroll-target="#the-basic-xargs-pattern"><span class="header-section-number">3.3.1</span> The Basic <code>xargs</code> pattern</a></li>
+  <li><a href="#for-more-information" id="toc-for-more-information" class="nav-link" data-scroll-target="#for-more-information"><span class="header-section-number">3.3.2</span> For more information</a></li>
   </ul></li>
-  <li><a href="#batching-on-hpc" id="toc-batching-on-hpc" class="nav-link" data-scroll-target="#batching-on-hpc"><span class="header-section-number">3.2</span> Batching on HPC</a>
+  <li><a href="#batching-on-hpc" id="toc-batching-on-hpc" class="nav-link" data-scroll-target="#batching-on-hpc"><span class="header-section-number">3.4</span> Batching on HPC</a>
   <ul class="collapse">
-  <li><a href="#slurm-scripts" id="toc-slurm-scripts" class="nav-link" data-scroll-target="#slurm-scripts"><span class="header-section-number">3.2.1</span> SLURM Scripts</a></li>
-  <li><a href="#slurm-directives" id="toc-slurm-directives" class="nav-link" data-scroll-target="#slurm-directives"><span class="header-section-number">3.2.2</span> SLURM Directives</a></li>
-  <li><a href="#job-arrays" id="toc-job-arrays" class="nav-link" data-scroll-target="#job-arrays"><span class="header-section-number">3.2.3</span> Job Arrays</a></li>
-  <li><a href="#processing-files-using-job-arrays" id="toc-processing-files-using-job-arrays" class="nav-link" data-scroll-target="#processing-files-using-job-arrays"><span class="header-section-number">3.2.4</span> Processing files using Job Arrays</a></li>
+  <li><a href="#slurm-scripts" id="toc-slurm-scripts" class="nav-link" data-scroll-target="#slurm-scripts"><span class="header-section-number">3.4.1</span> SLURM Scripts</a></li>
+  <li><a href="#slurm-directives" id="toc-slurm-directives" class="nav-link" data-scroll-target="#slurm-directives"><span class="header-section-number">3.4.2</span> SLURM Directives</a></li>
+  <li><a href="#job-arrays" id="toc-job-arrays" class="nav-link" data-scroll-target="#job-arrays"><span class="header-section-number">3.4.3</span> Job Arrays</a></li>
+  <li><a href="#processing-files-using-job-arrays" id="toc-processing-files-using-job-arrays" class="nav-link" data-scroll-target="#processing-files-using-job-arrays"><span class="header-section-number">3.4.4</span> Processing files using Job Arrays</a></li>
   </ul></li>
-  <li><a href="#containers" id="toc-containers" class="nav-link" data-scroll-target="#containers"><span class="header-section-number">3.3</span> Containers</a>
+  <li><a href="#containers" id="toc-containers" class="nav-link" data-scroll-target="#containers"><span class="header-section-number">3.5</span> Containers</a>
   <ul class="collapse">
-  <li><a href="#what-is-a-container" id="toc-what-is-a-container" class="nav-link" data-scroll-target="#what-is-a-container"><span class="header-section-number">3.3.1</span> What is a Container?</a></li>
-  <li><a href="#docker-vs.-apptainer" id="toc-docker-vs.-apptainer" class="nav-link" data-scroll-target="#docker-vs.-apptainer"><span class="header-section-number">3.3.2</span> Docker vs.&nbsp;Apptainer</a></li>
-  <li><a href="#common-containers-for-bioinformatics" id="toc-common-containers-for-bioinformatics" class="nav-link" data-scroll-target="#common-containers-for-bioinformatics"><span class="header-section-number">3.3.3</span> Common Containers for Bioinformatics</a></li>
+  <li><a href="#what-is-a-container" id="toc-what-is-a-container" class="nav-link" data-scroll-target="#what-is-a-container"><span class="header-section-number">3.5.1</span> What is a Container?</a></li>
+  <li><a href="#docker-vs.-apptainer" id="toc-docker-vs.-apptainer" class="nav-link" data-scroll-target="#docker-vs.-apptainer"><span class="header-section-number">3.5.2</span> Docker vs.&nbsp;Apptainer</a></li>
+  <li><a href="#common-containers-for-bioinformatics" id="toc-common-containers-for-bioinformatics" class="nav-link" data-scroll-target="#common-containers-for-bioinformatics"><span class="header-section-number">3.5.3</span> Common Containers for Bioinformatics</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -240,8 +243,70 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="sec-xargs" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="sec-xargs"><span class="header-section-number">3.1</span> Batch Processing Basics: Iterating using <code>xargs</code></h2>
+<section id="learning-objectives" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">3.1</span> Learning Objectives</h2>
+<ul>
+<li><strong>Execute</strong> a script to run over a list of files on one system</li>
+<li><strong>Batch Process</strong> files to run on the HPC cluster</li>
+<li></li>
+</ul>
+</section>
+<section id="using-for-loops-to-cycle-through-files" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="using-for-loops-to-cycle-through-files"><span class="header-section-number">3.2</span> Using <code>for</code> loops to cycle through files</h2>
+<p>A very common pattern is cycling through multiple files in a folder and applying the same script or command to them.</p>
+<p>There is a simple method for batch processing a bunch of files: a <code>for</code> loop.</p>
+<div class="sourceCode" id="annotated-cell-1"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-1-1"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-1-2" class="code-annotation-target"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> file <span class="kw">in</span> <span class="pp">*</span>.qmd</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-1-3" class="code-annotation-target"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-1-4" class="code-annotation-target"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wc</span> <span class="va">$file</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-1-5" class="code-annotation-target"><a href="#annotated-cell-1-5" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="2" data-code-annotation="1">Start <code>for</code> loop and cycle through all <code>.qmd</code> files</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="3" data-code-annotation="2">Start of instructions</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="4" data-code-annotation="3">Count the words in each <code>.qmd</code> file using <code>wc</code></span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="5" data-code-annotation="4">End of instructions</span>
+</dd>
+</dl>
+<p>If we run this in our repository, we get something similar to this:</p>
+<pre><code>      22      92     634 01_assignment.qmd
+     462    2417   15396 01_basics.qmd
+       5       8      49 02_assignment.qmd
+     303    1577    9509 02_scripting.qmd
+     303    1667   10233 03_batch.qmd
+     198    1368    9027 04_containers_workflows.qmd
+     205    1151    7858 configuring.qmd
+      53     363    2516 index.qmd
+       9      25     157 intro.qmd
+     214    1314    8001 miscellaneous.qmd</code></pre>
+<p>The <code>*.qmd</code> (the wildcard operator) can be used in various ways. For example, if our files are in a folder called <code>raw_data/</code>, we could specify:</p>
+<pre><code>for file in raw_data/*.fq</code></pre>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+A common pattern: a folder with only one type of file in them
+</div>
+</div>
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+</section>
+<section id="sec-xargs" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="sec-xargs"><span class="header-section-number">3.3</span> Advanced Batch Processing: Iterating using <code>xargs</code></h2>
 <p>A really common pattern is taking a delimited list of files and doing something with them. We can do some useful things such as seeing the first few lines of a set of files, or doing some sort of processing with the set of jobs.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -259,13 +324,13 @@ Don’t <code>xargs</code> for HPC jobs
 </div>
 </div>
 <p>Let’s start out with a list of files:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.bashrc <span class="co">#| hide_line</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> data/<span class="pp">*</span>.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.bashrc <span class="co">#| hide_line</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> data/<span class="pp">*</span>.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre><code>data/batch-on-worker.sh</code></pre>
 <p>Now we have a list of files, let’s look at the first few lines of each of them, and print a separator <code>---</code> for each.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| filename: scripting-basics/xargs_example.sh</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.bashrc <span class="co">#| hide_line</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> data/<span class="pp">*</span>.sh <span class="kw">|</span> <span class="fu">xargs</span> <span class="at">-I%</span> sh <span class="at">-c</span> <span class="st">'head %; echo "\n---\n"'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| filename: scripting-basics/xargs_example.sh</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.bashrc <span class="co">#| hide_line</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> data/<span class="pp">*</span>.sh <span class="kw">|</span> <span class="fu">xargs</span> <span class="at">-I%</span> sh <span class="at">-c</span> <span class="st">'head %; echo "\n---\n"'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre><code>#!/bash/bin
 
 cmd_to_run="ls *.vcf.gz | xargs -I% sh -c "bcftools stats % &gt; %.stats.txt"
@@ -281,16 +346,16 @@ dx find data --name "*.bam" --brief
 <p>Let’s take this apart piece by piece.</p>
 <p><code>xargs</code> takes an <code>-I</code> argument that specifies a placeholder. In our case, we are using <code>%</code> as our placeholder in this statement.</p>
 <p>We’re passing on each filename from <code>ls</code> into the following code:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sh</span> <span class="at">-c</span> <span class="st">'head %; echo "---\n"'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sh</span> <span class="at">-c</span> <span class="st">'head %; echo "---\n"'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The <code>sh -c</code> opens a subshell so that we can execute our command for each of the files in our list. We’re using <code>sh -c</code> to run:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="st">'head %; echo "---\n"'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="st">'head %; echo "---\n"'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>So for our first file, <code>01-scripting-basics.qmd</code>, we are substituting that for <code>%</code> in our command:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="st">'head hpc-basics.qmd; echo "---\n"'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="st">'head hpc-basics.qmd; echo "---\n"'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>For our second file, <code>hpc-basics.qmd</code>, we would substitute that for the <code>%</code>:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="st">'head hpc-basics.qmd; echo "---\n"'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="st">'head hpc-basics.qmd; echo "---\n"'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Until we cycle through all of the files in our list.</p>
-<section id="the-basic-xargs-pattern" class="level3" data-number="3.1.1">
-<h3 data-number="3.1.1" class="anchored" data-anchor-id="the-basic-xargs-pattern"><span class="header-section-number">3.1.1</span> The Basic <code>xargs</code> pattern</h3>
+<section id="the-basic-xargs-pattern" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="the-basic-xargs-pattern"><span class="header-section-number">3.3.1</span> The Basic <code>xargs</code> pattern</h3>
 <div id="fig-xargs" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-xargs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -316,7 +381,7 @@ Figure&nbsp;3.1: Basics of using <code>xargs</code> to iterate on a list of file
 </figure>
 </div>
 <p>As you cycle through lists of files, keep in mind this basic pattern (<a href="#fig-xargs" class="quarto-xref">Figure&nbsp;<span>3.1</span></a>):</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="op">&lt;</span>wildcard<span class="op">&gt;</span> <span class="kw">|</span> <span class="fu">xargs</span> <span class="at">-I%</span> sh <span class="at">-c</span> <span class="st">"&lt;command to run&gt; %"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="op">&lt;</span>wildcard<span class="op">&gt;</span> <span class="kw">|</span> <span class="fu">xargs</span> <span class="at">-I%</span> sh <span class="at">-c</span> <span class="st">"&lt;command to run&gt; %"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -332,11 +397,11 @@ Test Yourself
 <li>List only <code>.json</code> files in our <code>data/</code> folder using <code>ls</code></li>
 <li>Use <code>tail</code> instead of <code>head</code></li>
 </ol>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="pp">*</span>.txt <span class="kw">|</span> <span class="fu">xargs</span> <span class="at">-I%</span> sh <span class="at">-c</span> <span class="st">"head %; echo '---\n'"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="pp">*</span>.txt <span class="kw">|</span> <span class="fu">xargs</span> <span class="at">-I%</span> sh <span class="at">-c</span> <span class="st">"head %; echo '---\n'"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -345,9 +410,9 @@ Answer
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> data/<span class="pp">*</span>.json <span class="kw">|</span> <span class="fu">xargs</span> <span class="at">-I%</span> sh <span class="at">-c</span> <span class="st">"tail %; echo '---\n'"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> data/<span class="pp">*</span>.json <span class="kw">|</span> <span class="fu">xargs</span> <span class="at">-I%</span> sh <span class="at">-c</span> <span class="st">"tail %; echo '---\n'"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -367,16 +432,16 @@ Why this is important on HPC
 </div>
 </div>
 </section>
-<section id="for-more-information" class="level3" data-number="3.1.2">
-<h3 data-number="3.1.2" class="anchored" data-anchor-id="for-more-information"><span class="header-section-number">3.1.2</span> For more information</h3>
+<section id="for-more-information" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="for-more-information"><span class="header-section-number">3.3.2</span> For more information</h3>
 <p><a href="https://www.baeldung.com/linux/xargs-multiple-arguments" class="uri">https://www.baeldung.com/linux/xargs-multiple-arguments</a></p>
 </section>
 </section>
-<section id="batching-on-hpc" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="batching-on-hpc"><span class="header-section-number">3.2</span> Batching on HPC</h2>
-<p>Now we can</p>
-<section id="slurm-scripts" class="level3" data-number="3.2.1">
-<h3 data-number="3.2.1" class="anchored" data-anchor-id="slurm-scripts"><span class="header-section-number">3.2.1</span> SLURM Scripts</h3>
+<section id="batching-on-hpc" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="batching-on-hpc"><span class="header-section-number">3.4</span> Batching on HPC</h2>
+<p>Now we can start to do more advanced things: use one machine to process each file.</p>
+<section id="slurm-scripts" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="slurm-scripts"><span class="header-section-number">3.4.1</span> SLURM Scripts</h3>
 <p>SLURM scripts are a special kind of shell script that contain additional information for the SLURM manager. This includes:</p>
 <ol type="1">
 <li>Number of nodes (machines) to request</li>
@@ -384,73 +449,71 @@ Why this is important on HPC
 </ol>
 <p>We specify these using a special kind of comment: SLURM directives. Directives begin a line with <code>#SBATCH</code></p>
 </section>
-<section id="slurm-directives" class="level3" data-number="3.2.2">
-<h3 data-number="3.2.2" class="anchored" data-anchor-id="slurm-directives"><span class="header-section-number">3.2.2</span> SLURM Directives</h3>
-<div class="sourceCode" id="annotated-cell-10"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-10-1"><a href="#annotated-cell-10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-10-2" class="code-annotation-target"><a href="#annotated-cell-10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --nodes=1</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-10-3" class="code-annotation-target"><a href="#annotated-cell-10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=1-6</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-10-4" class="code-annotation-target"><a href="#annotated-cell-10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --tasks-per-node=3</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-10-5" class="code-annotation-target"><a href="#annotated-cell-10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=1</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-10-6" class="code-annotation-target"><a href="#annotated-cell-10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem-per-cpu=1gb</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-10-7" class="code-annotation-target"><a href="#annotated-cell-10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --time=00:05:00</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="7" onclick="event.preventDefault();">7</a><span id="annotated-cell-10-8" class="code-annotation-target"><a href="#annotated-cell-10-8" aria-hidden="true" tabindex="-1"></a><span class="ex">./samtools_opt</span> sort SRR1576820_000<span class="va">$SLURM_ARRAY_TASK_ID</span>.bam <span class="at">-o</span> SRR1576820_000<span class="va">$SLURM_ARRAY_TASK_ID</span>.sorted.bam</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="slurm-directives" class="level3" data-number="3.4.2">
+<h3 data-number="3.4.2" class="anchored" data-anchor-id="slurm-directives"><span class="header-section-number">3.4.2</span> SLURM Directives</h3>
+<div class="sourceCode" id="annotated-cell-13"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-13-1"><a href="#annotated-cell-13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-13-2" class="code-annotation-target"><a href="#annotated-cell-13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --nodes=1</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-13-3" class="code-annotation-target"><a href="#annotated-cell-13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=1-6</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-13-4" class="code-annotation-target"><a href="#annotated-cell-13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --tasks-per-node=3</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-13-5" class="code-annotation-target"><a href="#annotated-cell-13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=1</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-13-6" class="code-annotation-target"><a href="#annotated-cell-13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem-per-cpu=1gb</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-13-7" class="code-annotation-target"><a href="#annotated-cell-13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --time=00:05:00</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="7" onclick="event.preventDefault();">7</a><span id="annotated-cell-13-8" class="code-annotation-target"><a href="#annotated-cell-13-8" aria-hidden="true" tabindex="-1"></a><span class="ex">./samtools_opt</span> sort SRR1576820_000<span class="va">${SLURM_ARRAY_TASK_ID}</span>.bam <span class="at">-o</span> SRR1576820_000<span class="va">${SLURM_ARRAY_TASK_ID}</span>.sorted.bam</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-10" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-13" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-10" data-code-lines="2" data-code-annotation="1">request 1 node</span>
+<span data-code-cell="annotated-cell-13" data-code-lines="2" data-code-annotation="1">request 1 node</span>
 </dd>
-<dt data-target-cell="annotated-cell-10" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-13" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-10" data-code-lines="3" data-code-annotation="2">start an array</span>
+<span data-code-cell="annotated-cell-13" data-code-lines="3" data-code-annotation="2">start an array</span>
 </dd>
-<dt data-target-cell="annotated-cell-10" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-13" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-10" data-code-lines="4" data-code-annotation="3">We want our node to do 3 tasks at the same time</span>
+<span data-code-cell="annotated-cell-13" data-code-lines="4" data-code-annotation="3">We want our node to do 3 tasks at the same time</span>
 </dd>
-<dt data-target-cell="annotated-cell-10" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-13" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-10" data-code-lines="5" data-code-annotation="4">Ask for 1 CPUs per task (3 * 1 = 3 total requested CPUs)</span>
+<span data-code-cell="annotated-cell-13" data-code-lines="5" data-code-annotation="4">Ask for 1 CPUs per task (3 * 1 = 3 total requested CPUs)</span>
 </dd>
-<dt data-target-cell="annotated-cell-10" data-target-annotation="5">5</dt>
+<dt data-target-cell="annotated-cell-13" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-cell="annotated-cell-10" data-code-lines="6" data-code-annotation="5">request 1 gigabyte per cpu</span>
+<span data-code-cell="annotated-cell-13" data-code-lines="6" data-code-annotation="5">request 1 gigabyte per cpu</span>
 </dd>
-<dt data-target-cell="annotated-cell-10" data-target-annotation="6">6</dt>
+<dt data-target-cell="annotated-cell-13" data-target-annotation="6">6</dt>
 <dd>
-<span data-code-cell="annotated-cell-10" data-code-lines="7" data-code-annotation="6">ask for 5 minutes on the node</span>
+<span data-code-cell="annotated-cell-13" data-code-lines="7" data-code-annotation="6">ask for 5 minutes on the node</span>
 </dd>
-<dt data-target-cell="annotated-cell-10" data-target-annotation="7">7</dt>
+<dt data-target-cell="annotated-cell-13" data-target-annotation="7">7</dt>
 <dd>
-<span data-code-cell="annotated-cell-10" data-code-lines="8" data-code-annotation="7">Run <code>samtools sort</code> on a bam file,</span>
+<span data-code-cell="annotated-cell-13" data-code-lines="8" data-code-annotation="7">Run <code>samtools sort</code> on a bam file, and output it</span>
 </dd>
 </dl>
 </section>
-<section id="job-arrays" class="level3" data-number="3.2.3">
-<h3 data-number="3.2.3" class="anchored" data-anchor-id="job-arrays"><span class="header-section-number">3.2.3</span> Job Arrays</h3>
+<section id="job-arrays" class="level3" data-number="3.4.3">
+<h3 data-number="3.4.3" class="anchored" data-anchor-id="job-arrays"><span class="header-section-number">3.4.3</span> Job Arrays</h3>
 <p>This line:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=1-6 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=1-6 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Will start a job array. This will create a variable called <code>$SLURM_ARRAY_TASK_ID</code> that will cycle through the numbers 1-6. Let’s try a simpler script to show what’s going on:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| filename: sbatch_test.sh</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=1-5</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --nodes=1</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"</span><span class="va">${SLURM_ARRAY_TASK_ID}</span><span class="st"> job"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This is a minimal script that will execute 5 subjobs. It will cycle through the job array and print the array number for each job.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> sbatch_test.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| filename: sbatch_test.sh</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=1-3</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --nodes=1</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"</span><span class="va">${SLURM_ARRAY_TASK_ID}</span><span class="st"> job"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This is a minimal script that will execute 3 subjobs. It will cycle through the job array and print the array number for each job.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> sbatch_test.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>On submitting, we will get this message:</p>
 <pre><code>Submitted batch job 26328834</code></pre>
 <p>And if we look for the output files:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> slurm-26328834_<span class="pp">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> slurm-26328834_<span class="pp">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We will get the following output:</p>
 <pre><code>-rw-rw---- 1 tladera2 g_tladera2 8 Jul 15 13:50 slurm-26328834_1.out
 -rw-rw---- 1 tladera2 g_tladera2 8 Jul 15 13:50 slurm-26328834_2.out
--rw-rw---- 1 tladera2 g_tladera2 8 Jul 15 13:50 slurm-26328834_3.out
--rw-rw---- 1 tladera2 g_tladera2 8 Jul 15 13:50 slurm-26328834_4.out
--rw-rw---- 1 tladera2 g_tladera2 8 Jul 15 13:50 slurm-26328834_5.out</code></pre>
+-rw-rw---- 1 tladera2 g_tladera2 8 Jul 15 13:50 slurm-26328834_3.out</code></pre>
 <p>Taking a look at one of these files using <code>cat</code>:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> slurm-26328834_3.out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> slurm-26328834_3.out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We’ll see this:</p>
 <pre><code>3 job</code></pre>
 <div class="cell" data-layout-align="default">
@@ -469,37 +532,37 @@ Why this is important on HPC
 </div>
 </div>
 </div>
-<p>What happened here? <code>sbatch</code> submitted our job array as 5 different subjobs to 5 different nodes under a single job id. Each node then outputs a file with the subjob id that contains the job number.</p>
+<p>What happened here? <code>sbatch</code> submitted our job array as 2 different subjobs to 2 different nodes under a single job id. Each node then outputs a file with the subjob id that contains the job number.</p>
 </section>
-<section id="processing-files-using-job-arrays" class="level3" data-number="3.2.4">
-<h3 data-number="3.2.4" class="anchored" data-anchor-id="processing-files-using-job-arrays"><span class="header-section-number">3.2.4</span> Processing files using Job Arrays</h3>
-<p>So now we know that <code>${SLURM_ARRAY_TASK_ID}</code> will let us specify a subjob within our</p>
+<section id="processing-files-using-job-arrays" class="level3" data-number="3.4.4">
+<h3 data-number="3.4.4" class="anchored" data-anchor-id="processing-files-using-job-arrays"><span class="header-section-number">3.4.4</span> Processing files using Job Arrays</h3>
+<p>So now we know that <code>${SLURM_ARRAY_TASK_ID}</code> will let us specify a subjob within our script, how do we use it in our script?</p>
 </section>
 </section>
-<section id="containers" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="containers"><span class="header-section-number">3.3</span> Containers</h2>
-<p>We already learned about software modules (<a href="02_scripting.html#sec-modules" class="quarto-xref"><span>Section 2.5</span></a>). There is an alternative way to use software: containers.</p>
-<section id="what-is-a-container" class="level3" data-number="3.3.1">
-<h3 data-number="3.3.1" class="anchored" data-anchor-id="what-is-a-container"><span class="header-section-number">3.3.1</span> What is a Container?</h3>
+<section id="containers" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="containers"><span class="header-section-number">3.5</span> Containers</h2>
+<p>We already learned about software modules (<a href="02_scripting.html#sec-modules" class="quarto-xref"><span>Section 2.5</span></a>). There is an alternative way to use software: using a <button class="glossary"><span class="def">The executable software environment actually installed and running on a machine. Runnable. Generate from docker pull from a repository.</span>container</button>.</p>
+<section id="what-is-a-container" class="level3" data-number="3.5.1">
+<h3 data-number="3.5.1" class="anchored" data-anchor-id="what-is-a-container"><span class="header-section-number">3.5.1</span> What is a Container?</h3>
 <p>A container is a self-contained unit of software. It contains everything needed to run the software on a variety of machines. If you have the container software installed on your machine, it doesn’t matter whether it is MacOS, Linux, or Windows - the container will behave consistently across different operating systems and architectures.</p>
 <p>The container has the following contents:</p>
 <ul>
 <li><strong>Software</strong> - The software we want to run in a container. For bioinformatics work, this is usually something like an aligner like <code>bwa</code>, or utilities such as <code>samtools</code></li>
-<li><strong>Software Dependencies</strong> - various software packages needed to run the software. For example, if we wanted to run <code>tidyverse</code> in a container, we need to have <code>R</code> installed in the container as well</li>
-<li><strong>Filesystem</strong> - containers have their own isolated filesystem that can be connected to the “outside world” - everything outside of the container. We’ll learn more about customizing these with bind paths (<a href="04_containers_workflows.html#sec-bindpaths" class="quarto-xref"><span>Section 4.5</span></a>).</li>
+<li><strong>Software Dependencies</strong> - various software packages needed to run the software. For example, if we wanted to run <code>tidyverse</code> in a container, we need to have <code>R</code> installed in the container as well.</li>
+<li><strong>Filesystem</strong> - containers have their own isolated filesystem that can be connected to the “outside world” - everything outside of the container. We’ll learn more about customizing these with bind paths (<a href="04_containers_workflows.html#sec-bindpaths" class="quarto-xref"><span>Section 4.6</span></a>).</li>
 </ul>
 <p>In short, the container has everything needed to run the software. It is not a full operating system, but a smaller mini-version that cuts out a lot of cruft.</p>
-<p>Containers are ephemeral. They leverage the the file system of their host to manage files. These are called both <em>Volumes</em> (the Docker term) and Bind Paths (the apptainer term).</p>
+<p>Containers are <button class="glossary"><span class="def">When you are finished with Docker containers, everything that you created in them will disappear when you finish running scripts in the container.</span>ephemeral</button>. They leverage the the file system of their host to manage files. These are called both <em>Volumes</em> (the Docker term) and <em>Bind Paths</em> (the apptainer term).</p>
 </section>
-<section id="docker-vs.-apptainer" class="level3" data-number="3.3.2">
-<h3 data-number="3.3.2" class="anchored" data-anchor-id="docker-vs.-apptainer"><span class="header-section-number">3.3.2</span> Docker vs.&nbsp;Apptainer</h3>
+<section id="docker-vs.-apptainer" class="level3" data-number="3.5.2">
+<h3 data-number="3.5.2" class="anchored" data-anchor-id="docker-vs.-apptainer"><span class="header-section-number">3.5.2</span> Docker vs.&nbsp;Apptainer</h3>
 <p>There are two basic ways to run Docker containers:</p>
 <ol type="1">
 <li>Using the Docker software</li>
 <li>Using the Apptainer software (for HPC systems)</li>
 </ol>
-<p>In general, Docker is used on systems where you have a high level of access to the system. This is because docker uses a special user group called <code>docker</code> that has essentially root level privileges.</p>
-<p>This is not the case for HPC systems, which are shared. This is when we use Apptainer (which used to be called Singularity), which requires a much lower level of user privileges to execute tasks. For more info, see <a href="04_containers_workflows.html#sec-open-container" class="quarto-xref"><span>Section 4.3</span></a> .</p>
+<p>In general, Docker is used on systems where you have a high level of access to the system. This is because <code>docker</code> uses a special user group called <code>docker</code> that has essentially root level privileges. This is not something to be taken lightly.</p>
+<p>This is not the case for HPC systems, which are shared and granting this level of access to many people is not practical. This is when we use <button class="glossary"><span class="def">A container software that is often used on HPC systems. Can run Docker containers.</span>Apptainer</button> (which used to be called Singularity), which requires a much lower level of user privileges to execute tasks. For more info, see <a href="04_containers_workflows.html#sec-open-container" class="quarto-xref"><span>Section 4.4</span></a> .</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -510,7 +573,7 @@ Be Secure
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Before we get started, security is always a concern when running containers. The <code>docker</code> group has elevated status on a system, so we need to be careful that when we’re running them, they aren’t introducing any system vulnerabilities. Note that on HPC systems, the main mechanism for running containers is <code>apptainer</code>, which is designed to be more secure.</p>
+<p>Before we get started, security is always a concern when running containers. The <code>docker</code> group has elevated status on a system, so we need to be careful that when we’re running them, these containers aren’t introducing any system vulnerabilities. Note that on HPC systems, the main mechanism for running containers is <code>apptainer</code>, which is designed to be more secure.</p>
 <p>These are mostly important when running containers that are web-servers or part of a web stack, but it is also important to think about when running jobs on HPC.</p>
 <p>Here are some guidelines to think about when you are working with a container.</p>
 <ul>
@@ -521,8 +584,8 @@ Be Secure
 </div>
 </div>
 </section>
-<section id="common-containers-for-bioinformatics" class="level3" data-number="3.3.3">
-<h3 data-number="3.3.3" class="anchored" data-anchor-id="common-containers-for-bioinformatics"><span class="header-section-number">3.3.3</span> Common Containers for Bioinformatics</h3>
+<section id="common-containers-for-bioinformatics" class="level3" data-number="3.5.3">
+<h3 data-number="3.5.3" class="anchored" data-anchor-id="common-containers-for-bioinformatics"><span class="header-section-number">3.5.3</span> Common Containers for Bioinformatics</h3>
 <ul>
 <li>GATK (the genome analysis toolkit) is one common container that we can use for analysis.</li>
 <li></li>
@@ -537,7 +600,15 @@ The WILDS Docker Library
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The Data Science Lab</p>
+<p>The Data Science Lab has a set of Docker containers for common Bioinformatics tasks available in the <a href="https://hub.docker.com/u/getwilds">WILDS Docker Library</a>. These include:</p>
+<ul>
+<li><code>samtools</code></li>
+<li><code>bcftools</code></li>
+<li><code>manta</code></li>
+<li><code>cnvkit</code></li>
+<li><code>deseq2</code></li>
+</ul>
+<p>Among many others. Be sure to check it out before you start building your own containers.</p>
 </div>
 </div>
 

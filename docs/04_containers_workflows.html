@@ -77,6 +77,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/quarto-contrib/glossary/glossary.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -197,22 +198,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-containers" id="toc-sec-containers" class="nav-link active" data-scroll-target="#sec-containers"><span class="header-section-number">4.1</span> Working with containers</a></li>
-  <li><a href="#visual-table-of-contents" id="toc-visual-table-of-contents" class="nav-link" data-scroll-target="#visual-table-of-contents"><span class="header-section-number">4.2</span> Visual Table of Contents</a></li>
-  <li><a href="#sec-open-container" id="toc-sec-open-container" class="nav-link" data-scroll-target="#sec-open-container"><span class="header-section-number">4.3</span> Opening Shells in Containers for Testing</a>
+  <li><a href="#testing-out-scripts" id="toc-testing-out-scripts" class="nav-link active" data-scroll-target="#testing-out-scripts"><span class="header-section-number">4.1</span> Testing out scripts</a></li>
+  <li><a href="#sec-containers" id="toc-sec-containers" class="nav-link" data-scroll-target="#sec-containers"><span class="header-section-number">4.2</span> Working with containers</a></li>
+  <li><a href="#visual-table-of-contents" id="toc-visual-table-of-contents" class="nav-link" data-scroll-target="#visual-table-of-contents"><span class="header-section-number">4.3</span> Visual Table of Contents</a></li>
+  <li><a href="#sec-open-container" id="toc-sec-open-container" class="nav-link" data-scroll-target="#sec-open-container"><span class="header-section-number">4.4</span> Opening Shells in Containers for Testing</a>
   <ul class="collapse">
-  <li><a href="#pulling-a-docker-container" id="toc-pulling-a-docker-container" class="nav-link" data-scroll-target="#pulling-a-docker-container"><span class="header-section-number">4.3.1</span> Pulling a Docker Container</a></li>
+  <li><a href="#pulling-a-docker-container" id="toc-pulling-a-docker-container" class="nav-link" data-scroll-target="#pulling-a-docker-container"><span class="header-section-number">4.4.1</span> Pulling a Docker Container</a></li>
   </ul></li>
-  <li><a href="#opening-a-shell-in-a-container-with-apptainer-shell" id="toc-opening-a-shell-in-a-container-with-apptainer-shell" class="nav-link" data-scroll-target="#opening-a-shell-in-a-container-with-apptainer-shell"><span class="header-section-number">4.4</span> Opening a Shell in a Container with <code>apptainer shell</code></a></li>
-  <li><a href="#sec-bindpaths" id="toc-sec-bindpaths" class="nav-link" data-scroll-target="#sec-bindpaths"><span class="header-section-number">4.5</span> Testing out bind paths in containers</a>
+  <li><a href="#opening-a-shell-in-a-container-with-apptainer-shell" id="toc-opening-a-shell-in-a-container-with-apptainer-shell" class="nav-link" data-scroll-target="#opening-a-shell-in-a-container-with-apptainer-shell"><span class="header-section-number">4.5</span> Opening a Shell in a Container with <code>apptainer shell</code></a></li>
+  <li><a href="#sec-bindpaths" id="toc-sec-bindpaths" class="nav-link" data-scroll-target="#sec-bindpaths"><span class="header-section-number">4.6</span> Testing out bind paths in containers</a>
   <ul class="collapse">
-  <li><a href="#testing-in-the-apptainer-shell" id="toc-testing-in-the-apptainer-shell" class="nav-link" data-scroll-target="#testing-in-the-apptainer-shell"><span class="header-section-number">4.5.1</span> Testing in the Apptainer Shell</a></li>
-  <li><a href="#exiting-the-container-when-youre-done" id="toc-exiting-the-container-when-youre-done" class="nav-link" data-scroll-target="#exiting-the-container-when-youre-done"><span class="header-section-number">4.5.2</span> Exiting the container when you’re done</a></li>
+  <li><a href="#testing-in-the-apptainer-shell" id="toc-testing-in-the-apptainer-shell" class="nav-link" data-scroll-target="#testing-in-the-apptainer-shell"><span class="header-section-number">4.6.1</span> Testing in the Apptainer Shell</a></li>
+  <li><a href="#exiting-the-container-when-youre-done" id="toc-exiting-the-container-when-youre-done" class="nav-link" data-scroll-target="#exiting-the-container-when-youre-done"><span class="header-section-number">4.6.2</span> Exiting the container when you’re done</a></li>
   </ul></li>
-  <li><a href="#testing-outside-of-the-container" id="toc-testing-outside-of-the-container" class="nav-link" data-scroll-target="#testing-outside-of-the-container"><span class="header-section-number">4.6</span> Testing outside of the container</a></li>
-  <li><a href="#apptainer-cache" id="toc-apptainer-cache" class="nav-link" data-scroll-target="#apptainer-cache"><span class="header-section-number">4.7</span> Apptainer Cache</a></li>
-  <li><a href="#entrypoints" id="toc-entrypoints" class="nav-link" data-scroll-target="#entrypoints"><span class="header-section-number">4.8</span> Entrypoints</a></li>
-  <li><a href="#more-info" id="toc-more-info" class="nav-link" data-scroll-target="#more-info"><span class="header-section-number">4.9</span> More Info</a></li>
+  <li><a href="#testing-outside-of-the-container" id="toc-testing-outside-of-the-container" class="nav-link" data-scroll-target="#testing-outside-of-the-container"><span class="header-section-number">4.7</span> Testing outside of the container</a></li>
+  <li><a href="#apptainer-cache" id="toc-apptainer-cache" class="nav-link" data-scroll-target="#apptainer-cache"><span class="header-section-number">4.8</span> Apptainer Cache</a></li>
+  <li><a href="#entrypoints" id="toc-entrypoints" class="nav-link" data-scroll-target="#entrypoints"><span class="header-section-number">4.9</span> Entrypoints</a></li>
+  <li><a href="#more-info" id="toc-more-info" class="nav-link" data-scroll-target="#more-info"><span class="header-section-number">4.10</span> More Info</a></li>
   </ul>
 </nav>
     </div>
@@ -238,12 +240,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="sec-containers" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="sec-containers"><span class="header-section-number">4.1</span> Working with containers</h2>
-<p>I think the hardest thing about working with containers is wrapping your head around the indirectness of them. You are running software with its own internal filesystem and the challenges are getting the container to “see” folders/paths outside of it.</p>
+<section id="testing-out-scripts" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="testing-out-scripts"><span class="header-section-number">4.1</span> Testing out scripts</h2>
+<p>One of the hard things to understand is what can be run on a compute node versus the head node, and what</p>
 </section>
-<section id="visual-table-of-contents" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="visual-table-of-contents"><span class="header-section-number">4.2</span> Visual Table of Contents</h2>
+<section id="sec-containers" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="sec-containers"><span class="header-section-number">4.2</span> Working with containers</h2>
+<p>I think the hardest thing about working with containers is wrapping your head around the indirectness of them. You are running software with its own internal filesystem and the challenges are getting the container to read files in folders/paths outside of its own filesytem, as well as outputting files into those outside folders.</p>
+</section>
+<section id="visual-table-of-contents" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="visual-table-of-contents"><span class="header-section-number">4.3</span> Visual Table of Contents</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div>
@@ -260,26 +266,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="sec-open-container" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="sec-open-container"><span class="header-section-number">4.3</span> Opening Shells in Containers for Testing</h2>
+<section id="sec-open-container" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="sec-open-container"><span class="header-section-number">4.4</span> Opening Shells in Containers for Testing</h2>
 <p>In this section, we talk about testing scripts in a container using <code>apptainer</code>. We use <code>apptainer</code> (formerly Singularity) in order to run Docker containers on a shared HPC system. This is because Docker itself requires root-level privileges, which is not secure on shared systems.</p>
 <p>In order to do our testing, we’ll first pull the Docker container, map our bind point (so our container can access files outside of its file system), and then run scripts in the container.</p>
 <p>Even if you aren’t going to frequently use Apptainer in your work, I recommend trying an interactive shell in a container at least once or twice to learn about the container filesystem and conceptually understand how you connect it to the external filesystem.</p>
-<section id="pulling-a-docker-container" class="level3" data-number="4.3.1">
-<h3 data-number="4.3.1" class="anchored" data-anchor-id="pulling-a-docker-container"><span class="header-section-number">4.3.1</span> Pulling a Docker Container</h3>
+<section id="pulling-a-docker-container" class="level3" data-number="4.4.1">
+<h3 data-number="4.4.1" class="anchored" data-anchor-id="pulling-a-docker-container"><span class="header-section-number">4.4.1</span> Pulling a Docker Container</h3>
 <p>Let’s pull a docker container from the Docker registry. Note we have to specify <code>docker://</code> when we pull the container, because Apptainer has its own internal format called SIF.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> pull docker://biocontainers/samtools:v1.9-4-deb_cv1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
-<section id="opening-a-shell-in-a-container-with-apptainer-shell" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="opening-a-shell-in-a-container-with-apptainer-shell"><span class="header-section-number">4.4</span> Opening a Shell in a Container with <code>apptainer shell</code></h2>
+<section id="opening-a-shell-in-a-container-with-apptainer-shell" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="opening-a-shell-in-a-container-with-apptainer-shell"><span class="header-section-number">4.5</span> Opening a Shell in a Container with <code>apptainer shell</code></h2>
 <p>When you’re getting started, opening a shell using Apptainer can help you test out things like filepaths and how they’re accessed in the container. It’s hard to get an intuition for how file I/O works with containers until you can see the limited view from the container.</p>
 <p>By default, apptainers can see your current directory and navigate to the files in it.</p>
 <p>You can open an Apptainer shell in a container using <code>apptainer shell</code>. Remember to use <code>docker://</code> before the container name. For example:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> shell docker://biocontainers/samtools:v1.9-4-deb_cv1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This will load the <code>apptainer</code> module, and then open a Bash shell in the container using <code>apptainer shell</code>. Once you’re in the container, you can test code, especially seeing whether your files can be seen by the container (see <a href="#sec-bindpaths" class="quarto-xref"><span>Section 4.5</span></a>). 90% of the issues with using Docker containers has to do with bind paths, so we’ll talk about that next.</p>
+<p>This will load the <code>apptainer</code> module, and then open a Bash shell in the container using <code>apptainer shell</code>. Once you’re in the container, you can test code, especially seeing whether your files can be seen by the container (see <a href="#sec-bindpaths" class="quarto-xref"><span>Section 4.6</span></a>). 90% of the issues with using Docker containers has to do with bind paths, so we’ll talk about that next.</p>
 <p>Once you’re in the shell, you can take a look at where <code>samtools</code> is installed:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> samtools</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Note that the container filesystem is isolated, and we need to explicitly build connections to it (called bind paths) to get files in and out. We’ll talk more about this in the next section.</p>
@@ -301,8 +307,8 @@ Opening a Shell in a Docker Container with Docker
 </div>
 </div>
 </section>
-<section id="sec-bindpaths" class="level2" data-number="4.5">
-<h2 data-number="4.5" class="anchored" data-anchor-id="sec-bindpaths"><span class="header-section-number">4.5</span> Testing out bind paths in containers</h2>
+<section id="sec-bindpaths" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="sec-bindpaths"><span class="header-section-number">4.6</span> Testing out bind paths in containers</h2>
 <p>One thing to keep in mind is that every container has its own filesystem. One of the hardest things to wrap your head around for containers is how their filesystems work, and how to access files that are outside of the container filesystem. We’ll call any filesystems outside of the container <em>external filesystems</em> to make the discussion a little easier.</p>
 <p>By default, the containers have access to your current working directory. We could make this where our scripts live (such as <code>/home/tladera2/</code>), but because our data is elsewhere, we’ll need to specify that location (<code>/fh/fast/mylab/</code>) as well.</p>
 <p>The main mechanism we have in Apptainer to access the external filesystem are <em>bind paths</em>. Much like mounting a drive, we can bind directories from the external filesystem using these bind points.</p>
@@ -343,23 +349,23 @@ WDL makes this way easier
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>A major point of failure with Apptainer scripting is when our scripts aren’t using the right bind paths.</p>
-<p>This is one reason we recommend writing WDL Workflows and a workflow engine (such as Cromwell) to run your workflows. You don’t have to worry that your bind points are setup correctly, because they are handled by the workflow engine.</p>
+<p>A major point of failure with Apptainer scripting is when our scripts aren’t using the right bind paths. It becomes even more complicated when you are running multiple steps.</p>
+<p>This is one reason we recommend writing WDL Workflows and a <button class="glossary"><span class="def">A system that works with the cluster manager to orchestrate processing data through a workflow</span>workflow manager</button> (such as <button class="glossary"><span class="def"></span>Cromwell</button> or Sprocket) to run your workflows. You don’t have to worry that your bind points are setup correctly, because they are handled by the workflow manager.</p>
 </div>
 </div>
-<section id="testing-in-the-apptainer-shell" class="level3" data-number="4.5.1">
-<h3 data-number="4.5.1" class="anchored" data-anchor-id="testing-in-the-apptainer-shell"><span class="header-section-number">4.5.1</span> Testing in the Apptainer Shell</h3>
+<section id="testing-in-the-apptainer-shell" class="level3" data-number="4.6.1">
+<h3 data-number="4.6.1" class="anchored" data-anchor-id="testing-in-the-apptainer-shell"><span class="header-section-number">4.6.1</span> Testing in the Apptainer Shell</h3>
 <p>Ok, now we have a bind point, so now we can test our script in the shell. For example, we can see if we are invoking <code>samtools</code> in the correct way and that our bind points work.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-c</span> /mydata/my_bam_file.bam <span class="op">&gt;</span> /mydata/bam_counts.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Again, trying out scripts in the container is the best way to understand what the container can and can’t see.</p>
 </section>
-<section id="exiting-the-container-when-youre-done" class="level3" data-number="4.5.2">
-<h3 data-number="4.5.2" class="anchored" data-anchor-id="exiting-the-container-when-youre-done"><span class="header-section-number">4.5.2</span> Exiting the container when you’re done</h3>
+<section id="exiting-the-container-when-youre-done" class="level3" data-number="4.6.2">
+<h3 data-number="4.6.2" class="anchored" data-anchor-id="exiting-the-container-when-youre-done"><span class="header-section-number">4.6.2</span> Exiting the container when you’re done</h3>
 <p>You can <code>exit</code>, like any shell you open. You should be out of the container. Confirm by using <code>hostname</code> to make sure you’re out of the container.</p>
 </section>
 </section>
-<section id="testing-outside-of-the-container" class="level2" data-number="4.6">
-<h2 data-number="4.6" class="anchored" data-anchor-id="testing-outside-of-the-container"><span class="header-section-number">4.6</span> Testing outside of the container</h2>
+<section id="testing-outside-of-the-container" class="level2" data-number="4.7">
+<h2 data-number="4.7" class="anchored" data-anchor-id="testing-outside-of-the-container"><span class="header-section-number">4.7</span> Testing outside of the container</h2>
 <p>Let’s take everything that we learned and put it in a script that we can run on the HPC:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Script to samtools view -c an input file:</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Usage: ./run_sam.sh &lt;my_bam_file.bam&gt;</span></span>
@@ -373,8 +379,8 @@ WDL makes this way easier
 <pre><code>./run_sam.sh chr1.bam </code></pre>
 <p>And it will output a file called <code>chr1.bam.counts.txt</code>.</p>
 </section>
-<section id="apptainer-cache" class="level2" data-number="4.7">
-<h2 data-number="4.7" class="anchored" data-anchor-id="apptainer-cache"><span class="header-section-number">4.7</span> Apptainer Cache</h2>
+<section id="apptainer-cache" class="level2" data-number="4.8">
+<h2 data-number="4.8" class="anchored" data-anchor-id="apptainer-cache"><span class="header-section-number">4.8</span> Apptainer Cache</h2>
 <p><a href="https://apptainer.org/docs/user/1.0/build_env.html">The apptainer cache</a> is where your docker images live. They are translated to the native apptainer <code>.sif</code> format.</p>
 <p>You can see what’s in your cache by using</p>
 <pre><code>apptainer cache list</code></pre>
@@ -384,13 +390,13 @@ WDL makes this way easier
 <p>to clear out the cache.</p>
 <p>There are a number of environment variables (<a href="configuring.html#sec-environment" class="quarto-xref"><span>Section 5.4</span></a>) that can be set, including login tokens for pulling from a private registry. <a href="https://apptainer.org/docs/user/1.0/build_env.html#environment-variables">More information is here</a>.</p>
 </section>
-<section id="entrypoints" class="level2" data-number="4.8">
-<h2 data-number="4.8" class="anchored" data-anchor-id="entrypoints"><span class="header-section-number">4.8</span> Entrypoints</h2>
+<section id="entrypoints" class="level2" data-number="4.9">
+<h2 data-number="4.9" class="anchored" data-anchor-id="entrypoints"><span class="header-section-number">4.9</span> Entrypoints</h2>
 <p>You can think of an entrypoint as a way of automatically starting something up in your container when you run it. For example, if you have a web stack container, one of the things you want to start is a web server when you start running it.</p>
 <p>The main reason to be aware of entrypoints is when they exist in a Dockerfile. It is important to know what is started when you start running a container.</p>
 </section>
-<section id="more-info" class="level2" data-number="4.9">
-<h2 data-number="4.9" class="anchored" data-anchor-id="more-info"><span class="header-section-number">4.9</span> More Info</h2>
+<section id="more-info" class="level2" data-number="4.10">
+<h2 data-number="4.10" class="anchored" data-anchor-id="more-info"><span class="header-section-number">4.10</span> More Info</h2>
 <ul>
 <li><a href="https://hsf-training.github.io/hsf-training-singularity-webpage/07-file-sharing/index.html">Carpentries Section on Apptainer Paths</a> - this is an excellent resource if you want to dive deeper into undestanding container filesystems and bind points.</li>
 <li><a href="https://apptainer.org/docs/user/main/bind_paths_and_mounts.html#bind-examples">Apptainer Documentation on Bind Paths</a>. There are a lot of good examples here on how to set up bind paths.</li>
