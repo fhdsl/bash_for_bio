@@ -182,7 +182,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04_containers_workflows.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Containers and Workflows</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Workflows</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -215,7 +215,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#developing-and-testing-scripts" id="toc-developing-and-testing-scripts" class="nav-link active" data-scroll-target="#developing-and-testing-scripts"><span class="header-section-number">7.1</span> Developing and Testing scripts</a>
   <ul class="collapse">
-  <li><a href="#sec-grabnode" id="toc-sec-grabnode" class="nav-link" data-scroll-target="#sec-grabnode"><span class="header-section-number">7.1.1</span> Testing code on a compute node</a></li>
+  <li><a href="#sec-testnode" id="toc-sec-testnode" class="nav-link" data-scroll-target="#sec-testnode"><span class="header-section-number">7.1.1</span> Testing code on a compute node</a></li>
+  <li><a href="#grabbing-an-interactive-shell-on-a-worker" id="toc-grabbing-an-interactive-shell-on-a-worker" class="nav-link" data-scroll-target="#grabbing-an-interactive-shell-on-a-worker"><span class="header-section-number">7.1.2</span> Grabbing an interactive shell on a worker</a></li>
   </ul></li>
   <li><a href="#sec-containers" id="toc-sec-containers" class="nav-link" data-scroll-target="#sec-containers"><span class="header-section-number">7.2</span> Working with containers</a>
   <ul class="collapse">
@@ -256,8 +257,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>One of the hard things to understand is what can be run on a compute node versus the head node, and what file systems are accessible via a compute node.</p>
 <p>A lot of the issues you might have is because you need to understand the mental model of how cluster computing works. And the best way to understand that is to test your code on a compute node.</p>
 <p>Let’s explore how we can do that.</p>
-<section id="sec-grabnode" class="level3" data-number="7.1.1">
-<h3 data-number="7.1.1" class="anchored" data-anchor-id="sec-grabnode"><span class="header-section-number">7.1.1</span> Testing code on a compute node</h3>
+<section id="sec-testnode" class="level3" data-number="7.1.1">
+<h3 data-number="7.1.1" class="anchored" data-anchor-id="sec-testnode"><span class="header-section-number">7.1.1</span> Testing code on a compute node</h3>
 <p>Fred Hutch users have the advantage of <code>grabnode</code>, which is a custom command that lets you request an interactive instance of a compute node.</p>
 <p>Why would you want to do this? A good part of this is about testing software and making sure that your paths are correct.</p>
 <div class="callout callout-style-simple callout-none no-icon callout-titled">
@@ -277,6 +278,63 @@ Don’t rely on <code>grabnode</code>/interactive mode for your batch work
 </div>
 </div>
 </section>
+<section id="grabbing-an-interactive-shell-on-a-worker" class="level3" data-number="7.1.2">
+<h3 data-number="7.1.2" class="anchored" data-anchor-id="grabbing-an-interactive-shell-on-a-worker"><span class="header-section-number">7.1.2</span> Grabbing an interactive shell on a worker</h3>
+<p>When you’re testing code that’s going to run on a worker node, you need to be aware of what the worker node sees.</p>
+<p>It’s also important in estimating how long our tasks are going to run since we can test how long a task runs for a representative dataset.</p>
+<p>On a SLURM system, the way to open interactive shells on a node has changed. Check your version first:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If you’re on a version before 20.11, you can use <code>srun -i --pty bash</code> to open an interactive terminal on a worker:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-i</span> <span class="at">--pty</span> bash</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If the version is past 20.11, we can open an interactive shell on a worker with <code>salloc</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">salloc</span> bash</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+For FH Users: <code>grabnode</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>On the FH system, we can use a command called <code>grabnode</code>, which will let us request a node. It will ask us for our requirements (numbers of cores, memory, etc.) for our node.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tladera2@rhino01:~$</span> grabnode</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>grabnode</code> will then ask us for what kind of instance we want, in terms of CPUs, Memory, and GPUs. Here, I’m grabbing a node with 8 cores, 8 Gb of memory, using it for 1 day, and no GPU.</p>
+<pre><code>How many CPUs/cores would you like to grab on the node? [1-36] 8
+How much memory (GB) would you like to grab? [160] 8
+Please enter the max number of days you would like to grab this node: [1-7] 1
+Do you need a GPU ? [y/N]n
+
+You have requested 8 CPUs on this node/server for 1 days or until you type exit.
+
+Warning: If you exit this shell before your jobs are finished, your jobs
+on this node/server will be terminated. Please use sbatch for larger jobs.
+
+Shared PI folders can be found in: /fh/fast, /fh/scratch and /fh/secure.
+
+Requesting Queue: campus-new cores: 8 memory: 8 gpu: NONE
+srun: job 40898906 queued and waiting for resources</code></pre>
+<p>After a little bit, you’ll arrive at a new prompt:</p>
+<pre><code>(base) tladera2@gizmok164:~$</code></pre>
+<p>Now you can test your batch scripts, in order to make sure your file paths are correct. It is also helpful in profiling your job.</p>
+<p>If you’re doing interactive analysis that is going to span over a few days, I recommend that you use <a href="@sec-screen"><code>screen</code> or <code>tmux</code></a>.</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Remember <code>hostname</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When you are doing interactive analysis, it is easy to forget in which node you’re working in. Just as a quick check, I use <code>hostname</code> to remind myself whether I’m in <code>rhino</code>, <code>gizmo</code>, or within an apptainer container.</p>
+</div>
+</div>
+</section>
 </section>
 <section id="sec-containers" class="level2" data-number="7.2">
 <h2 data-number="7.2" class="anchored" data-anchor-id="sec-containers"><span class="header-section-number">7.2</span> Working with containers</h2>
@@ -290,22 +348,22 @@ Don’t rely on <code>grabnode</code>/interactive mode for your batch work
 <section id="pulling-a-docker-container" class="level3" data-number="7.2.2">
 <h3 data-number="7.2.2" class="anchored" data-anchor-id="pulling-a-docker-container"><span class="header-section-number">7.2.2</span> Pulling a Docker Container</h3>
 <p>Let’s pull a docker container from the Docker registry. Note we have to specify <code>docker://</code> when we pull the container, because Apptainer has its own internal format called SIF.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> pull docker://biocontainers/samtools:v1.9-4-deb_cv1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> pull docker://biocontainers/samtools:v1.9-4-deb_cv1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="opening-a-shell-in-a-container-with-apptainer-shell" class="level3" data-number="7.2.3">
 <h3 data-number="7.2.3" class="anchored" data-anchor-id="opening-a-shell-in-a-container-with-apptainer-shell"><span class="header-section-number">7.2.3</span> Opening a Shell in a Container with <code>apptainer shell</code></h3>
 <p>When you’re getting started, opening a shell using Apptainer can help you test out things like filepaths and how they’re accessed in the container. It’s hard to get an intuition for how file I/O works with containers until you can see the limited view from the container.</p>
 <p>By default, apptainers can see your current directory and navigate to the files in it.</p>
 <p>You can open an Apptainer shell in a container using <code>apptainer shell</code>. Remember to use <code>docker://</code> before the container name. For example:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> shell docker://biocontainers/samtools:v1.9-4-deb_cv1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> shell docker://biocontainers/samtools:v1.9-4-deb_cv1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This will load the <code>apptainer</code> module, and then open a Bash shell in the container using <code>apptainer shell</code>. Once you’re in the container, you can test code, especially seeing whether your files can be seen by the container (see <a href="container-basics.html#sec-bindpaths" class="quarto-xref"><span>Section 5.1.6</span></a>). 90% of the issues with using Docker containers has to do with bind paths, so we’ll talk about that next.</p>
 <p>Once you’re in the shell, you can take a look at where <code>samtools</code> is installed:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> samtools</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> samtools</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Note that the container filesystem is isolated, and we need to explicitly build connections to it (called bind paths) to get files in and out. We’ll talk more about this in the next section.</p>
 <p>Once we’re done testing scripts in our containers, we can exit the shell and get back into the node.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">exit</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">exit</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -318,7 +376,7 @@ Opening a Shell in a Docker Container with Docker
 <div class="callout-body-container callout-body">
 <p>For the most part, due to security reasons, we don’t use <code>docker</code> on HPC systems. In short, the <code>docker</code> group essentially has root-level access to the machine, and it’s not a good for security on a shared resource like an HPC.</p>
 <p>However, if you have admin level access (for example, on your own laptop), you can open up an interactive shell with <code>docker run -it</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-it</span> biocontainers/samtools:v1.9-4-deb_cv1 /bin/bash</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-it</span> biocontainers/samtools:v1.9-4-deb_cv1 /bin/bash</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This will open a bash shell much like <code>apptainer shell</code>. Note that volumes (the docker equivalent of bind paths) are specified differently in Docker compared to Apptainer.</p>
 </div>
 </div>
@@ -340,7 +398,7 @@ WDL makes this way easier
 <section id="testing-in-the-apptainer-shell" class="level3" data-number="7.2.4">
 <h3 data-number="7.2.4" class="anchored" data-anchor-id="testing-in-the-apptainer-shell"><span class="header-section-number">7.2.4</span> Testing in the Apptainer Shell</h3>
 <p>Ok, now we have a bind point, so now we can test our script in the shell. For example, we can see if we are invoking <code>samtools</code> in the correct way and that our bind points work.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-c</span> /mydata/my_bam_file.bam <span class="op">&gt;</span> /mydata/bam_counts.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-c</span> /mydata/my_bam_file.bam <span class="op">&gt;</span> /mydata/bam_counts.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Again, trying out scripts in the container is the best way to understand what the container can and can’t see.</p>
 </section>
 <section id="exiting-the-container-when-youre-done" class="level3" data-number="7.2.5">
@@ -350,14 +408,14 @@ WDL makes this way easier
 <section id="testing-outside-of-the-container" class="level3" data-number="7.2.6">
 <h3 data-number="7.2.6" class="anchored" data-anchor-id="testing-outside-of-the-container"><span class="header-section-number">7.2.6</span> Testing outside of the container</h3>
 <p>Let’s take everything that we learned and put it in a script that we can run on the HPC:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Script to samtools view -c an input file:</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Usage: ./run_sam.sh &lt;my_bam_file.bam&gt;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Outputs a count file: my_bam_file.bam.counts.txt</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> run <span class="at">--bind</span> /fh/fast/mydata:/mydata docker://biocontainers/samtools:v1.9-4-deb_cv1 samtools view <span class="at">-c</span> /mydata/<span class="va">$1</span> <span class="op">&gt;</span> /mydata/<span class="va">$1</span>.counts.txt</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#apptainer cache clean</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Script to samtools view -c an input file:</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Usage: ./run_sam.sh &lt;my_bam_file.bam&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Outputs a count file: my_bam_file.bam.counts.txt</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> run <span class="at">--bind</span> /fh/fast/mydata:/mydata docker://biocontainers/samtools:v1.9-4-deb_cv1 samtools view <span class="at">-c</span> /mydata/<span class="va">$1</span> <span class="op">&gt;</span> /mydata/<span class="va">$1</span>.counts.txt</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#apptainer cache clean</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We can use this script by the following command:</p>
 <pre><code>./run_sam.sh chr1.bam </code></pre>
 <p>And it will output a file called <code>chr1.bam.counts.txt</code>.</p>
@@ -378,7 +436,7 @@ Apptainer Cache
 <p>If you need to clear out the cache, you can run</p>
 <pre><code>apptainer cache clean</code></pre>
 <p>to clear out the cache.</p>
-<p>There are a number of environment variables (<a href="configuring.html#sec-environment" class="quarto-xref"><span>Section 6.5</span></a>) that can be set, including login tokens for pulling from a private registry. <a href="https://apptainer.org/docs/user/1.0/build_env.html#environment-variables">More information is here</a>.</p>
+<p>There are a number of environment variables (<a href="configuring.html#sec-environment" class="quarto-xref"><span>Section 8.5</span></a>) that can be set, including login tokens for pulling from a private registry. <a href="https://apptainer.org/docs/user/1.0/build_env.html#environment-variables">More information is here</a>.</p>
 </div>
 </div>
 
@@ -788,8 +846,8 @@ Apptainer Cache
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./04_containers_workflows.html" class="pagination-link" aria-label="Containers and Workflows">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Containers and Workflows</span></span>
+      <a href="./04_containers_workflows.html" class="pagination-link" aria-label="Workflows">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Workflows</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

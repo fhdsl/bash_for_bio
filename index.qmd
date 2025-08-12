@@ -6,15 +6,15 @@
 - Do you want to automate an R or Python script you wrote to work on a bunch of files?
 - Do you want to do all of this on a high performance cluster ({{<glossary HPC>}})?
 
-If so, this course is for you! We will learn enough bash scripting to do useful things on the Fred Hutch cluster and automate the boring parts. 
+If so, this course is for you! We will learn enough bash scripting to do useful things on the Fred Hutch computing cluster (affectionately called "gizmo") and automate the boring parts. 
 
 ## Learning Objectives
 
-- **Articulate** basic HPC architecture concepts and why they’re useful in your work
 - **Apply** bash scripting to execute alignment, and Python/R scripts
 - **Navigate** and **process** data on the different filesystems available at FH
-- **Leverage** bash scripting to execute jobs on a high performance cluster.
-- **Execute** batch processing of multiple files in a project
+- **Articulate** basic HPC architecture concepts and why they’re useful in your work
+- **Leverage** bash scripting to **execute** jobs on a high performance cluster.
+- **Utilize** workflow managers such as `cromwell` to process multiple files in a multi-step {{<glossary WDL>}} workflow.
 - **Manage** software dependencies reproducibly using container-based technologies such as Docker/Apptainer containers or EasyBuild modules
 
 :::{.callout-note}
@@ -24,7 +24,7 @@ I originally wrote a book that was called Bash for Bioinformatics, which was abo
 
 I have renamed that book [Bash for DNANexus](https://laderast.github.io/bash_for_dnanexus/), and named this course *Bash for Bioinformatics*.
 
-This book shares bones with *Bash for DNANexus*, but has more of a focus on running tasks on {{<glossary "HPC">}}. 
+This book shares bones with *Bash for DNANexus*, but has more of a focus on running tasks on high performance computing systems ({{<glossary "HPC">}}). 
 :::
 
 ## Prerequisites
@@ -59,6 +59,7 @@ You should have completed the readings before class, so we can hit the ground ru
 |Week 2|[Writing and Running Bash Scripts](02_scripting.qmd)|Bite Size Bash|
 |Week 3|[Batch Processing and HPC Jobs](03_batch.qmd)|[HPC Basics](hpc-basics.qmd)
 |Week 4|[Testing Scripts/Workflow Managers](04_containers_workflows.qmd)|[Container Basics](container-basics.qmd)|
+|On your own time|[Testing Scripts](testing.qmd)||
 |On your own time|[Configuring your Bash Shell](configuring.qmd)||
 
 ## Reference Texts 

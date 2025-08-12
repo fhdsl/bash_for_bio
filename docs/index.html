@@ -233,16 +233,16 @@ ul.task-list li input[type="checkbox"] {
 <li>Do you want to automate an R or Python script you wrote to work on a bunch of files?</li>
 <li>Do you want to do all of this on a high performance cluster (<button class="glossary"><span class="def">Short for High Performance Computing. See the hpc basics chapter for more info.</span>HPC</button>)?</li>
 </ul>
-<p>If so, this course is for you! We will learn enough bash scripting to do useful things on the Fred Hutch cluster and automate the boring parts.</p>
+<p>If so, this course is for you! We will learn enough bash scripting to do useful things on the Fred Hutch computing cluster (affectionately called “gizmo”) and automate the boring parts.</p>
 </section>
 <section id="learning-objectives" class="level2">
 <h2 class="anchored" data-anchor-id="learning-objectives">Learning Objectives</h2>
 <ul>
-<li><strong>Articulate</strong> basic HPC architecture concepts and why they’re useful in your work</li>
 <li><strong>Apply</strong> bash scripting to execute alignment, and Python/R scripts</li>
 <li><strong>Navigate</strong> and <strong>process</strong> data on the different filesystems available at FH</li>
-<li><strong>Leverage</strong> bash scripting to execute jobs on a high performance cluster.</li>
-<li><strong>Execute</strong> batch processing of multiple files in a project</li>
+<li><strong>Articulate</strong> basic HPC architecture concepts and why they’re useful in your work</li>
+<li><strong>Leverage</strong> bash scripting to <strong>execute</strong> jobs on a high performance cluster.</li>
+<li><strong>Utilize</strong> workflow managers such as <code>cromwell</code> to process multiple files in a multi-step <button class="glossary"><span class="def">Short for Workflow Description Language. A standard for specifying a workflow, which includes describing inputs, saving intermediate outputs, and outputting processed files.</span>WDL</button> workflow.</li>
 <li><strong>Manage</strong> software dependencies reproducibly using container-based technologies such as Docker/Apptainer containers or EasyBuild modules</li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -257,7 +257,7 @@ Wasn’t there another Bash for Bioinformatics book?
 <div class="callout-body-container callout-body">
 <p>I originally wrote a book that was called Bash for Bioinformatics, which was about learning enough bash to use the cloud-based DNANexus platform effectively.</p>
 <p>I have renamed that book <a href="https://laderast.github.io/bash_for_dnanexus/">Bash for DNANexus</a>, and named this course <em>Bash for Bioinformatics</em>.</p>
-<p>This book shares bones with <em>Bash for DNANexus</em>, but has more of a focus on running tasks on <button class="glossary"><span class="def">Short for High Performance Computing. See the hpc basics chapter for more info.</span>HPC</button>.</p>
+<p>This book shares bones with <em>Bash for DNANexus</em>, but has more of a focus on running tasks on high performance computing systems (<button class="glossary"><span class="def">Short for High Performance Computing. See the hpc basics chapter for more info.</span>HPC</button>).</p>
 </div>
 </div>
 </section>
@@ -285,7 +285,7 @@ Terminology
 </div>
 <div class="callout-body-container callout-body">
 <p>We know that not all of us have the same vocabulary. We try to define terminology as much as possible. These are indicated by double underlines such as this:</p>
-<p><button class="glossary"><span class="def"></span>Compute Job</button></p>
+<p><button class="glossary"><span class="def">A task that we have assigned a computer to run. This computer can be a compute node in a cluster, or our own machine.</span>Compute Job</button></p>
 <p>You can click and hold on the term to define it.</p>
 </div>
 </div>
@@ -328,6 +328,11 @@ Terminology
 <td><a href="./container-basics.html">Container Basics</a></td>
 </tr>
 <tr class="even">
+<td>On your own time</td>
+<td><a href="./testing.html">Testing Scripts</a></td>
+<td></td>
+</tr>
+<tr class="odd">
 <td>On your own time</td>
 <td><a href="./configuring.html">Configuring your Bash Shell</a></td>
 <td></td>

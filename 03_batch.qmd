@@ -41,7 +41,7 @@ If we run this in our repository, we get something similar to this:
      214    1314    8001 miscellaneous.qmd
 ```
 
-The `*.qmd` (the wildcard operator, also known as a glob) can be used in various ways. For example, if our files are in a folder called `raw_data/`, we could specify:
+The `*.qmd` (the wildcard operator, also known as a {{<glossary glob>}}) can be used in various ways. For example, if our files are in a folder called `raw_data/`, we could specify:
 
 ```
 for file in raw_data/*.fq
@@ -77,6 +77,11 @@ module purge
 
 See page 12 in Bite Size Bash.
 
+:::{.callout}
+## Selecting files with complicated patterns: Regular Expressions
+
+:::
+
 ### Using file manifests
 
 One approach that I use a lot is using file manifests to process multiple sets of files. Each line of the file manifest will contain all of the related files I need to process. 
@@ -105,6 +110,8 @@ unset IFS             #<2>
 ```
 1. Change IFS to be `""` (no space), to process a file line by line.
 2. Reset IFS to original behavior.
+
+
 
 ## Batching on HPC
 
@@ -149,6 +156,7 @@ We are able to set some configuration on running our jobs.
 
 Much more information about the kinds of directives that you can specify in a SLURM script is available here: <https://www.osc.edu/supercomputing/batch-processing-at-osc/slurm_directives_summary>
 
+The most important directive you should be aware of is how 
 :::
 
 ### Job Arrays
@@ -235,73 +243,6 @@ scancel 26328834
 
 This will cancel all sub jobs related to the parent job.
 
-## Containers
+## Redirection and Pipes
 
-We already learned about software modules (@sec-modules). There is an alternative way to use software: using a {{<glossary "container">}}.
-
-### What is a Container?
-
-A container is a self-contained unit of software. It contains everything needed to run the software on a variety of machines. If you have the container software installed on your machine, it doesn't matter whether it is MacOS, Linux, or Windows - the container will behave consistently across different operating systems and architectures.
-
-The container has the following contents:
-
-- **Software** - The software we want to run in a container. For bioinformatics work, this is usually something like an aligner like `bwa`, or utilities such as `samtools`
-- **Software Dependencies** - various software packages needed to run the software. For example, if we wanted to run `tidyverse` in a container, we need to have `R` installed in the container as well.
-- **Filesystem** - containers have their own isolated filesystem that can be connected to the "outside world" - everything outside of the container. We'll learn more about customizing these with bind paths (@sec-bindpaths).
-
-In short, the container has everything needed to run the software. It is not a full operating system, but a smaller mini-version that cuts out a lot of cruft. 
-
-Containers are {{< glossary "ephemeral">}}. They leverage the the file system of their host to manage files. These are called both *Volumes* (the Docker term) and *Bind Paths* (the apptainer term).
-
-### Docker vs. Apptainer
-
-There are two basic ways to run Docker containers: 
-
-1. Using the Docker software
-2. Using the Apptainer software (for HPC systems)
-
-In general, Docker is used on systems where you have a high level of access to the system. This is because `docker` uses a special user group called `docker` that has essentially root level privileges. This is not something to be taken lightly.
-
-This is not the case for HPC systems, which are shared and granting this level of access to many people is not practical. This is when we use {{< glossary "Apptainer">}} (which used to be called Singularity), which requires a much lower level of user privileges to execute tasks. For more info, see @sec-open-container . 
-
-:::{.callout-warning}
-## Be Secure
-
-Before we get started, security is always a concern when running containers. The `docker` group has elevated status on a system, so we need to be careful that when we're running them, these containers aren't introducing any system vulnerabilities. Note that on HPC systems, the main mechanism for running containers is `apptainer`, which is designed to be more secure.
-
-These are mostly important when running containers that are web-servers or part of a web stack, but it is also important to think about when running jobs on HPC.
-
-Here are some guidelines to think about when you are working with a container.
-
-- **Use vendor-specific Docker Images when possible**. 
-- **Use container scanners to spot potential vulnerabilities**. DockerHub has a vulnerability scanner that scans your Docker images for potential vulnerabilities. For example, the WILDS Docker library employs a vulnerability scanner and the containers are regularly patched to prevent vulnerabilities.
-- **Avoid kitchen-sink images**. One issue is when an image is built on top of many other images. It makes it really difficult to plug vulnerabilities. When in doubt, use images from trusted people and organizations. At the very least, look at the Dockerfile to see that suspicious software isn't being installed.
-:::
-
-### Common Containers for Bioinformatics
-
-- GATK (the genome analysis toolkit) is one common container that we can use for analysis.
-- 
-
-### The WILDS Docker Library
-
-The Data Science Lab has a set of Docker containers for common Bioinformatics tasks available in the [WILDS Docker Library](https://hub.docker.com/u/getwilds). These include:
-
-- `samtools`
-- `bcftools`
-- `manta`
-- `cnvkit`
-- `deseq2`
-
-Among many others. Be sure to check it out before you start building your own containers.
- 
-### Pulling a Docker Container
-
-Let's pull a docker container from the Docker registry. Note we have to specify `docker://` when we pull the container, because Apptainer has its own internal format called SIF.
-
-```bash
-module load Apptainer/1.1.6
-apptainer pull docker://ghcr.io/getwilds/scanpy:latest
-apptainer run --bind /path/to/data:/data,/path/to/script:/script docker://getwilds/scanpy:latest python /script/example.py
-```
-
+Ok, we've executed 

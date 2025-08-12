@@ -2,7 +2,7 @@
 title: "Miscellaneous"
 ---
 
-###  `hostname` What Machine am I on?
+##  `hostname` What Machine am I on? {#sec-hostname}
 
 One of the most confusing things about working on HPC is that sometimes you have a shell open on the head node, but oftentimes, you are on a worker node. 
 
@@ -344,3 +344,51 @@ Trust me; you don't want to have to handle iterating through a huge directory an
 ### For more information
 
 <https://www.baeldung.com/linux/xargs-multiple-arguments>
+
+## `screen` or `tmux`: keep your session open {#sec-screen}
+
+{{< video https://youtu.be/fYWszwc-LXM >}}
+
+Oftentimes, when you are running something interactive on a system, you'll have to leave your shell open. Otherwise, your running job will terminate.
+
+You can use `screen` or `tmux`, which are known as window managers, to keep your sessions open on a remote machine. We'll talk about `screen`.
+
+![](images/start_screen.png)
+
+`screen` works by starting a new bash shell. You can tell this because your bash prompt will change.
+
+The key of working remotely with `screen` is that you can then request an `hpc` node. 
+
+For FH users, you can request a `gizmo` node using `grabnode`. We can then check we're on the `gizmo` node by using `hostname`.
+
+If we have something running on this node, we can keep it running by *detaching* the screen session. Once we are detached, we should check that we're back in `rhino` by using `hostname`. Now we can log out and our job will keep running.
+
+![](images/reattach_screen.png)
+
+If we need to get back into that `screen` session, we can use: 
+
+```bash
+screen -ls
+```
+To list the number of sessions:
+
+```
+There is a screen on:
+        37096.pts-321.rhino01   (05/10/2024 10:21:54 AM)        (Detached)
+1 Socket in /run/screen/S-tladera2.
+```
+
+ Once we've found the id for our screen session (in this case it's `37096`), we can *reattach* to the screen session using:
+
+ ```
+screen -r 37096
+ ```
+And we'll be back in our screen session! Handy, right?
+
+:::{.callout-note}
+## For FH Users
+
+Note that if you logout from `rhino`, you'll need to log back into the same `rhino` node to access your screen session.
+
+For example, if my screen session was on `rhino01`, I'd need to ssh back into `rhino01`, not `rhino02` or `rhino03`. This means you will need to ssh into `rhino01` specifically to get back into your screen session.
+:::

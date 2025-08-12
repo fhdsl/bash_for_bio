@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>6&nbsp; Containers and Workflows – Bash for Bioinformatics</title>
+<title>6&nbsp; Workflows – Bash for Bioinformatics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -77,7 +77,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/quarto-contrib/glossary/glossary.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -118,7 +117,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04_containers_workflows.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Containers and Workflows</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04_containers_workflows.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Workflows</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -182,7 +181,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04_containers_workflows.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Containers and Workflows</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Workflows</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -224,20 +223,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#anatomy-of-a-task" id="toc-anatomy-of-a-task" class="nav-link" data-scroll-target="#anatomy-of-a-task"><span class="header-section-number">6.2.6</span> Anatomy of a Task</a></li>
   <li><a href="#architecture-of-a-wdl-file" id="toc-architecture-of-a-wdl-file" class="nav-link" data-scroll-target="#architecture-of-a-wdl-file"><span class="header-section-number">6.2.7</span> Architecture of a WDL file</a></li>
   </ul></li>
-  <li><a href="#developing-and-testing-out-scripts" id="toc-developing-and-testing-out-scripts" class="nav-link" data-scroll-target="#developing-and-testing-out-scripts"><span class="header-section-number">6.3</span> Developing and Testing out scripts</a>
-  <ul class="collapse">
-  <li><a href="#sec-grabnode" id="toc-sec-grabnode" class="nav-link" data-scroll-target="#sec-grabnode"><span class="header-section-number">6.3.1</span> Testing code on a compute node</a></li>
-  </ul></li>
-  <li><a href="#sec-containers" id="toc-sec-containers" class="nav-link" data-scroll-target="#sec-containers"><span class="header-section-number">6.4</span> Working with containers</a>
-  <ul class="collapse">
-  <li><a href="#sec-open-container" id="toc-sec-open-container" class="nav-link" data-scroll-target="#sec-open-container"><span class="header-section-number">6.4.1</span> Testing code in a container</a></li>
-  <li><a href="#pulling-a-docker-container" id="toc-pulling-a-docker-container" class="nav-link" data-scroll-target="#pulling-a-docker-container"><span class="header-section-number">6.4.2</span> Pulling a Docker Container</a></li>
-  <li><a href="#opening-a-shell-in-a-container-with-apptainer-shell" id="toc-opening-a-shell-in-a-container-with-apptainer-shell" class="nav-link" data-scroll-target="#opening-a-shell-in-a-container-with-apptainer-shell"><span class="header-section-number">6.4.3</span> Opening a Shell in a Container with <code>apptainer shell</code></a></li>
-  <li><a href="#testing-in-the-apptainer-shell" id="toc-testing-in-the-apptainer-shell" class="nav-link" data-scroll-target="#testing-in-the-apptainer-shell"><span class="header-section-number">6.4.4</span> Testing in the Apptainer Shell</a></li>
-  <li><a href="#exiting-the-container-when-youre-done" id="toc-exiting-the-container-when-youre-done" class="nav-link" data-scroll-target="#exiting-the-container-when-youre-done"><span class="header-section-number">6.4.5</span> Exiting the container when you’re done</a></li>
-  <li><a href="#testing-outside-of-the-container" id="toc-testing-outside-of-the-container" class="nav-link" data-scroll-target="#testing-outside-of-the-container"><span class="header-section-number">6.4.6</span> Testing outside of the container</a></li>
-  <li><a href="#more-info" id="toc-more-info" class="nav-link" data-scroll-target="#more-info"><span class="header-section-number">6.4.7</span> More Info</a></li>
-  </ul></li>
+  <li><a href="#where-next" id="toc-where-next" class="nav-link" data-scroll-target="#where-next"><span class="header-section-number">6.3</span> Where Next?</a></li>
   </ul>
 </nav>
     </div>
@@ -246,7 +232,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Containers and Workflows</span></h1>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Workflows</span></h1>
 </div>
 
 
@@ -280,9 +266,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Restart failed subjobs in the workflow</li>
 <li>Allow you to customize where intermediate and final outputs go</li>
 <li>Swap and customize modules in your workflow</li>
-<li>Adapt to different architectures</li>
+<li>Adapt to different computing architectures (HPC/cloud/etc)</li>
 </ul>
-<p>Many bioinformaticists have used workflow managers to process and manage hundreds or thousands of files at a time.</p>
+<p>Many bioinformaticists have used workflow managers to process and manage hundreds or thousands of files at a time. They are well worth learning.</p>
 <p>Here is an overview of some of the common bioinformatics workflow managers. We will be using <code>cromwell</code>, which runs WDL files.</p>
 <table class="caption-top table">
 <thead>
@@ -315,7 +301,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td>Nextflow</td>
-<td>.nf files</td>
+<td><code>.nf</code> files</td>
 <td>Owned by seqera</td>
 </tr>
 <tr class="even">
@@ -617,146 +603,11 @@ To execute womtool, run: java -jar $EBROOTCROMWELL/womtool.jar</code></pre>
 <span id="annotated-cell-10-25"><a href="#annotated-cell-10-25" aria-hidden="true" tabindex="-1"></a><span class="er">}</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
-<section id="developing-and-testing-out-scripts" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="developing-and-testing-out-scripts"><span class="header-section-number">6.3</span> Developing and Testing out scripts</h2>
-<p>One of the hard things to understand is what can be run on a compute node versus the head node, and what file systems are accessible via a compute node.</p>
-<p>A lot of the issues you might have is because you need to understand the mental model of how cluster computing works. And the best way to understand that is to test your code on a compute node.</p>
-<p>Let’s explore how we can do that.</p>
-<section id="sec-grabnode" class="level3" data-number="6.3.1">
-<h3 data-number="6.3.1" class="anchored" data-anchor-id="sec-grabnode"><span class="header-section-number">6.3.1</span> Testing code on a compute node</h3>
-<p>Fred Hutch users have the advantage of <code>grabnode</code>, which is a custom command that lets you request an interactive instance of a compute node.</p>
-<p>Why would you want to do this? A good part of this is about testing software and making sure that your paths are correct.</p>
-<div class="callout callout-style-simple callout-none no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Don’t rely on <code>grabnode</code>/interactive mode for your work
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>We see users that will request a multicore node with higher memory, and do their processing on that node.</p>
-<p>This doesn’t take advantage of all of the machines that are available on a cluster, and thus is a suboptimal way to utilize the cluster.</p>
-<p>The other disadvantage is that you may be waiting a very long time to get that multicore node, whereas if you batch across a bunch of nodes, you will get your work done much faster.</p>
-</div>
-</div>
-</section>
-</section>
-<section id="sec-containers" class="level2" data-number="6.4">
-<h2 data-number="6.4" class="anchored" data-anchor-id="sec-containers"><span class="header-section-number">6.4</span> Working with containers</h2>
-<p>I think the hardest thing about working with containers is wrapping your head around the indirectness of them. You are running software with its own internal filesystem and the challenges are getting the container to read files in folders/paths outside of its own filesytem, as well as outputting files into those outside folders.</p>
-<section id="sec-open-container" class="level3" data-number="6.4.1">
-<h3 data-number="6.4.1" class="anchored" data-anchor-id="sec-open-container"><span class="header-section-number">6.4.1</span> Testing code in a container</h3>
-<p>In this section, we talk about testing scripts in a container using <code>apptainer</code>. We use <code>apptainer</code> (formerly Singularity) in order to run Docker containers on a shared HPC system. This is because Docker itself requires root-level privileges, which is not secure on shared systems.</p>
-<p>In order to do our testing, we’ll first pull the Docker container, map our bind point (so our container can access files outside of its file system), and then run scripts in the container.</p>
-<p>Even if you aren’t going to frequently use Apptainer in your work, I recommend trying an interactive shell in a container at least once or twice to learn about the container filesystem and conceptually understand how you connect it to the external filesystem.</p>
-</section>
-<section id="pulling-a-docker-container" class="level3" data-number="6.4.2">
-<h3 data-number="6.4.2" class="anchored" data-anchor-id="pulling-a-docker-container"><span class="header-section-number">6.4.2</span> Pulling a Docker Container</h3>
-<p>Let’s pull a docker container from the Docker registry. Note we have to specify <code>docker://</code> when we pull the container, because Apptainer has its own internal format called SIF.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> pull docker://biocontainers/samtools:v1.9-4-deb_cv1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="opening-a-shell-in-a-container-with-apptainer-shell" class="level3" data-number="6.4.3">
-<h3 data-number="6.4.3" class="anchored" data-anchor-id="opening-a-shell-in-a-container-with-apptainer-shell"><span class="header-section-number">6.4.3</span> Opening a Shell in a Container with <code>apptainer shell</code></h3>
-<p>When you’re getting started, opening a shell using Apptainer can help you test out things like filepaths and how they’re accessed in the container. It’s hard to get an intuition for how file I/O works with containers until you can see the limited view from the container.</p>
-<p>By default, apptainers can see your current directory and navigate to the files in it.</p>
-<p>You can open an Apptainer shell in a container using <code>apptainer shell</code>. Remember to use <code>docker://</code> before the container name. For example:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> shell docker://biocontainers/samtools:v1.9-4-deb_cv1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This will load the <code>apptainer</code> module, and then open a Bash shell in the container using <code>apptainer shell</code>. Once you’re in the container, you can test code, especially seeing whether your files can be seen by the container (see <a href="container-basics.html#sec-bindpaths" class="quarto-xref"><span>Section 5.1.6</span></a>). 90% of the issues with using Docker containers has to do with bind paths, so we’ll talk about that next.</p>
-<p>Once you’re in the shell, you can take a look at where <code>samtools</code> is installed:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> samtools</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Note that the container filesystem is isolated, and we need to explicitly build connections to it (called bind paths) to get files in and out. We’ll talk more about this in the next section.</p>
-<p>Once we’re done testing scripts in our containers, we can exit the shell and get back into the node.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">exit</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Opening a Shell in a Docker Container with Docker
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>For the most part, due to security reasons, we don’t use <code>docker</code> on HPC systems. In short, the <code>docker</code> group essentially has root-level access to the machine, and it’s not a good for security on a shared resource like an HPC.</p>
-<p>However, if you have admin level access (for example, on your own laptop), you can open up an interactive shell with <code>docker run -it</code>:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-it</span> biocontainers/samtools:v1.9-4-deb_cv1 /bin/bash</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This will open a bash shell much like <code>apptainer shell</code>. Note that volumes (the docker equivalent of bind paths) are specified differently in Docker compared to Apptainer.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-WDL makes this way easier
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>A major point of failure with Apptainer scripting is when our scripts aren’t using the right bind paths. It becomes even more complicated when you are running multiple steps.</p>
-<p>This is one reason we recommend writing WDL Workflows and a <button class="glossary"><span class="def">A system that works with the cluster manager to orchestrate processing data through a workflow</span>workflow manager</button> (such as <button class="glossary"><span class="def">A workflow runner. Currently works with WDL files.</span>Cromwell</button> or Sprocket) to run your workflows. You don’t have to worry that your bind points are setup correctly, because they are handled by the workflow manager.</p>
-</div>
-</div>
-</section>
-<section id="testing-in-the-apptainer-shell" class="level3" data-number="6.4.4">
-<h3 data-number="6.4.4" class="anchored" data-anchor-id="testing-in-the-apptainer-shell"><span class="header-section-number">6.4.4</span> Testing in the Apptainer Shell</h3>
-<p>Ok, now we have a bind point, so now we can test our script in the shell. For example, we can see if we are invoking <code>samtools</code> in the correct way and that our bind points work.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-c</span> /mydata/my_bam_file.bam <span class="op">&gt;</span> /mydata/bam_counts.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Again, trying out scripts in the container is the best way to understand what the container can and can’t see.</p>
-</section>
-<section id="exiting-the-container-when-youre-done" class="level3" data-number="6.4.5">
-<h3 data-number="6.4.5" class="anchored" data-anchor-id="exiting-the-container-when-youre-done"><span class="header-section-number">6.4.5</span> Exiting the container when you’re done</h3>
-<p>You can <code>exit</code>, like any shell you open. You should be out of the container. Confirm by using <code>hostname</code> to make sure you’re out of the container.</p>
-</section>
-<section id="testing-outside-of-the-container" class="level3" data-number="6.4.6">
-<h3 data-number="6.4.6" class="anchored" data-anchor-id="testing-outside-of-the-container"><span class="header-section-number">6.4.6</span> Testing outside of the container</h3>
-<p>Let’s take everything that we learned and put it in a script that we can run on the HPC:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Script to samtools view -c an input file:</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Usage: ./run_sam.sh &lt;my_bam_file.bam&gt;</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Outputs a count file: my_bam_file.bam.counts.txt</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> run <span class="at">--bind</span> /fh/fast/mydata:/mydata docker://biocontainers/samtools:v1.9-4-deb_cv1 samtools view <span class="at">-c</span> /mydata/<span class="va">$1</span> <span class="op">&gt;</span> /mydata/<span class="va">$1</span>.counts.txt</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#apptainer cache clean</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>We can use this script by the following command:</p>
-<pre><code>./run_sam.sh chr1.bam </code></pre>
-<p>And it will output a file called <code>chr1.bam.counts.txt</code>.</p>
-<div class="callout callout-style-simple callout-none no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Apptainer Cache
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><a href="https://apptainer.org/docs/user/1.0/build_env.html">The apptainer cache</a> is where your docker images live. They are translated to the native apptainer <code>.sif</code> format.</p>
-<p>You can see what’s in your cache by using</p>
-<pre><code>apptainer cache list</code></pre>
-<p>By default the cache lives at <code>~/.apptainer/cache</code>.</p>
-<p>If you need to clear out the cache, you can run</p>
-<pre><code>apptainer cache clean</code></pre>
-<p>to clear out the cache.</p>
-<p>There are a number of environment variables (<a href="configuring.html#sec-environment" class="quarto-xref"><span>Section 6.5</span></a>) that can be set, including login tokens for pulling from a private registry. <a href="https://apptainer.org/docs/user/1.0/build_env.html#environment-variables">More information is here</a>.</p>
-</div>
-</div>
-</section>
-<section id="more-info" class="level3" data-number="6.4.7">
-<h3 data-number="6.4.7" class="anchored" data-anchor-id="more-info"><span class="header-section-number">6.4.7</span> More Info</h3>
-<ul>
-<li><a href="https://hsf-training.github.io/hsf-training-singularity-webpage/07-file-sharing/index.html">Carpentries Section on Apptainer Paths</a> - this is an excellent resource if you want to dive deeper into undestanding container filesystems and bind points.</li>
-<li><a href="https://apptainer.org/docs/user/main/bind_paths_and_mounts.html#bind-examples">Apptainer Documentation on Bind Paths</a>. There are a lot of good examples here on how to set up bind paths.</li>
-<li><a href="https://apptainer.org/docs/user/main/bind_paths_and_mounts.html">More about bind paths and other options</a>.</li>
-</ul>
+<section id="where-next" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="where-next"><span class="header-section-number">6.3</span> Where Next?</h2>
+<p>Now that you understand the basics of working with Bash and WDL, you are now ready to start working with WDL workflows.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

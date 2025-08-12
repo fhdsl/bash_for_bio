@@ -117,7 +117,7 @@ Now our `/fh/fast/mydata/` folder will be available as `/mydata/` in my containe
 samtools view -c /mydata/my_bam_file.bam
 ```
 
-## What is JSON?
+## What is JSON? {#sec-json}
 
 One requirement for running workflows is basic knowledge of JSON.
 

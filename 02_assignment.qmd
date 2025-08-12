@@ -3,3 +3,22 @@ title: "Week 2 Assignment"
 format: html
 ---
 
+1. Modify the below script to be runnable. What does the script do?
+
+```bash
+#/
+
+```
+
+2. Modify the below R script to be runnable. It should also take an argument called $FILEPATH
+
+
+```r
+
+```
+
+3. Modify the below Python script to be runnable. It should also take the first position argument (a file path) and process the file
+
+```python
+
+```

@@ -16,7 +16,7 @@ Directory: |
 metadata: |
   Information about a file or dataset, such as the filename, or date created. 
   
-Batch Processing: |
+batch processing: |
   A way to automate processing a number of files. For example, we might have a folder of .bam files and want to check the counts on each of them.
 
 cluster: |
@@ -78,3 +78,9 @@ HPC: |
 
 SLURM: |
   "Simple Linux Utility for Resource Management" - it handles scheduling and distributing jobs among the compute nodes in the cluster.
+
+glob: |
+  a pattern-matching mechanism used primarily in shells (like Bash) and various programming languages to match filenames and paths. It is also known as "filename expansion" or "wildcard matching."
+
+Application Program Interface: |
+  Also known as an API. The public way to interact with a webservice or software app.

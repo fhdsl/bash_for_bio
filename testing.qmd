@@ -11,7 +11,7 @@ A lot of the issues you might have is because you need to understand the mental 
 
 Let's explore how we can do that.
 
-### Testing code on a compute node {#sec-grabnode}
+### Testing code on a compute node {#sec-testnode}
 
 Fred Hutch users have the advantage of `grabnode`, which is a custom command that lets you request an interactive instance of a compute node.
 
@@ -27,6 +27,74 @@ This doesn't take advantage of all of the machines that are available on the clu
 When you are doing interactive analysis, such as working in JupyterLab or RStudio, that is a valid way to work. But when you have tasks you can *scatter* amongst many nodes, requesting a high-spec node isn't a great way to optimally achieve things.
 
 The other disadvantage is that you may be waiting a very long time to get that multicore node, whereas if you batch across a bunch of nodes, you will get your work done much faster.
+:::
+
+### Grabbing an interactive shell on a worker
+
+When you're testing code that's going to run on a worker node, you need to be aware of what the worker node sees. 
+
+It's also important in estimating how long our tasks are going to run since we can test how long a task runs for a representative dataset. 
+
+On a SLURM system, the way to open interactive shells on a node has changed. Check your version first:
+
+```bash
+srun --version
+```
+
+If you're on a version before 20.11, you can use `srun -i --pty bash` to open an interactive terminal on a worker:
+
+```bash
+srun -i --pty bash
+``` 
+
+If the version is past 20.11, we can open an interactive shell on a worker with `salloc`. 
+
+```bash
+salloc bash
+```
+
+:::{.callout-note}
+### For FH Users: `grabnode` {#sec-grabnode}
+
+On the FH system, we can use a command called `grabnode`, which will let us request a node. It will ask us for our requirements (numbers of cores, memory, etc.) for our node. 
+
+```bash
+tladera2@rhino01:~$ grabnode
+```
+
+`grabnode` will then ask us for what kind of instance we want, in terms of CPUs, Memory, and GPUs. Here, I'm grabbing a node with 8 cores, 8 Gb of memory, using it for 1 day, and no GPU.
+
+```
+How many CPUs/cores would you like to grab on the node? [1-36] 8
+How much memory (GB) would you like to grab? [160] 8
+Please enter the max number of days you would like to grab this node: [1-7] 1
+Do you need a GPU ? [y/N]n
+
+You have requested 8 CPUs on this node/server for 1 days or until you type exit.
+
+Warning: If you exit this shell before your jobs are finished, your jobs
+on this node/server will be terminated. Please use sbatch for larger jobs.
+
+Shared PI folders can be found in: /fh/fast, /fh/scratch and /fh/secure.
+
+Requesting Queue: campus-new cores: 8 memory: 8 gpu: NONE
+srun: job 40898906 queued and waiting for resources
+```
+
+After a little bit, you'll arrive at a new prompt:
+
+```
+(base) tladera2@gizmok164:~$
+```
+
+Now you can test your batch scripts, in order to make sure your file paths are correct. It is also helpful in profiling your job. 
+
+If you're doing interactive analysis that is going to span over a few days, I recommend that you use [`screen` or `tmux`](@sec-screen).
+:::
+
+:::{.callout}
+## Remember `hostname`
+When you are doing interactive analysis, it is easy to forget in which node you're working in. Just as a quick check, I use `hostname` to remind myself whether I'm in `rhino`, `gizmo`, or within an apptainer container.
 :::
 
 ## Working with containers {#sec-containers}

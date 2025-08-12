@@ -185,19 +185,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04_containers_workflows.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Containers and Workflows</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Workflows</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Testing Scripts</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./configuring.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Appendix: Configuring your Shell</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Appendix: Configuring your Shell</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./miscellaneous.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Miscellaneous</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Miscellaneous</span></span></a>
   </div>
 </li>
     </ul>
@@ -219,7 +225,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#pulling-a-docker-container" id="toc-pulling-a-docker-container" class="nav-link" data-scroll-target="#pulling-a-docker-container"><span class="header-section-number">5.1.5</span> Pulling a Docker Container</a></li>
   <li><a href="#sec-bindpaths" id="toc-sec-bindpaths" class="nav-link" data-scroll-target="#sec-bindpaths"><span class="header-section-number">5.1.6</span> Testing out bind paths in containers</a></li>
   </ul></li>
-  <li><a href="#what-is-json" id="toc-what-is-json" class="nav-link" data-scroll-target="#what-is-json"><span class="header-section-number">5.2</span> What is JSON?</a>
+  <li><a href="#sec-json" id="toc-sec-json" class="nav-link" data-scroll-target="#sec-json"><span class="header-section-number">5.2</span> What is JSON?</a>
   <ul class="collapse">
   <li><a href="#how-is-json-used" id="toc-how-is-json-used" class="nav-link" data-scroll-target="#how-is-json-used"><span class="header-section-number">5.2.1</span> How is JSON used?</a></li>
   <li><a href="#elements-of-a-json-file" id="toc-elements-of-a-json-file" class="nav-link" data-scroll-target="#elements-of-a-json-file"><span class="header-section-number">5.2.2</span> Elements of a JSON file</a></li>
@@ -273,7 +279,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Using the Apptainer software (for HPC systems)</li>
 </ol>
 <p>In general, Docker is used on systems where you have a high level of access to the system. This is because <code>docker</code> uses a special user group called <code>docker</code> that has essentially root level privileges. This is not something to be taken lightly.</p>
-<p>This is not the case for HPC systems, which are shared and granting this level of access to many people is not practical. This is when we use <button class="glossary"><span class="def"></span>Apptainer</button> (which used to be called Singularity), which requires a much lower level of user privileges to execute tasks. For more info, see <a href="04_containers_workflows.html#sec-open-container" class="quarto-xref"><span>Section 6.3.1</span></a> .</p>
+<p>This is not the case for HPC systems, which are shared and granting this level of access to many people is not practical. This is when we use <button class="glossary"><span class="def">A container software that is often used on HPC systems. Can run Docker containers.</span>Apptainer</button> (which used to be called Singularity), which requires a much lower level of user privileges to execute tasks. For more info, see <a href="testing.html#sec-open-container" class="quarto-xref"><span>Section 7.2.1</span></a> .</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -355,8 +361,8 @@ Be Secure
 <pre><code>samtools view -c /mydata/my_bam_file.bam</code></pre>
 </section>
 </section>
-<section id="what-is-json" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="what-is-json"><span class="header-section-number">5.2</span> What is JSON?</h2>
+<section id="sec-json" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="sec-json"><span class="header-section-number">5.2</span> What is JSON?</h2>
 <p>One requirement for running workflows is basic knowledge of JSON.</p>
 <p>JSON is short for <strong>J</strong>ava<strong>S</strong>cript <strong>O</strong>bject <strong>N</strong>otation. It is a format used for storing information on the web and for interacting with APIs.</p>
 <section id="how-is-json-used" class="level3" data-number="5.2.1">
@@ -886,8 +892,8 @@ Answer
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./04_containers_workflows.html" class="pagination-link" aria-label="Containers and Workflows">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Containers and Workflows</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./04_containers_workflows.html" class="pagination-link" aria-label="Workflows">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Workflows</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
