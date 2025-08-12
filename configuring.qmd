@@ -11,6 +11,11 @@ There are 2 things you should know how to set:
 - Aliases
 - Environment Variables, especially `$PATH`
 
+## When does the `bashrc` file get loaded?
+
+You can force reloading of the 
+
+
 ## An example `.bashrc` file
 
 

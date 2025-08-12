@@ -17,14 +17,26 @@ If so, this course is for you! We will learn enough bash scripting to do useful 
 - **Execute** batch processing of multiple files in a project
 - **Manage** software dependencies reproducibly using container-based technologies such as Docker/Apptainer containers or EasyBuild modules
 
+:::{.callout-note}
+## Wasn't there another Bash for Bioinformatics book?
+
+I originally wrote a book that was called Bash for Bioinformatics, which was about learning enough bash to use the cloud-based DNANexus platform effectively. 
+
+I have renamed that book [Bash for DNANexus](https://laderast.github.io/bash_for_dnanexus/), and named this course *Bash for Bioinformatics*.
+
+This book shares bones with *Bash for DNANexus*, but has more of a focus on running tasks on {{<glossary "HPC">}}. 
+:::
+
 ## Prerequisites
 
-- You will need an account on `rhino` and know how to connect to it through VPN
-- We highly recommend reviewing  [Intro to Command Line](https://hutchdatascience.org/Intro_to_Command_Line/) and [Cluster 101](https://hutchdatascience.org/FH_Cluster_101/)
+- You will need an account on `rhino` and know how to connect to it through VPN. If you have taken the [Intro to Fred Hutch Cluster Computing](https://hutchdatascience.org/FH_Cluster_101/) workshop, then you will be ready.
+- We highly recommend reviewing  [Intro to Command Line](https://hutchdatascience.org/Intro_to_Command_Line/) and [Intro to Fred Hutch Cluster Computing](https://hutchdatascience.org/FH_Cluster_101/).
 - Basic knowledge of the following commands:
   - `ls`
   - `cd` and basic directory navigation
   - `mv`/`cp`/`mkdir`/`rm`
+
+We will assume that you will do all of your work in your home directory on Rhino. We will not be using that much space in your home directory.
 
 :::{.callout-note}
 ## Terminology
@@ -38,17 +50,18 @@ You can click and hold on the term to define it.
 
 ## Schedule
 
-|Week|Topics|
-|----|------|
-|Preclass|Review [Intro to Command Line](https://hutchdatascience.org/Intro_to_Command_Line/) and [Cluster 101](https://hutchdatascience.org/FH_Cluster_101/)|
-|Week 1|[Filesystem Basics](01_basics.qmd)|
-|Week 2|[Writing and Running Bash Scripts](02_scripting.qmd)|
-|Week 3|Batch Processing and HPC Jobs|
-|Week 4|Testing Scripts/Workflow Managers|
-|On your own time|[Configuring your Bash Shell](configuring.qmd)|
+You should have completed the readings before class, so we can hit the ground running.
 
+|Week|Topics|Reading|
+|----|------|-------|
+|Preclass|Review [Intro to Command Line](https://hutchdatascience.org/Intro_to_Command_Line/) and [Cluster 101](https://hutchdatascience.org/FH_Cluster_101/)||
+|Week 1|[Filesystem Basics](01_basics.qmd)|Bite Size Bash|
+|Week 2|[Writing and Running Bash Scripts](02_scripting.qmd)|Bite Size Bash|
+|Week 3|[Batch Processing and HPC Jobs](03_batch.qmd)|[HPC Basics](hpc-basics.qmd)
+|Week 4|[Testing Scripts/Workflow Managers](04_containers_workflows.qmd)|[Container Basics](container-basics.qmd)|
+|On your own time|[Configuring your Bash Shell](configuring.qmd)||
 
-## Reference Text 
+## Reference Texts 
 
-- We will be using Julia Evan's [Bite Size Bash](https://wizardzines.com/zines/bite-size-bash/) as our reference text. Julia's explanations are incredibly clear and it will be a valuable reference even beyond this course. You will receive the PDF as part of class.
-- If you want to know the true power of the command line, I recommend [Data Science at the Command Line]().
+- We will be using Julia Evan's [Bite Size Bash](https://wizardzines.com/zines/bite-size-bash/) as our reference text. Julia's explanations are incredibly clear and it will be a valuable reference even beyond this course. You will receive the PDF as part of class, and I will refer to it throughout the course.
+- If you want to know the true power of the command line, I recommend [Data Science at the Command Line](https://jeroenjanssens.com/dsatcl/). This book showcases how much you can get done with just command line.

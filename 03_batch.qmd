@@ -2,143 +2,115 @@
 title: "Batch Processing and Submitting Jobs"
 ---
 
-## Batch Processing Basics: Iterating using `xargs` {#sec-xargs}
+## Learning Objectives
 
-A really common pattern is taking a delimited list of files and doing something with them. We can do some useful things such as seeing the first few lines of a set of files, or doing some sort of processing with the set of jobs.
+- **Execute** a script to run over a list of files on one system
+- **Batch Process** files to run on the HPC cluster
+- 
 
-:::{.callout-warning}
-## Don't `xargs` for HPC jobs
-  
-You might be tempted to use `xargs` with `srun` to work on a bunch of files. It's worth trying once so you can see the mechanics of how jobs are processed.
+## Using `for` loops to cycle through files
 
-In general, I don't recommend it in practice because if you spawn 1000 jobs using `xargs`, there's no real mechanism to terminate that 1000 jobs, except one by one. With `sbatch`, all your jobs in batch mode run as *subjobs*, which means you can terminate the parent job to terminate all of the subjobs.
+A very common pattern is cycling through multiple files in a folder and applying the same script or command to them. 
 
-Again, this is a good reason to use a workflow runner in your day to day work. You don't have to worry about jobs and subjobs. It takes a little setup, but it will make your life easier in general.
+There is a simple method for batch processing a bunch of files: a `for` loop.
+
+```bash
+#!/bin/bash
+for file in *.qmd #<1>
+do                #<2>
+  wc $file        #<3>
+done              #<4>
+```
+1. Start `for` loop and cycle through all `.qmd` files
+2. Start of instructions
+3. Count the words in each `.qmd` file using `wc`
+4. End of instructions
+
+If we run this in our repository, we get something similar to this:
+
+```
+      22      92     634 01_assignment.qmd
+     462    2417   15396 01_basics.qmd
+       5       8      49 02_assignment.qmd
+     303    1577    9509 02_scripting.qmd
+     303    1667   10233 03_batch.qmd
+     198    1368    9027 04_containers_workflows.qmd
+     205    1151    7858 configuring.qmd
+      53     363    2516 index.qmd
+       9      25     157 intro.qmd
+     214    1314    8001 miscellaneous.qmd
+```
+
+The `*.qmd` (the wildcard operator, also known as a glob) can be used in various ways. For example, if our files are in a folder called `raw_data/`, we could specify:
+
+```
+for file in raw_data/*.fq
+do
+  bwa mem 
+done
+```
+
+:::{.callout}
+## A common pattern: a folder with only one type of file in them
+
+One thing that makes it easier to process a bunch of files is to have the data be in the same folder, with nothing else in them.
+
+I might create a `fastq/` file where I store my data, so I can pass the wildcard `fastq/*` to process the file.
+
+```bash
+#!/bin/bash
+module load BWA
+module load SAMtools
+FASTA_LOCATION=""
+OUTPUT_FOLDER="/hpc/temp/my_lab/project_x/bam_files/"
+for file in fastq/*
+do
+  bwa mem ${FASTA_LOCATION} file > ${OUTPUT_FOLDER}/${file}.bam 
+  samtools sort ${OUTPUT_FOLDER}/${file}.bam |> ${OUTPUT_FOLDER}/${file}.sorted.bam
+done
+module purge
+```
+
 :::
 
+### For more info on globs
 
-Let's start out with a list of files:
+See page 12 in Bite Size Bash.
+
+### Using file manifests
+
+One approach that I use a lot is using file manifests to process multiple sets of files. Each line of the file manifest will contain all of the related files I need to process. 
+
+For example, if I am aligning paired-end reads, then I can have a tab-separated column for the first strand, and a column for the second strand.
+
+```
+read           read2
+sample1_1.fq   sample1_2.fq
+sample2_1.fq   sample2_2.fq
+```
+
+The one trick with using file manifests in bash is that we need to change the what's called the internal field separator (IFS), which specifies how to split up a string with a `for` loop. By default, bash uses an IFS of " " (a space), which means that the for loop will cycle through words (strings separated by spaces), instead of lines. 
+
+We can change this behavior by setting the IFS at the beginning of our script:
 
 ```bash
-source ~/.bashrc #| hide_line
-ls data/*.sh
+for file in (cat manifest.txt)
+IFS=""                #<1>
+do
+  bwa mem ${FASTA_LOCATION} file > ${OUTPUT_FOLDER}/${file}.bam 
+  samtools sort ${OUTPUT_FOLDER}/${file}.bam |> ${OUTPUT_FOLDER}/${file}.sorted.bam
+done
+
+unset IFS             #<2>
 ```
-
-```
-data/batch-on-worker.sh
-```
-
-Now we have a list of files, let's look at the first few lines of each of them, and print a separator `---` for each.
-
-```bash
-#| filename: scripting-basics/xargs_example.sh
-source ~/.bashrc #| hide_line
-ls data/*.sh | xargs -I% sh -c 'head %; echo "\n---\n"'
-```
-
-```
-#!/bash/bin
-
-cmd_to_run="ls *.vcf.gz | xargs -I% sh -c "bcftools stats % > %.stats.txt"
-
-dx run swiss-army-knife \
-  -iin="data/chr1.vcf.gz" \
-  -iin="data/chr2.vcf.gz" \
-  -iin="data/chr3.vcf.gz" \
-  -icmd=${cmd_to_run}
----
-dx find data --name "*.bam" --brief
----
-```
-
-
-Let's take this apart piece by piece.
-
-`xargs` takes an `-I` argument that specifies a placeholder. In our case, we are using `%` as our placeholder in this statement. 
-
-We're passing on each filename from `ls` into the following code:
-
-```bash
-sh -c 'head %; echo "---\n"'
-```
-
-The `sh -c` opens a subshell so that we can execute our command for each of the files in our list. We're using `sh -c` to run:
-
-```bash
-'head %; echo "---\n"'
-```
-
-So for our first file, `01-scripting-basics.qmd`, we are substituting that for `%` in our command:
-
-```bash
-'head hpc-basics.qmd; echo "---\n"'
-```
-
-For our second file, `hpc-basics.qmd`, we would substitute that for the `%`:
-
-```bash
-'head hpc-basics.qmd; echo "---\n"'
-```
-
-Until we cycle through all of the files in our list.
-
-### The Basic `xargs` pattern
-
-:::{#fig-xargs}
-```{mermaid}
-graph LR
-  A["ls *.bam"] --> B{"|"} 
-  B --> C["xargs -I% sh -c"] 
-  C --> D["command_to_run %"]
-```
-Basics of using `xargs` to iterate on a list of files
-:::
-
-As you cycle through lists of files, keep in mind this basic pattern (@fig-xargs):
-
-```bash
-ls <wildcard> | xargs -I% sh -c "<command to run> %"
-```
-
-:::{.callout-note}
-## Test Yourself
-
-How would we modify the below code to do the following?
-
-1. List only `.json` files in our `data/` folder using `ls`
-1. Use `tail` instead of `head`
-
-```bash
-ls *.txt | xargs -I% sh -c "head %; echo '---\n'"
-```
-:::
-
-:::{.callout-note collapse="true"}
-## Answer
-
-```bash
-ls data/*.json | xargs -I% sh -c "tail %; echo '---\n'"
-```
-:::
-
-:::{.callout-note}
-## Why this is important on HPC
-
-We can use `xargs` to execute small batch jobs on a small number of files. This especially becomes powerful on the cluster when we use `ls` to list files in our HPC project.
-
-Note that as we *graduate* to workflow tools like WDL/Nextflow, there are other mechanisms for running jobs on multiple files (such as WDL/Cromwell) that we should move to. 
-
-Trust me; you don't want to have to handle iterating through a huge directory and handling when routines give an error, or your jobs get interrupted. Rerunning and resuming failed jobs are what workflow runner tools excel at. 
-:::
-
-### For more information
-
-<https://www.baeldung.com/linux/xargs-multiple-arguments>
-
+1. Change IFS to be `""` (no space), to process a file line by line.
+2. Reset IFS to original behavior.
 
 ## Batching on HPC
 
-Now we can 
+Now we can start to do more advanced things on the HPC: use one machine to process each file. 
+
+Let's start out with {{<glossary SLURM>}} scripts. 
 
 ### SLURM Scripts
 
@@ -147,27 +119,37 @@ SLURM scripts are a special kind of shell script that contain additional informa
 1. Number of nodes (machines) to request
 2. Memory and CPU requirements for each machine
 
-We specify these using a special kind of comment: SLURM directives. Directives begin a line with `#SBATCH`
+We specify these using a special kind of comment: SLURM directives. Directives begin a line with `#SBATCH `:
+
+```
+#SBATCH --nodes=1 
+```
+In this example, we are specifying the number of nodes. 
 
 ### SLURM Directives
+
+We are able to set some configuration on running our jobs. 
 
 ```bash
 #!/bin/bash
 #SBATCH --nodes=1 # <1>
-#SBATCH --array=1-6 # <2>
-#SBATCH --tasks-per-node=3 # <3>
-#SBATCH --cpus-per-task=1 # <4>
-#SBATCH --mem-per-cpu=1gb # <5>
-#SBATCH --time=00:05:00 # <6>
-./samtools_opt sort SRR1576820_000$SLURM_ARRAY_TASK_ID.bam -o SRR1576820_000$SLURM_ARRAY_TASK_ID.sorted.bam # <7>
+#SBATCH --array=1-3 # <2>
+#SBATCH --mem-per-cpu=1gb # <3>
+#SBATCH --time=00:05:00 # <4>
+./samtools_opt sort SRR1576820_000${SLURM_ARRAY_TASK_ID}.bam -o SRR1576820_000${SLURM_ARRAY_TASK_ID}.sorted.bam # <5>
 ```
 1. request 1 node
 2. start an array
-3. We want our node to do 3 tasks at the same time
-4. Ask for 1 CPUs per task (3 * 1 = 3 total requested CPUs)
-5. request 1 gigabyte per cpu
-6. ask for 5 minutes on the node
-7. Run `samtools sort` on a bam file,
+3. request 1 gigabyte per cpu
+4. ask for 5 minutes on the node
+6. Run `samtools sort` on a bam file, and output it (will do for the whole job array)
+
+:::{.callout}
+## More about directives
+
+Much more information about the kinds of directives that you can specify in a SLURM script is available here: <https://www.osc.edu/supercomputing/batch-processing-at-osc/slurm_directives_summary>
+
+:::
 
 ### Job Arrays
 
@@ -177,25 +159,25 @@ This line:
 #SBATCH --array=1-6 
 ```
 
-Will start a job array. This will create a variable called `$SLURM_ARRAY_TASK_ID` that will cycle through the numbers 1-6. Let's try a simpler script to show what's going on:
+Will create a job array. This will create a variable called `$SLURM_ARRAY_TASK_ID` that will cycle through the numbers 1-6. Each Task ID corresponds to a different subjob. Let's try a simpler script to show what's going on:
 
 ```bash
 #| eval: false
 #| filename: sbatch_test.sh
 #!/bin/bash
-#SBATCH --array=1-5
+#SBATCH --array=1-3
 #SBATCH --nodes=1
 echo "${SLURM_ARRAY_TASK_ID} job"
 ```
 
-This is a minimal script that will execute 5 subjobs. It will cycle through the job array and print the array number for each job.
+This is a minimal script that will execute 3 subjobs. It will cycle through the job array and print the array number for each job.
 
 ```bash
 #| eval: false
 sbatch sbatch_test.sh
 ```
 
-On submitting, we will get this message:
+On submitting, we will get a message like this (your job number will be different):
 
 ```
 Submitted batch job 26328834
@@ -204,7 +186,7 @@ Submitted batch job 26328834
 And if we look for the output files:
 
 ```bash
-ls -l slurm-26328834_*
+ls -l slurm-26328834*
 ```
 
 We will get the following output:
@@ -213,8 +195,6 @@ We will get the following output:
 -rw-rw---- 1 tladera2 g_tladera2 8 Jul 15 13:50 slurm-26328834_1.out
 -rw-rw---- 1 tladera2 g_tladera2 8 Jul 15 13:50 slurm-26328834_2.out
 -rw-rw---- 1 tladera2 g_tladera2 8 Jul 15 13:50 slurm-26328834_3.out
--rw-rw---- 1 tladera2 g_tladera2 8 Jul 15 13:50 slurm-26328834_4.out
--rw-rw---- 1 tladera2 g_tladera2 8 Jul 15 13:50 slurm-26328834_5.out
 ```
 
 Taking a look at one of these files using `cat`:
@@ -237,15 +217,27 @@ graph TD
   A --"3"--> D["echo 3 job"]
 ```
 
-What happened here? `sbatch` submitted our job array as 5 different subjobs to 5 different nodes under a single job id. Each node then outputs a file with the subjob id that contains the job number. 
+What happened here? `sbatch` submitted our job array as 3 different subjobs to 3 different nodes under a single job id. Each node then outputs a file with the subjob id that contains the job number. 
 
 ### Processing files using Job Arrays
 
-So now we know that `${SLURM_ARRAY_TASK_ID}` will let us specify a subjob within our 
+So now we know that `${SLURM_ARRAY_TASK_ID}` will let us specify a subjob within our script, how do we use it in our script?
+
+### `scancel`ing a job array
+
+As we noted, one of the strengths in using a job array to process multiple files is that they are spawed as *sub* or *child* jobs of a parent job id. 
+
+What if we made a mistake? We can use the `scancel` command to cancel the entire set of jobs by giving it our parent job id:
+
+```bash
+scancel 26328834
+```
+
+This will cancel all sub jobs related to the parent job.
 
 ## Containers
 
-We already learned about software modules (@sec-modules). There is an alternative way to use software: containers.
+We already learned about software modules (@sec-modules). There is an alternative way to use software: using a {{<glossary "container">}}.
 
 ### What is a Container?
 
@@ -254,12 +246,12 @@ A container is a self-contained unit of software. It contains everything needed 
 The container has the following contents:
 
 - **Software** - The software we want to run in a container. For bioinformatics work, this is usually something like an aligner like `bwa`, or utilities such as `samtools`
-- **Software Dependencies** - various software packages needed to run the software. For example, if we wanted to run `tidyverse` in a container, we need to have `R` installed in the container as well
+- **Software Dependencies** - various software packages needed to run the software. For example, if we wanted to run `tidyverse` in a container, we need to have `R` installed in the container as well.
 - **Filesystem** - containers have their own isolated filesystem that can be connected to the "outside world" - everything outside of the container. We'll learn more about customizing these with bind paths (@sec-bindpaths).
 
 In short, the container has everything needed to run the software. It is not a full operating system, but a smaller mini-version that cuts out a lot of cruft. 
 
-Containers are ephemeral. They leverage the the file system of their host to manage files. These are called both *Volumes* (the Docker term) and Bind Paths (the apptainer term).
+Containers are {{< glossary "ephemeral">}}. They leverage the the file system of their host to manage files. These are called both *Volumes* (the Docker term) and *Bind Paths* (the apptainer term).
 
 ### Docker vs. Apptainer
 
@@ -268,21 +260,21 @@ There are two basic ways to run Docker containers:
 1. Using the Docker software
 2. Using the Apptainer software (for HPC systems)
 
-In general, Docker is used on systems where you have a high level of access to the system. This is because docker uses a special user group called `docker` that has essentially root level privileges. 
+In general, Docker is used on systems where you have a high level of access to the system. This is because `docker` uses a special user group called `docker` that has essentially root level privileges. This is not something to be taken lightly.
 
-This is not the case for HPC systems, which are shared. This is when we use Apptainer (which used to be called Singularity), which requires a much lower level of user privileges to execute tasks. For more info, see @sec-open-container . 
+This is not the case for HPC systems, which are shared and granting this level of access to many people is not practical. This is when we use {{< glossary "Apptainer">}} (which used to be called Singularity), which requires a much lower level of user privileges to execute tasks. For more info, see @sec-open-container . 
 
 :::{.callout-warning}
 ## Be Secure
 
-Before we get started, security is always a concern when running containers. The `docker` group has elevated status on a system, so we need to be careful that when we're running them, they aren't introducing any system vulnerabilities. Note that on HPC systems, the main mechanism for running containers is `apptainer`, which is designed to be more secure.
+Before we get started, security is always a concern when running containers. The `docker` group has elevated status on a system, so we need to be careful that when we're running them, these containers aren't introducing any system vulnerabilities. Note that on HPC systems, the main mechanism for running containers is `apptainer`, which is designed to be more secure.
 
 These are mostly important when running containers that are web-servers or part of a web stack, but it is also important to think about when running jobs on HPC.
 
 Here are some guidelines to think about when you are working with a container.
 
 - **Use vendor-specific Docker Images when possible**. 
-- **Use container scanners to spot potential vulnerabilities**. DockerHub has a vulnerability scanner that scans your Docker images for potential vulnerabilities. 
+- **Use container scanners to spot potential vulnerabilities**. DockerHub has a vulnerability scanner that scans your Docker images for potential vulnerabilities. For example, the WILDS Docker library employs a vulnerability scanner and the containers are regularly patched to prevent vulnerabilities.
 - **Avoid kitchen-sink images**. One issue is when an image is built on top of many other images. It makes it really difficult to plug vulnerabilities. When in doubt, use images from trusted people and organizations. At the very least, look at the Dockerfile to see that suspicious software isn't being installed.
 :::
 
@@ -291,8 +283,25 @@ Here are some guidelines to think about when you are working with a container.
 - GATK (the genome analysis toolkit) is one common container that we can use for analysis.
 - 
 
-:::{.callout}
-## The WILDS Docker Library
+### The WILDS Docker Library
 
-The Data Science Lab 
-:::
+The Data Science Lab has a set of Docker containers for common Bioinformatics tasks available in the [WILDS Docker Library](https://hub.docker.com/u/getwilds). These include:
+
+- `samtools`
+- `bcftools`
+- `manta`
+- `cnvkit`
+- `deseq2`
+
+Among many others. Be sure to check it out before you start building your own containers.
+ 
+### Pulling a Docker Container
+
+Let's pull a docker container from the Docker registry. Note we have to specify `docker://` when we pull the container, because Apptainer has its own internal format called SIF.
+
+```bash
+module load Apptainer/1.1.6
+apptainer pull docker://ghcr.io/getwilds/scanpy:latest
+apptainer run --bind /path/to/data:/data,/path/to/script:/script docker://getwilds/scanpy:latest python /script/example.py
+```
+

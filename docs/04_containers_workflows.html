@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4&nbsp; Containers and Workflows – Bash for Bioinformatics</title>
+<title>6&nbsp; Containers and Workflows – Bash for Bioinformatics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./configuring.html" rel="next">
-<link href="./03_batch.html" rel="prev">
+<link href="./testing.html" rel="next">
+<link href="./container-basics.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -105,9 +105,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
-<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
-<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 </head>
@@ -121,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04_containers_workflows.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Containers and Workflows</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04_containers_workflows.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Containers and Workflows</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -166,26 +163,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./hpc-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reading: HPC Basics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./03_batch.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Batch Processing and Submitting Jobs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Batch Processing and Submitting Jobs</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./container-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: Container Basics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04_containers_workflows.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Containers and Workflows</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Containers and Workflows</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Testing Scripts</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./configuring.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Appendix: Configuring your Shell</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Appendix: Configuring your Shell</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./miscellaneous.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Miscellaneous</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Miscellaneous</span></span></a>
   </div>
 </li>
     </ul>
@@ -198,23 +213,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#testing-out-scripts" id="toc-testing-out-scripts" class="nav-link active" data-scroll-target="#testing-out-scripts"><span class="header-section-number">4.1</span> Testing out scripts</a></li>
-  <li><a href="#sec-containers" id="toc-sec-containers" class="nav-link" data-scroll-target="#sec-containers"><span class="header-section-number">4.2</span> Working with containers</a></li>
-  <li><a href="#visual-table-of-contents" id="toc-visual-table-of-contents" class="nav-link" data-scroll-target="#visual-table-of-contents"><span class="header-section-number">4.3</span> Visual Table of Contents</a></li>
-  <li><a href="#sec-open-container" id="toc-sec-open-container" class="nav-link" data-scroll-target="#sec-open-container"><span class="header-section-number">4.4</span> Opening Shells in Containers for Testing</a>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">6.1</span> Learning Objectives</a></li>
+  <li><a href="#running-workflows" id="toc-running-workflows" class="nav-link" data-scroll-target="#running-workflows"><span class="header-section-number">6.2</span> Running Workflows</a>
   <ul class="collapse">
-  <li><a href="#pulling-a-docker-container" id="toc-pulling-a-docker-container" class="nav-link" data-scroll-target="#pulling-a-docker-container"><span class="header-section-number">4.4.1</span> Pulling a Docker Container</a></li>
+  <li><a href="#grabbing-a-wdl-workflow-from-getwilds" id="toc-grabbing-a-wdl-workflow-from-getwilds" class="nav-link" data-scroll-target="#grabbing-a-wdl-workflow-from-getwilds"><span class="header-section-number">6.2.1</span> Grabbing a WDL workflow from GETWILDS</a></li>
+  <li><a href="#executing-a-wdl-workflow" id="toc-executing-a-wdl-workflow" class="nav-link" data-scroll-target="#executing-a-wdl-workflow"><span class="header-section-number">6.2.2</span> Executing a WDL workflow</a></li>
+  <li><a href="#input-files-as-json" id="toc-input-files-as-json" class="nav-link" data-scroll-target="#input-files-as-json"><span class="header-section-number">6.2.3</span> Input Files as JSON</a></li>
+  <li><a href="#working-with-file-manifests-in-wdl" id="toc-working-with-file-manifests-in-wdl" class="nav-link" data-scroll-target="#working-with-file-manifests-in-wdl"><span class="header-section-number">6.2.4</span> Working with file manifests in WDL</a></li>
+  <li><a href="#lets-start-with-wdl-tasks" id="toc-lets-start-with-wdl-tasks" class="nav-link" data-scroll-target="#lets-start-with-wdl-tasks"><span class="header-section-number">6.2.5</span> Let’s start with WDL Tasks</a></li>
+  <li><a href="#anatomy-of-a-task" id="toc-anatomy-of-a-task" class="nav-link" data-scroll-target="#anatomy-of-a-task"><span class="header-section-number">6.2.6</span> Anatomy of a Task</a></li>
+  <li><a href="#architecture-of-a-wdl-file" id="toc-architecture-of-a-wdl-file" class="nav-link" data-scroll-target="#architecture-of-a-wdl-file"><span class="header-section-number">6.2.7</span> Architecture of a WDL file</a></li>
   </ul></li>
-  <li><a href="#opening-a-shell-in-a-container-with-apptainer-shell" id="toc-opening-a-shell-in-a-container-with-apptainer-shell" class="nav-link" data-scroll-target="#opening-a-shell-in-a-container-with-apptainer-shell"><span class="header-section-number">4.5</span> Opening a Shell in a Container with <code>apptainer shell</code></a></li>
-  <li><a href="#sec-bindpaths" id="toc-sec-bindpaths" class="nav-link" data-scroll-target="#sec-bindpaths"><span class="header-section-number">4.6</span> Testing out bind paths in containers</a>
+  <li><a href="#developing-and-testing-out-scripts" id="toc-developing-and-testing-out-scripts" class="nav-link" data-scroll-target="#developing-and-testing-out-scripts"><span class="header-section-number">6.3</span> Developing and Testing out scripts</a>
   <ul class="collapse">
-  <li><a href="#testing-in-the-apptainer-shell" id="toc-testing-in-the-apptainer-shell" class="nav-link" data-scroll-target="#testing-in-the-apptainer-shell"><span class="header-section-number">4.6.1</span> Testing in the Apptainer Shell</a></li>
-  <li><a href="#exiting-the-container-when-youre-done" id="toc-exiting-the-container-when-youre-done" class="nav-link" data-scroll-target="#exiting-the-container-when-youre-done"><span class="header-section-number">4.6.2</span> Exiting the container when you’re done</a></li>
+  <li><a href="#sec-grabnode" id="toc-sec-grabnode" class="nav-link" data-scroll-target="#sec-grabnode"><span class="header-section-number">6.3.1</span> Testing code on a compute node</a></li>
   </ul></li>
-  <li><a href="#testing-outside-of-the-container" id="toc-testing-outside-of-the-container" class="nav-link" data-scroll-target="#testing-outside-of-the-container"><span class="header-section-number">4.7</span> Testing outside of the container</a></li>
-  <li><a href="#apptainer-cache" id="toc-apptainer-cache" class="nav-link" data-scroll-target="#apptainer-cache"><span class="header-section-number">4.8</span> Apptainer Cache</a></li>
-  <li><a href="#entrypoints" id="toc-entrypoints" class="nav-link" data-scroll-target="#entrypoints"><span class="header-section-number">4.9</span> Entrypoints</a></li>
-  <li><a href="#more-info" id="toc-more-info" class="nav-link" data-scroll-target="#more-info"><span class="header-section-number">4.10</span> More Info</a></li>
+  <li><a href="#sec-containers" id="toc-sec-containers" class="nav-link" data-scroll-target="#sec-containers"><span class="header-section-number">6.4</span> Working with containers</a>
+  <ul class="collapse">
+  <li><a href="#sec-open-container" id="toc-sec-open-container" class="nav-link" data-scroll-target="#sec-open-container"><span class="header-section-number">6.4.1</span> Testing code in a container</a></li>
+  <li><a href="#pulling-a-docker-container" id="toc-pulling-a-docker-container" class="nav-link" data-scroll-target="#pulling-a-docker-container"><span class="header-section-number">6.4.2</span> Pulling a Docker Container</a></li>
+  <li><a href="#opening-a-shell-in-a-container-with-apptainer-shell" id="toc-opening-a-shell-in-a-container-with-apptainer-shell" class="nav-link" data-scroll-target="#opening-a-shell-in-a-container-with-apptainer-shell"><span class="header-section-number">6.4.3</span> Opening a Shell in a Container with <code>apptainer shell</code></a></li>
+  <li><a href="#testing-in-the-apptainer-shell" id="toc-testing-in-the-apptainer-shell" class="nav-link" data-scroll-target="#testing-in-the-apptainer-shell"><span class="header-section-number">6.4.4</span> Testing in the Apptainer Shell</a></li>
+  <li><a href="#exiting-the-container-when-youre-done" id="toc-exiting-the-container-when-youre-done" class="nav-link" data-scroll-target="#exiting-the-container-when-youre-done"><span class="header-section-number">6.4.5</span> Exiting the container when you’re done</a></li>
+  <li><a href="#testing-outside-of-the-container" id="toc-testing-outside-of-the-container" class="nav-link" data-scroll-target="#testing-outside-of-the-container"><span class="header-section-number">6.4.6</span> Testing outside of the container</a></li>
+  <li><a href="#more-info" id="toc-more-info" class="nav-link" data-scroll-target="#more-info"><span class="header-section-number">6.4.7</span> More Info</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -223,7 +246,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Containers and Workflows</span></h1>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Containers and Workflows</span></h1>
 </div>
 
 
@@ -240,57 +263,414 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="testing-out-scripts" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="testing-out-scripts"><span class="header-section-number">4.1</span> Testing out scripts</h2>
-<p>One of the hard things to understand is what can be run on a compute node versus the head node, and what</p>
+<section id="learning-objectives" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">6.1</span> Learning Objectives</h2>
+<ul>
+<li><strong>Execute</strong> a workflow on the Fred Hutch Cluster</li>
+<li><strong>Modify</strong> a workflow and <strong>test</strong> it on a compute node</li>
+<li><strong>Utilize</strong> a container and <strong>test</strong> inside it on a compute node</li>
+</ul>
 </section>
-<section id="sec-containers" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="sec-containers"><span class="header-section-number">4.2</span> Working with containers</h2>
+<section id="running-workflows" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="running-workflows"><span class="header-section-number">6.2</span> Running Workflows</h2>
+<p>So far, we’ve been batch processing using job arrays in SLURM. However, when you graduate to processing in multiple steps, you should consider using a <em>workflow manager</em> for processing files.</p>
+<p>A workflow manager will take a workflow, which can consist of multiple steps and allow you to batch process files.</p>
+<p>A good workflow manager will allow you to:</p>
+<ul>
+<li>Restart failed subjobs in the workflow</li>
+<li>Allow you to customize where intermediate and final outputs go</li>
+<li>Swap and customize modules in your workflow</li>
+<li>Adapt to different architectures</li>
+</ul>
+<p>Many bioinformaticists have used workflow managers to process and manage hundreds or thousands of files at a time.</p>
+<p>Here is an overview of some of the common bioinformatics workflow managers. We will be using <code>cromwell</code>, which runs WDL files.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Manager Software</th>
+<th>Workflow Formats</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Cromwell</td>
+<td>WDL/CWL</td>
+<td>Made for HPC Jobs</td>
+</tr>
+<tr class="even">
+<td>Sprocket</td>
+<td>WDL</td>
+<td>Made for HPC Jobs</td>
+</tr>
+<tr class="odd">
+<td>MiniWDL</td>
+<td>WDL</td>
+<td>Used for local testing of workflows</td>
+</tr>
+<tr class="even">
+<td>DNANexus</td>
+<td>WDL/CWL</td>
+<td>Used for systems such as AllOfUs</td>
+</tr>
+<tr class="odd">
+<td>Nextflow</td>
+<td>.nf files</td>
+<td>Owned by seqera</td>
+</tr>
+<tr class="even">
+<td>Snakemake</td>
+<td>make files</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<section id="grabbing-a-wdl-workflow-from-getwilds" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="grabbing-a-wdl-workflow-from-getwilds"><span class="header-section-number">6.2.1</span> Grabbing a WDL workflow from GETWILDS</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/getwilds/ww-star-deseq2/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="executing-a-wdl-workflow" class="level3" data-number="6.2.2">
+<h3 data-number="6.2.2" class="anchored" data-anchor-id="executing-a-wdl-workflow"><span class="header-section-number">6.2.2</span> Executing a WDL workflow</h3>
+<p>Say someone has given us a WDL file - how do we set it up to run on our own data?</p>
+<p>We’ll use <code>cromwell</code> to run our WDL workflow.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load cromwell/87</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We will get the repsonse:</p>
+<pre><code>To execute cromwell, run: java -jar $EBROOTCROMWELL/cromwell.jar
+
+To execute womtool, run: java -jar $EBROOTCROMWELL/womtool.jar</code></pre>
+<p>We’ll investigate using <code>cromwell run</code> as an initial way to interact with <code>cromwell</code>.</p>
+<div class="sourceCode" id="annotated-cell-4"><pre class="sourceCode bash code-annotation-code code-with-copy"><code class="sourceCode bash"><span id="annotated-cell-4-1"><a href="#annotated-cell-4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">java</span> <span class="at">-jar</span> <span class="va">$EBROOTCROMWELL</span>/cromwell.jar run ww-star2-deseq2.wdl <span class="dt">\</span></span>
+<span id="annotated-cell-4-2"><a href="#annotated-cell-4-2" aria-hidden="true" tabindex="-1"></a>   <span class="at">--inputs</span> input_file.json</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<code>cromwell serve</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The other way to run Cromwell is to run it in <em>server</em> mode. You can start the server by using:</p>
+<pre><code>java -jar $EBROOTCROMWELL/cromwell.jar serve</code></pre>
+<p>While you can run the server on the command line, I don’t recommend it. I would check out the PROOF application for a GUI based way to execute workflows. It handles <code>cromwell</code> server management automatically.</p>
+</div>
+</div>
+</section>
+<section id="input-files-as-json" class="level3" data-number="6.2.3">
+<h3 data-number="6.2.3" class="anchored" data-anchor-id="input-files-as-json"><span class="header-section-number">6.2.3</span> Input Files as JSON</h3>
+<p>If you want to work with the JSON format (<span class="quarto-unresolved-ref">?sec-json</span>), there is a trick to generating a template <code>.json</code> file for a workflow. There is an additional utility called <code>womtools</code> that will generate a template file from a workflow file.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">java</span> <span class="at">-jar</span> <span class="va">$EBROOTCROMWELL</span>/womtool.jar inputs ww-star2-deseq2.wdl <span class="op">&gt;</span> ww-star2-deseq2-inputs.json</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This will generate a file called <code>ww-star2-deseq2-inputs.json</code> that contains all of the inputs:</p>
+<pre><code>{
+  "star_deseq2.samples": "Array[WomCompositeType {\n name -&gt; String\nr1 -&gt; File\nr2 -&gt; File\ncondition -&gt; String \n}]",
+  "star_deseq2.rnaseqc_cov.cpu_cores": "Int (optional, default = 2)",
+  ...
+}</code></pre>
+<p>This can be a good head start to making your <code>.json</code> files.</p>
+</section>
+<section id="working-with-file-manifests-in-wdl" class="level3" data-number="6.2.4">
+<h3 data-number="6.2.4" class="anchored" data-anchor-id="working-with-file-manifests-in-wdl"><span class="header-section-number">6.2.4</span> Working with file manifests in WDL</h3>
+<p>Last week, we worked with a file manifest to process a list of files.</p>
+<p>There is an <a href="https://github.com/getwilds/ww-demo-workflows/tree/main/parseBatchFile">example workflow that shows how to work with a file manifest</a>. This can be helpful for those who aren’t necessarily good at working with JSON.</p>
+<p>This workflow has a single input, which is the location of the file manifest. It will then cycle through the manifest, line by line.</p>
+<p>This is what the file manifest contains. Notice there are three named columns for this file: <code>sampleName</code>, <code>bamLocation</code>, and <code>bedLocation</code>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>sampleName</th>
+<th>bamLocation</th>
+<th>bedLocation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>smallTestData</td>
+<td>/fh/fast/paguirigan_a/pub/ReferenceDataSets/workflow_testing_data/WDL/unpaired-panel-consensus-variants-human/smallTestData.unmapped.bam</td>
+<td>/fh/fast/paguirigan_a/pub/ReferenceDataSets/reagent_specific_data/sequencing_panel_bed/TruSight-Myeloid-Illumina/trusight-myeloid-amplicon-v4-track_interval-liftOver-hg38.bed</td>
+</tr>
+<tr class="even">
+<td>smallTestData-reference</td>
+<td>/fh/fast/paguirigan_a/pub/ReferenceDataSets/workflow_testing_data/WDL/paired-panel-consensus-variants-human/smallTestData-reference.unmapped.bam</td>
+<td>/fh/fast/paguirigan_a/pub/ReferenceDataSets/reagent_specific_data/sequencing_panel_bed/TruSight-Myeloid-Illumina/trusight-myeloid-amplicon-v4-track_interval-liftOver-hg38.bed</td>
+</tr>
+</tbody>
+</table>
+<p>Here’s the workflow part of the file:</p>
+<div class="sourceCode" id="annotated-cell-7"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-7-1"><a href="#annotated-cell-7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">version</span> 1.0</span>
+<span id="annotated-cell-7-2"><a href="#annotated-cell-7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#### WORKFLOW DEFINITION</span></span>
+<span id="annotated-cell-7-3"><a href="#annotated-cell-7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-7-4"><a href="#annotated-cell-7-4" aria-hidden="true" tabindex="-1"></a><span class="ex">workflow</span> ParseBatchFile {</span>
+<span id="annotated-cell-7-5"><a href="#annotated-cell-7-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">input</span> {</span>
+<span id="annotated-cell-7-6"><a href="#annotated-cell-7-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> batch_file</span>
+<span id="annotated-cell-7-7"><a href="#annotated-cell-7-7" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-7-8"><a href="#annotated-cell-7-8" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-7-9" class="code-annotation-target"><a href="#annotated-cell-7-9" aria-hidden="true" tabindex="-1"></a>  <span class="va">Array</span><span class="op">[</span>Object<span class="op">]</span> <span class="ex">batch_info</span> = read_objects<span class="er">(</span><span class="ex">batch_file</span><span class="kw">)</span></span>
+<span id="annotated-cell-7-10"><a href="#annotated-cell-7-10" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-7-11" class="code-annotation-target"><a href="#annotated-cell-7-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">scatter</span> <span class="er">(</span><span class="ex">job</span> in batch_info<span class="kw">){</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-7-12" class="code-annotation-target"><a href="#annotated-cell-7-12" aria-hidden="true" tabindex="-1"></a>    <span class="ex">String</span> sample_name = job.sampleName</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-7-13" class="code-annotation-target"><a href="#annotated-cell-7-13" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> bam_file = job.bamLocation</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-7-14" class="code-annotation-target"><a href="#annotated-cell-7-14" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> bed_file = job.bedLocation</span>
+<span id="annotated-cell-7-15"><a href="#annotated-cell-7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-7-16"><a href="#annotated-cell-7-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">## INSERT YOUR WORKFLOW TO RUN PER LINE IN YOUR BATCH FILE HERE!!!!</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-7-17" class="code-annotation-target"><a href="#annotated-cell-7-17" aria-hidden="true" tabindex="-1"></a>    <span class="ex">call</span> Test {</span>
+<span id="annotated-cell-7-18"><a href="#annotated-cell-7-18" aria-hidden="true" tabindex="-1"></a>      <span class="ex">input:</span> in1=sample_name, in2=bam_file, in3=bed_file</span>
+<span id="annotated-cell-7-19"><a href="#annotated-cell-7-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">}</span></span>
+<span id="annotated-cell-7-20"><a href="#annotated-cell-7-20" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span>  <span class="co"># End Scatter over the batch file</span></span>
+<span id="annotated-cell-7-21"><a href="#annotated-cell-7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-7-22"><a href="#annotated-cell-7-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Outputs that will be retained when execution is complete</span></span>
+<span id="annotated-cell-7-23"><a href="#annotated-cell-7-23" aria-hidden="true" tabindex="-1"></a>  <span class="ex">output</span> {</span>
+<span id="annotated-cell-7-24"><a href="#annotated-cell-7-24" aria-hidden="true" tabindex="-1"></a>    <span class="va">Array</span><span class="op">[</span>File<span class="op">]</span> <span class="ex">output_array</span> = Test.item_out</span>
+<span id="annotated-cell-7-25"><a href="#annotated-cell-7-25" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-7-26"><a href="#annotated-cell-7-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-7-27"><a href="#annotated-cell-7-27" aria-hidden="true" tabindex="-1"></a>  <span class="ex">parameter_meta</span> {</span>
+<span id="annotated-cell-7-28"><a href="#annotated-cell-7-28" aria-hidden="true" tabindex="-1"></a>    <span class="ex">batch_file:</span> <span class="st">"input tsv containing details about each sample in the batch"</span></span>
+<span id="annotated-cell-7-29"><a href="#annotated-cell-7-29" aria-hidden="true" tabindex="-1"></a>    <span class="ex">output_array:</span> <span class="st">"array containing details about each samples in the batch"</span></span>
+<span id="annotated-cell-7-30"><a href="#annotated-cell-7-30" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-7-31"><a href="#annotated-cell-7-31" aria-hidden="true" tabindex="-1"></a><span class="er">}</span> <span class="co"># End workflow</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-7" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="9" data-code-annotation="1">Read in file manifest line by line, and store in the array called <code>batch_info</code>.</span>
+</dd>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="11" data-code-annotation="2">Cycle through the manifest line by line, <code>scatter</code>ing to multiple nodes</span>
+</dd>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="12" data-code-annotation="3">Get <code>sample_name</code> input from <code>job.sample_name</code></span>
+</dd>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="13" data-code-annotation="4">Get <code>bam_file</code> input from <code>job.bam_file</code></span>
+</dd>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="14" data-code-annotation="5">Get <code>bed_file</code> input from <code>job.bed_file</code></span>
+</dd>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="6">6</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="17" data-code-annotation="6">Do something with the inputs.</span>
+</dd>
+</dl>
+</section>
+<section id="lets-start-with-wdl-tasks" class="level3" data-number="6.2.5">
+<h3 data-number="6.2.5" class="anchored" data-anchor-id="lets-start-with-wdl-tasks"><span class="header-section-number">6.2.5</span> Let’s start with WDL Tasks</h3>
+<p>We will start with the lower level of abstraction in WDL: The <em>task</em>.</p>
+</section>
+<section id="anatomy-of-a-task" class="level3" data-number="6.2.6">
+<h3 data-number="6.2.6" class="anchored" data-anchor-id="anatomy-of-a-task"><span class="header-section-number">6.2.6</span> Anatomy of a Task</h3>
+<div class="sourceCode" id="annotated-cell-8"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-8-1"><a href="#annotated-cell-8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">task</span> build_star_index {</span>
+<span id="annotated-cell-8-2"><a href="#annotated-cell-8-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">meta</span> {</span>
+<span id="annotated-cell-8-3"><a href="#annotated-cell-8-3" aria-hidden="true" tabindex="-1"></a>      <span class="ex">...</span></span>
+<span id="annotated-cell-8-4"><a href="#annotated-cell-8-4" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-8-5"><a href="#annotated-cell-8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-8-6"><a href="#annotated-cell-8-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">parameter_meta</span> {</span>
+<span id="annotated-cell-8-7"><a href="#annotated-cell-8-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">reference_fasta:</span> <span class="st">"Reference genome FASTA file"</span></span>
+<span id="annotated-cell-8-8"><a href="#annotated-cell-8-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">reference_gtf:</span> <span class="st">"Reference genome GTF annotation file"</span></span>
+<span id="annotated-cell-8-9"><a href="#annotated-cell-8-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">sjdb_overhang:</span> <span class="st">"Length of the genomic sequence around the annotated junction to be used in constructing the splice junctions database"</span></span>
+<span id="annotated-cell-8-10"><a href="#annotated-cell-8-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">genome_sa_index_nbases:</span> <span class="st">"Length (bases) of the SA pre-indexing string, typically between 10-15 (scales with genome size)"</span></span>
+<span id="annotated-cell-8-11"><a href="#annotated-cell-8-11" aria-hidden="true" tabindex="-1"></a>    <span class="ex">memory_gb:</span> <span class="st">"Memory allocated for the task in GB"</span></span>
+<span id="annotated-cell-8-12"><a href="#annotated-cell-8-12" aria-hidden="true" tabindex="-1"></a>    <span class="ex">cpu_cores:</span> <span class="st">"Number of CPU cores allocated for the task"</span></span>
+<span id="annotated-cell-8-13"><a href="#annotated-cell-8-13" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-8-14"><a href="#annotated-cell-8-14" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-8-15" class="code-annotation-target"><a href="#annotated-cell-8-15" aria-hidden="true" tabindex="-1"></a>  <span class="ex">input</span> {</span>
+<span id="annotated-cell-8-16"><a href="#annotated-cell-8-16" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> reference_fasta</span>
+<span id="annotated-cell-8-17"><a href="#annotated-cell-8-17" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> reference_gtf</span>
+<span id="annotated-cell-8-18"><a href="#annotated-cell-8-18" aria-hidden="true" tabindex="-1"></a>    <span class="ex">Int</span> sjdb_overhang = 100</span>
+<span id="annotated-cell-8-19"><a href="#annotated-cell-8-19" aria-hidden="true" tabindex="-1"></a>    <span class="ex">Int</span> genome_sa_index_nbases = 14</span>
+<span id="annotated-cell-8-20"><a href="#annotated-cell-8-20" aria-hidden="true" tabindex="-1"></a>    <span class="ex">Int</span> memory_gb = 64</span>
+<span id="annotated-cell-8-21"><a href="#annotated-cell-8-21" aria-hidden="true" tabindex="-1"></a>    <span class="ex">Int</span> cpu_cores = 8</span>
+<span id="annotated-cell-8-22"><a href="#annotated-cell-8-22" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-8-23"><a href="#annotated-cell-8-23" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-8-24" class="code-annotation-target"><a href="#annotated-cell-8-24" aria-hidden="true" tabindex="-1"></a>  <span class="bu">command</span> <span class="op">&lt;&lt;&lt;</span></span>
+<span id="annotated-cell-8-25"><a href="#annotated-cell-8-25" aria-hidden="true" tabindex="-1"></a>    <span class="bu">set</span> <span class="at">-eo</span> pipefail</span>
+<span id="annotated-cell-8-26"><a href="#annotated-cell-8-26" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="annotated-cell-8-27"><a href="#annotated-cell-8-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mkdir</span> star_index</span>
+<span id="annotated-cell-8-28"><a href="#annotated-cell-8-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-8-29"><a href="#annotated-cell-8-29" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Building STAR index..."</span></span>
+<span id="annotated-cell-8-30"><a href="#annotated-cell-8-30" aria-hidden="true" tabindex="-1"></a>    <span class="ex">STAR</span> <span class="dt">\</span></span>
+<span id="annotated-cell-8-31"><a href="#annotated-cell-8-31" aria-hidden="true" tabindex="-1"></a>      <span class="at">--runMode</span> genomeGenerate <span class="dt">\</span></span>
+<span id="annotated-cell-8-32"><a href="#annotated-cell-8-32" aria-hidden="true" tabindex="-1"></a>      <span class="at">--runThreadN</span> ~{cpu_cores} <span class="dt">\</span></span>
+<span id="annotated-cell-8-33"><a href="#annotated-cell-8-33" aria-hidden="true" tabindex="-1"></a>      <span class="at">--genomeDir</span> star_index <span class="dt">\</span></span>
+<span id="annotated-cell-8-34"><a href="#annotated-cell-8-34" aria-hidden="true" tabindex="-1"></a>      <span class="at">--genomeFastaFiles</span> <span class="st">"~{reference_fasta}"</span> <span class="dt">\</span></span>
+<span id="annotated-cell-8-35"><a href="#annotated-cell-8-35" aria-hidden="true" tabindex="-1"></a>      <span class="at">--sjdbGTFfile</span> <span class="st">"~{reference_gtf}"</span> <span class="dt">\</span></span>
+<span id="annotated-cell-8-36"><a href="#annotated-cell-8-36" aria-hidden="true" tabindex="-1"></a>      <span class="at">--sjdbOverhang</span> ~{sjdb_overhang} <span class="dt">\</span></span>
+<span id="annotated-cell-8-37"><a href="#annotated-cell-8-37" aria-hidden="true" tabindex="-1"></a>      <span class="at">--genomeSAindexNbases</span> ~{genome_sa_index_nbases}</span>
+<span id="annotated-cell-8-38"><a href="#annotated-cell-8-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-8-39"><a href="#annotated-cell-8-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tar</span> <span class="at">-czf</span> star_index.tar.gz star_index/</span>
+<span id="annotated-cell-8-40"><a href="#annotated-cell-8-40" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;&gt;&gt;</span></span>
+<span id="annotated-cell-8-41"><a href="#annotated-cell-8-41" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-8-42" class="code-annotation-target"><a href="#annotated-cell-8-42" aria-hidden="true" tabindex="-1"></a>  <span class="ex">output</span> {</span>
+<span id="annotated-cell-8-43"><a href="#annotated-cell-8-43" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> star_index_tar = <span class="st">"star_index.tar.gz"</span></span>
+<span id="annotated-cell-8-44"><a href="#annotated-cell-8-44" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-8-45"><a href="#annotated-cell-8-45" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-8-46" class="code-annotation-target"><a href="#annotated-cell-8-46" aria-hidden="true" tabindex="-1"></a>  <span class="ex">runtime</span> {</span>
+<span id="annotated-cell-8-47"><a href="#annotated-cell-8-47" aria-hidden="true" tabindex="-1"></a>    <span class="ex">docker:</span> <span class="st">"getwilds/star:2.7.6a"</span></span>
+<span id="annotated-cell-8-48"><a href="#annotated-cell-8-48" aria-hidden="true" tabindex="-1"></a>    <span class="ex">memory:</span> <span class="st">"~{memory_gb} GB"</span></span>
+<span id="annotated-cell-8-49"><a href="#annotated-cell-8-49" aria-hidden="true" tabindex="-1"></a>    <span class="ex">cpu:</span> cpu_cores</span>
+<span id="annotated-cell-8-50"><a href="#annotated-cell-8-50" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-8-51"><a href="#annotated-cell-8-51" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-8" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-8" data-code-lines="15" data-code-annotation="1">Input for our task.</span>
+</dd>
+<dt data-target-cell="annotated-cell-8" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-8" data-code-lines="24" data-code-annotation="2">Bash commands to execute in task</span>
+</dd>
+<dt data-target-cell="annotated-cell-8" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-8" data-code-lines="42" data-code-annotation="3">Description of output</span>
+</dd>
+<dt data-target-cell="annotated-cell-8" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-8" data-code-lines="46" data-code-annotation="4">Runtime requirements for execution. This is a lot like the <code>#SBATCH</code> directives.</span>
+</dd>
+</dl>
+<p>Everything between the <code>&lt;&lt;&lt;</code> and <code>&gt;&gt;&gt;</code> is essentially a bash script. WDL has its own variables</p>
+</section>
+<section id="architecture-of-a-wdl-file" class="level3" data-number="6.2.7">
+<h3 data-number="6.2.7" class="anchored" data-anchor-id="architecture-of-a-wdl-file"><span class="header-section-number">6.2.7</span> Architecture of a WDL file</h3>
+<p>The best way to read WDL files is to read them top down. We’ll focus on the basic sections of a WDL file before we see how they work together.</p>
+<p>The code below is from the <a href="https://github.com/getwilds/ww-star-deseq2/blob/main/ww-star-deseq2.wdl">WILDs WDL Repo</a>.</p>
+<div class="sourceCode" id="annotated-cell-9"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-9-1"><a href="#annotated-cell-9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">workflow</span> SRA_STAR2Pass {</span>
+<span id="annotated-cell-9-2"><a href="#annotated-cell-9-2" aria-hidden="true" tabindex="-1"></a>   <span class="ex">meta{</span></span>
+<span id="annotated-cell-9-3"><a href="#annotated-cell-9-3" aria-hidden="true" tabindex="-1"></a>   <span class="ex">...</span></span>
+<span id="annotated-cell-9-4"><a href="#annotated-cell-9-4" aria-hidden="true" tabindex="-1"></a>   <span class="er">}</span></span>
+<span id="annotated-cell-9-5"><a href="#annotated-cell-9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-9-6"><a href="#annotated-cell-9-6" aria-hidden="true" tabindex="-1"></a>   <span class="ex">parameter_meta{</span></span>
+<span id="annotated-cell-9-7"><a href="#annotated-cell-9-7" aria-hidden="true" tabindex="-1"></a>   <span class="ex">...</span></span>
+<span id="annotated-cell-9-8"><a href="#annotated-cell-9-8" aria-hidden="true" tabindex="-1"></a>   <span class="er">}</span></span>
+<span id="annotated-cell-9-9"><a href="#annotated-cell-9-9" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-9-10" class="code-annotation-target"><a href="#annotated-cell-9-10" aria-hidden="true" tabindex="-1"></a>  <span class="ex">input</span> {</span>
+<span id="annotated-cell-9-11"><a href="#annotated-cell-9-11" aria-hidden="true" tabindex="-1"></a>    <span class="ex">...</span></span>
+<span id="annotated-cell-9-12"><a href="#annotated-cell-9-12" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-9-13"><a href="#annotated-cell-9-13" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-9-14" class="code-annotation-target"><a href="#annotated-cell-9-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="kw">(</span><span class="ex">!defined</span><span class="er">(</span><span class="ex">reference_genome</span><span class="kw">))</span> <span class="kw">{</span></span>
+<span id="annotated-cell-9-15"><a href="#annotated-cell-9-15" aria-hidden="true" tabindex="-1"></a>    <span class="ex">call</span> download_reference {}</span>
+<span id="annotated-cell-9-16"><a href="#annotated-cell-9-16" aria-hidden="true" tabindex="-1"></a>  <span class="kw">}</span></span>
+<span id="annotated-cell-9-17"><a href="#annotated-cell-9-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-9-18"><a href="#annotated-cell-9-18" aria-hidden="true" tabindex="-1"></a>  <span class="ex">RefGenome</span> ref_genome_final = select_first<span class="er">(</span><span class="ex">[reference_genome,</span> download_reference.genome]<span class="kw">)</span></span>
+<span id="annotated-cell-9-19"><a href="#annotated-cell-9-19" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-9-20" class="code-annotation-target"><a href="#annotated-cell-9-20" aria-hidden="true" tabindex="-1"></a>  <span class="ex">call</span> build_star_index {</span>
+<span id="annotated-cell-9-21"><a href="#annotated-cell-9-21" aria-hidden="true" tabindex="-1"></a>    <span class="ex">...</span></span>
+<span id="annotated-cell-9-22"><a href="#annotated-cell-9-22" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-9-23"><a href="#annotated-cell-9-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-9-24"><a href="#annotated-cell-9-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Outputs that will be retained when execution is complete</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-9-25" class="code-annotation-target"><a href="#annotated-cell-9-25" aria-hidden="true" tabindex="-1"></a>  <span class="ex">output</span> {</span>
+<span id="annotated-cell-9-26"><a href="#annotated-cell-9-26" aria-hidden="true" tabindex="-1"></a>    <span class="ex">...</span></span>
+<span id="annotated-cell-9-27"><a href="#annotated-cell-9-27" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-9-28"><a href="#annotated-cell-9-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-9-29"><a href="#annotated-cell-9-29" aria-hidden="true" tabindex="-1"></a><span class="er">}</span> </span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-9" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-9" data-code-lines="10" data-code-annotation="1">Inputs for workflow</span>
+</dd>
+<dt data-target-cell="annotated-cell-9" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-9" data-code-lines="14" data-code-annotation="2">If/then statement of workflow</span>
+</dd>
+<dt data-target-cell="annotated-cell-9" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-9" data-code-lines="20" data-code-annotation="3">call a task</span>
+</dd>
+<dt data-target-cell="annotated-cell-9" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-9" data-code-lines="25" data-code-annotation="4">Outputs of workflow</span>
+</dd>
+</dl>
+<p>Let’s go through each of these in detail (we’ll get back to the <code>meta</code> and <code>parameters-meta</code> sections)</p>
+<p>The structure of the workflow</p>
+<div class="sourceCode" id="annotated-cell-10"><pre class="sourceCode bash code-annotation-code code-with-copy"><code class="sourceCode bash"><span id="annotated-cell-10-1"><a href="#annotated-cell-10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">workflow</span> SRA_STAR2Pass {</span>
+<span id="annotated-cell-10-2"><a href="#annotated-cell-10-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">input</span> {</span>
+<span id="annotated-cell-10-3"><a href="#annotated-cell-10-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">Array</span><span class="op">[</span>SampleInfo<span class="op">]</span> <span class="ex">samples</span></span>
+<span id="annotated-cell-10-4"><a href="#annotated-cell-10-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">RefGenome?</span> reference_genome</span>
+<span id="annotated-cell-10-5"><a href="#annotated-cell-10-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">String</span> reference_level = <span class="st">""</span></span>
+<span id="annotated-cell-10-6"><a href="#annotated-cell-10-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">String</span> contrast = <span class="st">""</span></span>
+<span id="annotated-cell-10-7"><a href="#annotated-cell-10-7" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-10-8"><a href="#annotated-cell-10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-10-9"><a href="#annotated-cell-10-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="kw">(</span><span class="ex">!defined</span><span class="er">(</span><span class="ex">reference_genome</span><span class="kw">))</span> <span class="kw">{</span></span>
+<span id="annotated-cell-10-10"><a href="#annotated-cell-10-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">call</span> download_reference {}</span>
+<span id="annotated-cell-10-11"><a href="#annotated-cell-10-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">}</span></span>
+<span id="annotated-cell-10-12"><a href="#annotated-cell-10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-10-13"><a href="#annotated-cell-10-13" aria-hidden="true" tabindex="-1"></a>  <span class="ex">RefGenome</span> ref_genome_final = select_first<span class="er">(</span><span class="ex">[reference_genome,</span> download_reference.genome]<span class="kw">)</span></span>
+<span id="annotated-cell-10-14"><a href="#annotated-cell-10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-10-15"><a href="#annotated-cell-10-15" aria-hidden="true" tabindex="-1"></a>  <span class="ex">call</span> build_star_index { input:</span>
+<span id="annotated-cell-10-16"><a href="#annotated-cell-10-16" aria-hidden="true" tabindex="-1"></a>      <span class="ex">reference_fasta</span> = ref_genome_final.fasta,</span>
+<span id="annotated-cell-10-17"><a href="#annotated-cell-10-17" aria-hidden="true" tabindex="-1"></a>      <span class="ex">reference_gtf</span> = ref_genome_final.gtf</span>
+<span id="annotated-cell-10-18"><a href="#annotated-cell-10-18" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-10-19"><a href="#annotated-cell-10-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-10-20"><a href="#annotated-cell-10-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Outputs that will be retained when execution is complete</span></span>
+<span id="annotated-cell-10-21"><a href="#annotated-cell-10-21" aria-hidden="true" tabindex="-1"></a>  <span class="ex">output</span> {</span>
+<span id="annotated-cell-10-22"><a href="#annotated-cell-10-22" aria-hidden="true" tabindex="-1"></a>    <span class="ex">...</span></span>
+<span id="annotated-cell-10-23"><a href="#annotated-cell-10-23" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-10-24"><a href="#annotated-cell-10-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-10-25"><a href="#annotated-cell-10-25" aria-hidden="true" tabindex="-1"></a><span class="er">}</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="developing-and-testing-out-scripts" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="developing-and-testing-out-scripts"><span class="header-section-number">6.3</span> Developing and Testing out scripts</h2>
+<p>One of the hard things to understand is what can be run on a compute node versus the head node, and what file systems are accessible via a compute node.</p>
+<p>A lot of the issues you might have is because you need to understand the mental model of how cluster computing works. And the best way to understand that is to test your code on a compute node.</p>
+<p>Let’s explore how we can do that.</p>
+<section id="sec-grabnode" class="level3" data-number="6.3.1">
+<h3 data-number="6.3.1" class="anchored" data-anchor-id="sec-grabnode"><span class="header-section-number">6.3.1</span> Testing code on a compute node</h3>
+<p>Fred Hutch users have the advantage of <code>grabnode</code>, which is a custom command that lets you request an interactive instance of a compute node.</p>
+<p>Why would you want to do this? A good part of this is about testing software and making sure that your paths are correct.</p>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Don’t rely on <code>grabnode</code>/interactive mode for your work
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We see users that will request a multicore node with higher memory, and do their processing on that node.</p>
+<p>This doesn’t take advantage of all of the machines that are available on a cluster, and thus is a suboptimal way to utilize the cluster.</p>
+<p>The other disadvantage is that you may be waiting a very long time to get that multicore node, whereas if you batch across a bunch of nodes, you will get your work done much faster.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-containers" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="sec-containers"><span class="header-section-number">6.4</span> Working with containers</h2>
 <p>I think the hardest thing about working with containers is wrapping your head around the indirectness of them. You are running software with its own internal filesystem and the challenges are getting the container to read files in folders/paths outside of its own filesytem, as well as outputting files into those outside folders.</p>
-</section>
-<section id="visual-table-of-contents" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="visual-table-of-contents"><span class="header-section-number">4.3</span> Visual Table of Contents</h2>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart TD
-   B["Open Shell in Container\n(with Bindpaths)"]
-   B --&gt; D[Test Scripts in container]
-   D --&gt; E[Exit Container]
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
-<section id="sec-open-container" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="sec-open-container"><span class="header-section-number">4.4</span> Opening Shells in Containers for Testing</h2>
+<section id="sec-open-container" class="level3" data-number="6.4.1">
+<h3 data-number="6.4.1" class="anchored" data-anchor-id="sec-open-container"><span class="header-section-number">6.4.1</span> Testing code in a container</h3>
 <p>In this section, we talk about testing scripts in a container using <code>apptainer</code>. We use <code>apptainer</code> (formerly Singularity) in order to run Docker containers on a shared HPC system. This is because Docker itself requires root-level privileges, which is not secure on shared systems.</p>
 <p>In order to do our testing, we’ll first pull the Docker container, map our bind point (so our container can access files outside of its file system), and then run scripts in the container.</p>
 <p>Even if you aren’t going to frequently use Apptainer in your work, I recommend trying an interactive shell in a container at least once or twice to learn about the container filesystem and conceptually understand how you connect it to the external filesystem.</p>
-<section id="pulling-a-docker-container" class="level3" data-number="4.4.1">
-<h3 data-number="4.4.1" class="anchored" data-anchor-id="pulling-a-docker-container"><span class="header-section-number">4.4.1</span> Pulling a Docker Container</h3>
+</section>
+<section id="pulling-a-docker-container" class="level3" data-number="6.4.2">
+<h3 data-number="6.4.2" class="anchored" data-anchor-id="pulling-a-docker-container"><span class="header-section-number">6.4.2</span> Pulling a Docker Container</h3>
 <p>Let’s pull a docker container from the Docker registry. Note we have to specify <code>docker://</code> when we pull the container, because Apptainer has its own internal format called SIF.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> pull docker://biocontainers/samtools:v1.9-4-deb_cv1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> pull docker://biocontainers/samtools:v1.9-4-deb_cv1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-</section>
-<section id="opening-a-shell-in-a-container-with-apptainer-shell" class="level2" data-number="4.5">
-<h2 data-number="4.5" class="anchored" data-anchor-id="opening-a-shell-in-a-container-with-apptainer-shell"><span class="header-section-number">4.5</span> Opening a Shell in a Container with <code>apptainer shell</code></h2>
+<section id="opening-a-shell-in-a-container-with-apptainer-shell" class="level3" data-number="6.4.3">
+<h3 data-number="6.4.3" class="anchored" data-anchor-id="opening-a-shell-in-a-container-with-apptainer-shell"><span class="header-section-number">6.4.3</span> Opening a Shell in a Container with <code>apptainer shell</code></h3>
 <p>When you’re getting started, opening a shell using Apptainer can help you test out things like filepaths and how they’re accessed in the container. It’s hard to get an intuition for how file I/O works with containers until you can see the limited view from the container.</p>
 <p>By default, apptainers can see your current directory and navigate to the files in it.</p>
 <p>You can open an Apptainer shell in a container using <code>apptainer shell</code>. Remember to use <code>docker://</code> before the container name. For example:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> shell docker://biocontainers/samtools:v1.9-4-deb_cv1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This will load the <code>apptainer</code> module, and then open a Bash shell in the container using <code>apptainer shell</code>. Once you’re in the container, you can test code, especially seeing whether your files can be seen by the container (see <a href="#sec-bindpaths" class="quarto-xref"><span>Section 4.6</span></a>). 90% of the issues with using Docker containers has to do with bind paths, so we’ll talk about that next.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> shell docker://biocontainers/samtools:v1.9-4-deb_cv1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This will load the <code>apptainer</code> module, and then open a Bash shell in the container using <code>apptainer shell</code>. Once you’re in the container, you can test code, especially seeing whether your files can be seen by the container (see <a href="container-basics.html#sec-bindpaths" class="quarto-xref"><span>Section 5.1.6</span></a>). 90% of the issues with using Docker containers has to do with bind paths, so we’ll talk about that next.</p>
 <p>Once you’re in the shell, you can take a look at where <code>samtools</code> is installed:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> samtools</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> samtools</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Note that the container filesystem is isolated, and we need to explicitly build connections to it (called bind paths) to get files in and out. We’ll talk more about this in the next section.</p>
 <p>Once we’re done testing scripts in our containers, we can exit the shell and get back into the node.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">exit</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">exit</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -301,44 +681,12 @@ Opening a Shell in a Docker Container with Docker
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>For the most part, due to security reasons, we don’t use <code>docker</code> on HPC systems. In short, the <code>docker</code> group essentially has root-level access to the machine, and it’s not a good for security on a shared resource like an HPC. However, if you have admin level access (for example, on your own laptop), you can open up an interactive shell with <code>docker run</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-it</span> biocontainers/samtools:v1.9-4-deb_cv1 /bin/bash</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>For the most part, due to security reasons, we don’t use <code>docker</code> on HPC systems. In short, the <code>docker</code> group essentially has root-level access to the machine, and it’s not a good for security on a shared resource like an HPC.</p>
+<p>However, if you have admin level access (for example, on your own laptop), you can open up an interactive shell with <code>docker run -it</code>:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-it</span> biocontainers/samtools:v1.9-4-deb_cv1 /bin/bash</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This will open a bash shell much like <code>apptainer shell</code>. Note that volumes (the docker equivalent of bind paths) are specified differently in Docker compared to Apptainer.</p>
 </div>
 </div>
-</section>
-<section id="sec-bindpaths" class="level2" data-number="4.6">
-<h2 data-number="4.6" class="anchored" data-anchor-id="sec-bindpaths"><span class="header-section-number">4.6</span> Testing out bind paths in containers</h2>
-<p>One thing to keep in mind is that every container has its own filesystem. One of the hardest things to wrap your head around for containers is how their filesystems work, and how to access files that are outside of the container filesystem. We’ll call any filesystems outside of the container <em>external filesystems</em> to make the discussion a little easier.</p>
-<p>By default, the containers have access to your current working directory. We could make this where our scripts live (such as <code>/home/tladera2/</code>), but because our data is elsewhere, we’ll need to specify that location (<code>/fh/fast/mylab/</code>) as well.</p>
-<p>The main mechanism we have in Apptainer to access the external filesystem are <em>bind paths</em>. Much like mounting a drive, we can bind directories from the external filesystem using these bind points.</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart LR
-   B["External Directory\n/fh/fast/mydata/"] 
-   B --read--&gt; C
-   C --write--&gt; B
-   A["Container Filesystem\n/mydata/"]--write--&gt;C("--bind /fh/fast/mydata/:/mydata/")
-   C --read--&gt; A
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>I think of bind paths as “tunnels” that give access to particular folders in the external filesystem. Once the tunnel is open, we can access data files, process them, and save them using the bind path.</p>
-<p>Say my data lives in <code>/fh/fast/mydata/</code>. Then I can specify a bind point in my <code>apptainer shell</code> and <code>apptainer run</code> commands.</p>
-<p>We can do this with the <code>--bind</code> option:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> shell <span class="at">--bind</span> /fh/fast/mydata:/mydata docker://biocontainers/samtools:v1.9-4-deb_cv1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Note that the bind syntax doesn’t have the trailing slash (<code>/</code>). That is, note that it is:</p>
-<pre><code>--bind /fh/fast/mydata: ....</code></pre>
-<p>Rather than</p>
-<pre><code>--bind /fh/fast/mydata/: ....</code></pre>
-<p>Now our <code>/fh/fast/mydata/</code> folder will be available as <code>/mydata/</code> in my container. We can read and write files to this bind point. For example, I’d refer to the <code>.bam</code> file <code>/fh/fast/mydata/my_bam_file.bam</code> as:</p>
-<pre><code>samtools view -c /mydata/my_bam_file.bam</code></pre>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -350,37 +698,44 @@ WDL makes this way easier
 </div>
 <div class="callout-body-container callout-body">
 <p>A major point of failure with Apptainer scripting is when our scripts aren’t using the right bind paths. It becomes even more complicated when you are running multiple steps.</p>
-<p>This is one reason we recommend writing WDL Workflows and a <button class="glossary"><span class="def">A system that works with the cluster manager to orchestrate processing data through a workflow</span>workflow manager</button> (such as <button class="glossary"><span class="def"></span>Cromwell</button> or Sprocket) to run your workflows. You don’t have to worry that your bind points are setup correctly, because they are handled by the workflow manager.</p>
+<p>This is one reason we recommend writing WDL Workflows and a <button class="glossary"><span class="def">A system that works with the cluster manager to orchestrate processing data through a workflow</span>workflow manager</button> (such as <button class="glossary"><span class="def">A workflow runner. Currently works with WDL files.</span>Cromwell</button> or Sprocket) to run your workflows. You don’t have to worry that your bind points are setup correctly, because they are handled by the workflow manager.</p>
 </div>
 </div>
-<section id="testing-in-the-apptainer-shell" class="level3" data-number="4.6.1">
-<h3 data-number="4.6.1" class="anchored" data-anchor-id="testing-in-the-apptainer-shell"><span class="header-section-number">4.6.1</span> Testing in the Apptainer Shell</h3>
+</section>
+<section id="testing-in-the-apptainer-shell" class="level3" data-number="6.4.4">
+<h3 data-number="6.4.4" class="anchored" data-anchor-id="testing-in-the-apptainer-shell"><span class="header-section-number">6.4.4</span> Testing in the Apptainer Shell</h3>
 <p>Ok, now we have a bind point, so now we can test our script in the shell. For example, we can see if we are invoking <code>samtools</code> in the correct way and that our bind points work.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-c</span> /mydata/my_bam_file.bam <span class="op">&gt;</span> /mydata/bam_counts.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-c</span> /mydata/my_bam_file.bam <span class="op">&gt;</span> /mydata/bam_counts.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Again, trying out scripts in the container is the best way to understand what the container can and can’t see.</p>
 </section>
-<section id="exiting-the-container-when-youre-done" class="level3" data-number="4.6.2">
-<h3 data-number="4.6.2" class="anchored" data-anchor-id="exiting-the-container-when-youre-done"><span class="header-section-number">4.6.2</span> Exiting the container when you’re done</h3>
+<section id="exiting-the-container-when-youre-done" class="level3" data-number="6.4.5">
+<h3 data-number="6.4.5" class="anchored" data-anchor-id="exiting-the-container-when-youre-done"><span class="header-section-number">6.4.5</span> Exiting the container when you’re done</h3>
 <p>You can <code>exit</code>, like any shell you open. You should be out of the container. Confirm by using <code>hostname</code> to make sure you’re out of the container.</p>
 </section>
-</section>
-<section id="testing-outside-of-the-container" class="level2" data-number="4.7">
-<h2 data-number="4.7" class="anchored" data-anchor-id="testing-outside-of-the-container"><span class="header-section-number">4.7</span> Testing outside of the container</h2>
+<section id="testing-outside-of-the-container" class="level3" data-number="6.4.6">
+<h3 data-number="6.4.6" class="anchored" data-anchor-id="testing-outside-of-the-container"><span class="header-section-number">6.4.6</span> Testing outside of the container</h3>
 <p>Let’s take everything that we learned and put it in a script that we can run on the HPC:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Script to samtools view -c an input file:</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Usage: ./run_sam.sh &lt;my_bam_file.bam&gt;</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Outputs a count file: my_bam_file.bam.counts.txt</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> run <span class="at">--bind</span> /fh/fast/mydata:/mydata docker://biocontainers/samtools:v1.9-4-deb_cv1 samtools view <span class="at">-c</span> /mydata/<span class="va">$1</span> <span class="op">&gt;</span> /mydata/<span class="va">$1</span>.counts.txt</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#apptainer cache clean</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Script to samtools view -c an input file:</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Usage: ./run_sam.sh &lt;my_bam_file.bam&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Outputs a count file: my_bam_file.bam.counts.txt</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> run <span class="at">--bind</span> /fh/fast/mydata:/mydata docker://biocontainers/samtools:v1.9-4-deb_cv1 samtools view <span class="at">-c</span> /mydata/<span class="va">$1</span> <span class="op">&gt;</span> /mydata/<span class="va">$1</span>.counts.txt</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#apptainer cache clean</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We can use this script by the following command:</p>
 <pre><code>./run_sam.sh chr1.bam </code></pre>
 <p>And it will output a file called <code>chr1.bam.counts.txt</code>.</p>
-</section>
-<section id="apptainer-cache" class="level2" data-number="4.8">
-<h2 data-number="4.8" class="anchored" data-anchor-id="apptainer-cache"><span class="header-section-number">4.8</span> Apptainer Cache</h2>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Apptainer Cache
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p><a href="https://apptainer.org/docs/user/1.0/build_env.html">The apptainer cache</a> is where your docker images live. They are translated to the native apptainer <code>.sif</code> format.</p>
 <p>You can see what’s in your cache by using</p>
 <pre><code>apptainer cache list</code></pre>
@@ -388,15 +743,12 @@ WDL makes this way easier
 <p>If you need to clear out the cache, you can run</p>
 <pre><code>apptainer cache clean</code></pre>
 <p>to clear out the cache.</p>
-<p>There are a number of environment variables (<a href="configuring.html#sec-environment" class="quarto-xref"><span>Section 5.4</span></a>) that can be set, including login tokens for pulling from a private registry. <a href="https://apptainer.org/docs/user/1.0/build_env.html#environment-variables">More information is here</a>.</p>
+<p>There are a number of environment variables (<a href="configuring.html#sec-environment" class="quarto-xref"><span>Section 6.5</span></a>) that can be set, including login tokens for pulling from a private registry. <a href="https://apptainer.org/docs/user/1.0/build_env.html#environment-variables">More information is here</a>.</p>
+</div>
+</div>
 </section>
-<section id="entrypoints" class="level2" data-number="4.9">
-<h2 data-number="4.9" class="anchored" data-anchor-id="entrypoints"><span class="header-section-number">4.9</span> Entrypoints</h2>
-<p>You can think of an entrypoint as a way of automatically starting something up in your container when you run it. For example, if you have a web stack container, one of the things you want to start is a web server when you start running it.</p>
-<p>The main reason to be aware of entrypoints is when they exist in a Dockerfile. It is important to know what is started when you start running a container.</p>
-</section>
-<section id="more-info" class="level2" data-number="4.10">
-<h2 data-number="4.10" class="anchored" data-anchor-id="more-info"><span class="header-section-number">4.10</span> More Info</h2>
+<section id="more-info" class="level3" data-number="6.4.7">
+<h3 data-number="6.4.7" class="anchored" data-anchor-id="more-info"><span class="header-section-number">6.4.7</span> More Info</h3>
 <ul>
 <li><a href="https://hsf-training.github.io/hsf-training-singularity-webpage/07-file-sharing/index.html">Carpentries Section on Apptainer Paths</a> - this is an excellent resource if you want to dive deeper into undestanding container filesystems and bind points.</li>
 <li><a href="https://apptainer.org/docs/user/main/bind_paths_and_mounts.html#bind-examples">Apptainer Documentation on Bind Paths</a>. There are a lot of good examples here on how to set up bind paths.</li>
@@ -404,6 +756,7 @@ WDL makes this way easier
 </ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -808,13 +1161,13 @@ WDL makes this way easier
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./03_batch.html" class="pagination-link" aria-label="Batch Processing and Submitting Jobs">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Batch Processing and Submitting Jobs</span></span>
+      <a href="./container-basics.html" class="pagination-link" aria-label="Reading: Container Basics">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: Container Basics</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./configuring.html" class="pagination-link" aria-label="Appendix: Configuring your Shell">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Appendix: Configuring your Shell</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./testing.html" class="pagination-link" aria-label="Testing Scripts">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Testing Scripts</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

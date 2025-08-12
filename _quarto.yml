@@ -10,8 +10,11 @@ book:
     - index.qmd
     - 01_basics.qmd
     - 02_scripting.qmd
+    - hpc-basics.qmd
     - 03_batch.qmd
+    - container-basics.qmd
     - 04_containers_workflows.qmd
+    - testing.qmd
     - configuring.qmd
     - miscellaneous.qmd
 
@@ -25,8 +28,5 @@ format:
     theme:
       - cosmo
       - brand
-  pdf:
-    documentclass: scrreprt
-
 
 

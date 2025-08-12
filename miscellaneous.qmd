@@ -212,3 +212,135 @@ srun-script.sh
 
 Which can be really handy when we name our outputs. This command is so handy it is used in WDL. 
 
+## Advanced Batch Processing: Iterating using `xargs` {#sec-xargs}
+
+A really common pattern is taking a delimited list of files and doing something with them. We can do some useful things such as seeing the first few lines of a set of files, or doing some sort of processing with the set of jobs.
+
+:::{.callout-warning}
+## Don't `xargs` for HPC jobs
+  
+You might be tempted to use `xargs` with `srun` to work on a bunch of files. It's worth trying once so you can see the mechanics of how jobs are processed.
+
+In general, I don't recommend it in practice because if you spawn 1000 jobs using `xargs`, there's no real mechanism to terminate that 1000 jobs, except one by one. With `sbatch`, all your jobs in batch mode run as *subjobs*, which means you can terminate the parent job to terminate all of the subjobs.
+
+Again, this is a good reason to use a workflow runner in your day to day work. You don't have to worry about jobs and subjobs. It takes a little setup, but it will make your life easier in general.
+:::
+
+
+Let's start out with a list of files:
+
+```bash
+source ~/.bashrc #| hide_line
+ls data/*.sh
+```
+
+```
+data/batch-on-worker.sh
+```
+
+Now we have a list of files, let's look at the first few lines of each of them, and print a separator `---` for each.
+
+```bash
+#| filename: scripting-basics/xargs_example.sh
+source ~/.bashrc #| hide_line
+ls data/*.sh | xargs -I% sh -c 'head %; echo "\n---\n"'
+```
+
+```
+#!/bash/bin
+
+cmd_to_run="ls *.vcf.gz | xargs -I% sh -c "bcftools stats % > %.stats.txt"
+
+dx run swiss-army-knife \
+  -iin="data/chr1.vcf.gz" \
+  -iin="data/chr2.vcf.gz" \
+  -iin="data/chr3.vcf.gz" \
+  -icmd=${cmd_to_run}
+---
+dx find data --name "*.bam" --brief
+---
+```
+
+
+Let's take this apart piece by piece.
+
+`xargs` takes an `-I` argument that specifies a placeholder. In our case, we are using `%` as our placeholder in this statement. 
+
+We're passing on each filename from `ls` into the following code:
+
+```bash
+sh -c 'head %; echo "---\n"'
+```
+
+The `sh -c` opens a subshell so that we can execute our command for each of the files in our list. We're using `sh -c` to run:
+
+```bash
+'head %; echo "---\n"'
+```
+
+So for our first file, `01-scripting-basics.qmd`, we are substituting that for `%` in our command:
+
+```bash
+'head hpc-basics.qmd; echo "---\n"'
+```
+
+For our second file, `hpc-basics.qmd`, we would substitute that for the `%`:
+
+```bash
+'head hpc-basics.qmd; echo "---\n"'
+```
+
+Until we cycle through all of the files in our list.
+
+### The Basic `xargs` pattern
+
+:::{#fig-xargs}
+```{mermaid}
+graph LR
+  A["ls *.bam"] --> B{"|"} 
+  B --> C["xargs -I% sh -c"] 
+  C --> D["command_to_run %"]
+```
+Basics of using `xargs` to iterate on a list of files
+:::
+
+As you cycle through lists of files, keep in mind this basic pattern (@fig-xargs):
+
+```bash
+ls <wildcard> | xargs -I% sh -c "<command to run> %"
+```
+
+:::{.callout-note}
+## Test Yourself
+
+How would we modify the below code to do the following?
+
+1. List only `.json` files in our `data/` folder using `ls`
+1. Use `tail` instead of `head`
+
+```bash
+ls *.txt | xargs -I% sh -c "head %; echo '---\n'"
+```
+:::
+
+:::{.callout-note collapse="true"}
+## Answer
+
+```bash
+ls data/*.json | xargs -I% sh -c "tail %; echo '---\n'"
+```
+:::
+
+:::{.callout-note}
+## Why this is important on HPC
+
+We can use `xargs` to execute small batch jobs on a small number of files. This especially becomes powerful on the cluster when we use `ls` to list files in our HPC project.
+
+Note that as we *graduate* to workflow tools like WDL/Nextflow, there are other mechanisms for running jobs on multiple files (such as WDL/Cromwell) that we should move to. 
+
+Trust me; you don't want to have to handle iterating through a huge directory and handling when routines give an error, or your jobs get interrupted. Rerunning and resuming failed jobs are what workflow runner tools excel at. 
+:::
+
+### For more information
+
+<https://www.baeldung.com/linux/xargs-multiple-arguments>

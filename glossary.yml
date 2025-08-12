@@ -1,5 +1,8 @@
 Shell: |
-  A command processor that we interact with via text. In our case, the Shell we're interacting with is on the server.
+  A command processor that we interact with via the system prompt. In our case, the Shell we're interacting with is on the server.
+
+executable: |
+  Software that is runnable on a system. Some of these are built in, such as `wc`, but most we will need to load or install into our system.
 
 Bash: |
   Short for *Bourne* *Again* *Shell* - it is the command processor that is typically run in a text window, has its own programming language and syntax.
@@ -17,11 +20,14 @@ Batch Processing: |
   A way to automate processing a number of files. For example, we might have a folder of .bam files and want to check the counts on each of them.
 
 cluster: |
-  A networked group of computers. Usually contains a driver node and compute nodes
+  A networked group of computers. Usually contains a driver node and compute nodes.
 
 Compute Job: |
   A task that we have assigned a computer to run. This computer can be a compute node in a cluster, or our own machine.
-  
+
+subjob: |
+  A task that has a parent task. Usually a subjob = 1 node processing.
+
 Registry: |
   collection of repositories that you pull docker images from. Example repositories include DockerHub and Quay.io.
   
@@ -41,11 +47,34 @@ Tag: |
   A bit of metadata that is used to *version* a container. 
 
 workflow: |
-  A way to process files through a sequence of steps. Also known as a pipeline
+  A way to process files through a sequence of steps. Also known as a pipeline.
   
 workflow manager: |
   A system that works with the cluster manager to orchestrate processing data through a workflow
   
 WDL: |
   Short for Workflow Description Language. A standard for specifying a workflow, which includes describing inputs, saving intermediate outputs, and outputting processed files.
-  
+
+Docker: |
+  Software that builds and runs containers
+
+DockerHub: |
+  A site to host your docker images. Your images can be private or public.
+
+ephemeral: |
+  When you are finished with Docker containers, everything that you created in them will disappear when you finish running scripts in the container.
+
+Apptainer: |
+  A container software that is often used on HPC systems. Can run Docker containers.
+
+Cromwell: |
+  A workflow runner. Currently works with WDL files.
+
+Sprocket: |
+  A newer workflow runner that works with WDL files. 
+
+HPC: |
+  Short for High Performance Computing. See the hpc basics chapter for more info.
+
+SLURM: |
+  "Simple Linux Utility for Resource Management" - it handles scheduling and distributing jobs among the compute nodes in the cluster.

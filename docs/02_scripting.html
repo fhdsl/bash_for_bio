@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./03_batch.html" rel="next">
+<link href="./hpc-basics.html" rel="next">
 <link href="./01_basics.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -162,26 +162,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./hpc-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reading: HPC Basics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./03_batch.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Batch Processing and Submitting Jobs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Batch Processing and Submitting Jobs</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./container-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: Container Basics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04_containers_workflows.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Containers and Workflows</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Containers and Workflows</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Testing Scripts</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./configuring.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Appendix: Configuring your Shell</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Appendix: Configuring your Shell</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./miscellaneous.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Miscellaneous</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Miscellaneous</span></span></a>
   </div>
 </li>
     </ul>
@@ -223,7 +241,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#integrating-into-a-bash-script" id="toc-integrating-into-a-bash-script" class="nav-link" data-scroll-target="#integrating-into-a-bash-script"><span class="header-section-number">2.11.3</span> Integrating into a Bash Script</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">2.11.4</span> Summary</a></li>
   </ul></li>
-  <li><a href="#arguments-in-python-scripts" id="toc-arguments-in-python-scripts" class="nav-link" data-scroll-target="#arguments-in-python-scripts"><span class="header-section-number">2.12</span> Arguments in Python Scripts</a></li>
+  <li><a href="#arguments-in-python-scripts" id="toc-arguments-in-python-scripts" class="nav-link" data-scroll-target="#arguments-in-python-scripts"><span class="header-section-number">2.12</span> Arguments in Python Scripts</a>
+  <ul class="collapse">
+  <li><a href="#using-sys.argv" id="toc-using-sys.argv" class="nav-link" data-scroll-target="#using-sys.argv"><span class="header-section-number">2.12.1</span> Using <code>sys.argv</code></a></li>
+  <li><a href="#running-our-python-script-on-the-command-line" id="toc-running-our-python-script-on-the-command-line" class="nav-link" data-scroll-target="#running-our-python-script-on-the-command-line"><span class="header-section-number">2.12.2</span> Running our Python script on the command line</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -490,7 +512,7 @@ Try it Out
 <section id="aligning-a-file" class="level2" data-number="2.10">
 <h2 data-number="2.10" class="anchored" data-anchor-id="aligning-a-file"><span class="header-section-number">2.10</span> Aligning a file</h2>
 <p>How about running the <code>bwa-mem</code> aligner? Let’s run a FASTQ file into it:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/Bash</span></span>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load BWA/0.7.17-GCCcore-11.2.0</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="va">REF_GENOME</span><span class="op">=</span><span class="st">"/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa"</span></span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="ex">bwa</span> mem <span class="va">${REF_GENOME}</span> <span class="va">$1</span> <span class="op">&gt;</span> <span class="va">$1</span>.aligned.sam</span>
@@ -498,8 +520,8 @@ Try it Out
 </section>
 <section id="arguments-in-r-scripts" class="level2" data-number="2.11">
 <h2 data-number="2.11" class="anchored" data-anchor-id="arguments-in-r-scripts"><span class="header-section-number">2.11</span> Arguments in R Scripts</h2>
-<p>To make our R Script more useful, it must also accept an argument. Let’s explore how to achieve this.</p>
-<p>We can use <code>Rscript</code> to execute our command <em>non-interactively</em>. <code>Rscript</code>, which is the command line executable, will run our Rscript.</p>
+<p>To make our R Script more useful, it must also accept arguments. Let’s explore how to achieve this.</p>
+<p>As we learned in (<a href="01_basics.html#sec-rpy" class="quarto-xref"><span>Section 1.14</span></a>), We can use <code>Rscript</code> to execute our command <em>non-interactively</em>. <code>Rscript</code>, which is the command line executable, will run our Rs cript on the command line.</p>
 <p>Note that we have a named argument called <code>input_file</code> and it is done differently than in Bash - how do we use this in our R Script?</p>
 <section id="using-named-arguments-in-an-r-script" class="level3" data-number="2.11.1">
 <h3 data-number="2.11.1" class="anchored" data-anchor-id="using-named-arguments-in-an-r-script"><span class="header-section-number">2.11.1</span> Using Named Arguments in an R script</h3>
@@ -541,7 +563,7 @@ Try it Out
 <h3 data-number="2.11.2" class="anchored" data-anchor-id="running-our-r-script"><span class="header-section-number">2.11.2</span> Running our R Script</h3>
 <p>Now that we’ve set it up, we can run the R script from the command line as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> process_data.R CSVFILE=<span class="st">"</span><span class="va">${1}</span><span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> process_data.R CSVFILE=<span class="st">"LUSC_clinical.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="integrating-into-a-bash-script" class="level3" data-number="2.11.3">
@@ -560,7 +582,7 @@ Try it Out
 </div>
 <p>Then we can run</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> my_bash_script.sh my_csvfile.csv </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> wrap_r_script.sh my_csvfile.csv </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In our bash script, <code>my_bash_script.sh</code>, we’re using positional argument (for simplicity) to specify our csvfile, and then passing the positional argument to named ones (<code>CSVFILE</code>) for <code>my_r_script.R</code>.</p>
 </section>
@@ -569,14 +591,61 @@ Try it Out
 <ul>
 <li>R scripts will accept named arguments when called by <code>Rscript</code>:</li>
 </ul>
-<pre><code>Rscript process_csv.R CSVFILE=</code></pre>
+<pre><code>Rscript process_csv.R CSVFILE="my_csvfile.csv"</code></pre>
 </section>
 </section>
 <section id="arguments-in-python-scripts" class="level2" data-number="2.12">
 <h2 data-number="2.12" class="anchored" data-anchor-id="arguments-in-python-scripts"><span class="header-section-number">2.12</span> Arguments in Python Scripts</h2>
 <p>Similarly, we will need Python scripts to accept arguments as well.</p>
+<section id="using-sys.argv" class="level3" data-number="2.12.1">
+<h3 data-number="2.12.1" class="anchored" data-anchor-id="using-sys.argv"><span class="header-section-number">2.12.1</span> Using <code>sys.argv</code></h3>
+<p>The <code>sys</code> module (built into Python) will let us access arguments by position:</p>
+<div class="cell">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>process_file.py</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="annotated-cell-29"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-29-1" class="code-annotation-target"><a href="#annotated-cell-29-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="annotated-cell-29-2"><a href="#annotated-cell-29-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-29-3" class="code-annotation-target"><a href="#annotated-cell-29-3" aria-hidden="true" tabindex="-1"></a><span class="bu">file</span> <span class="op">=</span> sys.argv[<span class="dv">1</span>]</span>
+<span id="annotated-cell-29-4"><a href="#annotated-cell-29-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="bu">file</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-29" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-29" data-code-lines="1" data-code-annotation="1">Import <code>sys</code> module</span>
+</dd>
+<dt data-target-cell="annotated-cell-29" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-29" data-code-lines="3" data-code-annotation="2">Use <code>sys.argv</code> to access the first argument <code>sys.argv[1]</code></span>
+</dd>
+</dl>
+</div>
+</div>
+</section>
+<section id="running-our-python-script-on-the-command-line" class="level3" data-number="2.12.2">
+<h3 data-number="2.12.2" class="anchored" data-anchor-id="running-our-python-script-on-the-command-line"><span class="header-section-number">2.12.2</span> Running our Python script on the command line</h3>
+<p>Now we have set up our python script, we can run it on the command line on <code>rhino</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load fhPython</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> process_file.py lusc_file.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And we could wrap it up in a bash script:</p>
+<div class="cell">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>wrap_py_script.sh</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load fhPython</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> process_file.py <span class="va">${1}</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -986,8 +1055,8 @@ Try it Out
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./03_batch.html" class="pagination-link" aria-label="Batch Processing and Submitting Jobs">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Batch Processing and Submitting Jobs</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./hpc-basics.html" class="pagination-link" aria-label="Reading: HPC Basics">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reading: HPC Basics</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

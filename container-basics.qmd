@@ -1,0 +1,235 @@
+---
+title: "Reading: Container Basics"
+format: html
+---
+
+## Containers
+
+We already learned about software modules (@sec-modules) on the `gizmo` cluster. There is an alternative way to use software: pulling and running a software {{<glossary "container">}}.
+
+### What is a Container?
+
+A container is a self-contained unit of software. It contains everything needed to run the software on a variety of machines. If you have the container software installed on your machine, it doesn't matter whether it is MacOS, Linux, or Windows - the container will behave consistently across different operating systems and architectures.
+
+The container has the following contents:
+
+- **Software** - The software we want to run in a container. For bioinformatics work, this is usually something like an aligner like `bwa`, or utilities such as `samtools`
+- **Software Dependencies** - various software packages needed to run the software. For example, if we wanted to run `tidyverse` in a container, we need to have `R` installed in the container as well.
+- **Filesystem** - containers have their own isolated filesystem that can be connected to the "outside world" - everything outside of the container. We'll learn more about customizing these with bind paths (@sec-bindpaths).
+
+In short, the container has everything needed to run the software. It is not a full operating system, but a smaller mini-version that cuts out a lot of cruft. 
+
+Containers are {{< glossary "ephemeral">}}. They leverage the the file system of their host to manage files. These are called both *Volumes* (the Docker term) and *Bind Paths* (the apptainer term).
+
+### Docker vs. Apptainer
+
+There are two basic ways to run Docker containers: 
+
+1. Using the Docker software
+2. Using the Apptainer software (for HPC systems)
+
+In general, Docker is used on systems where you have a high level of access to the system. This is because `docker` uses a special user group called `docker` that has essentially root level privileges. This is not something to be taken lightly.
+
+This is not the case for HPC systems, which are shared and granting this level of access to many people is not practical. This is when we use {{< glossary "Apptainer">}} (which used to be called Singularity), which requires a much lower level of user privileges to execute tasks. For more info, see @sec-open-container . 
+
+:::{.callout-warning}
+## Be Secure
+
+Before we get started, security is always a concern when running containers. The `docker` group has elevated status on a system, so we need to be careful that when we're running them, these containers aren't introducing any system vulnerabilities. Note that on HPC systems, the main mechanism for running containers is `apptainer`, which is designed to be more secure.
+
+These are mostly important when running containers that are web-servers or part of a web stack, but it is also important to think about when running jobs on HPC.
+
+Here are some guidelines to think about when you are working with a container.
+
+- **Use vendor-specific Docker Images when possible**. 
+- **Use container scanners to spot potential vulnerabilities**. DockerHub has a vulnerability scanner that scans your Docker images for potential vulnerabilities. For example, the WILDS Docker library employs a vulnerability scanner and the containers are regularly patched to prevent vulnerabilities.
+- **Avoid kitchen-sink images**. One issue is when an image is built on top of many other images. It makes it really difficult to plug vulnerabilities. When in doubt, use images from trusted people and organizations. At the very least, look at the Dockerfile to see that suspicious software isn't being installed.
+:::
+
+### Common Containers for Bioinformatics
+
+- GATK (the genome analysis toolkit) is one common container that we can use for analysis.
+- 
+
+### The WILDS Docker Library
+
+The Data Science Lab has a set of Docker containers for common Bioinformatics tasks available in the [WILDS Docker Library](https://hub.docker.com/u/getwilds). These include:
+
+- `samtools`
+- `bcftools`
+- `manta`
+- `cnvkit`
+- `deseq2`
+
+Among many others. Be sure to check it out before you start building your own containers.
+ 
+### Pulling a Docker Container
+
+Let's pull a docker container from the Docker registry. Note we have to specify `docker://` when we pull the container, because Apptainer has its own internal format called SIF.
+
+```bash
+module load Apptainer/1.1.6
+apptainer pull docker://ghcr.io/getwilds/scanpy:latest
+apptainer run --bind /path/to/data:/data,/path/to/script:/script docker://getwilds/scanpy:latest python /script/example.py
+```
+
+### Testing out bind paths in containers {#sec-bindpaths}
+
+One thing to keep in mind is that every container has its own filesystem. One of the hardest things to wrap your head around for containers is how their filesystems work, and how to access files that are outside of the container filesystem. We'll call any filesystems outside of the container *external filesystems* to make the discussion a little easier.
+
+By default, the containers have access to your current working directory. We could make this where our scripts live (such as `/home/tladera2/`), but because our data is elsewhere, we'll need to specify that location (`/fh/fast/mylab/`) as well.
+
+The main mechanism we have in Apptainer to access the external filesystem are *bind paths*. Much like mounting a drive, we can bind directories from the external filesystem using these bind points. 
+
+```{mermaid}
+flowchart LR
+   B["External Directory\n/fh/fast/mydata/"] 
+   B --read--> C
+   C --write--> B
+   A["Container Filesystem\n/mydata/"]--write-->C("--bind /fh/fast/mydata/:/mydata/")
+   C --read--> A
+```
+
+I think of bind paths as "tunnels" that give access to particular folders in the external filesystem. Once the tunnel is open, we can access data files, process them, and save them using the bind path.
+
+Say my data lives in `/fh/fast/mydata/`. Then I can specify a bind point in my `apptainer shell` and `apptainer run` commands.
+
+We can do this with the `--bind` option:
+
+```bash
+apptainer shell --bind /fh/fast/mydata:/mydata docker://biocontainers/samtools:v1.9-4-deb_cv1
+```
+
+Note that the bind syntax doesn't have the trailing slash (`/`). That is, note that it is:
+
+```
+--bind /fh/fast/mydata: ....
+```
+Rather than
+
+```
+--bind /fh/fast/mydata/: ....
+```
+
+Now our `/fh/fast/mydata/` folder will be available as `/mydata/` in my container. We can read and write files to this bind point. For example, I'd refer to the `.bam` file `/fh/fast/mydata/my_bam_file.bam` as:
+
+```
+samtools view -c /mydata/my_bam_file.bam
+```
+
+## What is JSON?
+
+One requirement for running workflows is basic knowledge of JSON.
+
+JSON is short for **J**ava**S**cript **O**bject **N**otation. It is a format used for storing information on the web and for interacting with APIs.  
+
+### How is JSON used?
+
+JSON is used in multiple ways:
+
+- Submitting Jobs with complex parameters/inputs
+
+So having basic knowledge of JSON can be really helpful. JSON is the common language of the internet.
+
+### Elements of a JSON file
+
+Here are the main elements of a JSON file:
+
+- **Key:Value Pair**. Example: `"name": "Ted Laderas"`. In this example, our key is "name" and our value is "Ted Laderas"
+- **List `[]`** - a collection of values. All values have to be the same data type. Example: `["mom", "dad"]`
+- **Object** `{}` - A collection of key/value pairs, enclosed with curly brackets (`{}`). 
+
+:::{.callout-note}
+## Check Yourself
+
+What does the `names` value contain in the following JSON? Is it a list, object or key:value pair?
+
+```
+{
+  "names": ["Ted", "Lisa", "George"]
+}
+```
+:::
+
+:::{.callout-note collapse="true"}
+## Answer
+
+It is a list. We know this because the value contains a `[]`.
+
+```
+{
+  "names": ["Ted", "Lisa", "George"]
+}
+```
+:::
+
+### JSON Input Files
+
+When you are working with WDL, it is easiest to manage files using JSON files. Here's the example we're going to use from the [ww-fastq-to-cram workflow](https://github.com/getwilds/ww-fastq-to-cram). 
+
+```bash
+#| eval: false
+#| filename: "json_data/example.json"
+{
+  "PairedFastqsToUnmappedCram.batch_info": [
+    {
+      "dataset_id": "TESTFASTQ1",
+      "sample_name": "HG02635",
+      "library_name": "SRR581005",
+      "sequencing_center": "1000-Genomes",
+      "filepaths": [{
+        "flowcell_name": "20121211",
+        "fastq_r1_locations": ["tests/data/SRR581005_1.ds.fastq.gz"],
+        "fastq_r2_locations": ["tests/data/SRR581005_2.ds.fastq.gz"]
+      }]
+    },
+    {
+      "dataset_id": "TESTFASTQ2",
+      "sample_name": "HG02642",
+      "library_name": "SRR580946",
+      "sequencing_center": "1000-Genomes",
+      "filepaths": [{
+        "flowcell_name": "20121211",
+        "fastq_r1_locations": ["tests/data/SRR580946_1.ds.fastq.gz"],
+        "fastq_r2_locations": ["tests/data/SRR580946_2.ds.fastq.gz"]
+      }]
+    }
+  ]
+}
+```
+
+This might seem overwhelming, but let's look at the top-level structures first:
+
+```bash
+{                                               #<1>
+  "PairedFastqsToUnmappedCram.batch_info": [    #<2>
+   ...   
+  ]
+}
+```
+1. The top level of the file is a JSON object
+2. The next level down ("PairedFastqsToUnmappedCram.batch_info") is a list.
+
+This workflow specifies the file inputs using the `PairedFastqsToUnmappedCram.batch_info` object, which is a *list*. 
+
+Each sample in the `PairedFastqsToUnmappedCram.batch_info` list is its own object:
+
+```bash
+  "PairedFastqsToUnmappedCram.batch_info": [
+    {
+      "dataset_id": "TESTFASTQ1",
+      "sample_name": "HG02635",
+      "library_name": "SRR581005",
+      "sequencing_center": "1000-Genomes",
+      "filepaths": [{
+        "flowcell_name": "20121211",
+        "fastq_r1_locations": ["tests/data/SRR581005_1.ds.fastq.gz"],
+        "fastq_r2_locations": ["tests/data/SRR581005_2.ds.fastq.gz"]
+      }]
+    },
+    ....
+```
+
+Because we are aligned paired-end data, notice there are two keys, `fastq_r1_locations` and `fastq_r2_locations`. 
+
+

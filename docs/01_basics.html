@@ -166,26 +166,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./hpc-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reading: HPC Basics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./03_batch.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Batch Processing and Submitting Jobs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Batch Processing and Submitting Jobs</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./container-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: Container Basics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04_containers_workflows.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Containers and Workflows</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Containers and Workflows</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Testing Scripts</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./configuring.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Appendix: Configuring your Shell</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Appendix: Configuring your Shell</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./miscellaneous.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Miscellaneous</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Miscellaneous</span></span></a>
   </div>
 </li>
     </ul>
@@ -223,7 +241,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#whats-in-the-script" id="toc-whats-in-the-script" class="nav-link" data-scroll-target="#whats-in-the-script"><span class="header-section-number">1.12</span> What’s in the script</a></li>
   <li><a href="#running-a-bash-script" id="toc-running-a-bash-script" class="nav-link" data-scroll-target="#running-a-bash-script"><span class="header-section-number">1.13</span> Running a Bash Script</a></li>
-  <li><a href="#running-an-r-or-python-script-on-the-command-line" id="toc-running-an-r-or-python-script-on-the-command-line" class="nav-link" data-scroll-target="#running-an-r-or-python-script-on-the-command-line"><span class="header-section-number">1.14</span> Running an R or Python Script on the command line</a>
+  <li><a href="#sec-rpy" id="toc-sec-rpy" class="nav-link" data-scroll-target="#sec-rpy"><span class="header-section-number">1.14</span> Running an R or Python Script on the command line</a>
   <ul class="collapse">
   <li><a href="#loading-the-fhr-or-fhpython-modules" id="toc-loading-the-fhr-or-fhpython-modules" class="nav-link" data-scroll-target="#loading-the-fhr-or-fhpython-modules"><span class="header-section-number">1.14.1</span> Loading the <code>fhR</code> or <code>fhPython</code> modules</a></li>
   <li><a href="#r-users" id="toc-r-users" class="nav-link" data-scroll-target="#r-users"><span class="header-section-number">1.14.2</span> R Users</a></li>
@@ -304,7 +322,7 @@ Reminder about Terminology
 <blockquote class="blockquote">
 <p>We recommend that you review the material for Intro to Command Line and know the following: Changing directories,</p>
 </blockquote>
-<p>By default, when you log into a remote system such as <code>rhino</code>, you are in a <button class="glossary"><span class="def">Short for Bourne Again Shell - it is the command processor that is typically run in a text window, has its own programming language and syntax.</span>bash</button> <button class="glossary"><span class="def">A command processor that we interact with via text. In our case, the Shell we’re interacting with is on the server.</span>shell</button>.</p>
+<p>By default, when you log into a remote system such as <code>rhino</code>, you are in a <button class="glossary"><span class="def"></span>bash</button> <button class="glossary"><span class="def">A command processor that we interact with via the system prompt. In our case, the Shell we’re interacting with is on the server.</span>shell</button>.</p>
 <p>Why is it a bash shell? Bash is the default shell for linux systems, especially for high performance clusters (HPCs), and there are some quirks about navigating around the command line you should be aware of.</p>
 <div class="callout callout-style-simple callout-none no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -339,8 +357,8 @@ A helpful key: <code>&lt;Up Arrow&gt;</code>
 <p>There is one important file alias you should always remember: <code>~/</code> is shorthand for your own <em>home directory</em>.</p>
 <p>Depending on the linux distribution, this can be a different location. On the FH filesystem, when I use <code>~/</code>, it maps to:</p>
 <p><code>/home/tladera2/</code></p>
-<p>The home directory is also important because it is where your configuration files live, such as <code>.bashrc</code> (see <a href="configuring.html#sec-bashrc" class="quarto-xref"><span>Section 5.1</span></a>).</p>
-<p>Depending on how you work, you may want to store your scripts and workflows in <code>/home/</code>. Some people prefer to keep their scripts, data, and results in a single folder. This is not really practical for most genomics projects, unless you are saving processed data. For more info, see <a href="configuring.html#sec-project" class="quarto-xref"><span>Section 5.5</span></a>.</p>
+<p>The home directory is also important because it is where your configuration files live, such as <code>.bashrc</code> (see <a href="configuring.html#sec-bashrc" class="quarto-xref"><span>Section 6.1</span></a>).</p>
+<p>Depending on how you work, you may want to store your scripts and workflows in <code>/home/</code>. Some people prefer to keep their scripts, data, and results in a single folder. This is not really practical for most genomics projects, unless you are saving processed data. For more info, see <a href="configuring.html#sec-project" class="quarto-xref"><span>Section 6.6</span></a>.</p>
 <div class="callout callout-style-simple callout-none no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -700,7 +718,7 @@ date</code></pre>
 <section id="running-a-bash-script" class="level2" data-number="1.13">
 <h2 data-number="1.13" class="anchored" data-anchor-id="running-a-bash-script"><span class="header-section-number">1.13</span> Running a Bash Script</h2>
 <p>Ok, now we have a bash script <code>tell_the_time.sh</code> in our current directory, how do we run it?</p>
-<p>Because the script is not on our <code>$PATH</code> (<a href="configuring.html#sec-path" class="quarto-xref"><span>Section 5.4.2</span></a>), we’ll need to use <code>./</code> to execute it. <code>./</code> is an alias for the current folder, and it is an indicator to bash that the command we want to execute is in our current folder.</p>
+<p>Because the script is not on our <code>$PATH</code> (<a href="configuring.html#sec-path" class="quarto-xref"><span>Section 6.5.2</span></a>), we’ll need to use <code>./</code> to execute it. <code>./</code> is an alias for the current folder, and it is an indicator to bash that the command we want to execute is in our current folder.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tladera2$</span> ./tell_the_time.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If we haven’t set the permissions (<a href="#sec-permissions" class="quarto-xref"><span>Section 1.10</span></a>) correctly, we’ll get this message:</p>
 <pre><code>bash: ./scripts/tell_the_time.sh: Permission denied</code></pre>
@@ -708,8 +726,8 @@ date</code></pre>
 <pre><code>Fri Jul 11 13:27:47 PDT 2025</code></pre>
 <p>Which is the current date and time.</p>
 </section>
-<section id="running-an-r-or-python-script-on-the-command-line" class="level2" data-number="1.14">
-<h2 data-number="1.14" class="anchored" data-anchor-id="running-an-r-or-python-script-on-the-command-line"><span class="header-section-number">1.14</span> Running an R or Python Script on the command line</h2>
+<section id="sec-rpy" class="level2" data-number="1.14">
+<h2 data-number="1.14" class="anchored" data-anchor-id="sec-rpy"><span class="header-section-number">1.14</span> Running an R or Python Script on the command line</h2>
 <section id="loading-the-fhr-or-fhpython-modules" class="level3" data-number="1.14.1">
 <h3 data-number="1.14.1" class="anchored" data-anchor-id="loading-the-fhr-or-fhpython-modules"><span class="header-section-number">1.14.1</span> Loading the <code>fhR</code> or <code>fhPython</code> modules</h3>
 <p>Before we can run our software, we’ll need to load up either R or</p>

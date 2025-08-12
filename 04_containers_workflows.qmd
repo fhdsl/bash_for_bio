@@ -2,28 +2,340 @@
 title: "Containers and Workflows"
 ---
 
-## Working with containers {#sec-containers}
+## Learning Objectives
 
-I think the hardest thing about working with containers is wrapping your head around the indirectness of them. You are running software with its own internal filesystem and the challenges are getting the container to "see" folders/paths outside of it. 
+- **Execute** a workflow on the Fred Hutch Cluster
+- **Modify** a workflow and **test** it on a compute node
+- **Utilize** a container and **test** inside it on a compute node
 
-## Visual Table of Contents
+## Running Workflows
 
-```{mermaid}
-flowchart TD
-   B["Open Shell in Container\n(with Bindpaths)"]
-   B --> D[Test Scripts in container]
-   D --> E[Exit Container]
+So far, we've been batch processing using job arrays in SLURM. However, when you graduate to processing in multiple steps, you should consider using a *workflow manager* for processing files.
+
+A workflow manager will take a workflow, which can consist of multiple steps and allow you to batch process files. 
+
+A good workflow manager will allow you to:
+
+- Restart failed subjobs in the workflow
+- Allow you to customize where intermediate and final outputs go
+- Swap and customize modules in your workflow
+- Adapt to different architectures
+
+Many bioinformaticists have used workflow managers to process and manage hundreds or thousands of files at a time. 
+
+Here is an overview of some of the common bioinformatics workflow managers. We will be using `cromwell`, which runs WDL files.
+
+|Manager Software|Workflow Formats|Notes|
+|----------------|-------|-----|
+|Cromwell | WDL/CWL|Made for HPC Jobs|
+|Sprocket | WDL|Made for HPC Jobs|
+|MiniWDL|WDL|Used for local testing of workflows|
+|DNANexus|WDL/CWL|Used for systems such as AllOfUs|
+|Nextflow|.nf files|Owned by seqera|
+|Snakemake|make files||
+
+
+### Grabbing a WDL workflow from GETWILDS
+
+```bash
+git clone https://github.com/getwilds/ww-star-deseq2/
+```
+
+### Executing a WDL workflow
+
+Say someone has given us a WDL file - how do we set it up to run on our own data?
+
+We'll use `cromwell` to run our WDL workflow.
+
+```bash
+module load cromwell/87
+```
+
+We will get the repsonse:
+
+```
+To execute cromwell, run: java -jar $EBROOTCROMWELL/cromwell.jar
+
+To execute womtool, run: java -jar $EBROOTCROMWELL/womtool.jar
+```
+
+We'll investigate using `cromwell run` as an initial way to interact with `cromwell`.
+
+
+```bash
+java -jar $EBROOTCROMWELL/cromwell.jar run ww-star2-deseq2.wdl \ #<1>
+   --inputs input_file.json
+```
+
+:::{.callout}
+## `cromwell serve`
+
+The other way to run Cromwell is to run it in *server* mode. You can start the server by using:
+
+```
+java -jar $EBROOTCROMWELL/cromwell.jar serve
+```
+
+While you can run the server on the command line, I don't recommend it. I would check out the PROOF application for a GUI based way to execute workflows. It handles `cromwell` server management automatically.
+:::
+
+### Input Files as JSON
+
+If you want to work with the JSON format (@sec-json), there is a trick to generating a template `.json` file for a workflow. There is an additional utility called `womtools` that will generate a template file from a workflow file.
+
+```bash
+java -jar $EBROOTCROMWELL/womtool.jar inputs ww-star2-deseq2.wdl > ww-star2-deseq2-inputs.json
+```
+This will generate a file called `ww-star2-deseq2-inputs.json` that contains all of the inputs: 
+
+```
+{
+  "star_deseq2.samples": "Array[WomCompositeType {\n name -> String\nr1 -> File\nr2 -> File\ncondition -> String \n}]",
+  "star_deseq2.rnaseqc_cov.cpu_cores": "Int (optional, default = 2)",
+  ...
+}
+```
+
+This can be a good head start to making your `.json` files.
+
+### Working with file manifests in WDL
+
+Last week, we worked with a file manifest to process a list of files. 
+
+There is an [example workflow that shows how to work with a file manifest](https://github.com/getwilds/ww-demo-workflows/tree/main/parseBatchFile). This can be helpful for those who aren't necessarily good at working with JSON.
+
+This workflow has a single input, which is the location of the file manifest. It will then cycle through the manifest, line by line.
+
+This is what the file manifest contains. Notice there are three named columns for this file: `sampleName`, `bamLocation`, and `bedLocation`.
+
+|sampleName|bamLocation|bedLocation|
+|----------|-----------|-----------|
+|smallTestData|/fh/fast/paguirigan_a/pub/ReferenceDataSets/workflow_testing_data/WDL/unpaired-panel-consensus-variants-human/smallTestData.unmapped.bam	|/fh/fast/paguirigan_a/pub/ReferenceDataSets/reagent_specific_data/sequencing_panel_bed/TruSight-Myeloid-Illumina/trusight-myeloid-amplicon-v4-track_interval-liftOver-hg38.bed|
+|smallTestData-reference|/fh/fast/paguirigan_a/pub/ReferenceDataSets/workflow_testing_data/WDL/paired-panel-consensus-variants-human/smallTestData-reference.unmapped.bam|	/fh/fast/paguirigan_a/pub/ReferenceDataSets/reagent_specific_data/sequencing_panel_bed/TruSight-Myeloid-Illumina/trusight-myeloid-amplicon-v4-track_interval-liftOver-hg38.bed|
+
+Here's the workflow part of the file:
+
+```bash
+version 1.0
+#### WORKFLOW DEFINITION
+
+workflow ParseBatchFile {
+  input {
+    File batch_file
+  }
+
+  Array[Object] batch_info = read_objects(batch_file)  #<1>
+
+  scatter (job in batch_info){                         #<2>
+    String sample_name = job.sampleName                #<3>
+    File bam_file = job.bamLocation                    #<4>
+    File bed_file = job.bedLocation                    #<5>
+
+    ## INSERT YOUR WORKFLOW TO RUN PER LINE IN YOUR BATCH FILE HERE!!!!
+    call Test {                                        #<6>
+      input: in1=sample_name, in2=bam_file, in3=bed_file
+    }
+  }  # End Scatter over the batch file
+
+  # Outputs that will be retained when execution is complete
+  output {
+    Array[File] output_array = Test.item_out
+  }
+
+  parameter_meta {
+    batch_file: "input tsv containing details about each sample in the batch"
+    output_array: "array containing details about each samples in the batch"
+  }
+} # End workflow
+```
+1. Read in file manifest line by line, and store in the array called `batch_info`.
+2. Cycle through the manifest line by line, `scatter`ing to multiple nodes
+3. Get `sample_name` input from `job.sample_name`
+4. Get `bam_file` input from `job.bam_file`
+5. Get `bed_file` input from `job.bed_file`
+6. Do something with the inputs.
+
+
+
+
+### Let's start with WDL Tasks
+
+We will start with the lower level of abstraction in WDL: The *task*. 
+
+### Anatomy of a Task
+
+```bash
+task build_star_index {
+  meta {
+      ...
+  }
+
+  parameter_meta {
+    reference_fasta: "Reference genome FASTA file"
+    reference_gtf: "Reference genome GTF annotation file"
+    sjdb_overhang: "Length of the genomic sequence around the annotated junction to be used in constructing the splice junctions database"
+    genome_sa_index_nbases: "Length (bases) of the SA pre-indexing string, typically between 10-15 (scales with genome size)"
+    memory_gb: "Memory allocated for the task in GB"
+    cpu_cores: "Number of CPU cores allocated for the task"
+  }
+
+  input {                 #<1>
+    File reference_fasta
+    File reference_gtf
+    Int sjdb_overhang = 100
+    Int genome_sa_index_nbases = 14
+    Int memory_gb = 64
+    Int cpu_cores = 8
+  }
+
+  command <<<            #<2>
+    set -eo pipefail
+    
+    mkdir star_index
+
+    echo "Building STAR index..."
+    STAR \
+      --runMode genomeGenerate \
+      --runThreadN ~{cpu_cores} \
+      --genomeDir star_index \
+      --genomeFastaFiles "~{reference_fasta}" \
+      --sjdbGTFfile "~{reference_gtf}" \
+      --sjdbOverhang ~{sjdb_overhang} \
+      --genomeSAindexNbases ~{genome_sa_index_nbases}
+
+    tar -czf star_index.tar.gz star_index/
+  >>>
+
+  output {                               #<3>
+    File star_index_tar = "star_index.tar.gz"
+  }
+
+  runtime {                              #<4>
+    docker: "getwilds/star:2.7.6a"
+    memory: "~{memory_gb} GB"
+    cpu: cpu_cores
+  }
+}
+```
+1. Input for our task.
+2. Bash commands to execute in task
+3. Description of output
+4. Runtime requirements for execution. This is a lot like the `#SBATCH` directives.
+
+Everything between the `<<<` and `>>>` is essentially a bash script. WDL has its own variables
+
+
+### Architecture of a WDL file
+
+The best way to read WDL files is to read them top down. We'll focus on the basic sections of a WDL file before we see how they work together.
+
+The code below is from the [WILDs WDL Repo](https://github.com/getwilds/ww-star-deseq2/blob/main/ww-star-deseq2.wdl).  
+
+```bash
+workflow SRA_STAR2Pass {
+   meta{
+   ...
+   }
+
+   parameter_meta{
+   ...
+   }
+
+  input {                        #<1>
+    ...
+  }
+
+  if (!defined(reference_genome)) {  #<2>
+    call download_reference {}
+  }
+
+  RefGenome ref_genome_final = select_first([reference_genome, download_reference.genome])
+
+  call build_star_index {     #<3>
+    ...
+  }
+
+  # Outputs that will be retained when execution is complete
+  output {                           #<4>
+    ...
+  }
+
+} 
+```
+1. Inputs for workflow
+2. If/then statement of workflow
+3. call a task 
+4. Outputs of workflow
+
+Let's go through each of these in detail (we'll get back to the `meta` and `parameters-meta` sections) 
+
+The structure of the workflow
+
+
+```bash
+workflow SRA_STAR2Pass {
+  input {                        #<1>
+    Array[SampleInfo] samples
+    RefGenome? reference_genome
+    String reference_level = ""
+    String contrast = ""
+  }
+
+  if (!defined(reference_genome)) {  #<2>
+    call download_reference {}
+  }
+
+  RefGenome ref_genome_final = select_first([reference_genome, download_reference.genome])
+
+  call build_star_index { input:     #<3>
+      reference_fasta = ref_genome_final.fasta,
+      reference_gtf = ref_genome_final.gtf
+  }
+
+  # Outputs that will be retained when execution is complete
+  output {                           #<4>
+    ...
+  }
+
+} 
 ```
 
 
-## Opening Shells in Containers for Testing {#sec-open-container}
+## Developing and Testing out scripts
+
+One of the hard things to understand is what can be run on a compute node versus the head node, and what file systems are accessible via a compute node. 
+
+A lot of the issues you might have is because you need to understand the mental model of how cluster computing works. And the best way to understand that is to test your code on a compute node. 
+
+Let's explore how we can do that.
+
+### Testing code on a compute node {#sec-grabnode}
+
+Fred Hutch users have the advantage of `grabnode`, which is a custom command that lets you request an interactive instance of a compute node.
+
+Why would you want to do this? A good part of this is about testing software and making sure that your paths are correct.
+
+:::{.callout}
+## Don't rely on `grabnode`/interactive mode for your work
+
+We see users that will request a multicore node with higher memory, and do their processing on that node.
+
+This doesn't take advantage of all of the machines that are available on a cluster, and thus is a suboptimal way to utilize the cluster.
+
+The other disadvantage is that you may be waiting a very long time to get that multicore node, whereas if you batch across a bunch of nodes, you will get your work done much faster.
+:::
+
+## Working with containers {#sec-containers}
+
+I think the hardest thing about working with containers is wrapping your head around the indirectness of them. You are running software with its own internal filesystem and the challenges are getting the container to read files in folders/paths outside of its own filesytem, as well as outputting files into those outside folders. 
+
+### Testing code in a container {#sec-open-container}
 
 In this section, we talk about testing scripts in a container using `apptainer`. We use `apptainer` (formerly Singularity) in order to run Docker containers on a shared HPC system. This is because Docker itself requires root-level privileges, which is not secure on shared systems.
 
 In order to do our testing, we'll first pull the Docker container, map our bind point (so our container can access files outside of its file system), and then run scripts in the container.
 
 Even if you aren't going to frequently use Apptainer in your work, I recommend trying an interactive shell in a container at least once or twice to learn about the container filesystem and conceptually understand how you connect it to the external filesystem.
-
 
 ### Pulling a Docker Container
 
@@ -34,7 +346,7 @@ module load Apptainer/1.1.6
 apptainer pull docker://biocontainers/samtools:v1.9-4-deb_cv1
 ```
 
-## Opening a Shell in a Container with `apptainer shell`
+### Opening a Shell in a Container with `apptainer shell`
 
 When you're getting started, opening a shell using Apptainer can help you test out things like filepaths and how they're accessed in the container. It's hard to get an intuition for how file I/O works with containers until you can see the limited view from the container. 
 
@@ -66,7 +378,9 @@ exit
 :::{.callout-note}
 ## Opening a Shell in a Docker Container with Docker
 
-For the most part, due to security reasons, we don't use `docker` on HPC systems. In short, the `docker` group essentially has root-level access to the machine, and it's not a good for security on a shared resource like an HPC.  However, if you have admin level access (for example, on your own laptop), you can open up an interactive shell with `docker run`:
+For the most part, due to security reasons, we don't use `docker` on HPC systems. In short, the `docker` group essentially has root-level access to the machine, and it's not a good for security on a shared resource like an HPC.  
+
+However, if you have admin level access (for example, on your own laptop), you can open up an interactive shell with `docker run -it`:
 
 ```bash
 docker run -it biocontainers/samtools:v1.9-4-deb_cv1 /bin/bash
@@ -74,56 +388,12 @@ docker run -it biocontainers/samtools:v1.9-4-deb_cv1 /bin/bash
 This will open a bash shell much like `apptainer shell`. Note that volumes (the docker equivalent of bind paths) are specified differently in Docker compared to Apptainer.
 :::
 
-## Testing out bind paths in containers {#sec-bindpaths}
-
-One thing to keep in mind is that every container has its own filesystem. One of the hardest things to wrap your head around for containers is how their filesystems work, and how to access files that are outside of the container filesystem. We'll call any filesystems outside of the container *external filesystems* to make the discussion a little easier.
-
-By default, the containers have access to your current working directory. We could make this where our scripts live (such as `/home/tladera2/`), but because our data is elsewhere, we'll need to specify that location (`/fh/fast/mylab/`) as well.
-
-The main mechanism we have in Apptainer to access the external filesystem are *bind paths*. Much like mounting a drive, we can bind directories from the external filesystem using these bind points. 
-
-```{mermaid}
-flowchart LR
-   B["External Directory\n/fh/fast/mydata/"] 
-   B --read--> C
-   C --write--> B
-   A["Container Filesystem\n/mydata/"]--write-->C("--bind /fh/fast/mydata/:/mydata/")
-   C --read--> A
-```
-
-I think of bind paths as "tunnels" that give access to particular folders in the external filesystem. Once the tunnel is open, we can access data files, process them, and save them using the bind path.
-
-Say my data lives in `/fh/fast/mydata/`. Then I can specify a bind point in my `apptainer shell` and `apptainer run` commands.
-
-We can do this with the `--bind` option:
-
-```bash
-apptainer shell --bind /fh/fast/mydata:/mydata docker://biocontainers/samtools:v1.9-4-deb_cv1
-```
-
-Note that the bind syntax doesn't have the trailing slash (`/`). That is, note that it is:
-
-```
---bind /fh/fast/mydata: ....
-```
-Rather than
-
-```
---bind /fh/fast/mydata/: ....
-```
-
-Now our `/fh/fast/mydata/` folder will be available as `/mydata/` in my container. We can read and write files to this bind point. For example, I'd refer to the `.bam` file `/fh/fast/mydata/my_bam_file.bam` as:
-
-```
-samtools view -c /mydata/my_bam_file.bam
-```
-
 :::{.callout-note}
 ## WDL makes this way easier
 
-A major point of failure with Apptainer scripting is when our scripts aren't using the right bind paths. 
+A major point of failure with Apptainer scripting is when our scripts aren't using the right bind paths. It becomes even more complicated when you are running multiple steps. 
 
-This is one reason we recommend writing WDL Workflows and a workflow engine (such as Cromwell) to run your workflows. You don't have to worry that your bind points are setup correctly, because they are handled by the workflow engine.
+This is one reason we recommend writing WDL Workflows and a {{<glossary "workflow manager">}} (such as {{<glossary "Cromwell">}} or Sprocket) to run your workflows. You don't have to worry that your bind points are setup correctly, because they are handled by the workflow manager.
 :::
 
 ### Testing in the Apptainer Shell
@@ -140,7 +410,7 @@ Again, trying out scripts in the container is the best way to understand what th
 
 You can `exit`, like any shell you open. You should be out of the container. Confirm by using `hostname` to make sure you're out of the container.
 
-## Testing outside of the container
+### Testing outside of the container
 
 Let's take everything that we learned and put it in a script that we can run on the HPC:
 
@@ -163,6 +433,7 @@ We can use this script by the following command:
 
 And it will output a file called `chr1.bam.counts.txt`.
 
+:::{.callout}
 ## Apptainer Cache
 
 [The apptainer cache](https://apptainer.org/docs/user/1.0/build_env.html) is where your docker images live. They are translated to the native apptainer `.sif` format.
@@ -184,15 +455,9 @@ apptainer cache clean
 to clear out the cache.
 
 There are a number of environment variables (@sec-environment) that can be set, including login tokens for pulling from a private registry. [More information is here](https://apptainer.org/docs/user/1.0/build_env.html#environment-variables).
+:::
 
-
-## Entrypoints
-
-You can think of an entrypoint as a way of automatically starting something up in your container when you run it. For example, if you have a web stack container, one of the things you want to start is a web server when you start running it. 
-
-The main reason to be aware of entrypoints is when they exist in a Dockerfile. It is important to know what is started when you start running a container.
-
-## More Info
+### More Info
 - [Carpentries Section on Apptainer Paths](https://hsf-training.github.io/hsf-training-singularity-webpage/07-file-sharing/index.html) - this is an excellent resource if you want to dive deeper into undestanding container filesystems and bind points.
 - [Apptainer Documentation on Bind Paths](https://apptainer.org/docs/user/main/bind_paths_and_mounts.html#bind-examples). There are a lot of good examples here on how to set up bind paths.
 - [More about bind paths and other options](https://apptainer.org/docs/user/main/bind_paths_and_mounts.html).

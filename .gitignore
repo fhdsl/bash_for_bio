@@ -2,5 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
-
+/__pycache__/
 /.quarto/

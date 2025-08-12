@@ -24,6 +24,7 @@ For example, imagine that you use `samtools view -c` all the time with certain o
 ```bash
 ./samcount.sh my_file.bam
 ```
+and it will output a file `my_file.bam.counts.txt` that has the counts we are interested in.
 
 ## Editing on a Linux Machine
 
@@ -37,6 +38,16 @@ On the `rhino` machines, we have the option to use the `nano` editor. `nano` is 
 
 ### Try it Out
 
+Try making your own file called `my_file.txt`:
+
+```bash
+nano my_file.txt
+```
+
+Add some text to it.
+
+Use CTRL-X to exit, and make sure to select "Yes" to save.
+
 ## The first line: the she-bang {#sec-shebang}
 
 What's this first line?
@@ -45,7 +56,11 @@ What's this first line?
 #!/bin/bash
 ```
  
-the `#!` is known as a she-bang - it's a signal to Linux what shell interpreter to use when running the script on the command line. In our case, we want to use `bash`.
+the `#!` is known as a she-bang - it's a signal to Linux what language interpreter to use when running the script on the command line. In our case, we want to use `bash`. But we can also make python scripts executable by putting the path to python:
+
+```bash
+#!/
+```
 
 The she-bang is necessary if you want to run the script without using the `bash` command (after you have made it executable):
 
@@ -136,7 +151,7 @@ You can load a module with `ml <module_name>`.
 
 ### Tip: Load only as many modules as you need at a time
 
-One of the big issues with bioinformatics software is that the toolchain (the software dependencies needed to run the software) can be different. So when possible, load only one or two modules at a time for each step of your analysis. When you're done with that step, use `module purge` to clear out the software environment.
+One of the big issues with bioinformatics software is that the toolchain (the software dependencies needed to run the software) can be different for different executables. So when possible, load only one or two modules at a time for each step of your analysis. When you're done with that step, use `module purge` to clear out the software environment.
 
 ## `$1`: A Positional argument {#sec-positional}
 
@@ -176,7 +191,15 @@ How did the script know where to substitute each of our arguments? It has to do 
 
 Note that this works even in quotes.
 
-So, to unpack our script, we are substituting our first argument for the `$1`, and our second argument for the `$2` in our script. 
+So, to unpack our script, we are substituting our first argument for the `$1`.
+
+When we run this script, it will output into our *current* directory, which is the top level of the `bash_for_bio` folder. We can change the behavior of the script by doing the following:
+
+```bash
+samtools view -c $1 > $2 
+```
+
+With the added complication that we need to specify a path for our counts file.
 
 :::{.callout-note}
 ## Test yourself
@@ -185,7 +208,7 @@ How would we rewrite `sam_run.sh` (shown below) if we wanted to specify the outp
 
 ```bash
 #!/bin/bash/
-samtools stats $1 > $2
+samtools view -c $1 > $2
 ```
 :::
 
@@ -256,7 +279,143 @@ echo "$my_var_1.vcf.gz"
 
 Bash would look for the variable `$my_var_1`, which doesn't exist. So use the curly braces `{}` when you expand variables. It's safer overall. 
 
-There is an alternate method for variable expansion which we will use when we call a *sub-shell* - a shell within a shell, much like in our `xargs` command above. We need to use parentheses `()` to expand them within the sub-shell, but not the top-shell. We'll use this when we process multiple files within a single worker.
+There is an alternate method for variable expansion which we will use when we call a *sub-shell* - a shell within a shell. We need to use parentheses `()` to expand them within the sub-shell, but not the top-shell. We'll use this when we process multiple files within a single worker.
 
 ## Putting it all together
 
+We can run the script on a file:
+
+```bash
+./scripts/samcount.sh data/my_sam_file.sam
+```
+
+:::{.callout}
+## Try it Out
+
+
+:::
+
+## Aligning a file
+
+How about running the `bwa-mem` aligner? Let's run a FASTQ file into it:
+
+```bash
+#!/bin/bash
+module load BWA/0.7.17-GCCcore-11.2.0
+REF_GENOME="/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa"
+bwa mem ${REF_GENOME} $1 > $1.aligned.sam
+module purge
+```
+
+## Arguments in R Scripts
+
+To make our R Script more useful, it must also accept arguments. Let's explore how to achieve this. 
+
+As we learned in (@sec-rpy), We can use `Rscript` to execute our command *non-interactively*. `Rscript`, which is the command line executable, will run our Rs cript on the command line. 
+ 
+Note that we have a named argument called `input_file` and it is done differently than in Bash - how do we use this in our R Script?
+
+### Using Named Arguments in an R script
+
+We can pass arguments from our bash script to our R script by using `commandArgs()` - this will populate a list of named arguments (such as `CSVFILE`) that are passed into the R Script. We assign the output of `commandArgs()` into the `args` object.
+
+We refer to our `CSVFILE` argument as `args$CSVFILE` in our script.
+
+```{r}
+#| eval: false
+#| filename: "scripts/week2/process_data.R"
+library(tidyverse)
+
+args <- commandArgs()
+
+# Use arg$CSVFILE in read.csv
+csv_file <- read.csv(file=args$CSVFILE) #<1>
+
+# Do some work with csv_file
+csv_filtered <- csv_file |> janitor::clean_names()
+
+# Write output
+write.csv(csv_filtered, file = paste0(args$CSVFILE, "_filtered.csv")) #<2>
+```
+1. Use `args$CSVFILE` as an input for `read.csv()`
+2. Use `args$CSVFILE` to specify the output name. 
+
+### Running our R Script
+
+Now that we've set it up, we can run the R script from the command line as follows:
+
+```{bash}
+#| eval: false
+Rscript process_data.R CSVFILE="LUSC_clinical.csv"
+```
+
+### Integrating into a Bash Script
+
+Say you have an R Script you need to run on the command line in combination with other unix commands. In our bash script, we can do the following:
+
+```{bash}
+#| filename: "scripting-basics/wrap_r_script.sh"
+#| eval: false
+#!/bin/bash
+module load fhR
+Rscript process_data.R CSVFILE="${1}"
+module purge
+```
+
+Then we can run 
+
+```{bash}
+#| eval: false
+bash wrap_r_script.sh my_csvfile.csv 
+```
+
+In our bash script, `my_bash_script.sh`, we're using positional argument (for simplicity) to specify our csvfile, and then passing the positional argument to named ones (`CSVFILE`) for `my_r_script.R`.
+
+### Summary
+
+- R scripts will accept named arguments when called by `Rscript`:
+
+```
+Rscript process_csv.R CSVFILE="my_csvfile.csv"
+```
+
+
+## Arguments in Python Scripts
+
+Similarly, we will need Python scripts to accept arguments as well. 
+
+### Using `sys.argv`
+
+The `sys` module (built into Python) will let us access arguments by position:
+
+```{python}
+#| eval: false
+#| filename: process_file.py
+import sys #<1>
+import pandas as pd
+file = sys.argv[1] #<2> 
+df = pd.read_csv(file)
+```
+1. Import `sys` module
+2. Use `sys.argv` to access the first argument `sys.argv[1]`
+
+### Running our Python script on the command line
+
+Now we have set up our python script, we can run it on the command line on `rhino`:
+
+```{bash}
+#| eval: false
+module load fhPython
+python3 process_file.py lusc_file.csv
+```
+
+And we could wrap it up in a bash script:
+
+```{bash}
+#| eval: false
+#| filename: wrap_py_script.sh
+#!/bin/bash
+module load fhPython
+python3 process_file.py ${1}
+module purge
+```

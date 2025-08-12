@@ -1,0 +1,162 @@
+---
+title: "Testing Scripts"
+format: html
+---
+
+## Developing and Testing scripts
+
+One of the hard things to understand is what can be run on a compute node versus the head node, and what file systems are accessible via a compute node. 
+
+A lot of the issues you might have is because you need to understand the mental model of how cluster computing works. And the best way to understand that is to test your code on a compute node. 
+
+Let's explore how we can do that.
+
+### Testing code on a compute node {#sec-grabnode}
+
+Fred Hutch users have the advantage of `grabnode`, which is a custom command that lets you request an interactive instance of a compute node.
+
+Why would you want to do this? A good part of this is about testing software and making sure that your paths are correct.
+
+:::{.callout}
+## Don't rely on `grabnode`/interactive mode for your batch work
+
+We often see users that will request a multicore node with higher memory, and do their processing on that node.
+
+This doesn't take advantage of all of the machines that are available on the cluster, and thus is a suboptimal way to utilize the cluster.
+
+When you are doing interactive analysis, such as working in JupyterLab or RStudio, that is a valid way to work. But when you have tasks you can *scatter* amongst many nodes, requesting a high-spec node isn't a great way to optimally achieve things.
+
+The other disadvantage is that you may be waiting a very long time to get that multicore node, whereas if you batch across a bunch of nodes, you will get your work done much faster.
+:::
+
+## Working with containers {#sec-containers}
+
+I think the hardest thing about working with containers is wrapping your head around the indirectness of them. You are running software with its own internal filesystem and the challenges are getting the container to read files in folders/paths outside of its own filesytem, as well as outputting files into those outside folders. 
+
+### Testing code in a container {#sec-open-container}
+
+In this section, we talk about testing scripts in a container using `apptainer`. We use `apptainer` (formerly Singularity) in order to run Docker containers on a shared HPC system. This is because Docker itself requires root-level privileges, which is not secure on shared systems.
+
+In order to do our testing, we'll first pull the Docker container, map our bind point (so our container can access files outside of its file system), and then run scripts in the container.
+
+Even if you aren't going to frequently use Apptainer in your work, I recommend trying an interactive shell in a container at least once or twice to learn about the container filesystem and conceptually understand how you connect it to the external filesystem.
+
+### Pulling a Docker Container
+
+Let's pull a docker container from the Docker registry. Note we have to specify `docker://` when we pull the container, because Apptainer has its own internal format called SIF.
+
+```bash
+module load Apptainer/1.1.6
+apptainer pull docker://biocontainers/samtools:v1.9-4-deb_cv1
+```
+
+### Opening a Shell in a Container with `apptainer shell`
+
+When you're getting started, opening a shell using Apptainer can help you test out things like filepaths and how they're accessed in the container. It's hard to get an intuition for how file I/O works with containers until you can see the limited view from the container. 
+
+By default, apptainers can see your current directory and navigate to the files in it. 
+
+You can open an Apptainer shell in a container using `apptainer shell`. Remember to use `docker://` before the container name. For example:
+
+```bash
+module load Apptainer/1.1.6
+apptainer shell docker://biocontainers/samtools:v1.9-4-deb_cv1
+```
+
+This will load the `apptainer` module, and then open a Bash shell in the container using `apptainer shell`. Once you're in the container, you can test code, especially seeing whether your files can be seen by the container (see @sec-bindpaths). 90% of the issues with using Docker containers has to do with bind paths, so we'll talk about that next.
+
+Once you're in the shell, you can take a look at where `samtools` is installed:
+
+```bash
+which samtools
+```
+
+Note that the container filesystem is isolated, and we need to explicitly build connections to it (called bind paths) to get files in and out. We'll talk more about this in the next section.
+
+Once we're done testing scripts in our containers, we can exit the shell and get back into the node.
+
+```bash
+exit
+```
+
+:::{.callout-note}
+## Opening a Shell in a Docker Container with Docker
+
+For the most part, due to security reasons, we don't use `docker` on HPC systems. In short, the `docker` group essentially has root-level access to the machine, and it's not a good for security on a shared resource like an HPC.  
+
+However, if you have admin level access (for example, on your own laptop), you can open up an interactive shell with `docker run -it`:
+
+```bash
+docker run -it biocontainers/samtools:v1.9-4-deb_cv1 /bin/bash
+```
+This will open a bash shell much like `apptainer shell`. Note that volumes (the docker equivalent of bind paths) are specified differently in Docker compared to Apptainer.
+:::
+
+:::{.callout-note}
+## WDL makes this way easier
+
+A major point of failure with Apptainer scripting is when our scripts aren't using the right bind paths. It becomes even more complicated when you are running multiple steps. 
+
+This is one reason we recommend writing WDL Workflows and a {{<glossary "workflow manager">}} (such as {{<glossary "Cromwell">}} or Sprocket) to run your workflows. You don't have to worry that your bind points are setup correctly, because they are handled by the workflow manager.
+:::
+
+### Testing in the Apptainer Shell
+
+Ok, now we have a bind point, so now we can test our script in the shell. For example, we can see if we are invoking `samtools` in the correct way and that our bind points work.
+
+```bash
+samtools view -c /mydata/my_bam_file.bam > /mydata/bam_counts.txt
+```
+
+Again, trying out scripts in the container is the best way to understand what the container can and can't see.
+
+### Exiting the container when you're done
+
+You can `exit`, like any shell you open. You should be out of the container. Confirm by using `hostname` to make sure you're out of the container.
+
+### Testing outside of the container
+
+Let's take everything that we learned and put it in a script that we can run on the HPC:
+
+```bash
+# Script to samtools view -c an input file:
+# Usage: ./run_sam.sh <my_bam_file.bam>
+# Outputs a count file: my_bam_file.bam.counts.txt
+#!/bin/bash
+module load Apptainer/1.1.6
+apptainer run --bind /fh/fast/mydata:/mydata docker://biocontainers/samtools:v1.9-4-deb_cv1 samtools view -c /mydata/$1 > /mydata/$1.counts.txt
+#apptainer cache clean
+module purge
+```
+
+We can use this script by the following command:
+
+```
+./run_sam.sh chr1.bam 
+```
+
+And it will output a file called `chr1.bam.counts.txt`.
+
+:::{.callout}
+## Apptainer Cache
+
+[The apptainer cache](https://apptainer.org/docs/user/1.0/build_env.html) is where your docker images live. They are translated to the native apptainer `.sif` format.
+
+You can see what's in your cache by using
+
+```
+apptainer cache list
+```
+
+By default the cache lives at `~/.apptainer/cache`.
+
+If you need to clear out the cache, you can run 
+
+```
+apptainer cache clean
+```
+
+to clear out the cache.
+
+There are a number of environment variables (@sec-environment) that can be set, including login tokens for pulling from a private registry. [More information is here](https://apptainer.org/docs/user/1.0/build_env.html#environment-variables).
+:::
