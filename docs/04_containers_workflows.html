@@ -345,7 +345,7 @@ To execute womtool, run: java -jar $EBROOTCROMWELL/womtool.jar</code></pre>
 </section>
 <section id="input-files-as-json" class="level3" data-number="6.2.3">
 <h3 data-number="6.2.3" class="anchored" data-anchor-id="input-files-as-json"><span class="header-section-number">6.2.3</span> Input Files as JSON</h3>
-<p>If you want to work with the JSON format (<span class="quarto-unresolved-ref">?sec-json</span>), there is a trick to generating a template <code>.json</code> file for a workflow. There is an additional utility called <code>womtools</code> that will generate a template file from a workflow file.</p>
+<p>If you want to work with the JSON format (<a href="container-basics.html#sec-json" class="quarto-xref"><span>Section 5.2</span></a>), there is a trick to generating a template <code>.json</code> file for a workflow. There is an additional utility called <code>womtools</code> that will generate a template file from a workflow file.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">java</span> <span class="at">-jar</span> <span class="va">$EBROOTCROMWELL</span>/womtool.jar inputs ww-star2-deseq2.wdl <span class="op">&gt;</span> ww-star2-deseq2-inputs.json</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This will generate a file called <code>ww-star2-deseq2-inputs.json</code> that contains all of the inputs:</p>
 <pre><code>{

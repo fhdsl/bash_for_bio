@@ -230,7 +230,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#processing-files-using-job-arrays" id="toc-processing-files-using-job-arrays" class="nav-link" data-scroll-target="#processing-files-using-job-arrays"><span class="header-section-number">4.3.4</span> Processing files using Job Arrays</a></li>
   <li><a href="#scanceling-a-job-array" id="toc-scanceling-a-job-array" class="nav-link" data-scroll-target="#scanceling-a-job-array"><span class="header-section-number">4.3.5</span> <code>scancel</code>ing a job array</a></li>
   </ul></li>
-  <li><a href="#redirection-and-pipes" id="toc-redirection-and-pipes" class="nav-link" data-scroll-target="#redirection-and-pipes"><span class="header-section-number">4.4</span> Redirection and Pipes</a></li>
   </ul>
 </nav>
     </div>
@@ -318,7 +317,7 @@ A common pattern: a folder with only one type of file in them
 </div>
 <div class="callout-body-container callout-body">
 <p>One thing that makes it easier to process a bunch of files is to have the data be in the same folder, with nothing else in them.</p>
-<p>I might create a <code>fastq/</code> file where I store my data, so I can pass the wildcard <code>fastq/*</code> to process the file.</p>
+<p>I might create a <code>fastq/</code> file where I store my data, so I can pass the wildcard <code>fastq/*</code> to process the files in that.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load BWA</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load SAMtools</span>
@@ -381,7 +380,7 @@ sample2_1.fq   sample2_2.fq</code></pre>
 <section id="batching-on-hpc" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="batching-on-hpc"><span class="header-section-number">4.3</span> Batching on HPC</h2>
 <p>Now we can start to do more advanced things on the HPC: use one machine to process each file.</p>
-<p>Let’s start out with <button class="glossary"><span class="def">“Simple Linux Utility for Resource Management” - it handles scheduling and distributing jobs among the compute nodes in the cluster.</span>SLURM</button> scripts.</p>
+<p>Let’s start out with <button class="glossary"><span class="def"></span>SLURM</button> scripts.</p>
 <section id="slurm-scripts" class="level3" data-number="4.3.1">
 <h3 data-number="4.3.1" class="anchored" data-anchor-id="slurm-scripts"><span class="header-section-number">4.3.1</span> SLURM Scripts</h3>
 <p>SLURM scripts are a special kind of shell script that contain additional information for the SLURM manager. This includes:</p>
@@ -493,13 +492,9 @@ More about directives
 <p>What if we made a mistake? We can use the <code>scancel</code> command to cancel the entire set of jobs by giving it our parent job id:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">scancel</span> 26328834</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This will cancel all sub jobs related to the parent job.</p>
-</section>
-</section>
-<section id="redirection-and-pipes" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="redirection-and-pipes"><span class="header-section-number">4.4</span> Redirection and Pipes</h2>
-<p>Ok, we’ve executed</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

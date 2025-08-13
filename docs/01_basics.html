@@ -185,7 +185,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04_containers_workflows.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Containers and Workflows</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Workflows</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -247,8 +247,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#r-users" id="toc-r-users" class="nav-link" data-scroll-target="#r-users"><span class="header-section-number">1.14.2</span> R Users</a></li>
   <li><a href="#python-users" id="toc-python-users" class="nav-link" data-scroll-target="#python-users"><span class="header-section-number">1.14.3</span> Python Users</a></li>
   </ul></li>
-  <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap"><span class="header-section-number">1.15</span> Recap</a></li>
-  <li><a href="#next-week" id="toc-next-week" class="nav-link" data-scroll-target="#next-week"><span class="header-section-number">1.16</span> Next Week</a></li>
+  <li><a href="#editing-on-a-linux-machine" id="toc-editing-on-a-linux-machine" class="nav-link" data-scroll-target="#editing-on-a-linux-machine"><span class="header-section-number">1.15</span> Editing on a Linux Machine</a>
+  <ul class="collapse">
+  <li><a href="#try-it-out-3" id="toc-try-it-out-3" class="nav-link" data-scroll-target="#try-it-out-3"><span class="header-section-number">1.15.1</span> Try it Out</a></li>
+  </ul></li>
+  <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap"><span class="header-section-number">1.16</span> Recap</a></li>
+  <li><a href="#next-week" id="toc-next-week" class="nav-link" data-scroll-target="#next-week"><span class="header-section-number">1.17</span> Next Week</a></li>
   </ul>
 </nav>
     </div>
@@ -357,8 +361,8 @@ A helpful key: <code>&lt;Up Arrow&gt;</code>
 <p>There is one important file alias you should always remember: <code>~/</code> is shorthand for your own <em>home directory</em>.</p>
 <p>Depending on the linux distribution, this can be a different location. On the FH filesystem, when I use <code>~/</code>, it maps to:</p>
 <p><code>/home/tladera2/</code></p>
-<p>The home directory is also important because it is where your configuration files live, such as <code>.bashrc</code> (see <a href="configuring.html#sec-bashrc" class="quarto-xref"><span>Section 6.1</span></a>).</p>
-<p>Depending on how you work, you may want to store your scripts and workflows in <code>/home/</code>. Some people prefer to keep their scripts, data, and results in a single folder. This is not really practical for most genomics projects, unless you are saving processed data. For more info, see <a href="configuring.html#sec-project" class="quarto-xref"><span>Section 6.6</span></a>.</p>
+<p>The home directory is also important because it is where your configuration files live, such as <code>.bashrc</code> (see <a href="configuring.html#sec-bashrc" class="quarto-xref"><span>Section 8.1</span></a>).</p>
+<p>Depending on how you work, you may want to store your scripts and workflows in <code>/home/</code>. Some people prefer to keep their scripts, data, and results in a single folder. This is not really practical for most genomics projects, unless you are saving processed data. For more info, see <a href="configuring.html#sec-project" class="quarto-xref"><span>Section 8.6</span></a>.</p>
 <div class="callout callout-style-simple callout-none no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -718,7 +722,7 @@ date</code></pre>
 <section id="running-a-bash-script" class="level2" data-number="1.13">
 <h2 data-number="1.13" class="anchored" data-anchor-id="running-a-bash-script"><span class="header-section-number">1.13</span> Running a Bash Script</h2>
 <p>Ok, now we have a bash script <code>tell_the_time.sh</code> in our current directory, how do we run it?</p>
-<p>Because the script is not on our <code>$PATH</code> (<a href="configuring.html#sec-path" class="quarto-xref"><span>Section 6.5.2</span></a>), we’ll need to use <code>./</code> to execute it. <code>./</code> is an alias for the current folder, and it is an indicator to bash that the command we want to execute is in our current folder.</p>
+<p>Because the script is not on our <code>$PATH</code> (<a href="configuring.html#sec-path" class="quarto-xref"><span>Section 8.5.2</span></a>), we’ll need to use <code>./</code> to execute it. <code>./</code> is an alias for the current folder, and it is an indicator to bash that the command we want to execute is in our current folder.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tladera2$</span> ./tell_the_time.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If we haven’t set the permissions (<a href="#sec-permissions" class="quarto-xref"><span>Section 1.10</span></a>) correctly, we’ll get this message:</p>
 <pre><code>bash: ./scripts/tell_the_time.sh: Permission denied</code></pre>
@@ -751,8 +755,26 @@ date</code></pre>
 python3 my_python_script.py</code></pre>
 </section>
 </section>
-<section id="recap" class="level2" data-number="1.15">
-<h2 data-number="1.15" class="anchored" data-anchor-id="recap"><span class="header-section-number">1.15</span> Recap</h2>
+<section id="editing-on-a-linux-machine" class="level2" data-number="1.15">
+<h2 data-number="1.15" class="anchored" data-anchor-id="editing-on-a-linux-machine"><span class="header-section-number">1.15</span> Editing on a Linux Machine</h2>
+<p>On the <code>rhino</code> machines, we have the option to use the <code>nano</code> editor. <code>nano</code> is the most like a word processor or code editors.</p>
+<ul>
+<li>Open a file in <code>nano</code>: <code>nano &lt;filename&gt;</code></li>
+<li>Save and quit: <code>&lt;CTRL&gt; + x</code> and then <code>yes</code></li>
+<li>Navigate in file: using the arrow keys will work</li>
+<li>Find in file: <code>&lt;CTRL&gt; + w</code></li>
+<li>Copy from outside the terminal (dependent on terminal program)</li>
+</ul>
+<section id="try-it-out-3" class="level3" data-number="1.15.1">
+<h3 data-number="1.15.1" class="anchored" data-anchor-id="try-it-out-3"><span class="header-section-number">1.15.1</span> Try it Out</h3>
+<p>Try making your own file called <code>my_file.txt</code>:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> my_file.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Add some text to it.</p>
+<p>Use CTRL-X to exit, and make sure to select “Yes” to save.</p>
+</section>
+</section>
+<section id="recap" class="level2" data-number="1.16">
+<h2 data-number="1.16" class="anchored" data-anchor-id="recap"><span class="header-section-number">1.16</span> Recap</h2>
 <p>We learned the following this week:</p>
 <ul>
 <li><strong>Navigate</strong> and <strong>copy</strong> data to the different filesystems available at Fred Hutch.</li>
@@ -761,8 +783,8 @@ python3 my_python_script.py</code></pre>
 <li><strong>Find</strong> help on the system</li>
 </ul>
 </section>
-<section id="next-week" class="level2" data-number="1.16">
-<h2 data-number="1.16" class="anchored" data-anchor-id="next-week"><span class="header-section-number">1.16</span> Next Week</h2>
+<section id="next-week" class="level2" data-number="1.17">
+<h2 data-number="1.17" class="anchored" data-anchor-id="next-week"><span class="header-section-number">1.17</span> Next Week</h2>
 <p>We’ll focus on adding <em>arguments</em> to our scripts.</p>
 
 
