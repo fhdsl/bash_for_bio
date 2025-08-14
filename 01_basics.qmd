@@ -140,7 +140,7 @@ When working on the Fred Hutch HPC, there are four main filesystems you should c
 
 - `/home/` - The home filesystem. Your scripts can live here. Also where your configuration files (such as `.bashrc`) live. Can be accessed using `~/`.
 - `/fh/fast/` (also known as `fast`) - Research storage. Raw files and processed results should live here. 
-- `/hpc/temp/` (also known as `temp`) - The temporary filesystem. This filesystem is faster to access for gizmo nodes on the cluster, so files can be copied to for computation. The output files you generate should be moved back into an appropriate folder on `/fh/fast/`. Note that files on `/fh/temp/` will be deleted after 30 days. 
+- `/hpc/temp/` (also known as `temp`) - The temporary filesystem. This filesystem is faster to access for gizmo nodes on the cluster, so files can be copied to for computation. The output files you generate should be moved back into an appropriate folder on `/fh/fast/`. Note that files on `/hpc/temp/` will be deleted after 30 days. 
 - `/fh/regulated/` - A secure filesystem meant for NIH regulated data. If you are processing data that is regulated under the current NIH guidelines, you will process it here.
 
 So, how do we utilize these filesystems? We will be running commands like this:
@@ -360,7 +360,7 @@ The first one is an *absolute path*, and the second is a *relative path*. Your c
 
 ### Keep Everything in Folders
 
-We need to talk about code and data organization. For the FH system, we have a `/home/` directory, and if we have generated research data, a `/fh/fast/` directory. If we want our scripts to live in `/home/` and our data is in `/fh/temp/`, we'll need to refer to each of these file locations.
+We need to talk about code and data organization. For the FH system, we have a `/home/` directory, and if we have generated research data, a `/fh/fast/` directory. If we want our scripts to live in `/home/` and our data is in `/hpc/temp/`, we'll need to refer to each of these file locations.
 
 Ideally, we want to make the naming conventions of our code and our data as similar as possible.
 
@@ -448,6 +448,29 @@ Within a shell script, you can also use a shebang (@sec-shebang) to make your sc
 #!/bin/python3
 python3 my_python_script.py
 ```
+
+## Editing on a Linux Machine
+
+On the `rhino` machines, we have the option to use the `nano` editor. `nano` is the most like a word processor or code editors.
+
+- Open a file in `nano`: `nano <filename>`
+- Save and quit: `<CTRL> + x` and then  `yes`
+- Navigate in file: using the arrow keys will work
+- Find in file: `<CTRL> + w`
+- Copy from outside the terminal (dependent on terminal program)
+
+### Try it Out
+
+Try making your own file called `my_file.txt`:
+
+```bash
+nano my_file.txt
+```
+
+Add some text to it.
+
+Use CTRL-X to exit, and make sure to select "Yes" to save.
+
 
 ## Recap
 

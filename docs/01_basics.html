@@ -179,7 +179,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./container-basics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: Container Basics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: JSON Container Basics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -326,7 +326,7 @@ Reminder about Terminology
 <blockquote class="blockquote">
 <p>We recommend that you review the material for Intro to Command Line and know the following: Changing directories,</p>
 </blockquote>
-<p>By default, when you log into a remote system such as <code>rhino</code>, you are in a <button class="glossary"><span class="def"></span>bash</button> <button class="glossary"><span class="def">A command processor that we interact with via the system prompt. In our case, the Shell we’re interacting with is on the server.</span>shell</button>.</p>
+<p>By default, when you log into a remote system such as <code>rhino</code>, you are in a <button class="glossary"><span class="def">Short for Bourne Again Shell - it is the command processor that is typically run in a text window, has its own programming language and syntax.</span>bash</button> <button class="glossary"><span class="def">A command processor that we interact with via the system prompt. In our case, the Shell we’re interacting with is on the server.</span>shell</button>.</p>
 <p>Why is it a bash shell? Bash is the default shell for linux systems, especially for high performance clusters (HPCs), and there are some quirks about navigating around the command line you should be aware of.</p>
 <div class="callout callout-style-simple callout-none no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -421,7 +421,7 @@ Try it out
 <ul>
 <li><code>/home/</code> - The home filesystem. Your scripts can live here. Also where your configuration files (such as <code>.bashrc</code>) live. Can be accessed using <code>~/</code>.</li>
 <li><code>/fh/fast/</code> (also known as <code>fast</code>) - Research storage. Raw files and processed results should live here.</li>
-<li><code>/hpc/temp/</code> (also known as <code>temp</code>) - The temporary filesystem. This filesystem is faster to access for gizmo nodes on the cluster, so files can be copied to for computation. The output files you generate should be moved back into an appropriate folder on <code>/fh/fast/</code>. Note that files on <code>/fh/temp/</code> will be deleted after 30 days.</li>
+<li><code>/hpc/temp/</code> (also known as <code>temp</code>) - The temporary filesystem. This filesystem is faster to access for gizmo nodes on the cluster, so files can be copied to for computation. The output files you generate should be moved back into an appropriate folder on <code>/fh/fast/</code>. Note that files on <code>/hpc/temp/</code> will be deleted after 30 days.</li>
 <li><code>/fh/regulated/</code> - A secure filesystem meant for NIH regulated data. If you are processing data that is regulated under the current NIH guidelines, you will process it here.</li>
 </ul>
 <p>So, how do we utilize these filesystems? We will be running commands like this:</p>
@@ -693,7 +693,7 @@ Things I always forget: the difference between <code>/home/mydir/</code> and <co
 </div>
 <section id="keep-everything-in-folders" class="level3" data-number="1.11.1">
 <h3 data-number="1.11.1" class="anchored" data-anchor-id="keep-everything-in-folders"><span class="header-section-number">1.11.1</span> Keep Everything in Folders</h3>
-<p>We need to talk about code and data organization. For the FH system, we have a <code>/home/</code> directory, and if we have generated research data, a <code>/fh/fast/</code> directory. If we want our scripts to live in <code>/home/</code> and our data is in <code>/fh/temp/</code>, we’ll need to refer to each of these file locations.</p>
+<p>We need to talk about code and data organization. For the FH system, we have a <code>/home/</code> directory, and if we have generated research data, a <code>/fh/fast/</code> directory. If we want our scripts to live in <code>/home/</code> and our data is in <code>/hpc/temp/</code>, we’ll need to refer to each of these file locations.</p>
 <p>Ideally, we want to make the naming conventions of our code and our data as similar as possible.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -735,7 +735,7 @@ date</code></pre>
 <section id="loading-the-fhr-or-fhpython-modules" class="level3" data-number="1.14.1">
 <h3 data-number="1.14.1" class="anchored" data-anchor-id="loading-the-fhr-or-fhpython-modules"><span class="header-section-number">1.14.1</span> Loading the <code>fhR</code> or <code>fhPython</code> modules</h3>
 <p>Before we can run our software, we’ll need to load up either R or</p>
-<p>We’ll talk more about software modules next week (<a href="02_scripting.html#sec-modules" class="quarto-xref"><span>Section 2.5</span></a>).</p>
+<p>We’ll talk more about software modules next week (<a href="02_scripting.html#sec-modules" class="quarto-xref"><span>Section 2.4</span></a>).</p>
 </section>
 <section id="r-users" class="level3" data-number="1.14.2">
 <h3 data-number="1.14.2" class="anchored" data-anchor-id="r-users"><span class="header-section-number">1.14.2</span> R Users</h3>
@@ -750,7 +750,7 @@ date</code></pre>
 <h3 data-number="1.14.3" class="anchored" data-anchor-id="python-users"><span class="header-section-number">1.14.3</span> Python Users</h3>
 <p>Python users are much more aware that you can run Python scripts on the command line:</p>
 <pre><code>python3 my_python_script.py</code></pre>
-<p>Within a shell script, you can also use a shebang (<a href="02_scripting.html#sec-shebang" class="quarto-xref"><span>Section 2.4</span></a>) to make your script executable by providing the location of <code>python3</code>:</p>
+<p>Within a shell script, you can also use a shebang (<a href="02_scripting.html#sec-shebang" class="quarto-xref"><span>Section 2.3</span></a>) to make your script executable by providing the location of <code>python3</code>:</p>
 <pre><code>#!/bin/python3
 python3 my_python_script.py</code></pre>
 </section>

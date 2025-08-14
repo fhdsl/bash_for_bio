@@ -7,11 +7,15 @@ title: "Introduction to Scripting"
 By the end of this session, you should be able to understand and run this shell script.
 
 ```bash
-#!/bin/bash
-module load SAMtools/1.19.2-GCC-13.2.0  #load the module
-samtools view -c $1 > $1.counts.txt     #run the script 
-module purge                            #purge the module
+#!/bin/bash                             #<1>
+module load SAMtools/1.19.2-GCC-13.2.0  #<2>
+samtools view -c $1 > $1.counts.txt     #<3> 
+module purge                            #<4>
 ```
+1. Specify the shell language (bash)
+2. load the module
+3. run the script
+4. purge the module.
 
 It seems a little intimidating, but we will take this apart line by line. 
 
@@ -26,27 +30,6 @@ For example, imagine that you use `samtools view -c` all the time with certain o
 ```
 and it will output a file `my_file.bam.counts.txt` that has the counts we are interested in.
 
-## Editing on a Linux Machine
-
-On the `rhino` machines, we have the option to use the `nano` editor. `nano` is the most like a word processor or code editors.
-
-- Open a file in `nano`: `nano <filename>`
-- Save and quit: `<CTRL> + x` and then  `yes`
-- Navigate in file: using the arrow keys will work
-- Find in file: `<CTRL> + w`
-- Copy from outside the terminal (dependent on terminal program)
-
-### Try it Out
-
-Try making your own file called `my_file.txt`:
-
-```bash
-nano my_file.txt
-```
-
-Add some text to it.
-
-Use CTRL-X to exit, and make sure to select "Yes" to save.
 
 ## The first line: the she-bang {#sec-shebang}
 
@@ -66,6 +49,12 @@ The she-bang is necessary if you want to run the script without using the `bash`
 
 ```bash
 ./samcount.sh chr1.sam
+```
+
+Note that you can always use `bash` to execute a file if you don't have execute access:
+
+```
+bash samcount.sh chr1.sam
 ```
 
 ## Software Modules {#sec-modules}
@@ -131,8 +120,9 @@ Here's the next line of the script:
 module load SAMtools/1.19.2-GCC-13.2.0  #load the module
 ```
 
-Our module name is `SAMtools`, and the `1.19.2-GCC-13.2.0` after it is the version of that module. 
+Our module name is `SAMtools`, and the `1.19.2-GCC-13.2.0` after it is the version of that module. In general, it is better to specify a version when running software, because there may be breaking changes in newer versions of the software.
 
+If we do not specify the version number, then `module load` will load the default (notated by a `(D)`) version of the module. 
 
 :::{.callout-note}
 ## For FH Users: Modules benefit everyone
@@ -152,6 +142,10 @@ You can load a module with `ml <module_name>`.
 ### Tip: Load only as many modules as you need at a time
 
 One of the big issues with bioinformatics software is that the toolchain (the software dependencies needed to run the software) can be different for different executables. So when possible, load only one or two modules at a time for each step of your analysis. When you're done with that step, use `module purge` to clear out the software environment.
+
+### For more information
+
+Please refer to <https://sciwiki.fredhutch.org/scicomputing/compute_environments/> for more information about the available modules. 
 
 ## `$1`: A Positional argument {#sec-positional}
 
@@ -223,6 +217,10 @@ samtools stats $2 > $1
 ```
 :::
 
+### For More Info
+
+Please refer to Bite Size Bash page 9 for more info.
+
 ## `module purge`
 
 The last line of our script is:
@@ -280,6 +278,10 @@ echo "$my_var_1.vcf.gz"
 Bash would look for the variable `$my_var_1`, which doesn't exist. So use the curly braces `{}` when you expand variables. It's safer overall. 
 
 There is an alternate method for variable expansion which we will use when we call a *sub-shell* - a shell within a shell. We need to use parentheses `()` to expand them within the sub-shell, but not the top-shell. We'll use this when we process multiple files within a single worker.
+
+### For more information
+
+Please refer to Bite Size Bash page 7 for more information.
 
 ## Putting it all together
 
@@ -349,7 +351,7 @@ Now that we've set it up, we can run the R script from the command line as follo
 Rscript process_data.R CSVFILE="LUSC_clinical.csv"
 ```
 
-### Integrating into a Bash Script
+### Integrating an R script into a Bash Script
 
 Say you have an R Script you need to run on the command line in combination with other unix commands. In our bash script, we can do the following:
 
@@ -419,3 +421,73 @@ module load fhPython
 python3 process_file.py ${1}
 module purge
 ```
+
+## Using pipes: STDIN, STDOUT, STDERR
+
+We will need to use pipes to chain our commands together. Specifically, we need to take a command that generates a list of files on the cluster shared filesystem, and then spawns individual jobs to process each file. For this reason, understanding a little bit more about how pipes (`|`) work in Bash is helpful.
+
+If we want to understand how to chain our scripts together into a pipeline, it is helpful to know about the different streams that are available to the utilities.
+
+:::{#fig-std}
+```{mermaid}
+graph LR
+  A(STDIN) --> E[run_samtools.sh]
+  E --> B(STDOUT)
+  E --> C(STDERR)
+```
+Inputs/outputs to a script
+:::
+
+Every script has three streams available to it: Standard In (STDIN), Standard Out (STDOUT), and Standard Error (STDERR) (@fig-std).
+
+STDIN contains information that is directed to the input of a script (usually text output via STDOUT from another script). This includes arguments we pass onto the script.
+
+Why do these matter? To work in a Unix pipeline, a script must be able to utilize STDIN, and generate STDOUT, and STDERR.
+
+Specifically, in pipelines, STDOUT of a script (here it's `run_samtools`) is directed into STDIN of another command (here `wc`, or word count)
+
+:::{#fig-pipe}
+```{mermaid}
+graph LR
+  E[run_samtools.sh] --> B(STDOUT)
+  B --> F{"|"}
+  E --> C(STDERR)
+  F --> D("STDIN (wc)")
+  D --> G[wc]
+```
+Piping a script `run_samtools.sh` into another command (`wc`)
+:::
+
+We will mostly use STDOUT in our bash scripts, but STDERR can be really helpful in debugging what's going wrong. 
+
+### `>` (redirects)
+
+Sometimes you want to direct the output of a script to a text file. A lot of bioinformatics tools output to standard out, and we need a way to save the results.
+
+Enter `>`, a redirect. We can put `>` after our command followed by a file path to save the output.
+
+```
+samtools view -c my_bam_file.bam > counts.txt
+```
+
+Here we are redirecting the output of `samtools view` into the `counts.txt` file. Note that everytime that we run the script, we will overwrite the current contents of the `counts.txt` file. Sometimes that is not what you want.
+
+There is another kind of redirect, `>>`, that will append (that is, add to the end of a file). If the file does not exist, it will be created. But if it does exist, the output will be added to the end of the file.
+
+Much more information about redirects can be found here: <https://www.geeksforgeeks.org/linux-unix/input-output-redirection-in-linux/> and in Bite Sized Bash (page 13).
+
+:::{.callout-note}
+## Why this is important on the Cluster
+
+We'll use pipes and pipelines not only in starting a bunch of jobs using batch scripting on our home computer, but also when we are processing files within a job.
+
+Pipes are at the heart of multi-stage workflows. They allow us to specify multiple steps in processing a file. 
+:::
+
+### For more info about pipes and pipelines
+
+- Bite Size Bash Page 13 for more about redirects
+- Bite Size Bash Page 20 for more about pipes
+- <https://swcarpentry.github.io/shell-novice/04-pipefilter/index.html>
+- <https://datascienceatthecommandline.com/2e/chapter-2-getting-started.html?q=stdin#combining-command-line-tools>
+

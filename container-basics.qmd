@@ -1,7 +1,125 @@
 ---
-title: "Reading: Container Basics"
+title: "Reading: JSON Container Basics"
 format: html
 ---
+
+## What is JSON? {#sec-json}
+
+One requirement for running workflows is basic knowledge of JSON.
+
+JSON is short for **J**ava**S**cript **O**bject **N**otation. It is a format used for storing information on the web and for interacting with {{<glossary "Application Program Interfaces">}} (APIs).  
+
+### How is JSON used?
+
+JSON is used in multiple ways:
+
+- Submitting Jobs with complex parameters/inputs
+
+So having basic knowledge of JSON can be really helpful. JSON is the common language of the internet.
+
+### Elements of a JSON file
+
+Here are the main elements of a JSON file:
+
+- **Key:Value Pair**. Example: `"name": "Ted Laderas"`. In this example, our key is "name" and our value is "Ted Laderas"
+- **List `[]`** - a collection of values. All values have to be the same data type. Example: `["mom", "dad"]`
+- **Object** `{}` - A collection of key/value pairs, enclosed with curly brackets (`{}`). 
+
+:::{.callout-note}
+## Check Yourself
+
+What does the `names` value contain in the following JSON? Is it a list, object or key:value pair?
+
+```
+{
+  "names": ["Ted", "Lisa", "George"]
+}
+```
+:::
+
+:::{.callout-note collapse="true"}
+## Answer
+
+It is a list. We know this because the value contains a `[]`.
+
+```
+{
+  "names": ["Ted", "Lisa", "George"]
+}
+```
+:::
+
+### JSON Input Files
+
+When you are working with WDL, it is easiest to manage files using JSON files. Here's the example we're going to use from the [ww-fastq-to-cram workflow](https://github.com/getwilds/ww-fastq-to-cram). 
+
+```bash
+#| eval: false
+#| filename: "json_data/example.json"
+{
+  "PairedFastqsToUnmappedCram.batch_info": [
+    {
+      "dataset_id": "TESTFASTQ1",
+      "sample_name": "HG02635",
+      "library_name": "SRR581005",
+      "sequencing_center": "1000-Genomes",
+      "filepaths": [{
+        "flowcell_name": "20121211",
+        "fastq_r1_locations": ["tests/data/SRR581005_1.ds.fastq.gz"],
+        "fastq_r2_locations": ["tests/data/SRR581005_2.ds.fastq.gz"]
+      }]
+    },
+    {
+      "dataset_id": "TESTFASTQ2",
+      "sample_name": "HG02642",
+      "library_name": "SRR580946",
+      "sequencing_center": "1000-Genomes",
+      "filepaths": [{
+        "flowcell_name": "20121211",
+        "fastq_r1_locations": ["tests/data/SRR580946_1.ds.fastq.gz"],
+        "fastq_r2_locations": ["tests/data/SRR580946_2.ds.fastq.gz"]
+      }]
+    }
+  ]
+}
+```
+
+This might seem overwhelming, but let's look at the top-level structures first:
+
+```bash
+{                                               #<1>
+  "PairedFastqsToUnmappedCram.batch_info": [    #<2>
+   ...   
+  ]
+}
+```
+1. The top level of the file is a JSON object
+2. The next level down ("PairedFastqsToUnmappedCram.batch_info") is a list.
+
+This workflow specifies the file inputs using the `PairedFastqsToUnmappedCram.batch_info` object, which is a *list*. 
+
+Each sample in the `PairedFastqsToUnmappedCram.batch_info` list is its own object:
+
+```bash
+  "PairedFastqsToUnmappedCram.batch_info": [
+    {
+      "dataset_id": "TESTFASTQ1",
+      "sample_name": "HG02635",
+      "library_name": "SRR581005",
+      "sequencing_center": "1000-Genomes",
+      "filepaths": [{
+        "flowcell_name": "20121211",
+        "fastq_r1_locations": ["tests/data/SRR581005_1.ds.fastq.gz"],
+        "fastq_r2_locations": ["tests/data/SRR581005_2.ds.fastq.gz"]
+      }]
+    },
+    ....
+```
+
+Because we are aligned paired-end data, notice there are two keys, `fastq_r1_locations` and `fastq_r2_locations`. 
+
+
+
 
 ## Containers
 
@@ -116,120 +234,4 @@ Now our `/fh/fast/mydata/` folder will be available as `/mydata/` in my containe
 ```
 samtools view -c /mydata/my_bam_file.bam
 ```
-
-## What is JSON? {#sec-json}
-
-One requirement for running workflows is basic knowledge of JSON.
-
-JSON is short for **J**ava**S**cript **O**bject **N**otation. It is a format used for storing information on the web and for interacting with APIs.  
-
-### How is JSON used?
-
-JSON is used in multiple ways:
-
-- Submitting Jobs with complex parameters/inputs
-
-So having basic knowledge of JSON can be really helpful. JSON is the common language of the internet.
-
-### Elements of a JSON file
-
-Here are the main elements of a JSON file:
-
-- **Key:Value Pair**. Example: `"name": "Ted Laderas"`. In this example, our key is "name" and our value is "Ted Laderas"
-- **List `[]`** - a collection of values. All values have to be the same data type. Example: `["mom", "dad"]`
-- **Object** `{}` - A collection of key/value pairs, enclosed with curly brackets (`{}`). 
-
-:::{.callout-note}
-## Check Yourself
-
-What does the `names` value contain in the following JSON? Is it a list, object or key:value pair?
-
-```
-{
-  "names": ["Ted", "Lisa", "George"]
-}
-```
-:::
-
-:::{.callout-note collapse="true"}
-## Answer
-
-It is a list. We know this because the value contains a `[]`.
-
-```
-{
-  "names": ["Ted", "Lisa", "George"]
-}
-```
-:::
-
-### JSON Input Files
-
-When you are working with WDL, it is easiest to manage files using JSON files. Here's the example we're going to use from the [ww-fastq-to-cram workflow](https://github.com/getwilds/ww-fastq-to-cram). 
-
-```bash
-#| eval: false
-#| filename: "json_data/example.json"
-{
-  "PairedFastqsToUnmappedCram.batch_info": [
-    {
-      "dataset_id": "TESTFASTQ1",
-      "sample_name": "HG02635",
-      "library_name": "SRR581005",
-      "sequencing_center": "1000-Genomes",
-      "filepaths": [{
-        "flowcell_name": "20121211",
-        "fastq_r1_locations": ["tests/data/SRR581005_1.ds.fastq.gz"],
-        "fastq_r2_locations": ["tests/data/SRR581005_2.ds.fastq.gz"]
-      }]
-    },
-    {
-      "dataset_id": "TESTFASTQ2",
-      "sample_name": "HG02642",
-      "library_name": "SRR580946",
-      "sequencing_center": "1000-Genomes",
-      "filepaths": [{
-        "flowcell_name": "20121211",
-        "fastq_r1_locations": ["tests/data/SRR580946_1.ds.fastq.gz"],
-        "fastq_r2_locations": ["tests/data/SRR580946_2.ds.fastq.gz"]
-      }]
-    }
-  ]
-}
-```
-
-This might seem overwhelming, but let's look at the top-level structures first:
-
-```bash
-{                                               #<1>
-  "PairedFastqsToUnmappedCram.batch_info": [    #<2>
-   ...   
-  ]
-}
-```
-1. The top level of the file is a JSON object
-2. The next level down ("PairedFastqsToUnmappedCram.batch_info") is a list.
-
-This workflow specifies the file inputs using the `PairedFastqsToUnmappedCram.batch_info` object, which is a *list*. 
-
-Each sample in the `PairedFastqsToUnmappedCram.batch_info` list is its own object:
-
-```bash
-  "PairedFastqsToUnmappedCram.batch_info": [
-    {
-      "dataset_id": "TESTFASTQ1",
-      "sample_name": "HG02635",
-      "library_name": "SRR581005",
-      "sequencing_center": "1000-Genomes",
-      "filepaths": [{
-        "flowcell_name": "20121211",
-        "fastq_r1_locations": ["tests/data/SRR581005_1.ds.fastq.gz"],
-        "fastq_r2_locations": ["tests/data/SRR581005_2.ds.fastq.gz"]
-      }]
-    },
-    ....
-```
-
-Because we are aligned paired-end data, notice there are two keys, `fastq_r1_locations` and `fastq_r2_locations`. 
-
 

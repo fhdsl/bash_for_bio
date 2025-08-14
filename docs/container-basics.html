@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>5&nbsp; Reading: Container Basics – Bash for Bioinformatics</title>
+<title>5&nbsp; Reading: JSON Container Basics – Bash for Bioinformatics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -121,7 +121,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./container-basics.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: Container Basics</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./container-basics.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: JSON Container Basics</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -179,7 +179,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./container-basics.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: Container Basics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: JSON Container Basics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -216,20 +216,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#containers" id="toc-containers" class="nav-link active" data-scroll-target="#containers"><span class="header-section-number">5.1</span> Containers</a>
+  <li><a href="#sec-json" id="toc-sec-json" class="nav-link active" data-scroll-target="#sec-json"><span class="header-section-number">5.1</span> What is JSON?</a>
   <ul class="collapse">
-  <li><a href="#what-is-a-container" id="toc-what-is-a-container" class="nav-link" data-scroll-target="#what-is-a-container"><span class="header-section-number">5.1.1</span> What is a Container?</a></li>
-  <li><a href="#docker-vs.-apptainer" id="toc-docker-vs.-apptainer" class="nav-link" data-scroll-target="#docker-vs.-apptainer"><span class="header-section-number">5.1.2</span> Docker vs.&nbsp;Apptainer</a></li>
-  <li><a href="#common-containers-for-bioinformatics" id="toc-common-containers-for-bioinformatics" class="nav-link" data-scroll-target="#common-containers-for-bioinformatics"><span class="header-section-number">5.1.3</span> Common Containers for Bioinformatics</a></li>
-  <li><a href="#the-wilds-docker-library" id="toc-the-wilds-docker-library" class="nav-link" data-scroll-target="#the-wilds-docker-library"><span class="header-section-number">5.1.4</span> The WILDS Docker Library</a></li>
-  <li><a href="#pulling-a-docker-container" id="toc-pulling-a-docker-container" class="nav-link" data-scroll-target="#pulling-a-docker-container"><span class="header-section-number">5.1.5</span> Pulling a Docker Container</a></li>
-  <li><a href="#sec-bindpaths" id="toc-sec-bindpaths" class="nav-link" data-scroll-target="#sec-bindpaths"><span class="header-section-number">5.1.6</span> Testing out bind paths in containers</a></li>
+  <li><a href="#how-is-json-used" id="toc-how-is-json-used" class="nav-link" data-scroll-target="#how-is-json-used"><span class="header-section-number">5.1.1</span> How is JSON used?</a></li>
+  <li><a href="#elements-of-a-json-file" id="toc-elements-of-a-json-file" class="nav-link" data-scroll-target="#elements-of-a-json-file"><span class="header-section-number">5.1.2</span> Elements of a JSON file</a></li>
+  <li><a href="#json-input-files" id="toc-json-input-files" class="nav-link" data-scroll-target="#json-input-files"><span class="header-section-number">5.1.3</span> JSON Input Files</a></li>
   </ul></li>
-  <li><a href="#sec-json" id="toc-sec-json" class="nav-link" data-scroll-target="#sec-json"><span class="header-section-number">5.2</span> What is JSON?</a>
+  <li><a href="#containers" id="toc-containers" class="nav-link" data-scroll-target="#containers"><span class="header-section-number">5.2</span> Containers</a>
   <ul class="collapse">
-  <li><a href="#how-is-json-used" id="toc-how-is-json-used" class="nav-link" data-scroll-target="#how-is-json-used"><span class="header-section-number">5.2.1</span> How is JSON used?</a></li>
-  <li><a href="#elements-of-a-json-file" id="toc-elements-of-a-json-file" class="nav-link" data-scroll-target="#elements-of-a-json-file"><span class="header-section-number">5.2.2</span> Elements of a JSON file</a></li>
-  <li><a href="#json-input-files" id="toc-json-input-files" class="nav-link" data-scroll-target="#json-input-files"><span class="header-section-number">5.2.3</span> JSON Input Files</a></li>
+  <li><a href="#what-is-a-container" id="toc-what-is-a-container" class="nav-link" data-scroll-target="#what-is-a-container"><span class="header-section-number">5.2.1</span> What is a Container?</a></li>
+  <li><a href="#docker-vs.-apptainer" id="toc-docker-vs.-apptainer" class="nav-link" data-scroll-target="#docker-vs.-apptainer"><span class="header-section-number">5.2.2</span> Docker vs.&nbsp;Apptainer</a></li>
+  <li><a href="#common-containers-for-bioinformatics" id="toc-common-containers-for-bioinformatics" class="nav-link" data-scroll-target="#common-containers-for-bioinformatics"><span class="header-section-number">5.2.3</span> Common Containers for Bioinformatics</a></li>
+  <li><a href="#the-wilds-docker-library" id="toc-the-wilds-docker-library" class="nav-link" data-scroll-target="#the-wilds-docker-library"><span class="header-section-number">5.2.4</span> The WILDS Docker Library</a></li>
+  <li><a href="#pulling-a-docker-container" id="toc-pulling-a-docker-container" class="nav-link" data-scroll-target="#pulling-a-docker-container"><span class="header-section-number">5.2.5</span> Pulling a Docker Container</a></li>
+  <li><a href="#sec-bindpaths" id="toc-sec-bindpaths" class="nav-link" data-scroll-target="#sec-bindpaths"><span class="header-section-number">5.2.6</span> Testing out bind paths in containers</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -239,7 +239,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: Container Basics</span></h1>
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: JSON Container Basics</span></h1>
 </div>
 
 
@@ -256,23 +256,144 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="containers" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="containers"><span class="header-section-number">5.1</span> Containers</h2>
-<p>We already learned about software modules (<a href="02_scripting.html#sec-modules" class="quarto-xref"><span>Section 2.5</span></a>) on the <code>gizmo</code> cluster. There is an alternative way to use software: pulling and running a software <button class="glossary"><span class="def">The executable software environment actually installed and running on a machine. Runnable. Generate from docker pull from a repository.</span>container</button>.</p>
-<section id="what-is-a-container" class="level3" data-number="5.1.1">
-<h3 data-number="5.1.1" class="anchored" data-anchor-id="what-is-a-container"><span class="header-section-number">5.1.1</span> What is a Container?</h3>
+<section id="sec-json" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="sec-json"><span class="header-section-number">5.1</span> What is JSON?</h2>
+<p>One requirement for running workflows is basic knowledge of JSON.</p>
+<p>JSON is short for <strong>J</strong>ava<strong>S</strong>cript <strong>O</strong>bject <strong>N</strong>otation. It is a format used for storing information on the web and for interacting with <button class="glossary"><span class="def"></span>Application Program Interfaces</button> (APIs).</p>
+<section id="how-is-json-used" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="how-is-json-used"><span class="header-section-number">5.1.1</span> How is JSON used?</h3>
+<p>JSON is used in multiple ways:</p>
+<ul>
+<li>Submitting Jobs with complex parameters/inputs</li>
+</ul>
+<p>So having basic knowledge of JSON can be really helpful. JSON is the common language of the internet.</p>
+</section>
+<section id="elements-of-a-json-file" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="elements-of-a-json-file"><span class="header-section-number">5.1.2</span> Elements of a JSON file</h3>
+<p>Here are the main elements of a JSON file:</p>
+<ul>
+<li><strong>Key:Value Pair</strong>. Example: <code>"name": "Ted Laderas"</code>. In this example, our key is “name” and our value is “Ted Laderas”</li>
+<li><strong>List <code>[]</code></strong> - a collection of values. All values have to be the same data type. Example: <code>["mom", "dad"]</code></li>
+<li><strong>Object</strong> <code>{}</code> - A collection of key/value pairs, enclosed with curly brackets (<code>{}</code>).</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Check Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>What does the <code>names</code> value contain in the following JSON? Is it a list, object or key:value pair?</p>
+<pre><code>{
+  "names": ["Ted", "Lisa", "George"]
+}</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>It is a list. We know this because the value contains a <code>[]</code>.</p>
+<pre><code>{
+  "names": ["Ted", "Lisa", "George"]
+}</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="json-input-files" class="level3" data-number="5.1.3">
+<h3 data-number="5.1.3" class="anchored" data-anchor-id="json-input-files"><span class="header-section-number">5.1.3</span> JSON Input Files</h3>
+<p>When you are working with WDL, it is easiest to manage files using JSON files. Here’s the example we’re going to use from the <a href="https://github.com/getwilds/ww-fastq-to-cram">ww-fastq-to-cram workflow</a>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| filename: "json_data/example.json"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">{</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"PairedFastqsToUnmappedCram.batch_info"</span><span class="ex">:</span> [</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">{</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">"dataset_id"</span><span class="ex">:</span> <span class="st">"TESTFASTQ1"</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">"sample_name"</span><span class="ex">:</span> <span class="st">"HG02635"</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>      <span class="st">"library_name"</span><span class="ex">:</span> <span class="st">"SRR581005"</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>      <span class="st">"sequencing_center"</span><span class="ex">:</span> <span class="st">"1000-Genomes"</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>      <span class="st">"filepaths"</span><span class="ex">:</span> [{</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"flowcell_name"</span><span class="ex">:</span> <span class="st">"20121211"</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"fastq_r1_locations"</span><span class="ex">:</span> <span class="pp">[</span><span class="st">"tests/data/SRR581005_1.ds.fastq.gz"</span><span class="pp">]</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"fastq_r2_locations"</span><span class="ex">:</span> <span class="pp">[</span><span class="st">"tests/data/SRR581005_2.ds.fastq.gz"</span><span class="pp">]</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>      <span class="ex">}]</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="ex">},</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">{</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>      <span class="st">"dataset_id"</span><span class="ex">:</span> <span class="st">"TESTFASTQ2"</span>,</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>      <span class="st">"sample_name"</span><span class="ex">:</span> <span class="st">"HG02642"</span>,</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>      <span class="st">"library_name"</span><span class="ex">:</span> <span class="st">"SRR580946"</span>,</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>      <span class="st">"sequencing_center"</span><span class="ex">:</span> <span class="st">"1000-Genomes"</span>,</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>      <span class="st">"filepaths"</span><span class="ex">:</span> [{</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>        <span class="st">"flowcell_name"</span><span class="ex">:</span> <span class="st">"20121211"</span>,</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        <span class="st">"fastq_r1_locations"</span><span class="ex">:</span> <span class="pp">[</span><span class="st">"tests/data/SRR580946_1.ds.fastq.gz"</span><span class="pp">]</span>,</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>        <span class="st">"fastq_r2_locations"</span><span class="ex">:</span> <span class="pp">[</span><span class="st">"tests/data/SRR580946_2.ds.fastq.gz"</span><span class="pp">]</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>      <span class="ex">}]</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="kw">}</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  <span class="ex">]</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This might seem overwhelming, but let’s look at the top-level structures first:</p>
+<div class="sourceCode" id="annotated-cell-2"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-2-1" class="code-annotation-target"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">{</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-2-2" class="code-annotation-target"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"PairedFastqsToUnmappedCram.batch_info"</span><span class="ex">:</span> [</span>
+<span id="annotated-cell-2-3"><a href="#annotated-cell-2-3" aria-hidden="true" tabindex="-1"></a>   <span class="ex">...</span>   </span>
+<span id="annotated-cell-2-4"><a href="#annotated-cell-2-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">]</span></span>
+<span id="annotated-cell-2-5"><a href="#annotated-cell-2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="1" data-code-annotation="1">The top level of the file is a JSON object</span>
+</dd>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="2" data-code-annotation="2">The next level down (“PairedFastqsToUnmappedCram.batch_info”) is a list.</span>
+</dd>
+</dl>
+<p>This workflow specifies the file inputs using the <code>PairedFastqsToUnmappedCram.batch_info</code> object, which is a <em>list</em>.</p>
+<p>Each sample in the <code>PairedFastqsToUnmappedCram.batch_info</code> list is its own object:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>  <span class="st">"PairedFastqsToUnmappedCram.batch_info"</span><span class="ex">:</span> [</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">{</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>      <span class="st">"dataset_id"</span><span class="ex">:</span> <span class="st">"TESTFASTQ1"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>      <span class="st">"sample_name"</span><span class="ex">:</span> <span class="st">"HG02635"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">"library_name"</span><span class="ex">:</span> <span class="st">"SRR581005"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">"sequencing_center"</span><span class="ex">:</span> <span class="st">"1000-Genomes"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">"filepaths"</span><span class="ex">:</span> [{</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"flowcell_name"</span><span class="ex">:</span> <span class="st">"20121211"</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"fastq_r1_locations"</span><span class="ex">:</span> <span class="pp">[</span><span class="st">"tests/data/SRR581005_1.ds.fastq.gz"</span><span class="pp">]</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"fastq_r2_locations"</span><span class="ex">:</span> <span class="pp">[</span><span class="st">"tests/data/SRR581005_2.ds.fastq.gz"</span><span class="pp">]</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>      <span class="ex">}]</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="ex">},</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="ex">....</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Because we are aligned paired-end data, notice there are two keys, <code>fastq_r1_locations</code> and <code>fastq_r2_locations</code>.</p>
+</section>
+</section>
+<section id="containers" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="containers"><span class="header-section-number">5.2</span> Containers</h2>
+<p>We already learned about software modules (<a href="02_scripting.html#sec-modules" class="quarto-xref"><span>Section 2.4</span></a>) on the <code>gizmo</code> cluster. There is an alternative way to use software: pulling and running a software <button class="glossary"><span class="def">The executable software environment actually installed and running on a machine. Runnable. Generate from docker pull from a repository.</span>container</button>.</p>
+<section id="what-is-a-container" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="what-is-a-container"><span class="header-section-number">5.2.1</span> What is a Container?</h3>
 <p>A container is a self-contained unit of software. It contains everything needed to run the software on a variety of machines. If you have the container software installed on your machine, it doesn’t matter whether it is MacOS, Linux, or Windows - the container will behave consistently across different operating systems and architectures.</p>
 <p>The container has the following contents:</p>
 <ul>
 <li><strong>Software</strong> - The software we want to run in a container. For bioinformatics work, this is usually something like an aligner like <code>bwa</code>, or utilities such as <code>samtools</code></li>
 <li><strong>Software Dependencies</strong> - various software packages needed to run the software. For example, if we wanted to run <code>tidyverse</code> in a container, we need to have <code>R</code> installed in the container as well.</li>
-<li><strong>Filesystem</strong> - containers have their own isolated filesystem that can be connected to the “outside world” - everything outside of the container. We’ll learn more about customizing these with bind paths (<a href="#sec-bindpaths" class="quarto-xref"><span>Section 5.1.6</span></a>).</li>
+<li><strong>Filesystem</strong> - containers have their own isolated filesystem that can be connected to the “outside world” - everything outside of the container. We’ll learn more about customizing these with bind paths (<a href="#sec-bindpaths" class="quarto-xref"><span>Section 5.2.6</span></a>).</li>
 </ul>
 <p>In short, the container has everything needed to run the software. It is not a full operating system, but a smaller mini-version that cuts out a lot of cruft.</p>
 <p>Containers are <button class="glossary"><span class="def">When you are finished with Docker containers, everything that you created in them will disappear when you finish running scripts in the container.</span>ephemeral</button>. They leverage the the file system of their host to manage files. These are called both <em>Volumes</em> (the Docker term) and <em>Bind Paths</em> (the apptainer term).</p>
 </section>
-<section id="docker-vs.-apptainer" class="level3" data-number="5.1.2">
-<h3 data-number="5.1.2" class="anchored" data-anchor-id="docker-vs.-apptainer"><span class="header-section-number">5.1.2</span> Docker vs.&nbsp;Apptainer</h3>
+<section id="docker-vs.-apptainer" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2" class="anchored" data-anchor-id="docker-vs.-apptainer"><span class="header-section-number">5.2.2</span> Docker vs.&nbsp;Apptainer</h3>
 <p>There are two basic ways to run Docker containers:</p>
 <ol type="1">
 <li>Using the Docker software</li>
@@ -301,15 +422,15 @@ Be Secure
 </div>
 </div>
 </section>
-<section id="common-containers-for-bioinformatics" class="level3" data-number="5.1.3">
-<h3 data-number="5.1.3" class="anchored" data-anchor-id="common-containers-for-bioinformatics"><span class="header-section-number">5.1.3</span> Common Containers for Bioinformatics</h3>
+<section id="common-containers-for-bioinformatics" class="level3" data-number="5.2.3">
+<h3 data-number="5.2.3" class="anchored" data-anchor-id="common-containers-for-bioinformatics"><span class="header-section-number">5.2.3</span> Common Containers for Bioinformatics</h3>
 <ul>
 <li>GATK (the genome analysis toolkit) is one common container that we can use for analysis.</li>
 <li></li>
 </ul>
 </section>
-<section id="the-wilds-docker-library" class="level3" data-number="5.1.4">
-<h3 data-number="5.1.4" class="anchored" data-anchor-id="the-wilds-docker-library"><span class="header-section-number">5.1.4</span> The WILDS Docker Library</h3>
+<section id="the-wilds-docker-library" class="level3" data-number="5.2.4">
+<h3 data-number="5.2.4" class="anchored" data-anchor-id="the-wilds-docker-library"><span class="header-section-number">5.2.4</span> The WILDS Docker Library</h3>
 <p>The Data Science Lab has a set of Docker containers for common Bioinformatics tasks available in the <a href="https://hub.docker.com/u/getwilds">WILDS Docker Library</a>. These include:</p>
 <ul>
 <li><code>samtools</code></li>
@@ -320,15 +441,15 @@ Be Secure
 </ul>
 <p>Among many others. Be sure to check it out before you start building your own containers.</p>
 </section>
-<section id="pulling-a-docker-container" class="level3" data-number="5.1.5">
-<h3 data-number="5.1.5" class="anchored" data-anchor-id="pulling-a-docker-container"><span class="header-section-number">5.1.5</span> Pulling a Docker Container</h3>
+<section id="pulling-a-docker-container" class="level3" data-number="5.2.5">
+<h3 data-number="5.2.5" class="anchored" data-anchor-id="pulling-a-docker-container"><span class="header-section-number">5.2.5</span> Pulling a Docker Container</h3>
 <p>Let’s pull a docker container from the Docker registry. Note we have to specify <code>docker://</code> when we pull the container, because Apptainer has its own internal format called SIF.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> pull docker://ghcr.io/getwilds/scanpy:latest</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> run <span class="at">--bind</span> /path/to/data:/data,/path/to/script:/script docker://getwilds/scanpy:latest python /script/example.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> pull docker://ghcr.io/getwilds/scanpy:latest</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> run <span class="at">--bind</span> /path/to/data:/data,/path/to/script:/script docker://getwilds/scanpy:latest python /script/example.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="sec-bindpaths" class="level3" data-number="5.1.6">
-<h3 data-number="5.1.6" class="anchored" data-anchor-id="sec-bindpaths"><span class="header-section-number">5.1.6</span> Testing out bind paths in containers</h3>
+<section id="sec-bindpaths" class="level3" data-number="5.2.6">
+<h3 data-number="5.2.6" class="anchored" data-anchor-id="sec-bindpaths"><span class="header-section-number">5.2.6</span> Testing out bind paths in containers</h3>
 <p>One thing to keep in mind is that every container has its own filesystem. One of the hardest things to wrap your head around for containers is how their filesystems work, and how to access files that are outside of the container filesystem. We’ll call any filesystems outside of the container <em>external filesystems</em> to make the discussion a little easier.</p>
 <p>By default, the containers have access to your current working directory. We could make this where our scripts live (such as <code>/home/tladera2/</code>), but because our data is elsewhere, we’ll need to specify that location (<code>/fh/fast/mylab/</code>) as well.</p>
 <p>The main mechanism we have in Apptainer to access the external filesystem are <em>bind paths</em>. Much like mounting a drive, we can bind directories from the external filesystem using these bind points.</p>
@@ -352,134 +473,13 @@ Be Secure
 <p>I think of bind paths as “tunnels” that give access to particular folders in the external filesystem. Once the tunnel is open, we can access data files, process them, and save them using the bind path.</p>
 <p>Say my data lives in <code>/fh/fast/mydata/</code>. Then I can specify a bind point in my <code>apptainer shell</code> and <code>apptainer run</code> commands.</p>
 <p>We can do this with the <code>--bind</code> option:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> shell <span class="at">--bind</span> /fh/fast/mydata:/mydata docker://biocontainers/samtools:v1.9-4-deb_cv1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> shell <span class="at">--bind</span> /fh/fast/mydata:/mydata docker://biocontainers/samtools:v1.9-4-deb_cv1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Note that the bind syntax doesn’t have the trailing slash (<code>/</code>). That is, note that it is:</p>
 <pre><code>--bind /fh/fast/mydata: ....</code></pre>
 <p>Rather than</p>
 <pre><code>--bind /fh/fast/mydata/: ....</code></pre>
 <p>Now our <code>/fh/fast/mydata/</code> folder will be available as <code>/mydata/</code> in my container. We can read and write files to this bind point. For example, I’d refer to the <code>.bam</code> file <code>/fh/fast/mydata/my_bam_file.bam</code> as:</p>
 <pre><code>samtools view -c /mydata/my_bam_file.bam</code></pre>
-</section>
-</section>
-<section id="sec-json" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="sec-json"><span class="header-section-number">5.2</span> What is JSON?</h2>
-<p>One requirement for running workflows is basic knowledge of JSON.</p>
-<p>JSON is short for <strong>J</strong>ava<strong>S</strong>cript <strong>O</strong>bject <strong>N</strong>otation. It is a format used for storing information on the web and for interacting with APIs.</p>
-<section id="how-is-json-used" class="level3" data-number="5.2.1">
-<h3 data-number="5.2.1" class="anchored" data-anchor-id="how-is-json-used"><span class="header-section-number">5.2.1</span> How is JSON used?</h3>
-<p>JSON is used in multiple ways:</p>
-<ul>
-<li>Submitting Jobs with complex parameters/inputs</li>
-</ul>
-<p>So having basic knowledge of JSON can be really helpful. JSON is the common language of the internet.</p>
-</section>
-<section id="elements-of-a-json-file" class="level3" data-number="5.2.2">
-<h3 data-number="5.2.2" class="anchored" data-anchor-id="elements-of-a-json-file"><span class="header-section-number">5.2.2</span> Elements of a JSON file</h3>
-<p>Here are the main elements of a JSON file:</p>
-<ul>
-<li><strong>Key:Value Pair</strong>. Example: <code>"name": "Ted Laderas"</code>. In this example, our key is “name” and our value is “Ted Laderas”</li>
-<li><strong>List <code>[]</code></strong> - a collection of values. All values have to be the same data type. Example: <code>["mom", "dad"]</code></li>
-<li><strong>Object</strong> <code>{}</code> - A collection of key/value pairs, enclosed with curly brackets (<code>{}</code>).</li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Check Yourself
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>What does the <code>names</code> value contain in the following JSON? Is it a list, object or key:value pair?</p>
-<pre><code>{
-  "names": ["Ted", "Lisa", "George"]
-}</code></pre>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Answer
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>It is a list. We know this because the value contains a <code>[]</code>.</p>
-<pre><code>{
-  "names": ["Ted", "Lisa", "George"]
-}</code></pre>
-</div>
-</div>
-</div>
-</section>
-<section id="json-input-files" class="level3" data-number="5.2.3">
-<h3 data-number="5.2.3" class="anchored" data-anchor-id="json-input-files"><span class="header-section-number">5.2.3</span> JSON Input Files</h3>
-<p>When you are working with WDL, it is easiest to manage files using JSON files. Here’s the example we’re going to use from the <a href="https://github.com/getwilds/ww-fastq-to-cram">ww-fastq-to-cram workflow</a>.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| filename: "json_data/example.json"</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">{</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"PairedFastqsToUnmappedCram.batch_info"</span><span class="ex">:</span> [</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">{</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">"dataset_id"</span><span class="ex">:</span> <span class="st">"TESTFASTQ1"</span>,</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">"sample_name"</span><span class="ex">:</span> <span class="st">"HG02635"</span>,</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>      <span class="st">"library_name"</span><span class="ex">:</span> <span class="st">"SRR581005"</span>,</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>      <span class="st">"sequencing_center"</span><span class="ex">:</span> <span class="st">"1000-Genomes"</span>,</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>      <span class="st">"filepaths"</span><span class="ex">:</span> [{</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"flowcell_name"</span><span class="ex">:</span> <span class="st">"20121211"</span>,</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"fastq_r1_locations"</span><span class="ex">:</span> <span class="pp">[</span><span class="st">"tests/data/SRR581005_1.ds.fastq.gz"</span><span class="pp">]</span>,</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"fastq_r2_locations"</span><span class="ex">:</span> <span class="pp">[</span><span class="st">"tests/data/SRR581005_2.ds.fastq.gz"</span><span class="pp">]</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>      <span class="ex">}]</span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="ex">},</span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">{</span></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>      <span class="st">"dataset_id"</span><span class="ex">:</span> <span class="st">"TESTFASTQ2"</span>,</span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>      <span class="st">"sample_name"</span><span class="ex">:</span> <span class="st">"HG02642"</span>,</span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>      <span class="st">"library_name"</span><span class="ex">:</span> <span class="st">"SRR580946"</span>,</span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>      <span class="st">"sequencing_center"</span><span class="ex">:</span> <span class="st">"1000-Genomes"</span>,</span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>      <span class="st">"filepaths"</span><span class="ex">:</span> [{</span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>        <span class="st">"flowcell_name"</span><span class="ex">:</span> <span class="st">"20121211"</span>,</span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>        <span class="st">"fastq_r1_locations"</span><span class="ex">:</span> <span class="pp">[</span><span class="st">"tests/data/SRR580946_1.ds.fastq.gz"</span><span class="pp">]</span>,</span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>        <span class="st">"fastq_r2_locations"</span><span class="ex">:</span> <span class="pp">[</span><span class="st">"tests/data/SRR580946_2.ds.fastq.gz"</span><span class="pp">]</span></span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>      <span class="ex">}]</span></span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    <span class="kw">}</span></span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>  <span class="ex">]</span></span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This might seem overwhelming, but let’s look at the top-level structures first:</p>
-<div class="sourceCode" id="annotated-cell-7"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-7-1" class="code-annotation-target"><a href="#annotated-cell-7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">{</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-7-2" class="code-annotation-target"><a href="#annotated-cell-7-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"PairedFastqsToUnmappedCram.batch_info"</span><span class="ex">:</span> [</span>
-<span id="annotated-cell-7-3"><a href="#annotated-cell-7-3" aria-hidden="true" tabindex="-1"></a>   <span class="ex">...</span>   </span>
-<span id="annotated-cell-7-4"><a href="#annotated-cell-7-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">]</span></span>
-<span id="annotated-cell-7-5"><a href="#annotated-cell-7-5" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-7" data-target-annotation="1">1</dt>
-<dd>
-<span data-code-cell="annotated-cell-7" data-code-lines="1" data-code-annotation="1">The top level of the file is a JSON object</span>
-</dd>
-<dt data-target-cell="annotated-cell-7" data-target-annotation="2">2</dt>
-<dd>
-<span data-code-cell="annotated-cell-7" data-code-lines="2" data-code-annotation="2">The next level down (“PairedFastqsToUnmappedCram.batch_info”) is a list.</span>
-</dd>
-</dl>
-<p>This workflow specifies the file inputs using the <code>PairedFastqsToUnmappedCram.batch_info</code> object, which is a <em>list</em>.</p>
-<p>Each sample in the <code>PairedFastqsToUnmappedCram.batch_info</code> list is its own object:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>  <span class="st">"PairedFastqsToUnmappedCram.batch_info"</span><span class="ex">:</span> [</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">{</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>      <span class="st">"dataset_id"</span><span class="ex">:</span> <span class="st">"TESTFASTQ1"</span>,</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>      <span class="st">"sample_name"</span><span class="ex">:</span> <span class="st">"HG02635"</span>,</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">"library_name"</span><span class="ex">:</span> <span class="st">"SRR581005"</span>,</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">"sequencing_center"</span><span class="ex">:</span> <span class="st">"1000-Genomes"</span>,</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">"filepaths"</span><span class="ex">:</span> [{</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"flowcell_name"</span><span class="ex">:</span> <span class="st">"20121211"</span>,</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"fastq_r1_locations"</span><span class="ex">:</span> <span class="pp">[</span><span class="st">"tests/data/SRR581005_1.ds.fastq.gz"</span><span class="pp">]</span>,</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"fastq_r2_locations"</span><span class="ex">:</span> <span class="pp">[</span><span class="st">"tests/data/SRR581005_2.ds.fastq.gz"</span><span class="pp">]</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>      <span class="ex">}]</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="ex">},</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="ex">....</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Because we are aligned paired-end data, notice there are two keys, <code>fastq_r1_locations</code> and <code>fastq_r2_locations</code>.</p>
 
 
 </section>

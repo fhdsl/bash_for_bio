@@ -175,7 +175,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./container-basics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: Container Basics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: JSON Container Basics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -345,7 +345,7 @@ To execute womtool, run: java -jar $EBROOTCROMWELL/womtool.jar</code></pre>
 </section>
 <section id="input-files-as-json" class="level3" data-number="6.2.3">
 <h3 data-number="6.2.3" class="anchored" data-anchor-id="input-files-as-json"><span class="header-section-number">6.2.3</span> Input Files as JSON</h3>
-<p>If you want to work with the JSON format (<a href="container-basics.html#sec-json" class="quarto-xref"><span>Section 5.2</span></a>), there is a trick to generating a template <code>.json</code> file for a workflow. There is an additional utility called <code>womtools</code> that will generate a template file from a workflow file.</p>
+<p>If you want to work with the JSON format (<a href="container-basics.html#sec-json" class="quarto-xref"><span>Section 5.1</span></a>), there is a trick to generating a template <code>.json</code> file for a workflow. There is an additional utility called <code>womtools</code> that will generate a template file from a workflow file.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">java</span> <span class="at">-jar</span> <span class="va">$EBROOTCROMWELL</span>/womtool.jar inputs ww-star2-deseq2.wdl <span class="op">&gt;</span> ww-star2-deseq2-inputs.json</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This will generate a file called <code>ww-star2-deseq2-inputs.json</code> that contains all of the inputs:</p>
 <pre><code>{
@@ -357,7 +357,7 @@ To execute womtool, run: java -jar $EBROOTCROMWELL/womtool.jar</code></pre>
 </section>
 <section id="working-with-file-manifests-in-wdl" class="level3" data-number="6.2.4">
 <h3 data-number="6.2.4" class="anchored" data-anchor-id="working-with-file-manifests-in-wdl"><span class="header-section-number">6.2.4</span> Working with file manifests in WDL</h3>
-<p>Last week, we worked with a file manifest to process a list of files.</p>
+<p>Another strategy you can use to cycle through a list of files is to use a file manifest to process a list of files.</p>
 <p>There is an <a href="https://github.com/getwilds/ww-demo-workflows/tree/main/parseBatchFile">example workflow that shows how to work with a file manifest</a>. This can be helpful for those who aren’t necessarily good at working with JSON.</p>
 <p>This workflow has a single input, which is the location of the file manifest. It will then cycle through the manifest, line by line.</p>
 <p>This is what the file manifest contains. Notice there are three named columns for this file: <code>sampleName</code>, <code>bamLocation</code>, and <code>bedLocation</code>.</p>
@@ -1012,8 +1012,8 @@ To execute womtool, run: java -jar $EBROOTCROMWELL/womtool.jar</code></pre>
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./container-basics.html" class="pagination-link" aria-label="Reading: Container Basics">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: Container Basics</span></span>
+      <a href="./container-basics.html" class="pagination-link" aria-label="Reading: JSON Container Basics">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: JSON Container Basics</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

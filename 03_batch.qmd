@@ -12,7 +12,35 @@ title: "Batch Processing and Submitting Jobs"
 
 A very common pattern is cycling through multiple files in a folder and applying the same script or command to them. 
 
-There is a simple method for batch processing a bunch of files: a `for` loop.
+There is a simple method for batch processing a bunch of files: a `for` loop. In our case, a for loop takes a list of file paths (such as a list of FASTA files we want to process), and performs the same task for each element of the list.
+
+```bash
+for file in 01_assignment.qmd 02_scripting.qmd  #<1>
+do                                              #<2>
+  wc $file                                      #<3>
+done                                            #<4>
+```
+1. Cycle through the list of `01_assignment.qmd` and `02_scripting.qmd`.
+2. Start of instructions
+3. Count the words in each `.qmd` file using `wc`
+4. End of instructions
+
+The `do` and `done` sandwich the instructions we want to do to each file in our list. `wc` will produce a word count of these two files.
+
+If we run this in the `bash_for_bio/` folder, we'll get the following:
+
+```
+      26      96     656 01_assignment.qmd
+     493    2609   16206 02_scripting.qmd
+```
+
+## globs: selecting multiple files
+
+However, typing each element of our list is going to be difficult - can we select files in a different way?
+
+We can use `globs`, or wildcard characters to select multiple files with a criteria.
+
+For example, `*.qmd` will list all of the `.qmd` files in the `bash_for_bio` directory. 
 
 ```bash
 #!/bin/bash
@@ -55,7 +83,7 @@ done
 
 One thing that makes it easier to process a bunch of files is to have the data be in the same folder, with nothing else in them.
 
-I might create a `fastq/` file where I store my data, so I can pass the wildcard `fastq/*` to process the file.
+I might create a `fastq/` file where I store my data, so I can pass the wildcard `fastq/*` to process the files in that.
 
 ```bash
 #!/bin/bash
@@ -111,11 +139,11 @@ unset IFS             #<2>
 1. Change IFS to be `""` (no space), to process a file line by line.
 2. Reset IFS to original behavior.
 
-
+Next week, we'll see that you can also use file manifests with workflow runners such as Cromwell.
 
 ## Batching on HPC
 
-Now we can start to do more advanced things on the HPC: use one machine to process each file. 
+Now we can start to do more advanced things on the HPC: use one machine to process each file. We will use a slightly different mechanism to cycle through files: the {{<glossary "job array">}}. 
 
 Let's start out with {{<glossary SLURM>}} scripts. 
 
@@ -164,10 +192,10 @@ The most important directive you should be aware of is how
 This line:
 
 ```bash
-#SBATCH --array=1-6 
+#SBATCH --array=1-3 
 ```
 
-Will create a job array. This will create a variable called `$SLURM_ARRAY_TASK_ID` that will cycle through the numbers 1-6. Each Task ID corresponds to a different subjob. Let's try a simpler script to show what's going on:
+Will create a job array. This will create a variable called `$SLURM_ARRAY_TASK_ID` that will cycle through the numbers 1-3. Each Task ID corresponds to a different subjob. Let's try a simpler script to show what's going on:
 
 ```bash
 #| eval: false
@@ -243,6 +271,3 @@ scancel 26328834
 
 This will cancel all sub jobs related to the parent job.
 
-## Redirection and Pipes
-
-Ok, we've executed 

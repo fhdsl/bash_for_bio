@@ -177,7 +177,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./container-basics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: Container Basics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: JSON Container Basics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -241,7 +241,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#the-basic-xargs-pattern" id="toc-the-basic-xargs-pattern" class="nav-link" data-scroll-target="#the-basic-xargs-pattern"><span class="header-section-number">9.6.1</span> The Basic <code>xargs</code> pattern</a></li>
   <li><a href="#for-more-information" id="toc-for-more-information" class="nav-link" data-scroll-target="#for-more-information"><span class="header-section-number">9.6.2</span> For more information</a></li>
   </ul></li>
-  <li><a href="#sec-screen" id="toc-sec-screen" class="nav-link" data-scroll-target="#sec-screen"><span class="header-section-number">9.7</span> <code>screen</code> or <code>tmux</code>: keep your session open</a></li>
+  <li><a href="#sec-screen" id="toc-sec-screen" class="nav-link" data-scroll-target="#sec-screen"><span class="header-section-number">9.7</span> <code>screen</code> or <code>tmux</code>: keep your session open</a>
+  <ul class="collapse">
+  <li><a href="#using-file-manifests" id="toc-using-file-manifests" class="nav-link" data-scroll-target="#using-file-manifests"><span class="header-section-number">9.7.1</span> Using file manifests</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -318,7 +321,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre class="mermaid mermaid-js">graph TD
     A["Home Directory\n/home/tladera2/\nScripts"] --"b. run scripts"--&gt; C
     B["Fast\n/fh/fast/tladera2\nResearch Data"] --"a. transfer raw files"--&gt; C
-    C["Temp\n/fh/temp/tladera2"] --"c. transfer results"--&gt; B
+    C["Temp\n/hpc/temp/tladera2"] --"c. transfer results"--&gt; B
 </pre>
 </div>
 <p></p></figure><p></p>
@@ -652,8 +655,62 @@ For FH Users
 <p>For example, if my screen session was on <code>rhino01</code>, I’d need to ssh back into <code>rhino01</code>, not <code>rhino02</code> or <code>rhino03</code>. This means you will need to ssh into <code>rhino01</code> specifically to get back into your screen session.</p>
 </div>
 </div>
+<section id="using-file-manifests" class="level3" data-number="9.7.1">
+<h3 data-number="9.7.1" class="anchored" data-anchor-id="using-file-manifests"><span class="header-section-number">9.7.1</span> Using file manifests</h3>
+<p>One approach that I use a lot is using file manifests to process multiple sets of files. Each line of the file manifest will contain all of the related files I need to process.</p>
+<p>For example, if I am aligning paired-end reads, then I can have a tab-separated column for the first strand, and a column for the second strand.</p>
+<pre><code>sample1_1.fq   sample1_2.fq
+sample2_1.fq   sample2_2.fq</code></pre>
+<p>The one trick with using file manifests in bash is that we need to change the what’s called the internal field separator (IFS), which specifies how to split up a string with a <code>for</code> loop. By default, bash uses an IFS of ” ” (a space), which means that the for loop will cycle through words (strings separated by spaces), instead of lines.</p>
+<p>We can change this behavior by setting the IFS at the beginning of our script:</p>
+<div class="sourceCode" id="annotated-cell-22"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-22-1"><a href="#annotated-cell-22-1" aria-hidden="true" tabindex="-1"></a><span class="va">OUTPUT_FOLDER</span><span class="op">=</span><span class="st">"."</span></span>
+<span id="annotated-cell-22-2"><a href="#annotated-cell-22-2" aria-hidden="true" tabindex="-1"></a><span class="va">FASTA_INDEX_LOCATION</span><span class="op">=</span><span class="st">"/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa"</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-22" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-22-3" class="code-annotation-target"><a href="#annotated-cell-22-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> file <span class="kw">in</span> <span class="er">(</span><span class="fu">cat</span> manifest.txt<span class="kw">)</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-22" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-22-4" class="code-annotation-target"><a href="#annotated-cell-22-4" aria-hidden="true" tabindex="-1"></a><span class="va">IFS</span><span class="op">=</span><span class="st">""</span></span>
+<span id="annotated-cell-22-5"><a href="#annotated-cell-22-5" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-22" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-22-6" class="code-annotation-target"><a href="#annotated-cell-22-6" aria-hidden="true" tabindex="-1"></a>  <span class="va">read1</span><span class="op">=</span><span class="va">$(</span><span class="bu">echo</span> <span class="va">$file</span> <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'{print $1}'</span><span class="va">)</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-22" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-22-7" class="code-annotation-target"><a href="#annotated-cell-22-7" aria-hidden="true" tabindex="-1"></a>  <span class="va">read2</span><span class="op">=</span><span class="va">$(</span><span class="bu">echo</span> <span class="va">$file</span> <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'{print $2}'</span><span class="va">)</span></span>
+<span id="annotated-cell-22-8"><a href="#annotated-cell-22-8" aria-hidden="true" tabindex="-1"></a>  <span class="ex">bwa</span> mem <span class="va">${FASTA_INDEX_LOCATION}</span> <span class="va">${read1}</span> <span class="va">${read2}</span> <span class="op">&gt;</span> <span class="va">${OUTPUT_FOLDER}</span>/<span class="va">${read1}</span>.sam </span>
+<span id="annotated-cell-22-9"><a href="#annotated-cell-22-9" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="annotated-cell-22-10"><a href="#annotated-cell-22-10" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-22" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-22-11" class="code-annotation-target"><a href="#annotated-cell-22-11" aria-hidden="true" tabindex="-1"></a><span class="bu">unset</span> <span class="va">IFS</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-22" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-22" data-code-lines="3" data-code-annotation="1">Cycle through each line in <code>manifest.txt</code></span>
+</dd>
+<dt data-target-cell="annotated-cell-22" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-22" data-code-lines="4" data-code-annotation="2">Change IFS to be <code>""</code> (no space), to process a file line by line.</span>
+</dd>
+<dt data-target-cell="annotated-cell-22" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-22" data-code-lines="6" data-code-annotation="3">Grab the word in the 1st position and assign it to <code>$read1</code></span>
+</dd>
+<dt data-target-cell="annotated-cell-22" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-22" data-code-lines="7" data-code-annotation="4">Grab the word in the 2nd position and assign it to <code>$read2</code></span>
+</dd>
+<dt data-target-cell="annotated-cell-22" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-22" data-code-lines="11" data-code-annotation="5">Reset IFS to original behavior.</span>
+</dd>
+</dl>
+<p>The line:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="va">read1</span><span class="op">=</span><span class="va">$(</span><span class="bu">echo</span> <span class="va">$file</span> <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'{print $1}'</span><span class="va">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Takes some unpacking. The first thing to notice is that we’re assigning something into the <code>$read1</code> variable.</p>
+<p>This part:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="va">$(</span><span class="bu">echo</span> <span class="va">$file</span> <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'{print $1}'</span><span class="va">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>puts <code>$file</code> through a command called <code>awk</code> that lets us extract words of a string by position. In our case, our different parts of the string are separated by tabs.</p>
+<p>The <code>$(   )</code> part lets us run a <em>subshell</em> and then return the value of the output.</p>
+<p>This part:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="st">'{print $1}'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Are instructions to <code>awk</code> to output the first word of our string. <code>awk</code> is an extremely powerful command, but we don’t have enough time to cover it in full.</p>
+<p>So, when we put it together, the command assigns <code>$read1</code> the value of the first position (<code>sample1_1.fq</code>), letting us do things with it.</p>
+<p>We’ll see that you can also use file manifests with workflow runners such as Cromwell.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

@@ -12,10 +12,11 @@ If so, this course is for you! We will learn enough bash scripting to do useful 
 
 - **Apply** bash scripting to execute alignment, and Python/R scripts
 - **Navigate** and **process** data on the different filesystems available at FH
-- **Articulate** basic HPC architecture concepts and why they’re useful in your work
-- **Leverage** bash scripting to **execute** jobs on a high performance cluster.
-- **Utilize** workflow managers such as `cromwell` to process multiple files in a multi-step {{<glossary WDL>}} workflow.
 - **Manage** software dependencies reproducibly using container-based technologies such as Docker/Apptainer containers or EasyBuild modules
+- **Articulate** basic HPC architecture concepts and why they’re useful in your work
+- **Leverage** bash scripting to **execute** {{<glossary "batch jobs">}} on a high performance cluster.
+- **Utilize** workflow managers such as `cromwell` to process multiple files in a multi-step {{<glossary WDL>}} workflow.
+
 
 :::{.callout-note}
 ## Wasn't there another Bash for Bioinformatics book?

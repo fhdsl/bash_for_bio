@@ -217,18 +217,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">4.1</span> Learning Objectives</a></li>
-  <li><a href="#using-for-loops-to-cycle-through-files" id="toc-using-for-loops-to-cycle-through-files" class="nav-link" data-scroll-target="#using-for-loops-to-cycle-through-files"><span class="header-section-number">4.2</span> Using <code>for</code> loops to cycle through files</a>
+  <li><a href="#using-for-loops-to-cycle-through-files" id="toc-using-for-loops-to-cycle-through-files" class="nav-link" data-scroll-target="#using-for-loops-to-cycle-through-files"><span class="header-section-number">4.2</span> Using <code>for</code> loops to cycle through files</a></li>
+  <li><a href="#globs-selecting-multiple-files" id="toc-globs-selecting-multiple-files" class="nav-link" data-scroll-target="#globs-selecting-multiple-files"><span class="header-section-number">4.3</span> globs: selecting multiple files</a>
   <ul class="collapse">
-  <li><a href="#for-more-info-on-globs" id="toc-for-more-info-on-globs" class="nav-link" data-scroll-target="#for-more-info-on-globs"><span class="header-section-number">4.2.1</span> For more info on globs</a></li>
-  <li><a href="#using-file-manifests" id="toc-using-file-manifests" class="nav-link" data-scroll-target="#using-file-manifests"><span class="header-section-number">4.2.2</span> Using file manifests</a></li>
+  <li><a href="#for-more-info-on-globs" id="toc-for-more-info-on-globs" class="nav-link" data-scroll-target="#for-more-info-on-globs"><span class="header-section-number">4.3.1</span> For more info on globs</a></li>
+  <li><a href="#using-file-manifests" id="toc-using-file-manifests" class="nav-link" data-scroll-target="#using-file-manifests"><span class="header-section-number">4.3.2</span> Using file manifests</a></li>
   </ul></li>
-  <li><a href="#batching-on-hpc" id="toc-batching-on-hpc" class="nav-link" data-scroll-target="#batching-on-hpc"><span class="header-section-number">4.3</span> Batching on HPC</a>
+  <li><a href="#batching-on-hpc" id="toc-batching-on-hpc" class="nav-link" data-scroll-target="#batching-on-hpc"><span class="header-section-number">4.4</span> Batching on HPC</a>
   <ul class="collapse">
-  <li><a href="#slurm-scripts" id="toc-slurm-scripts" class="nav-link" data-scroll-target="#slurm-scripts"><span class="header-section-number">4.3.1</span> SLURM Scripts</a></li>
-  <li><a href="#slurm-directives" id="toc-slurm-directives" class="nav-link" data-scroll-target="#slurm-directives"><span class="header-section-number">4.3.2</span> SLURM Directives</a></li>
-  <li><a href="#job-arrays" id="toc-job-arrays" class="nav-link" data-scroll-target="#job-arrays"><span class="header-section-number">4.3.3</span> Job Arrays</a></li>
-  <li><a href="#processing-files-using-job-arrays" id="toc-processing-files-using-job-arrays" class="nav-link" data-scroll-target="#processing-files-using-job-arrays"><span class="header-section-number">4.3.4</span> Processing files using Job Arrays</a></li>
-  <li><a href="#scanceling-a-job-array" id="toc-scanceling-a-job-array" class="nav-link" data-scroll-target="#scanceling-a-job-array"><span class="header-section-number">4.3.5</span> <code>scancel</code>ing a job array</a></li>
+  <li><a href="#slurm-scripts" id="toc-slurm-scripts" class="nav-link" data-scroll-target="#slurm-scripts"><span class="header-section-number">4.4.1</span> SLURM Scripts</a></li>
+  <li><a href="#slurm-directives" id="toc-slurm-directives" class="nav-link" data-scroll-target="#slurm-directives"><span class="header-section-number">4.4.2</span> SLURM Directives</a></li>
+  <li><a href="#job-arrays" id="toc-job-arrays" class="nav-link" data-scroll-target="#job-arrays"><span class="header-section-number">4.4.3</span> Job Arrays</a></li>
+  <li><a href="#processing-files-using-job-arrays" id="toc-processing-files-using-job-arrays" class="nav-link" data-scroll-target="#processing-files-using-job-arrays"><span class="header-section-number">4.4.4</span> Processing files using Job Arrays</a></li>
+  <li><a href="#scanceling-a-job-array" id="toc-scanceling-a-job-array" class="nav-link" data-scroll-target="#scanceling-a-job-array"><span class="header-section-number">4.4.5</span> <code>scancel</code>ing a job array</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -266,28 +267,60 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="using-for-loops-to-cycle-through-files" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="using-for-loops-to-cycle-through-files"><span class="header-section-number">4.2</span> Using <code>for</code> loops to cycle through files</h2>
 <p>A very common pattern is cycling through multiple files in a folder and applying the same script or command to them.</p>
-<p>There is a simple method for batch processing a bunch of files: a <code>for</code> loop.</p>
-<div class="sourceCode" id="annotated-cell-1"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-1-1"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-1-2" class="code-annotation-target"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> file <span class="kw">in</span> <span class="pp">*</span>.qmd</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-1-3" class="code-annotation-target"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-1-4" class="code-annotation-target"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wc</span> <span class="va">$file</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-1-5" class="code-annotation-target"><a href="#annotated-cell-1-5" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>There is a simple method for batch processing a bunch of files: a <code>for</code> loop. In our case, a for loop takes a list of file paths (such as a list of FASTA files we want to process), and performs the same task for each element of the list.</p>
+<div class="sourceCode" id="annotated-cell-1"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-1-1" class="code-annotation-target"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> file <span class="kw">in</span> 01_assignment.qmd 02_scripting.qmd</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-1-2" class="code-annotation-target"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-1-3" class="code-annotation-target"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wc</span> <span class="va">$file</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-1-4" class="code-annotation-target"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="2" data-code-annotation="1">Start <code>for</code> loop and cycle through all <code>.qmd</code> files</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="1" data-code-annotation="1">Cycle through the list of <code>01_assignment.qmd</code> and <code>02_scripting.qmd</code>.</span>
 </dd>
 <dt data-target-cell="annotated-cell-1" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="3" data-code-annotation="2">Start of instructions</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="2" data-code-annotation="2">Start of instructions</span>
 </dd>
 <dt data-target-cell="annotated-cell-1" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="4" data-code-annotation="3">Count the words in each <code>.qmd</code> file using <code>wc</code></span>
+<span data-code-cell="annotated-cell-1" data-code-lines="3" data-code-annotation="3">Count the words in each <code>.qmd</code> file using <code>wc</code></span>
 </dd>
 <dt data-target-cell="annotated-cell-1" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="5" data-code-annotation="4">End of instructions</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="4" data-code-annotation="4">End of instructions</span>
+</dd>
+</dl>
+<p>The <code>do</code> and <code>done</code> sandwich the instructions we want to do to each file in our list. <code>wc</code> will produce a word count of these two files.</p>
+<p>If we run this in the <code>bash_for_bio/</code> folder, we’ll get the following:</p>
+<pre><code>      26      96     656 01_assignment.qmd
+     493    2609   16206 02_scripting.qmd</code></pre>
+</section>
+<section id="globs-selecting-multiple-files" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="globs-selecting-multiple-files"><span class="header-section-number">4.3</span> globs: selecting multiple files</h2>
+<p>However, typing each element of our list is going to be difficult - can we select files in a different way?</p>
+<p>We can use <code>globs</code>, or wildcard characters to select multiple files with a criteria.</p>
+<p>For example, <code>*.qmd</code> will list all of the <code>.qmd</code> files in the <code>bash_for_bio</code> directory.</p>
+<div class="sourceCode" id="annotated-cell-3"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-3-1"><a href="#annotated-cell-3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-3-2" class="code-annotation-target"><a href="#annotated-cell-3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> file <span class="kw">in</span> <span class="pp">*</span>.qmd</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-3-3" class="code-annotation-target"><a href="#annotated-cell-3-3" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-3-4" class="code-annotation-target"><a href="#annotated-cell-3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wc</span> <span class="va">$file</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-3-5" class="code-annotation-target"><a href="#annotated-cell-3-5" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="2" data-code-annotation="1">Start <code>for</code> loop and cycle through all <code>.qmd</code> files</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="3" data-code-annotation="2">Start of instructions</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="4" data-code-annotation="3">Count the words in each <code>.qmd</code> file using <code>wc</code></span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="5" data-code-annotation="4">End of instructions</span>
 </dd>
 </dl>
 <p>If we run this in our repository, we get something similar to this:</p>
@@ -318,21 +351,21 @@ A common pattern: a folder with only one type of file in them
 <div class="callout-body-container callout-body">
 <p>One thing that makes it easier to process a bunch of files is to have the data be in the same folder, with nothing else in them.</p>
 <p>I might create a <code>fastq/</code> file where I store my data, so I can pass the wildcard <code>fastq/*</code> to process the files in that.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load BWA</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load SAMtools</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="va">FASTA_LOCATION</span><span class="op">=</span><span class="st">""</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="va">OUTPUT_FOLDER</span><span class="op">=</span><span class="st">"/hpc/temp/my_lab/project_x/bam_files/"</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> file <span class="kw">in</span> fastq/<span class="pp">*</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="ex">bwa</span> mem <span class="va">${FASTA_LOCATION}</span> file <span class="op">&gt;</span> <span class="va">${OUTPUT_FOLDER}</span>/<span class="va">${file}</span>.bam </span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="ex">samtools</span> sort <span class="va">${OUTPUT_FOLDER}</span>/<span class="va">${file}</span>.bam <span class="kw">|</span><span class="op">&gt;</span> <span class="va">${OUTPUT_FOLDER}</span>/<span class="va">${file}</span>.sorted.bam</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load BWA</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load SAMtools</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="va">FASTA_LOCATION</span><span class="op">=</span><span class="st">""</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="va">OUTPUT_FOLDER</span><span class="op">=</span><span class="st">"/hpc/temp/my_lab/project_x/bam_files/"</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> file <span class="kw">in</span> fastq/<span class="pp">*</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="ex">bwa</span> mem <span class="va">${FASTA_LOCATION}</span> file <span class="op">&gt;</span> <span class="va">${OUTPUT_FOLDER}</span>/<span class="va">${file}</span>.bam </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="ex">samtools</span> sort <span class="va">${OUTPUT_FOLDER}</span>/<span class="va">${file}</span>.bam <span class="kw">|</span><span class="op">&gt;</span> <span class="va">${OUTPUT_FOLDER}</span>/<span class="va">${file}</span>.sorted.bam</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<section id="for-more-info-on-globs" class="level3" data-number="4.2.1">
-<h3 data-number="4.2.1" class="anchored" data-anchor-id="for-more-info-on-globs"><span class="header-section-number">4.2.1</span> For more info on globs</h3>
+<section id="for-more-info-on-globs" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="for-more-info-on-globs"><span class="header-section-number">4.3.1</span> For more info on globs</h3>
 <p>See page 12 in Bite Size Bash.</p>
 <div class="callout callout-style-simple callout-none no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -348,8 +381,8 @@ Selecting files with complicated patterns: Regular Expressions
 </div>
 </div>
 </section>
-<section id="using-file-manifests" class="level3" data-number="4.2.2">
-<h3 data-number="4.2.2" class="anchored" data-anchor-id="using-file-manifests"><span class="header-section-number">4.2.2</span> Using file manifests</h3>
+<section id="using-file-manifests" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="using-file-manifests"><span class="header-section-number">4.3.2</span> Using file manifests</h3>
 <p>One approach that I use a lot is using file manifests to process multiple sets of files. Each line of the file manifest will contain all of the related files I need to process.</p>
 <p>For example, if I am aligning paired-end reads, then I can have a tab-separated column for the first strand, and a column for the second strand.</p>
 <pre><code>read           read2
@@ -357,32 +390,33 @@ sample1_1.fq   sample1_2.fq
 sample2_1.fq   sample2_2.fq</code></pre>
 <p>The one trick with using file manifests in bash is that we need to change the what’s called the internal field separator (IFS), which specifies how to split up a string with a <code>for</code> loop. By default, bash uses an IFS of ” ” (a space), which means that the for loop will cycle through words (strings separated by spaces), instead of lines.</p>
 <p>We can change this behavior by setting the IFS at the beginning of our script:</p>
-<div class="sourceCode" id="annotated-cell-5"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-5-1"><a href="#annotated-cell-5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> file <span class="kw">in</span> <span class="er">(</span><span class="fu">cat</span> manifest.txt<span class="kw">)</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-5-2" class="code-annotation-target"><a href="#annotated-cell-5-2" aria-hidden="true" tabindex="-1"></a><span class="va">IFS</span><span class="op">=</span><span class="st">""</span></span>
-<span id="annotated-cell-5-3"><a href="#annotated-cell-5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
-<span id="annotated-cell-5-4"><a href="#annotated-cell-5-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">bwa</span> mem <span class="va">${FASTA_LOCATION}</span> file <span class="op">&gt;</span> <span class="va">${OUTPUT_FOLDER}</span>/<span class="va">${file}</span>.bam </span>
-<span id="annotated-cell-5-5"><a href="#annotated-cell-5-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">samtools</span> sort <span class="va">${OUTPUT_FOLDER}</span>/<span class="va">${file}</span>.bam <span class="kw">|</span><span class="op">&gt;</span> <span class="va">${OUTPUT_FOLDER}</span>/<span class="va">${file}</span>.sorted.bam</span>
-<span id="annotated-cell-5-6"><a href="#annotated-cell-5-6" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
-<span id="annotated-cell-5-7"><a href="#annotated-cell-5-7" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-5-8" class="code-annotation-target"><a href="#annotated-cell-5-8" aria-hidden="true" tabindex="-1"></a><span class="bu">unset</span> <span class="va">IFS</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="annotated-cell-7"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-7-1"><a href="#annotated-cell-7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> file <span class="kw">in</span> <span class="er">(</span><span class="fu">cat</span> manifest.txt<span class="kw">)</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-7-2" class="code-annotation-target"><a href="#annotated-cell-7-2" aria-hidden="true" tabindex="-1"></a><span class="va">IFS</span><span class="op">=</span><span class="st">""</span></span>
+<span id="annotated-cell-7-3"><a href="#annotated-cell-7-3" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
+<span id="annotated-cell-7-4"><a href="#annotated-cell-7-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">bwa</span> mem <span class="va">${FASTA_LOCATION}</span> file <span class="op">&gt;</span> <span class="va">${OUTPUT_FOLDER}</span>/<span class="va">${file}</span>.bam </span>
+<span id="annotated-cell-7-5"><a href="#annotated-cell-7-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">samtools</span> sort <span class="va">${OUTPUT_FOLDER}</span>/<span class="va">${file}</span>.bam <span class="kw">|</span><span class="op">&gt;</span> <span class="va">${OUTPUT_FOLDER}</span>/<span class="va">${file}</span>.sorted.bam</span>
+<span id="annotated-cell-7-6"><a href="#annotated-cell-7-6" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="annotated-cell-7-7"><a href="#annotated-cell-7-7" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-7-8" class="code-annotation-target"><a href="#annotated-cell-7-8" aria-hidden="true" tabindex="-1"></a><span class="bu">unset</span> <span class="va">IFS</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-5" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-5" data-code-lines="2" data-code-annotation="1">Change IFS to be <code>""</code> (no space), to process a file line by line.</span>
+<span data-code-cell="annotated-cell-7" data-code-lines="2" data-code-annotation="1">Change IFS to be <code>""</code> (no space), to process a file line by line.</span>
 </dd>
-<dt data-target-cell="annotated-cell-5" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-5" data-code-lines="8" data-code-annotation="2">Reset IFS to original behavior.</span>
+<span data-code-cell="annotated-cell-7" data-code-lines="8" data-code-annotation="2">Reset IFS to original behavior.</span>
 </dd>
 </dl>
+<p>Next week, we’ll see that you can also use file manifests with workflow runners such as Cromwell.</p>
 </section>
 </section>
-<section id="batching-on-hpc" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="batching-on-hpc"><span class="header-section-number">4.3</span> Batching on HPC</h2>
-<p>Now we can start to do more advanced things on the HPC: use one machine to process each file.</p>
-<p>Let’s start out with <button class="glossary"><span class="def"></span>SLURM</button> scripts.</p>
-<section id="slurm-scripts" class="level3" data-number="4.3.1">
-<h3 data-number="4.3.1" class="anchored" data-anchor-id="slurm-scripts"><span class="header-section-number">4.3.1</span> SLURM Scripts</h3>
+<section id="batching-on-hpc" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="batching-on-hpc"><span class="header-section-number">4.4</span> Batching on HPC</h2>
+<p>Now we can start to do more advanced things on the HPC: use one machine to process each file. We will use a slightly different mechanism to cycle through files: the <button class="glossary"><span class="def">A numbered list that usually goes from 1 to the length of the list. Used in SLURM batch processing.</span>job array</button>.</p>
+<p>Let’s start out with <button class="glossary"><span class="def">“Simple Linux Utility for Resource Management” - it handles scheduling and distributing jobs among the compute nodes in the cluster.</span>SLURM</button> scripts.</p>
+<section id="slurm-scripts" class="level3" data-number="4.4.1">
+<h3 data-number="4.4.1" class="anchored" data-anchor-id="slurm-scripts"><span class="header-section-number">4.4.1</span> SLURM Scripts</h3>
 <p>SLURM scripts are a special kind of shell script that contain additional information for the SLURM manager. This includes:</p>
 <ol type="1">
 <li>Number of nodes (machines) to request</li>
@@ -392,35 +426,35 @@ sample2_1.fq   sample2_2.fq</code></pre>
 <pre><code>#SBATCH --nodes=1 </code></pre>
 <p>In this example, we are specifying the number of nodes.</p>
 </section>
-<section id="slurm-directives" class="level3" data-number="4.3.2">
-<h3 data-number="4.3.2" class="anchored" data-anchor-id="slurm-directives"><span class="header-section-number">4.3.2</span> SLURM Directives</h3>
+<section id="slurm-directives" class="level3" data-number="4.4.2">
+<h3 data-number="4.4.2" class="anchored" data-anchor-id="slurm-directives"><span class="header-section-number">4.4.2</span> SLURM Directives</h3>
 <p>We are able to set some configuration on running our jobs.</p>
-<div class="sourceCode" id="annotated-cell-7"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-7-1"><a href="#annotated-cell-7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-7-2" class="code-annotation-target"><a href="#annotated-cell-7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --nodes=1</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-7-3" class="code-annotation-target"><a href="#annotated-cell-7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=1-3</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-7-4" class="code-annotation-target"><a href="#annotated-cell-7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem-per-cpu=1gb</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-7-5" class="code-annotation-target"><a href="#annotated-cell-7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --time=00:05:00</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-7-6" class="code-annotation-target"><a href="#annotated-cell-7-6" aria-hidden="true" tabindex="-1"></a><span class="ex">./samtools_opt</span> sort SRR1576820_000<span class="va">${SLURM_ARRAY_TASK_ID}</span>.bam <span class="at">-o</span> SRR1576820_000<span class="va">${SLURM_ARRAY_TASK_ID}</span>.sorted.bam</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="annotated-cell-9"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-9-1"><a href="#annotated-cell-9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-9-2" class="code-annotation-target"><a href="#annotated-cell-9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --nodes=1</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-9-3" class="code-annotation-target"><a href="#annotated-cell-9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=1-3</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-9-4" class="code-annotation-target"><a href="#annotated-cell-9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem-per-cpu=1gb</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-9-5" class="code-annotation-target"><a href="#annotated-cell-9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --time=00:05:00</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-9-6" class="code-annotation-target"><a href="#annotated-cell-9-6" aria-hidden="true" tabindex="-1"></a><span class="ex">./samtools_opt</span> sort SRR1576820_000<span class="va">${SLURM_ARRAY_TASK_ID}</span>.bam <span class="at">-o</span> SRR1576820_000<span class="va">${SLURM_ARRAY_TASK_ID}</span>.sorted.bam</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-7" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-9" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-7" data-code-lines="2" data-code-annotation="1">request 1 node</span>
+<span data-code-cell="annotated-cell-9" data-code-lines="2" data-code-annotation="1">request 1 node</span>
 </dd>
-<dt data-target-cell="annotated-cell-7" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-9" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-7" data-code-lines="3" data-code-annotation="2">start an array</span>
+<span data-code-cell="annotated-cell-9" data-code-lines="3" data-code-annotation="2">start an array</span>
 </dd>
-<dt data-target-cell="annotated-cell-7" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-9" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-7" data-code-lines="4" data-code-annotation="3">request 1 gigabyte per cpu</span>
+<span data-code-cell="annotated-cell-9" data-code-lines="4" data-code-annotation="3">request 1 gigabyte per cpu</span>
 </dd>
-<dt data-target-cell="annotated-cell-7" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-9" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-7" data-code-lines="5" data-code-annotation="4">ask for 5 minutes on the node</span>
+<span data-code-cell="annotated-cell-9" data-code-lines="5" data-code-annotation="4">ask for 5 minutes on the node</span>
 </dd>
-<dt data-target-cell="annotated-cell-7" data-target-annotation="5">5</dt>
+<dt data-target-cell="annotated-cell-9" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-cell="annotated-cell-7" data-code-lines="6" data-code-annotation="5">Run <code>samtools sort</code> on a bam file, and output it (will do for the whole job array)</span>
+<span data-code-cell="annotated-cell-9" data-code-lines="6" data-code-annotation="5">Run <code>samtools sort</code> on a bam file, and output it (will do for the whole job array)</span>
 </dd>
 </dl>
 <div class="callout callout-style-simple callout-none no-icon callout-titled">
@@ -438,30 +472,30 @@ More about directives
 </div>
 </div>
 </section>
-<section id="job-arrays" class="level3" data-number="4.3.3">
-<h3 data-number="4.3.3" class="anchored" data-anchor-id="job-arrays"><span class="header-section-number">4.3.3</span> Job Arrays</h3>
+<section id="job-arrays" class="level3" data-number="4.4.3">
+<h3 data-number="4.4.3" class="anchored" data-anchor-id="job-arrays"><span class="header-section-number">4.4.3</span> Job Arrays</h3>
 <p>This line:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=1-6 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Will create a job array. This will create a variable called <code>$SLURM_ARRAY_TASK_ID</code> that will cycle through the numbers 1-6. Each Task ID corresponds to a different subjob. Let’s try a simpler script to show what’s going on:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| filename: sbatch_test.sh</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=1-3</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --nodes=1</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"</span><span class="va">${SLURM_ARRAY_TASK_ID}</span><span class="st"> job"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This is a minimal script that will execute 3 subjobs. It will cycle through the job array and print the array number for each job.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=1-3 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Will create a job array. This will create a variable called <code>$SLURM_ARRAY_TASK_ID</code> that will cycle through the numbers 1-3. Each Task ID corresponds to a different subjob. Let’s try a simpler script to show what’s going on:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> sbatch_test.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| filename: sbatch_test.sh</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=1-3</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --nodes=1</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"</span><span class="va">${SLURM_ARRAY_TASK_ID}</span><span class="st"> job"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This is a minimal script that will execute 3 subjobs. It will cycle through the job array and print the array number for each job.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> sbatch_test.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>On submitting, we will get a message like this (your job number will be different):</p>
 <pre><code>Submitted batch job 26328834</code></pre>
 <p>And if we look for the output files:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> slurm-26328834<span class="pp">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> slurm-26328834<span class="pp">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We will get the following output:</p>
 <pre><code>-rw-rw---- 1 tladera2 g_tladera2 8 Jul 15 13:50 slurm-26328834_1.out
 -rw-rw---- 1 tladera2 g_tladera2 8 Jul 15 13:50 slurm-26328834_2.out
 -rw-rw---- 1 tladera2 g_tladera2 8 Jul 15 13:50 slurm-26328834_3.out</code></pre>
 <p>Taking a look at one of these files using <code>cat</code>:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> slurm-26328834_3.out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> slurm-26328834_3.out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We’ll see this:</p>
 <pre><code>3 job</code></pre>
 <div class="cell" data-layout-align="default">
@@ -482,15 +516,15 @@ More about directives
 </div>
 <p>What happened here? <code>sbatch</code> submitted our job array as 3 different subjobs to 3 different nodes under a single job id. Each node then outputs a file with the subjob id that contains the job number.</p>
 </section>
-<section id="processing-files-using-job-arrays" class="level3" data-number="4.3.4">
-<h3 data-number="4.3.4" class="anchored" data-anchor-id="processing-files-using-job-arrays"><span class="header-section-number">4.3.4</span> Processing files using Job Arrays</h3>
+<section id="processing-files-using-job-arrays" class="level3" data-number="4.4.4">
+<h3 data-number="4.4.4" class="anchored" data-anchor-id="processing-files-using-job-arrays"><span class="header-section-number">4.4.4</span> Processing files using Job Arrays</h3>
 <p>So now we know that <code>${SLURM_ARRAY_TASK_ID}</code> will let us specify a subjob within our script, how do we use it in our script?</p>
 </section>
-<section id="scanceling-a-job-array" class="level3" data-number="4.3.5">
-<h3 data-number="4.3.5" class="anchored" data-anchor-id="scanceling-a-job-array"><span class="header-section-number">4.3.5</span> <code>scancel</code>ing a job array</h3>
+<section id="scanceling-a-job-array" class="level3" data-number="4.4.5">
+<h3 data-number="4.4.5" class="anchored" data-anchor-id="scanceling-a-job-array"><span class="header-section-number">4.4.5</span> <code>scancel</code>ing a job array</h3>
 <p>As we noted, one of the strengths in using a job array to process multiple files is that they are spawed as <em>sub</em> or <em>child</em> jobs of a parent job id.</p>
 <p>What if we made a mistake? We can use the <code>scancel</code> command to cancel the entire set of jobs by giving it our parent job id:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">scancel</span> 26328834</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">scancel</span> 26328834</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This will cancel all sub jobs related to the parent job.</p>
 
 

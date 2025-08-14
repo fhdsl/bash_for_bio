@@ -16,13 +16,13 @@ Directory: |
 metadata: |
   Information about a file or dataset, such as the filename, or date created. 
   
-batch processing: |
+"batch processing": |
   A way to automate processing a number of files. For example, we might have a folder of .bam files and want to check the counts on each of them.
 
 cluster: |
   A networked group of computers. Usually contains a driver node and compute nodes.
 
-Compute Job: |
+"Compute Job": |
   A task that we have assigned a computer to run. This computer can be a compute node in a cluster, or our own machine.
 
 subjob: |
@@ -37,7 +37,7 @@ Image: |
 Container: | 
   The executable software environment actually installed and running on a machine. Runnable. Generate from `docker pull` from a repository.
 
-Snapshot File: | 
+"Snapshot File": | 
   An single archive file (`.tar.gz`) that contains the Docker container. Generate using `docker save` on a container.  Also known as an *image file*. 
 
 Dockerfile: | 
@@ -49,7 +49,7 @@ Tag: |
 workflow: |
   A way to process files through a sequence of steps. Also known as a pipeline.
   
-workflow manager: |
+"workflow manager": |
   A system that works with the cluster manager to orchestrate processing data through a workflow
   
 WDL: |
@@ -82,5 +82,8 @@ SLURM: |
 glob: |
   a pattern-matching mechanism used primarily in shells (like Bash) and various programming languages to match filenames and paths. It is also known as "filename expansion" or "wildcard matching."
 
-Application Program Interface: |
+"Application Program Interface": |
   Also known as an API. The public way to interact with a webservice or software app.
+
+"job array": |
+  A numbered list that usually goes from 1 to the length of the list. Used in SLURM batch processing.

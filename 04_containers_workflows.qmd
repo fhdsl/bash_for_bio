@@ -100,7 +100,7 @@ This can be a good head start to making your `.json` files.
 
 ### Working with file manifests in WDL
 
-Last week, we worked with a file manifest to process a list of files. 
+Another strategy you can use to cycle through a list of files is to use a file manifest to process a list of files. 
 
 There is an [example workflow that shows how to work with a file manifest](https://github.com/getwilds/ww-demo-workflows/tree/main/parseBatchFile). This can be helpful for those who aren't necessarily good at working with JSON.
 
