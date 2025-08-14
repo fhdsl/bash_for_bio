@@ -1,5 +1,5 @@
 ---
-title: "Reading: JSON Container Basics"
+title: "Reading: JSON/Container Basics"
 format: html
 ---
 
@@ -117,8 +117,6 @@ Each sample in the `PairedFastqsToUnmappedCram.batch_info` list is its own objec
 ```
 
 Because we are aligned paired-end data, notice there are two keys, `fastq_r1_locations` and `fastq_r2_locations`. 
-
-
 
 
 ## Containers

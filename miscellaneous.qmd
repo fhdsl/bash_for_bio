@@ -394,7 +394,7 @@ For example, if my screen session was on `rhino01`, I'd need to ssh back into `r
 :::
 
 
-### Using file manifests
+## Using file manifests
 
 One approach that I use a lot is using file manifests to process multiple sets of files. Each line of the file manifest will contain all of the related files I need to process. 
 
@@ -452,8 +452,34 @@ This part:
 '{print $1}'
 ```
 
-Are instructions to `awk` to output the first word of our string. `awk` is an extremely powerful command, but we don't have enough time to cover it in full. 
+Are instructions to `awk` to output the first word of our string. `awk` is an extremely powerful command, but we don't have enough time to cover it in full. Julia Evans has a great page on it in [Bite Size Command Line](https://wizardzines.com/comics/awk/).
 
-So, when we put it together, the command assigns `$read1` the value of the first position (`sample1_1.fq`), letting us do things with it. 
+So, when we put it together, the command assigns `$read1` the value of the first position (`sample1_1.fq`), letting us do things with this file path.  
 
 We'll see that you can also use file manifests with workflow runners such as Cromwell.
+
+## A variable expansion trick
+
+Oftentimes, when you are processing a file, you want to generate a new file name with the same basename, but not the same extension. For example, you might want to generate a `mysamfile.txt` from a file callled `mysamefile.sam`.
+
+You can use `"${filename%.sam}"` to remove the `.sam` from the file name.
+
+```bash
+#/bin/bash
+output_file="${1%.sam}.txt"
+echo $output_file
+```
+
+If you ran this script with
+
+```bash
+./run_output.sh mybamfile.sam
+```
+
+You'll get the output:
+
+```
+mybamfile.txt
+```
+
+This is a very helpful trick. Note that it only works if the string to remove (the file extension) is a suffix at the end of the filepath. There is a similar trick using `#` if you want to remove the prefix of a file name.

@@ -176,7 +176,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./container-basics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: Container Basics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: JSON/Container Basics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -358,7 +358,7 @@ Remember <code>hostname</code>
 <p>You can open an Apptainer shell in a container using <code>apptainer shell</code>. Remember to use <code>docker://</code> before the container name. For example:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> shell docker://biocontainers/samtools:v1.9-4-deb_cv1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This will load the <code>apptainer</code> module, and then open a Bash shell in the container using <code>apptainer shell</code>. Once you’re in the container, you can test code, especially seeing whether your files can be seen by the container (see <a href="container-basics.html#sec-bindpaths" class="quarto-xref"><span>Section 5.1.6</span></a>). 90% of the issues with using Docker containers has to do with bind paths, so we’ll talk about that next.</p>
+<p>This will load the <code>apptainer</code> module, and then open a Bash shell in the container using <code>apptainer shell</code>. Once you’re in the container, you can test code, especially seeing whether your files can be seen by the container (see <a href="container-basics.html#sec-bindpaths" class="quarto-xref"><span>Section 5.2.6</span></a>). 90% of the issues with using Docker containers has to do with bind paths, so we’ll talk about that next.</p>
 <p>Once you’re in the shell, you can take a look at where <code>samtools</code> is installed:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> samtools</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Note that the container filesystem is isolated, and we need to explicitly build connections to it (called bind paths) to get files in and out. We’ll talk more about this in the next section.</p>

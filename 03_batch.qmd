@@ -5,8 +5,8 @@ title: "Batch Processing and Submitting Jobs"
 ## Learning Objectives
 
 - **Execute** a script to run over a list of files on one system
-- **Batch Process** files to run on the HPC cluster
-- 
+- **Utilize** globs to specify multiple files in your script
+- **Batch Process** files to run locally and on the HPC cluster
 
 ## Using `for` loops to cycle through files
 
@@ -83,7 +83,7 @@ done
 
 One thing that makes it easier to process a bunch of files is to have the data be in the same folder, with nothing else in them.
 
-I might create a `fastq/` file where I store my data, so I can pass the wildcard `fastq/*` to process the files in that.
+For example, I might create a `fastq/` folder where I store my data, so I can pass the glob `fastq/*` to process the files in that.
 
 ```bash
 #!/bin/bash
@@ -108,42 +108,12 @@ See page 12 in Bite Size Bash.
 :::{.callout}
 ## Selecting files with complicated patterns: Regular Expressions
 
+At some point, globs are going to be inadequate depending on how you store files. At that point, you will probably need to learn regular expressions, which is a much more complex way of describing search patterns. 
 :::
-
-### Using file manifests
-
-One approach that I use a lot is using file manifests to process multiple sets of files. Each line of the file manifest will contain all of the related files I need to process. 
-
-For example, if I am aligning paired-end reads, then I can have a tab-separated column for the first strand, and a column for the second strand.
-
-```
-read           read2
-sample1_1.fq   sample1_2.fq
-sample2_1.fq   sample2_2.fq
-```
-
-The one trick with using file manifests in bash is that we need to change the what's called the internal field separator (IFS), which specifies how to split up a string with a `for` loop. By default, bash uses an IFS of " " (a space), which means that the for loop will cycle through words (strings separated by spaces), instead of lines. 
-
-We can change this behavior by setting the IFS at the beginning of our script:
-
-```bash
-for file in (cat manifest.txt)
-IFS=""                #<1>
-do
-  bwa mem ${FASTA_LOCATION} file > ${OUTPUT_FOLDER}/${file}.bam 
-  samtools sort ${OUTPUT_FOLDER}/${file}.bam |> ${OUTPUT_FOLDER}/${file}.sorted.bam
-done
-
-unset IFS             #<2>
-```
-1. Change IFS to be `""` (no space), to process a file line by line.
-2. Reset IFS to original behavior.
-
-Next week, we'll see that you can also use file manifests with workflow runners such as Cromwell.
 
 ## Batching on HPC
 
-Now we can start to do more advanced things on the HPC: use one machine to process each file. We will use a slightly different mechanism to cycle through files: the {{<glossary "job array">}}. 
+Now we can start to do more advanced things on the HPC cluster: use one machine to process each file. We will use a slightly different mechanism to cycle through files: the {{<glossary "job array">}}. 
 
 Let's start out with {{<glossary SLURM>}} scripts. 
 
@@ -255,9 +225,30 @@ graph TD
 
 What happened here? `sbatch` submitted our job array as 3 different subjobs to 3 different nodes under a single job id. Each node then outputs a file with the subjob id that contains the job number. 
 
-### Processing files using Job Arrays
+### Processing lists of files using Job Arrays
 
 So now we know that `${SLURM_ARRAY_TASK_ID}` will let us specify a subjob within our script, how do we use it in our script?
+
+Say, we have a list of 10 files in a directory `fastq/`, and we can list them by using `fastq/*.fq`. We can use the `${SLURM_ARRAY_TASK_ID}` as an index to specify a different file.
+
+The one caveat is that we need to know the number of files beforehand:
+
+```bash
+#| eval: false
+#| filename: sbatch_loop.sh
+#!/bin/bash
+#SBATCH --array=1-10
+#SBATCH --nodes=1
+module load SAMtools
+file_array=($(ls fastq/*.fq))            #<1>
+ind=$((SLURM_ARRAY_TASK_ID-1))     #<2>
+current_file = $file_array[$ind]   #<3>
+samtools view -c $current_file > "${current_file%sam}.txt" #<4>
+```
+1. list all files in `fastq/` with extension `.fq`. Assign it to the array `$file_array`
+2. For current task id, calculate the appropriate index (we have to subtract 1 because bash arrays begin at `0`)
+3. Pull the current file path given the task id, assign it to `$current_file`.
+4. Run `samtools view -c` on `$current_file`
 
 ### `scancel`ing a job array
 
@@ -269,5 +260,10 @@ What if we made a mistake? We can use the `scancel` command to cancel the entire
 scancel 26328834
 ```
 
-This will cancel all sub jobs related to the parent job.
+This will cancel all sub jobs related to the parent job. No fuss, no muss.
+
+
+## What's Next
+
+Next week we will discuss using `cromwell` (a workflow manager) to process files through multi-step workflows in {{<glossary WDL>}}
 

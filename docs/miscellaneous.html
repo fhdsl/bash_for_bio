@@ -177,7 +177,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./container-basics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: JSON Container Basics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: JSON/Container Basics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -241,10 +241,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#the-basic-xargs-pattern" id="toc-the-basic-xargs-pattern" class="nav-link" data-scroll-target="#the-basic-xargs-pattern"><span class="header-section-number">9.6.1</span> The Basic <code>xargs</code> pattern</a></li>
   <li><a href="#for-more-information" id="toc-for-more-information" class="nav-link" data-scroll-target="#for-more-information"><span class="header-section-number">9.6.2</span> For more information</a></li>
   </ul></li>
-  <li><a href="#sec-screen" id="toc-sec-screen" class="nav-link" data-scroll-target="#sec-screen"><span class="header-section-number">9.7</span> <code>screen</code> or <code>tmux</code>: keep your session open</a>
-  <ul class="collapse">
-  <li><a href="#using-file-manifests" id="toc-using-file-manifests" class="nav-link" data-scroll-target="#using-file-manifests"><span class="header-section-number">9.7.1</span> Using file manifests</a></li>
-  </ul></li>
+  <li><a href="#sec-screen" id="toc-sec-screen" class="nav-link" data-scroll-target="#sec-screen"><span class="header-section-number">9.7</span> <code>screen</code> or <code>tmux</code>: keep your session open</a></li>
+  <li><a href="#using-file-manifests" id="toc-using-file-manifests" class="nav-link" data-scroll-target="#using-file-manifests"><span class="header-section-number">9.8</span> Using file manifests</a></li>
+  <li><a href="#a-variable-expansion-trick" id="toc-a-variable-expansion-trick" class="nav-link" data-scroll-target="#a-variable-expansion-trick"><span class="header-section-number">9.9</span> A variable expansion trick</a></li>
   </ul>
 </nav>
     </div>
@@ -655,8 +654,9 @@ For FH Users
 <p>For example, if my screen session was on <code>rhino01</code>, I’d need to ssh back into <code>rhino01</code>, not <code>rhino02</code> or <code>rhino03</code>. This means you will need to ssh into <code>rhino01</code> specifically to get back into your screen session.</p>
 </div>
 </div>
-<section id="using-file-manifests" class="level3" data-number="9.7.1">
-<h3 data-number="9.7.1" class="anchored" data-anchor-id="using-file-manifests"><span class="header-section-number">9.7.1</span> Using file manifests</h3>
+</section>
+<section id="using-file-manifests" class="level2" data-number="9.8">
+<h2 data-number="9.8" class="anchored" data-anchor-id="using-file-manifests"><span class="header-section-number">9.8</span> Using file manifests</h2>
 <p>One approach that I use a lot is using file manifests to process multiple sets of files. Each line of the file manifest will contain all of the related files I need to process.</p>
 <p>For example, if I am aligning paired-end reads, then I can have a tab-separated column for the first strand, and a column for the second strand.</p>
 <pre><code>sample1_1.fq   sample1_2.fq
@@ -705,12 +705,24 @@ sample2_1.fq   sample2_2.fq</code></pre>
 <p>The <code>$(   )</code> part lets us run a <em>subshell</em> and then return the value of the output.</p>
 <p>This part:</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="st">'{print $1}'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Are instructions to <code>awk</code> to output the first word of our string. <code>awk</code> is an extremely powerful command, but we don’t have enough time to cover it in full.</p>
-<p>So, when we put it together, the command assigns <code>$read1</code> the value of the first position (<code>sample1_1.fq</code>), letting us do things with it.</p>
+<p>Are instructions to <code>awk</code> to output the first word of our string. <code>awk</code> is an extremely powerful command, but we don’t have enough time to cover it in full. Julia Evans has a great page on it in <a href="https://wizardzines.com/comics/awk/">Bite Size Command Line</a>.</p>
+<p>So, when we put it together, the command assigns <code>$read1</code> the value of the first position (<code>sample1_1.fq</code>), letting us do things with this file path.</p>
 <p>We’ll see that you can also use file manifests with workflow runners such as Cromwell.</p>
-
-
 </section>
+<section id="a-variable-expansion-trick" class="level2" data-number="9.9">
+<h2 data-number="9.9" class="anchored" data-anchor-id="a-variable-expansion-trick"><span class="header-section-number">9.9</span> A variable expansion trick</h2>
+<p>Oftentimes, when you are processing a file, you want to generate a new file name with the same basename, but not the same extension. For example, you might want to generate a <code>mysamfile.txt</code> from a file callled <code>mysamefile.sam</code>.</p>
+<p>You can use <code>"${filename%.sam}"</code> to remove the <code>.sam</code> from the file name.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#/bin/bash</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="va">output_file</span><span class="op">=</span><span class="st">"</span><span class="va">${1</span><span class="op">%</span>.sam<span class="va">}</span><span class="st">.txt"</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$output_file</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If you ran this script with</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./run_output.sh</span> mybamfile.sam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You’ll get the output:</p>
+<pre><code>mybamfile.txt</code></pre>
+<p>This is a very helpful trick. Note that it only works if the string to remove (the file extension) is a suffix at the end of the filepath. There is a similar trick using <code>#</code> if you want to remove the prefix of a file name.</p>
+
+
 </section>
 
 </main> <!-- /main -->
