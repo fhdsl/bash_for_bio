@@ -259,7 +259,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Let’s explore how we can do that.</p>
 <section id="sec-testnode" class="level3" data-number="7.1.1">
 <h3 data-number="7.1.1" class="anchored" data-anchor-id="sec-testnode"><span class="header-section-number">7.1.1</span> Testing code on a compute node</h3>
-<p>Fred Hutch users have the advantage of <code>grabnode</code>, which is a custom command that lets you request an interactive instance of a compute node.</p>
+<p>Fred Hutch users have the advantage of <code>grabnode</code>, which is a custom command that lets you request an interactive instance of a compute node. (Non-FH folks can usually request this with the <code>-it</code> flag for <code>srun</code>)</p>
 <p>Why would you want to do this? A good part of this is about testing software and making sure that your paths are correct.</p>
 <div class="callout callout-style-simple callout-none no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -282,12 +282,6 @@ Don’t rely on <code>grabnode</code>/interactive mode for your batch work
 <h3 data-number="7.1.2" class="anchored" data-anchor-id="grabbing-an-interactive-shell-on-a-worker"><span class="header-section-number">7.1.2</span> Grabbing an interactive shell on a worker</h3>
 <p>When you’re testing code that’s going to run on a worker node, you need to be aware of what the worker node sees.</p>
 <p>It’s also important in estimating how long our tasks are going to run since we can test how long a task runs for a representative dataset.</p>
-<p>On a SLURM system, the way to open interactive shells on a node has changed. Check your version first:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>If you’re on a version before 20.11, you can use <code>srun -i --pty bash</code> to open an interactive terminal on a worker:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-i</span> <span class="at">--pty</span> bash</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>If the version is past 20.11, we can open an interactive shell on a worker with <code>salloc</code>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">salloc</span> bash</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -299,7 +293,7 @@ For FH Users: <code>grabnode</code>
 </div>
 <div class="callout-body-container callout-body">
 <p>On the FH system, we can use a command called <code>grabnode</code>, which will let us request a node. It will ask us for our requirements (numbers of cores, memory, etc.) for our node.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tladera2@rhino01:~$</span> grabnode</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tladera2@rhino01:~$</span> grabnode</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><code>grabnode</code> will then ask us for what kind of instance we want, in terms of CPUs, Memory, and GPUs. Here, I’m grabbing a node with 8 cores, 8 Gb of memory, using it for 1 day, and no GPU.</p>
 <pre><code>How many CPUs/cores would you like to grab on the node? [1-36] 8
 How much memory (GB) would you like to grab? [160] 8
@@ -327,11 +321,29 @@ srun: job 40898906 queued and waiting for resources</code></pre>
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
+For Other HPC systems
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>On a SLURM system, the way to open interactive shells on a node has changed. Check your version first:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If you’re on a version before 20.11, you can use <code>srun -i --pty bash</code> to open an interactive terminal on a worker:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-i</span> <span class="at">--pty</span> bash</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If the version is past 20.11, we can open an interactive shell on a worker with <code>salloc</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">salloc</span> bash</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
 Remember <code>hostname</code>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>When you are doing interactive analysis, it is easy to forget in which node you’re working in. Just as a quick check, I use <code>hostname</code> to remind myself whether I’m in <code>rhino</code>, <code>gizmo</code>, or within an apptainer container.</p>
+<p>When you are doing interactive analysis, it is easy to forget in which node you’re working in. Just as a quick check, I use <code>hostname</code> (<a href="miscellaneous.html#sec-hostname" class="quarto-xref"><span>Section 9.1</span></a>) to remind myself whether I’m in <code>rhino</code>, <code>gizmo</code>, or within an apptainer container.</p>
 </div>
 </div>
 </section>
@@ -391,7 +403,7 @@ WDL makes this way easier
 </div>
 <div class="callout-body-container callout-body">
 <p>A major point of failure with Apptainer scripting is when our scripts aren’t using the right bind paths. It becomes even more complicated when you are running multiple steps.</p>
-<p>This is one reason we recommend writing WDL Workflows and a <button class="glossary"><span class="def">A system that works with the cluster manager to orchestrate processing data through a workflow</span>workflow manager</button> (such as <button class="glossary"><span class="def">A workflow runner. Currently works with WDL files.</span>Cromwell</button> or Sprocket) to run your workflows. You don’t have to worry that your bind points are setup correctly, because they are handled by the workflow manager.</p>
+<p>This is one reason we recommend writing WDL Workflows and a <button class="glossary"><span class="def">A system that works with the cluster manager to orchestrate processing data through a workflow</span>workflow manager</button> (such as <button class="glossary"><span class="def"></span>Cromwell</button> or Sprocket) to run your workflows. You don’t have to worry that your bind points are setup correctly, because they are handled by the workflow manager.</p>
 </div>
 </div>
 </section>

@@ -265,5 +265,5 @@ This will cancel all sub jobs related to the parent job. No fuss, no muss.
 
 ## What's Next
 
-Next week we will discuss using `cromwell` (a workflow manager) to process files through multi-step workflows in {{<glossary WDL>}}
+Next week we will discuss using `cromwell` (a workflow manager) to process files through multi-step workflows in {{<glossary WDL>}}.
 

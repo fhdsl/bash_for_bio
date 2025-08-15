@@ -13,7 +13,7 @@ Let's explore how we can do that.
 
 ### Testing code on a compute node {#sec-testnode}
 
-Fred Hutch users have the advantage of `grabnode`, which is a custom command that lets you request an interactive instance of a compute node.
+Fred Hutch users have the advantage of `grabnode`, which is a custom command that lets you request an interactive instance of a compute node. (Non-FH folks can usually request this with the `-it` flag for `srun`)
 
 Why would you want to do this? A good part of this is about testing software and making sure that your paths are correct.
 
@@ -34,24 +34,6 @@ The other disadvantage is that you may be waiting a very long time to get that m
 When you're testing code that's going to run on a worker node, you need to be aware of what the worker node sees. 
 
 It's also important in estimating how long our tasks are going to run since we can test how long a task runs for a representative dataset. 
-
-On a SLURM system, the way to open interactive shells on a node has changed. Check your version first:
-
-```bash
-srun --version
-```
-
-If you're on a version before 20.11, you can use `srun -i --pty bash` to open an interactive terminal on a worker:
-
-```bash
-srun -i --pty bash
-``` 
-
-If the version is past 20.11, we can open an interactive shell on a worker with `salloc`. 
-
-```bash
-salloc bash
-```
 
 :::{.callout-note}
 ### For FH Users: `grabnode` {#sec-grabnode}
@@ -93,8 +75,30 @@ If you're doing interactive analysis that is going to span over a few days, I re
 :::
 
 :::{.callout}
+## For Other HPC systems
+
+On a SLURM system, the way to open interactive shells on a node has changed. Check your version first:
+
+```bash
+srun --version
+```
+
+If you're on a version before 20.11, you can use `srun -i --pty bash` to open an interactive terminal on a worker:
+
+```bash
+srun -i --pty bash
+``` 
+
+If the version is past 20.11, we can open an interactive shell on a worker with `salloc`. 
+
+```bash
+salloc bash
+```
+:::
+
+:::{.callout}
 ## Remember `hostname`
-When you are doing interactive analysis, it is easy to forget in which node you're working in. Just as a quick check, I use `hostname` to remind myself whether I'm in `rhino`, `gizmo`, or within an apptainer container.
+When you are doing interactive analysis, it is easy to forget in which node you're working in. Just as a quick check, I use `hostname` (@sec-hostname) to remind myself whether I'm in `rhino`, `gizmo`, or within an apptainer container.
 :::
 
 ## Working with containers {#sec-containers}
