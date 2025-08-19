@@ -4,7 +4,7 @@ Shell: |
 executable: |
   Software that is runnable on a system. Some of these are built in, such as `wc`, but most we will need to load or install into our system.
 
-Bash: |
+bash: |
   Short for *Bourne* *Again* *Shell* - it is the command processor that is typically run in a text window, has its own programming language and syntax.
 
 Terminal: |
@@ -16,6 +16,9 @@ Directory: |
 metadata: |
   Information about a file or dataset, such as the filename, or date created. 
   
+"batch jobs": |
+  Running the same task on a group of files. Can be done locally (on your computer) or on a cluster.
+
 "batch processing": |
   A way to automate processing a number of files. For example, we might have a folder of .bam files and want to check the counts on each of them.
 
