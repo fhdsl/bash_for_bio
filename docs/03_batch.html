@@ -385,7 +385,7 @@ Selecting files with complicated patterns: Regular Expressions
 <section id="batching-on-hpc" class="level2" data-number="4.4">
 <h2 data-number="4.4" class="anchored" data-anchor-id="batching-on-hpc"><span class="header-section-number">4.4</span> Batching on HPC</h2>
 <p>Now we can start to do more advanced things on the HPC cluster: use one machine to process each file. We will use a slightly different mechanism to cycle through files: the <button class="glossary"><span class="def">A numbered list that usually goes from 1 to the length of the list. Used in SLURM batch processing.</span>job array</button>.</p>
-<p>Let’s start out with <button class="glossary"><span class="def"></span>SLURM</button> scripts.</p>
+<p>Let’s start out with <button class="glossary"><span class="def">“Simple Linux Utility for Resource Management” - it handles scheduling and distributing jobs among the compute nodes in the cluster.</span>SLURM</button> scripts.</p>
 <section id="slurm-scripts" class="level3" data-number="4.4.1">
 <h3 data-number="4.4.1" class="anchored" data-anchor-id="slurm-scripts"><span class="header-section-number">4.4.1</span> SLURM Scripts</h3>
 <p>SLURM scripts are a special kind of shell script that contain additional information for the SLURM manager. This includes:</p>
@@ -396,6 +396,7 @@ Selecting files with complicated patterns: Regular Expressions
 <p>We specify these using a special kind of comment: SLURM directives. Directives begin a line with <code>#SBATCH</code>:</p>
 <pre><code>#SBATCH --nodes=1 </code></pre>
 <p>In this example, we are specifying the number of nodes.</p>
+<p>Note that because directives begin with a <code>#</code> - they are treated like comments by <code>bash</code>, but are usable by <code>SLURM</code>.n</p>
 </section>
 <section id="slurm-directives" class="level3" data-number="4.4.2">
 <h3 data-number="4.4.2" class="anchored" data-anchor-id="slurm-directives"><span class="header-section-number">4.4.2</span> SLURM Directives</h3>
@@ -495,29 +496,33 @@ More about directives
 <div class="sourceCode" id="annotated-cell-16"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-16-1"><a href="#annotated-cell-16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
 <span id="annotated-cell-16-2"><a href="#annotated-cell-16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| filename: sbatch_loop.sh</span></span>
 <span id="annotated-cell-16-3"><a href="#annotated-cell-16-3" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="annotated-cell-16-4"><a href="#annotated-cell-16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=1-10</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-16" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-16-4" class="code-annotation-target"><a href="#annotated-cell-16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=1-10</span></span>
 <span id="annotated-cell-16-5"><a href="#annotated-cell-16-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --nodes=1</span></span>
 <span id="annotated-cell-16-6"><a href="#annotated-cell-16-6" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load SAMtools</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-16" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-16-7" class="code-annotation-target"><a href="#annotated-cell-16-7" aria-hidden="true" tabindex="-1"></a><span class="va">file_array</span><span class="op">=</span><span class="va">($(</span><span class="fu">ls</span> fastq/<span class="pp">*</span>.fq<span class="va">))</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-16" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-16-8" class="code-annotation-target"><a href="#annotated-cell-16-8" aria-hidden="true" tabindex="-1"></a><span class="va">ind</span><span class="op">=</span><span class="va">$((SLURM_ARRAY_TASK_ID</span><span class="op">-</span><span class="dv">1</span><span class="va">))</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-16" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-16-9" class="code-annotation-target"><a href="#annotated-cell-16-9" aria-hidden="true" tabindex="-1"></a><span class="ex">current_file</span> = <span class="va">$file_array</span><span class="pp">[</span><span class="ss">$ind</span><span class="pp">]</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-16" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-16-10" class="code-annotation-target"><a href="#annotated-cell-16-10" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-c</span> <span class="va">$current_file</span> <span class="op">&gt;</span> <span class="st">"</span><span class="va">${current_file</span><span class="op">%</span>sam<span class="va">}</span><span class="st">.txt"</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-16" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-16-7" class="code-annotation-target"><a href="#annotated-cell-16-7" aria-hidden="true" tabindex="-1"></a><span class="va">file_array</span><span class="op">=</span><span class="va">($(</span><span class="fu">ls</span> fastq/<span class="pp">*</span>.fq<span class="va">))</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-16" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-16-8" class="code-annotation-target"><a href="#annotated-cell-16-8" aria-hidden="true" tabindex="-1"></a><span class="va">ind</span><span class="op">=</span><span class="va">$((SLURM_ARRAY_TASK_ID</span><span class="op">-</span><span class="dv">1</span><span class="va">))</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-16" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-16-9" class="code-annotation-target"><a href="#annotated-cell-16-9" aria-hidden="true" tabindex="-1"></a><span class="ex">current_file</span> = <span class="va">$file_array</span><span class="pp">[</span><span class="ss">$ind</span><span class="pp">]</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-16" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-16-10" class="code-annotation-target"><a href="#annotated-cell-16-10" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-c</span> <span class="va">$current_file</span> <span class="op">&gt;</span> <span class="st">"</span><span class="va">${current_file</span><span class="op">%</span>sam<span class="va">}</span><span class="st">.txt"</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-16" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-16" data-code-lines="7" data-code-annotation="1">list all files in <code>fastq/</code> with extension <code>.fq</code>. Assign it to the array <code>$file_array</code></span>
+<span data-code-cell="annotated-cell-16" data-code-lines="4" data-code-annotation="1">Initialize job array to range from 1 to 10</span>
 </dd>
 <dt data-target-cell="annotated-cell-16" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-16" data-code-lines="8" data-code-annotation="2">For current task id, calculate the appropriate index (we have to subtract 1 because bash arrays begin at <code>0</code>)</span>
+<span data-code-cell="annotated-cell-16" data-code-lines="7" data-code-annotation="2">list all files in <code>fastq/</code> with extension <code>.fq</code>. Assign it to the array <code>$file_array</code></span>
 </dd>
 <dt data-target-cell="annotated-cell-16" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-16" data-code-lines="9" data-code-annotation="3">Pull the current file path given the task id, assign it to <code>$current_file</code>.</span>
+<span data-code-cell="annotated-cell-16" data-code-lines="8" data-code-annotation="3">For current task id, calculate the appropriate index (we have to subtract 1 because bash arrays begin at <code>0</code>)</span>
 </dd>
 <dt data-target-cell="annotated-cell-16" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-16" data-code-lines="10" data-code-annotation="4">Run <code>samtools view -c</code> on <code>$current_file</code></span>
+<span data-code-cell="annotated-cell-16" data-code-lines="9" data-code-annotation="4">Pull the current file path given the task id, assign it to <code>$current_file</code>.</span>
+</dd>
+<dt data-target-cell="annotated-cell-16" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-16" data-code-lines="10" data-code-annotation="5">Run <code>samtools view -c</code> on <code>$current_file</code></span>
 </dd>
 </dl>
 </section>
@@ -531,7 +536,7 @@ More about directives
 </section>
 <section id="whats-next" class="level2" data-number="4.5">
 <h2 data-number="4.5" class="anchored" data-anchor-id="whats-next"><span class="header-section-number">4.5</span> What’s Next</h2>
-<p>Next week we will discuss using <code>cromwell</code> (a workflow manager) to process files through multi-step workflows in <button class="glossary"><span class="def"></span>WDL</button>.</p>
+<p>Next week we will discuss using <code>cromwell</code> (a workflow manager) to process files through multi-step workflows in <button class="glossary"><span class="def">Short for Workflow Description Language. A standard for specifying a workflow, which includes describing inputs, saving intermediate outputs, and outputting processed files.</span>WDL</button>.</p>
 
 
 </section>

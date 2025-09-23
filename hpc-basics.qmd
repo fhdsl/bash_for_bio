@@ -121,7 +121,7 @@ The filesystem is distributed such that each set of nodes has a relatively fast 
 There are three main filesystems you will probably use:
 
 - `/home/` - usually where your scripts will live
-- `/fh/fast/` - Where data lives. You will usually transfer data files over to `/fh/temp/` and when you generate results, transfer them from `/fh/temp/` back to `/fh/fast/`
+- `/fh/fast/` - Where data lives. You will usually transfer data files over to `/hpc/temp/` and when you generate results, transfer them from `/hpc/temp/` back to `/fh/fast/`
 - `/fh/temp/` - A temporary filesystem. Don't store files here long term - mostly use this as a faster system to do computations on.
 :::
 
@@ -173,3 +173,8 @@ At Fred Hutch, we have two main ways to run workflows on `gizmo`: Cromwell and N
 
 
 ## What's Next?
+
+
+## Glossary
+
+{{<glossary table="true">}}

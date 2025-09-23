@@ -162,16 +162,14 @@ Here are some guidelines to think about when you are working with a container.
 - **Avoid kitchen-sink images**. One issue is when an image is built on top of many other images. It makes it really difficult to plug vulnerabilities. When in doubt, use images from trusted people and organizations. At the very least, look at the Dockerfile to see that suspicious software isn't being installed.
 :::
 
-### Common Containers for Bioinformatics
-
-- GATK (the genome analysis toolkit) is one common container that we can use for analysis.
-- 
 
 ### The WILDS Docker Library
 
 The Data Science Lab has a set of Docker containers for common Bioinformatics tasks available in the [WILDS Docker Library](https://hub.docker.com/u/getwilds). These include:
 
+- `bwa mem`
 - `samtools`
+- `gatk`
 - `bcftools`
 - `manta`
 - `cnvkit`
@@ -189,47 +187,12 @@ apptainer pull docker://ghcr.io/getwilds/scanpy:latest
 apptainer run --bind /path/to/data:/data,/path/to/script:/script docker://getwilds/scanpy:latest python /script/example.py
 ```
 
-### Testing out bind paths in containers {#sec-bindpaths}
+### Bind Paths
 
-One thing to keep in mind is that every container has its own filesystem. One of the hardest things to wrap your head around for containers is how their filesystems work, and how to access files that are outside of the container filesystem. We'll call any filesystems outside of the container *external filesystems* to make the discussion a little easier.
+One thing to keep in mind is that containers have their own filesystem. They can only read and write to folders in the external filesystem that you give them access to with *bind paths*. The one exception is the current working directory.
 
-By default, the containers have access to your current working directory. We could make this where our scripts live (such as `/home/tladera2/`), but because our data is elsewhere, we'll need to specify that location (`/fh/fast/mylab/`) as well.
+For more info about bind paths see @sec-bindpaths.
 
-The main mechanism we have in Apptainer to access the external filesystem are *bind paths*. Much like mounting a drive, we can bind directories from the external filesystem using these bind points. 
+## Glossary
 
-```{mermaid}
-flowchart LR
-   B["External Directory\n/fh/fast/mydata/"] 
-   B --read--> C
-   C --write--> B
-   A["Container Filesystem\n/mydata/"]--write-->C("--bind /fh/fast/mydata/:/mydata/")
-   C --read--> A
-```
-
-I think of bind paths as "tunnels" that give access to particular folders in the external filesystem. Once the tunnel is open, we can access data files, process them, and save them using the bind path.
-
-Say my data lives in `/fh/fast/mydata/`. Then I can specify a bind point in my `apptainer shell` and `apptainer run` commands.
-
-We can do this with the `--bind` option:
-
-```bash
-apptainer shell --bind /fh/fast/mydata:/mydata docker://biocontainers/samtools:v1.9-4-deb_cv1
-```
-
-Note that the bind syntax doesn't have the trailing slash (`/`). That is, note that it is:
-
-```
---bind /fh/fast/mydata: ....
-```
-Rather than
-
-```
---bind /fh/fast/mydata/: ....
-```
-
-Now our `/fh/fast/mydata/` folder will be available as `/mydata/` in my container. We can read and write files to this bind point. For example, I'd refer to the `.bam` file `/fh/fast/mydata/my_bam_file.bam` as:
-
-```
-samtools view -c /mydata/my_bam_file.bam
-```
-
+{{<glossary table="true">}}

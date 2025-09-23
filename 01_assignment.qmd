@@ -2,21 +2,23 @@
 title: "Week 1 Exercises"
 ---
 
-1. Use `du` to check the disk usage of two folders in your `/home/` directory. 
+All exercises are required for the badge.
+
+1. Use `du` to check the disk usage of two folders in your `/home/` directory. Set the depth (`-d`) option to 1. 
 
 ```bash
-du -d 1
+du -d 1 -------
 ```
 
 2. Copy a file from the `scripts/week1/` directory in `bash_for_bio/` to your own home directory.
 
 `/home/tladera2/bash_for_bio/scripts/week1/run_this.sh`
 
-Change the script to executable:
+Change the script to executable for yourself:
 
 `chmod --- run_this.sh`
 
-Try running it:
+Try running it in your home directory - did it work?
 
 `./run_this.sh`
 

@@ -109,6 +109,8 @@ See page 12 in Bite Size Bash.
 ## Selecting files with complicated patterns: Regular Expressions
 
 At some point, globs are going to be inadequate depending on how you store files. At that point, you will probably need to learn regular expressions, which is a much more complex way of describing search patterns. 
+
+
 :::
 
 ## Batching on HPC
@@ -130,6 +132,8 @@ We specify these using a special kind of comment: SLURM directives. Directives b
 #SBATCH --nodes=1 
 ```
 In this example, we are specifying the number of nodes. 
+
+Note that because directives begin with a `#` - they are treated like comments by `bash`, but are usable by `SLURM`.n 
 
 ### SLURM Directives
 
@@ -237,18 +241,19 @@ The one caveat is that we need to know the number of files beforehand:
 #| eval: false
 #| filename: sbatch_loop.sh
 #!/bin/bash
-#SBATCH --array=1-10
+#SBATCH --array=1-10                 #<1>
 #SBATCH --nodes=1
 module load SAMtools
-file_array=($(ls fastq/*.fq))            #<1>
-ind=$((SLURM_ARRAY_TASK_ID-1))     #<2>
-current_file = $file_array[$ind]   #<3>
-samtools view -c $current_file > "${current_file%sam}.txt" #<4>
+file_array=($(ls fastq/*.fq))            #<2>
+ind=$((SLURM_ARRAY_TASK_ID-1))     #<3>
+current_file = $file_array[$ind]   #<4>
+samtools view -c $current_file > "${current_file%sam}.txt" #<5>
 ```
-1. list all files in `fastq/` with extension `.fq`. Assign it to the array `$file_array`
-2. For current task id, calculate the appropriate index (we have to subtract 1 because bash arrays begin at `0`)
-3. Pull the current file path given the task id, assign it to `$current_file`.
-4. Run `samtools view -c` on `$current_file`
+1. Initialize job array to range from 1 to 10
+2. list all files in `fastq/` with extension `.fq`. Assign it to the array `$file_array`
+3. For current task id, calculate the appropriate index (we have to subtract 1 because bash arrays begin at `0`)
+4. Pull the current file path given the task id, assign it to `$current_file`.
+5. Run `samtools view -c` on `$current_file`
 
 ### `scancel`ing a job array
 

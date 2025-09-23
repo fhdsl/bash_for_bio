@@ -3,22 +3,48 @@ title: "Week 2 Assignment"
 format: html
 ---
 
-1. Modify the below script to be runnable. What does the script do?
+All exercises are required for the badge.
+
+1. Copy the below script into a file called `samtools_count.sh`. What does the script do?
 
 ```bash
-#/
+#!/bin/bash
+module load SAMtools
+samtools view -c $1
+```
+
+How would we modify the above script to redirect the output to `${1}.counts.txt`?
+
+```bash
 
 ```
 
-2. Modify the below R script to be runnable. It should also take an argument called $FILEPATH
-
+2. Modify the below R script to be runnable. It should also take an argument called $FILEPATH for `read.csv()`:
 
 ```r
+library(tidyverse)
+csv_file <- read_csv("myfile.csv")
+summary(csv_file)
+```
 
+How would you run this on the command line?
+
+```bash
+module load fhR
+-----
 ```
 
 3. Modify the below Python script to be runnable. It should also take the first position argument (a file path) and process the file
 
-```python
+```{python}
+import pandas as pd
+csv_file = pd.read_csv("my_file.csv")
+csv_file.describe()
+```
 
+How would you run this on the command line?
+
+```bash
+module load fhPython
+-----
 ```

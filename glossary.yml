@@ -76,7 +76,7 @@ Cromwell: |
 Sprocket: |
   A newer workflow runner that works with WDL files. 
 
-HPC: |
+"HPC": |
   Short for High Performance Computing. See the hpc basics chapter for more info.
 
 SLURM: |

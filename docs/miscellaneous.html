@@ -243,7 +243,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#sec-screen" id="toc-sec-screen" class="nav-link" data-scroll-target="#sec-screen"><span class="header-section-number">9.7</span> <code>screen</code> or <code>tmux</code>: keep your session open</a></li>
   <li><a href="#using-file-manifests" id="toc-using-file-manifests" class="nav-link" data-scroll-target="#using-file-manifests"><span class="header-section-number">9.8</span> Using file manifests</a></li>
-  <li><a href="#a-variable-expansion-trick" id="toc-a-variable-expansion-trick" class="nav-link" data-scroll-target="#a-variable-expansion-trick"><span class="header-section-number">9.9</span> A variable expansion trick</a></li>
+  <li><a href="#removing-file-extensions-with-variable-expansion" id="toc-removing-file-extensions-with-variable-expansion" class="nav-link" data-scroll-target="#removing-file-extensions-with-variable-expansion"><span class="header-section-number">9.9</span> Removing file extensions with variable expansion</a></li>
   </ul>
 </nav>
     </div>
@@ -709,8 +709,8 @@ sample2_1.fq   sample2_2.fq</code></pre>
 <p>So, when we put it together, the command assigns <code>$read1</code> the value of the first position (<code>sample1_1.fq</code>), letting us do things with this file path.</p>
 <p>We’ll see that you can also use file manifests with workflow runners such as Cromwell.</p>
 </section>
-<section id="a-variable-expansion-trick" class="level2" data-number="9.9">
-<h2 data-number="9.9" class="anchored" data-anchor-id="a-variable-expansion-trick"><span class="header-section-number">9.9</span> A variable expansion trick</h2>
+<section id="removing-file-extensions-with-variable-expansion" class="level2" data-number="9.9">
+<h2 data-number="9.9" class="anchored" data-anchor-id="removing-file-extensions-with-variable-expansion"><span class="header-section-number">9.9</span> Removing file extensions with variable expansion</h2>
 <p>Oftentimes, when you are processing a file, you want to generate a new file name with the same basename, but not the same extension. For example, you might want to generate a <code>mysamfile.txt</code> from a file callled <code>mysamefile.sam</code>.</p>
 <p>You can use <code>"${filename%.sam}"</code> to remove the <code>.sam</code> from the file name.</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#/bin/bash</span></span>

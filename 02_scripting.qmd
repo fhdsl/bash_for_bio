@@ -302,12 +302,16 @@ We can run the script on a file:
 How about running the `bwa-mem` aligner? Let's run a FASTQ file into it:
 
 ```bash
+#| filename: run_bwa.sh
 #!/bin/bash
-module load BWA/0.7.17-GCCcore-11.2.0
-REF_GENOME="/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa"
-bwa mem ${REF_GENOME} $1 > $1.aligned.sam
+module load BWA/0.7.17-GCCcore-11.2.0 #<1>
+REF_GENOME="/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa" #<2>
+bwa mem ${REF_GENOME} $1 > $1.aligned.sam #<3?>
 module purge
 ```
+1. Load `BWA` module.
+2. Set a variable called `$REF_GENOME`.
+3. Run `bwa mem` on the first argument `$1`, using the `$REF_GENOME` variable, and output to `$1.aligned.sam`.
 
 ## Arguments in R Scripts
 
@@ -381,7 +385,6 @@ In our bash script, `my_bash_script.sh`, we're using positional argument (for si
 Rscript process_csv.R CSVFILE="my_csvfile.csv"
 ```
 
-
 ## Arguments in Python Scripts
 
 Similarly, we will need Python scripts to accept arguments as well. 
@@ -400,6 +403,10 @@ df = pd.read_csv(file)
 ```
 1. Import `sys` module
 2. Use `sys.argv` to access the first argument `sys.argv[1]`
+
+If you know a little bit about Python, you'll know that arrays in python are *zero-indexed*, that is, they start at `[0]`, but we have started here at `sys.argv[1]` - what is at `sys.argv[0]`?
+
+It turns out that `sys.argv[0]` is the name of the script. In the above script `process_file.py`, it contains the string `"process_file.py"`. Having the name of the script can come in handy, especially when outputting things.
 
 ### Running our Python script on the command line
 
@@ -491,3 +498,6 @@ Pipes are at the heart of multi-stage workflows. They allow us to specify multip
 - <https://swcarpentry.github.io/shell-novice/04-pipefilter/index.html>
 - <https://datascienceatthecommandline.com/2e/chapter-2-getting-started.html?q=stdin#combining-command-line-tools>
 
+## Glossary
+
+{{<glossary table="true">}}

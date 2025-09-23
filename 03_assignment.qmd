@@ -1,0 +1,32 @@
+---
+title: "Week 3 Assignment"
+format: html
+---
+
+Exercises 1, 2, 3 are required for the badge.
+
+1. In the `data/` folder, there is a list of `.csv` files. Modify the code to process each file.
+
+```bash
+#!/bin/bash
+for file in ------
+do
+  awk $file
+done
+```
+
+2. Write a `for` loop to count the number of lines for each file. The output should be:
+
+```
+echo "${file}\t(wc -l $file)\n"
+```
+
+3. Modify the below script to process the files in `data/week3/fastq/`
+
+```bash
+#!/bin/bash
+#SBATCH --array=1-________  
+ml 
+```
+
+4. Challenge: 

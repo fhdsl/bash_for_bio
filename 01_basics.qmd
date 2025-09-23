@@ -31,7 +31,7 @@ Defined words are double underlined. You can *click and hold* on them to see the
 
 ## Navigating the Bash Terminal
 
-> We recommend that you review the material for Intro to Command Line and know the following: Changing directories, 
+> We recommend that you review the material for [Intro to Command Line](https://hutchdatascience.org/Intro_to_Command_Line/) and know the following: [Changing directories and relative paths](https://hutchdatascience.org/Intro_to_Command_Line/command-line-workshop.html#mental-model-1-navigating-a-directory-tree).
 
 By default, when you log into a remote system such as `rhino`, you are in a {{< glossary bash>}} {{< glossary shell >}}.
 
@@ -74,7 +74,7 @@ The home directory is also important because it is where your configuration file
 Depending on how you work, you may want to store your scripts and workflows in `/home/`. Some people prefer to keep their scripts, data, and results in a single folder. This is not really practical for most genomics projects, unless you are saving processed data. For more info, see @sec-project.
 
 :::{.callout}
-## Your current working directory
+## Your current working directory: `.`
 
 There is an alias for your current directory: `.` (the period sign).
 
@@ -83,7 +83,7 @@ This becomes useful when you want to output files to your current location.
 
 ### `du`: How much space?
 
-One of the things we can do is check for disk usage with the `du` command. If I run `du` by itself on the command line, it will give me the disk usage of all folders and files in our current directory, which is a lot of output.
+One of the first things we can do is check for disk usage with the `du` command. If I run `du` by itself on the command line, it will give me the disk usage of all folders and files in our current directory, which is a lot of output.
 
 There is an option called `-d` that lets us specify the *depth*. `-d 1` will give us only the file sizes of the top level folders in our directory:
 
@@ -147,11 +147,11 @@ So, how do we utilize these filesystems? We will be running commands like this:
 
 ```bash
 ml BWA                                                # <1>
-bwa mem -M -t 2                                       # <2>
-/fh/fast/reference_data/chr20                         # <3>
-/fh/fast/laderas_t/raw_data/na12878_1.fq              # <4>
-/fh/fast/laderas_t/raw_data/na12878_2.fq              # <4>
-> /hpc/temp/laderas_t/aligned_data/na12878_1.sam      # <5>   
+bwa mem -M -t 2 \                                      # <2>
+  /fh/fast/reference_data/chr20 \                        # <3>
+  /fh/fast/laderas_t/raw_data/na12878_1.fq \             # <4>
+  /fh/fast/laderas_t/raw_data/na12878_2.fq > \             # <4>
+  /hpc/temp/laderas_t/aligned_data/na12878_1.sam      # <5>   
 ```
 1. Load bwa software
 2. Start `bwa mem` (aligner)
@@ -160,6 +160,33 @@ bwa mem -M -t 2                                       # <2>
 5. path of output
 
 To understand the above, We first have to familiarize ourselves with *absolute* vs *relative* paths.
+
+:::{.callout}
+## When you need to span multiple lines: `\`
+
+Sometimes it's hard to read code that is a single line. You can break up a very long line of code using the `\` (backslash) character.
+
+For example, instead of:
+
+```bash
+bwa mem -M -t 2 /fh/fast/reference_data/chr20 /fh/fast/laderas_t/raw_data/na12878_1.fq /fh/fast/laderas_t/raw_data/na12878_2.fq > /hpc/temp/laderas_t/aligned_data/na12878_1.sam  
+```
+
+We can rewrite it as:
+
+```bash
+ml BWA                                                
+bwa mem -M -t 2 \                                     
+  /fh/fast/reference_data/chr20 \                       
+  /fh/fast/laderas_t/raw_data/na12878_1.fq \            
+  /fh/fast/laderas_t/raw_data/na12878_2.fq > \          
+  /hpc/temp/laderas_t/aligned_data/na12878_1.sam      
+```
+
+We'll use this throughout the book so the code is easier to read. 
+
+:::
+
 
 ## Absolute versus relative paths {#sec-paths}
 
@@ -291,7 +318,7 @@ We can change the permissions of our files using the `chmod` command.
 :::{.callout}
 ## Helpful unix permissions situations
 
-I tend to just go by memory when setting file permissions. If I have collaborators who just want to set 
+I tend to just go by memory when setting file permissions. These are the common situations that I've encountered:
 
 |Situation|Command|
 |---------|-------|
@@ -299,27 +326,25 @@ I tend to just go by memory when setting file permissions. If I have collaborato
 |Only I and my group can read a file|`chmod 110 <filename>` |
 |Grant my group read permissions|`chmod 710 <filename>`|
 |Make executable/read/write by all|`chmod 777 <filename>`|
+
+If you have different permission situations that you need to set, please refer to: 
 :::
 
 :::{.callout}
 ## Even if you don't have execute permissions
 
-With bash scripts, you can still run them if you have `read` permissions. You can still run bash scripts by using the `bash` command:
+With `bash` scripts, you can still run them if you have `read` permissions. You can still run bash scripts by using the `bash` command:
 
 ```
 bash run_samtools.sh my_bam_file.bam
 ```
+
+This is also the case for scripts that use she-bangs (@sec-shebang) for R or Python or any other executable.
 :::
 
 ### Try it out
 
 What are the permissions for the GitHub repo (bash_for_bio) that you just downloaded?
-
-
-
-
-
-
 
 ## Moving Things Around {#sec-moving}
 
@@ -413,42 +438,6 @@ Fri Jul 11 13:27:47 PDT 2025
 
 Which is the current date and time.
 
-
-
-## Running an R or Python Script on the command line {#sec-rpy}
-
-### Loading the `fhR` or `fhPython` modules
-
-Before we can run our software, we'll need to load up either R or 
-
-We'll talk more about software modules next week (@sec-modules). 
-
-### R Users
-
-You might not be aware that there are multiple ways to run R: 
-
-1) as an interactive console, which is what we usually use in an IDE such as RStudio
-2) on the command line using the `Rscript` command.
-
-```
-Rscript my_r_script.R
-```
-
-### Python Users
-
-Python users are much more aware that you can run Python scripts on the command line:
-
-```
-python3 my_python_script.py
-```
-
-Within a shell script, you can also use a shebang (@sec-shebang) to make your script executable by providing the location of `python3`:
-
-```
-#!/bin/python3
-python3 my_python_script.py
-```
-
 ## Editing on a Linux Machine
 
 On the `rhino` machines, we have the option to use the `nano` editor. `nano` is the most like a word processor or code editors.
@@ -471,6 +460,103 @@ Add some text to it.
 
 Use CTRL-X to exit, and make sure to select "Yes" to save.
 
+## Running an R or Python Script on the command line {#sec-rpy}
+
+### Loading the `fhR` or `fhPython` modules
+
+Before we can run our scripts in R or Python, we'll need to load up either R or Python on the cluster. We can do this with the `module load` command:
+
+```bash
+module load fhR  #<1>
+module load fhPython  #<2>
+```
+1. Load up `fhR` module - has R and most packages installed
+2. Load up `fhPython` module - has Python and most packages installed.
+
+We'll talk more about software modules next week (@sec-modules). 
+
+### R Users
+
+You might not be aware that there are multiple ways to run R: 
+
+1) as an interactive console, which is what we usually use in an IDE such as RStudio
+2) on the command line using the `Rscript` command.
+
+```bash
+Rscript my_r_script.R
+```
+
+To run this script, we'll need to first load `fhR`:
+
+```bash
+module load fhR/
+Rscript my_r_script.R
+```
+
+### Python Users
+
+Python users are much more aware that you can run Python scripts on the command line:
+
+```
+python3 my_python_script.py
+```
+
+To execute this on `gizmo`, we'll first need to load `fhPython`:
+
+```bash
+module load fhPython
+python3 my_python_script.py
+```
+
+Within a shell script, you can also use a shebang (@sec-shebang) to make your script executable by providing the location of `python3`:
+
+```
+#!/bin/python3
+python3 my_python_script.py
+```
+
+## Getting Help
+
+You may have heard about man pages. You can usually get help by using the `man` command:
+
+```bash
+man wc
+```
+
+This is the first part of the output:
+
+```
+NAME
+     wc – word, line, character, and byte count
+
+SYNOPSIS
+     wc [--libxo] [-Lclmw] [file ...]
+
+DESCRIPTION
+     The wc utility displays the number of lines, words, and bytes contained in each input file, or standard input (if no file is
+     specified) to the standard output.  A line is defined as a string of characters delimited by a ⟨newline⟩ character.
+     Characters beyond the final ⟨newline⟩ character will not be included in the line count.
+
+     A word is defined as a string of characters delimited by white space characters.  White space characters are the set of
+     characters for which the iswspace(3) function returns true.  If more than one input file is specified, a line of cumulative
+     counts for all the files is displayed on a separate line after the output for the last file.
+
+     The following options are available:
+
+         --libxo
+             Generate output via libxo(3) in a selection of different human and machine readable formats.  See xo_parse_args(3)
+             for details on command line arguments.
+
+     -L      Write the length of the line containing the most bytes (default) or characters (when -m is provided) to standard
+             output.  When more than one file argument is specified, the longest input line of all files is reported as the value
+             of the final “total”.
+
+```
+
+I personally find man pages very hard to read, especially when there are lots of options for a command. 
+
+Instead, I use `tldr`, which contain examples of the most commonly used options in a command.  It is not installed on gizmo, but you can use the page at <https://tldr.inbrowser.app/>, which has all of the `tldr` help pages.
+
 
 ## Recap
 
@@ -483,4 +569,5 @@ We learned the following this week:
 
 ## Next Week
 
-We'll focus on adding *arguments* to our scripts.
+We'll focus on adding *arguments* to our scripts, and more about software modules
+

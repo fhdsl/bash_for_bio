@@ -458,7 +458,7 @@ So, when we put it together, the command assigns `$read1` the value of the first
 
 We'll see that you can also use file manifests with workflow runners such as Cromwell.
 
-## A variable expansion trick
+## Removing file extensions with variable expansion
 
 Oftentimes, when you are processing a file, you want to generate a new file name with the same basename, but not the same extension. For example, you might want to generate a `mysamfile.txt` from a file callled `mysamefile.sam`.
 

@@ -231,6 +231,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#pulling-a-docker-container" id="toc-pulling-a-docker-container" class="nav-link" data-scroll-target="#pulling-a-docker-container"><span class="header-section-number">5.2.5</span> Pulling a Docker Container</a></li>
   <li><a href="#sec-bindpaths" id="toc-sec-bindpaths" class="nav-link" data-scroll-target="#sec-bindpaths"><span class="header-section-number">5.2.6</span> Testing out bind paths in containers</a></li>
   </ul></li>
+  <li><a href="#glossary" id="toc-glossary" class="nav-link" data-scroll-target="#glossary"><span class="header-section-number">5.3</span> Glossary</a></li>
   </ul>
 </nav>
     </div>
@@ -480,9 +481,15 @@ Be Secure
 <pre><code>--bind /fh/fast/mydata/: ....</code></pre>
 <p>Now our <code>/fh/fast/mydata/</code> folder will be available as <code>/mydata/</code> in my container. We can read and write files to this bind point. For example, I’d refer to the <code>.bam</code> file <code>/fh/fast/mydata/my_bam_file.bam</code> as:</p>
 <pre><code>samtools view -c /mydata/my_bam_file.bam</code></pre>
-
-
 </section>
+</section>
+<section id="glossary" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="glossary"><span class="header-section-number">5.3</span> Glossary</h2>
+<table class="glossary_table">
+<tbody><tr><th> Term </th><th> Definition </th></tr>
+</tbody></table>
+
+
 </section>
 
 </main> <!-- /main -->

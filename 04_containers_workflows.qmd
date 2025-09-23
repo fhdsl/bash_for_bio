@@ -8,7 +8,43 @@ title: "Workflows"
 - **Modify** a workflow and **test** it on a compute node
 - **Utilize** a container and **test** inside it on a compute node
 
-## Running Workflows
+## Using a Container
+
+In @sec-containers, we learned a little bit about using Apptainer to run a Docker container. Let's try to pull a common container, the Genome Analysis Toolkit (GATK) and run things inside the container.
+
+The first thing we need to do is load Apptainer:
+
+```bash
+module load Apptainer/1.1.6
+```
+
+Then we can pull the docker container:
+
+```bash
+apptainer pull docker://biocontainers/samtools:v1.9-4-deb_cv1
+```
+
+We can check if we have pulled the docker image by using
+
+```bash
+apptainer cache list
+```
+
+Okay, now we have confirmed that we downloaded the apptainer image. Now we can try to execute things with it.
+
+```bash
+apptainer run \
+    --bind --bind /path/to/data:/data \ #<1>
+    docker://biocontainers/samtools:v1.9-4-deb_cv1 \ # <2>
+    samtools view -c /mydata/$1 > /mydata/$1.counts.txt  # <3>
+```
+1. Bind path
+2. Docker image we have downloaded
+3. `samtools` command to run.
+
+It's worth trying this once to make sure you understand how all of the pieces are connected. In general, I do recommend using a workflow runner (@sec-workflows) instead, because it helps manage all of these details
+
+## Running Workflows {#sec-workflows}
 
 So far, we've been batch processing using job arrays in SLURM. However, when you graduate to processing in multiple steps, you should consider using a *workflow manager* for processing files.
 
@@ -21,7 +57,7 @@ A good workflow manager will allow you to:
 - Swap and customize modules in your workflow
 - Adapt to different computing architectures (HPC/cloud/etc)
 
-Many bioinformaticists have used workflow managers to process and manage hundreds or thousands of files at a time. They are well worth learning. 
+Many bioinformaticists have used workflow managers to process and manage hundreds or thousands of files at a time. They are well worth the extra effort it takes to learn. 
 
 Here is an overview of some of the common bioinformatics workflow managers. We will be using `cromwell`, which runs WDL files.
 
@@ -34,7 +70,6 @@ Here is an overview of some of the common bioinformatics workflow managers. We w
 |Nextflow|`.nf` files|Owned by seqera|
 |Snakemake|make files||
 
-
 ### Grabbing a WDL workflow from GETWILDS
 
 ```bash
@@ -45,24 +80,30 @@ git clone https://github.com/getwilds/ww-star-deseq2/
 
 Say someone has given us a WDL file - how do we set it up to run on our own data?
 
-We'll use `cromwell` to run our WDL workflow.
+In order to test this out on a batch of files, we'll first request a node using `grabnode` (@sec-testnode). 
 
 ```bash
-module load cromwell/87
+grabnode
+```
+
+In our node, we'll use `miniWDL` to run our WDL workflow. It is accessible via the `cirro` module.
+
+```bash
+module load cirro
+which miniwdl
 ```
 
 We will get the repsonse:
 
 ```
-To execute cromwell, run: java -jar $EBROOTCROMWELL/cromwell.jar
-
-To execute womtool, run: java -jar $EBROOTCROMWELL/womtool.jar
+/app/software/cirro/1.7.0-foss-2024a/bin/miniwdl
 ```
 
-We'll investigate using `cromwell run` as an initial way to interact with `cromwell`.
+We'll investigate using `miniwdl run` as an initial way to interact with `miniwdl`.
 
 
 ```bash
+miniwdl run 
 java -jar $EBROOTCROMWELL/cromwell.jar run ww-star2-deseq2.wdl \ #<1>
    --inputs input_file.json
 ```
