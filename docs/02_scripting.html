@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.30">
+<meta name="generator" content="quarto-1.8.24">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,14 +69,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="./01_basics.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -133,7 +134,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Bash for Bioinformatics</a> 
     </div>
@@ -222,9 +225,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#is-my-software-already-installed" id="toc-is-my-software-already-installed" class="nav-link" data-scroll-target="#is-my-software-already-installed"><span class="header-section-number">2.4.1</span> Is my software already installed?</a></li>
   <li><a href="#environment-modules" id="toc-environment-modules" class="nav-link" data-scroll-target="#environment-modules"><span class="header-section-number">2.4.2</span> Environment Modules</a></li>
-  <li><a href="#module-load" id="toc-module-load" class="nav-link" data-scroll-target="#module-load"><span class="header-section-number">2.4.3</span> <code>module load</code></a></li>
-  <li><a href="#tip-load-only-as-many-modules-as-you-need-at-a-time" id="toc-tip-load-only-as-many-modules-as-you-need-at-a-time" class="nav-link" data-scroll-target="#tip-load-only-as-many-modules-as-you-need-at-a-time"><span class="header-section-number">2.4.4</span> Tip: Load only as many modules as you need at a time</a></li>
-  <li><a href="#for-more-information" id="toc-for-more-information" class="nav-link" data-scroll-target="#for-more-information"><span class="header-section-number">2.4.5</span> For more information</a></li>
+  <li><a href="#module-avail" id="toc-module-avail" class="nav-link" data-scroll-target="#module-avail"><span class="header-section-number">2.4.3</span> <code>module avail</code></a></li>
+  <li><a href="#module-load" id="toc-module-load" class="nav-link" data-scroll-target="#module-load"><span class="header-section-number">2.4.4</span> <code>module load</code></a></li>
+  <li><a href="#tip-load-only-as-many-modules-as-you-need-at-a-time" id="toc-tip-load-only-as-many-modules-as-you-need-at-a-time" class="nav-link" data-scroll-target="#tip-load-only-as-many-modules-as-you-need-at-a-time"><span class="header-section-number">2.4.5</span> Tip: Load only as many modules as you need at a time</a></li>
+  <li><a href="#for-more-information" id="toc-for-more-information" class="nav-link" data-scroll-target="#for-more-information"><span class="header-section-number">2.4.6</span> For more information</a></li>
   </ul></li>
   <li><a href="#sec-positional" id="toc-sec-positional" class="nav-link" data-scroll-target="#sec-positional"><span class="header-section-number">2.5</span> <code>$1</code>: A Positional argument</a>
   <ul class="collapse">
@@ -239,9 +243,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#putting-it-all-together" id="toc-putting-it-all-together" class="nav-link" data-scroll-target="#putting-it-all-together"><span class="header-section-number">2.9</span> Putting it all together</a></li>
   <li><a href="#aligning-a-file" id="toc-aligning-a-file" class="nav-link" data-scroll-target="#aligning-a-file"><span class="header-section-number">2.10</span> Aligning a file</a></li>
-  <li><a href="#using-pipes-stdin-stdout-stderr" id="toc-using-pipes-stdin-stdout-stderr" class="nav-link" data-scroll-target="#using-pipes-stdin-stdout-stderr"><span class="header-section-number">2.11</span> Using pipes: STDIN, STDOUT, STDERR</a>
+  <li><a href="#sec-std" id="toc-sec-std" class="nav-link" data-scroll-target="#sec-std"><span class="header-section-number">2.11</span> Using pipes: STDIN, STDOUT, STDERR</a>
   <ul class="collapse">
-  <li><a href="#redirects" id="toc-redirects" class="nav-link" data-scroll-target="#redirects"><span class="header-section-number">2.11.1</span> <code>&gt;</code> (redirects)</a></li>
+  <li><a href="#sec-redirects" id="toc-sec-redirects" class="nav-link" data-scroll-target="#sec-redirects"><span class="header-section-number">2.11.1</span> <code>&gt;</code> (redirects)</a></li>
   <li><a href="#for-more-info-about-pipes-and-pipelines" id="toc-for-more-info-about-pipes-and-pipelines" class="nav-link" data-scroll-target="#for-more-info-about-pipes-and-pipelines"><span class="header-section-number">2.11.2</span> For more info about pipes and pipelines</a></li>
   </ul></li>
   <li><a href="#arguments-in-r-scripts" id="toc-arguments-in-r-scripts" class="nav-link" data-scroll-target="#arguments-in-r-scripts"><span class="header-section-number">2.12</span> Arguments in R Scripts</a>
@@ -285,10 +289,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="what-were-working-towards" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="what-were-working-towards"><span class="header-section-number">2.1</span> What we’re working towards</h2>
 <p>By the end of this session, you should be able to understand and run this shell script.</p>
-<div class="sourceCode" id="annotated-cell-1"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-1-1" class="code-annotation-target"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-1"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-1-1" class="code-annotation-target"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-1-2" class="code-annotation-target"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load SAMtools/1.19.2-GCC-13.2.0</span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-1-3" class="code-annotation-target"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-c</span> <span class="va">$1</span> <span class="op">&gt;</span> <span class="va">$1</span>.counts.txt</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-1-4" class="code-annotation-target"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-1-4" class="code-annotation-target"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
 <dd>
@@ -313,17 +317,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="2.2" class="anchored" data-anchor-id="motivation"><span class="header-section-number">2.2</span> Motivation</h2>
 <p>There is a rule in programming: if you do something more than 3 times, you should consider making it into a script or function.</p>
 <p>For example, imagine that you use <code>samtools view -c</code> all the time with certain options and you want to save the output. You can put this command and options into a shell script that takes named files as an argument (such as <code>samcount.sh</code>. Instead of typing <code>samtools stat</code> over and over again, you can run</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./samcount.sh</span> my_file.bam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./samcount.sh</span> my_file.bam</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>and it will output a file <code>my_file.bam.counts.txt</code> that has the counts we are interested in.</p>
 </section>
 <section id="sec-shebang" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="sec-shebang"><span class="header-section-number">2.3</span> The first line: the she-bang</h2>
 <p>What’s this first line?</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>the <code>#!</code> is known as a she-bang - it’s a signal to Linux what language interpreter to use when running the script on the command line. In our case, we want to use <code>bash</code>. But we can also make python scripts executable by putting the path to python:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The she-bang is necessary if you want to run the script without using the <code>bash</code> command (after you have made it executable):</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./samcount.sh</span> chr1.sam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./samcount.sh</span> chr1.sam</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Note that you can always use <code>bash</code> to execute a file if you don’t have execute access:</p>
 <pre><code>bash samcount.sh chr1.sam</code></pre>
 </section>
@@ -338,7 +342,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="is-my-software-already-installed" class="level3" data-number="2.4.1">
 <h3 data-number="2.4.1" class="anchored" data-anchor-id="is-my-software-already-installed"><span class="header-section-number">2.4.1</span> Is my software already installed?</h3>
 <p>Say we want to see if <code>samtools</code> is installed on our HPC. One of the key commands you can use to find software is the <code>which</code> command. If your software is installed, <code>which</code> will give you the path where the software is installed. For example, I can see if <code>bash</code> is installed:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> bash</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> bash</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Which gives me the response:</p>
 <pre><code>/bin/bash</code></pre>
 <p>So, let’s see if <code>samtools</code> is installed:</p>
@@ -361,19 +365,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>SAMtools</code></pre>
 <p>So, that’s what we’ll use to load up <code>samtools</code>.</p>
 </section>
-<section id="module-load" class="level3" data-number="2.4.3">
-<h3 data-number="2.4.3" class="anchored" data-anchor-id="module-load"><span class="header-section-number">2.4.3</span> <code>module load</code></h3>
+<section id="module-avail" class="level3" data-number="2.4.3">
+<h3 data-number="2.4.3" class="anchored" data-anchor-id="module-avail"><span class="header-section-number">2.4.3</span> <code>module avail</code></h3>
+<p>We can find the versions of <code>SAMtools</code> available to us by using:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> avail SAMtools</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>And we’ll get a list of versions:</p>
+<pre><code>------------------------------- /app/modules/all -------------------------------
+   SAMtools/1.10-GCC-8.3.0        SAMtools/1.16.1-GCC-11.3.0
+   SAMtools/1.10-GCCcore-8.3.0    SAMtools/1.17-GCC-12.2.0
+   SAMtools/1.11-GCC-10.2.0       SAMtools/1.18-GCC-12.3.0
+   SAMtools/1.14-GCC-11.2.0       SAMtools/1.19.2-GCC-13.2.0
+   SAMtools/1.15.1-GCC-11.2.0     SAMtools/1.21-GCC-13.3.0   (D)
+   SAMtools/1.16.1-GCC-11.2.0</code></pre>
+<p>The <code>(D)</code> is the default version. It is the version we use if we just use:</p>
+<pre><code>module load SAMtools</code></pre>
+<p>Without a version. In general, it is good to fix the module version in your scripts for reproducibility reasons. The reason for that is that the default version may change in the future, and there may be changes that break your code.</p>
+</section>
+<section id="module-load" class="level3" data-number="2.4.4">
+<h3 data-number="2.4.4" class="anchored" data-anchor-id="module-load"><span class="header-section-number">2.4.4</span> <code>module load</code></h3>
 <p>Here’s the next line of the script:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load SAMtools/1.19.2-GCC-13.2.0  <span class="co">#load the module</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Our module name is <code>SAMtools</code>, and the <code>1.19.2-GCC-13.2.0</code> after it is the version of that module. In general, it is better to specify a version when running software, because there may be breaking changes in newer versions of the software.</p>
-<p>If we do not specify the version number, then <code>module load</code> will load the default (notated by a <code>(D)</code>) version of the module.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load SAMtools/1.19.2-GCC-13.2.0  <span class="co">#load the module</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Our module name is <code>SAMtools</code>, and the <code>1.19.2-GCC-13.2.0</code> after it is the version of that module.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-For FH Users: Modules benefit everyone
+<span class="screen-reader-only">Note</span>For FH Users: Modules benefit everyone
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -386,7 +405,7 @@ For FH Users: Modules benefit everyone
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-For FH Users
+<span class="screen-reader-only">None</span>For FH Users
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -395,23 +414,23 @@ For FH Users
 </div>
 </div>
 </section>
-<section id="tip-load-only-as-many-modules-as-you-need-at-a-time" class="level3" data-number="2.4.4">
-<h3 data-number="2.4.4" class="anchored" data-anchor-id="tip-load-only-as-many-modules-as-you-need-at-a-time"><span class="header-section-number">2.4.4</span> Tip: Load only as many modules as you need at a time</h3>
-<p>One of the big issues with bioinformatics software is that the toolchain (the software dependencies needed to run the software) can be different for different executables. So when possible, load only one or two modules at a time for each step of your analysis. When you’re done with that step, use <code>module purge</code> to clear out the software environment.</p>
+<section id="tip-load-only-as-many-modules-as-you-need-at-a-time" class="level3" data-number="2.4.5">
+<h3 data-number="2.4.5" class="anchored" data-anchor-id="tip-load-only-as-many-modules-as-you-need-at-a-time"><span class="header-section-number">2.4.5</span> Tip: Load only as many modules as you need at a time</h3>
+<p>One of the big issues with bioinformatics software is that the toolchain (the software dependencies needed to run the software) can be different for different executables. This is also called <a href="https://sciwiki.fredhutch.org/datademos/computational_rank/#the-dependency-nightmare">dependency hell</a>. So when possible, load only one or two modules at a time for each step of your analysis. When you’re done with that step, use <code>module purge</code> to clear out the software environment.</p>
 </section>
-<section id="for-more-information" class="level3" data-number="2.4.5">
-<h3 data-number="2.4.5" class="anchored" data-anchor-id="for-more-information"><span class="header-section-number">2.4.5</span> For more information</h3>
+<section id="for-more-information" class="level3" data-number="2.4.6">
+<h3 data-number="2.4.6" class="anchored" data-anchor-id="for-more-information"><span class="header-section-number">2.4.6</span> For more information</h3>
 <p>Please refer to <a href="https://sciwiki.fredhutch.org/scicomputing/compute_environments/" class="uri">https://sciwiki.fredhutch.org/scicomputing/compute_environments/</a> for more information about the available modules.</p>
 </section>
 </section>
 <section id="sec-positional" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="sec-positional"><span class="header-section-number">2.5</span> <code>$1</code>: A Positional argument</h2>
 <p>The next line of our script is this:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-c</span> <span class="va">$1</span> <span class="op">&gt;</span> <span class="va">$1</span>.counts.txt  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-c</span> <span class="va">$1</span> <span class="op">&gt;</span> <span class="va">$1</span>.counts.txt  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Let’s take a look at the command that we’re running first. We’re going to run <code>samtools view -c</code>, which will give us counts on an incoming <code>bam</code> or <code>sam</code> file and save it in a file. We want to be able to run our script like this:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> samtools_count.sh my_file.bam </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> samtools_count.sh my_file.bam </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>When we run it like that, <code>samtools_count.sh</code> will run <code>samtools view -c</code> like this:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-c</span> my_file.bam <span class="op">&gt;</span> my_file.bam.counts.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-c</span> my_file.bam <span class="op">&gt;</span> my_file.bam.counts.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>So what’s going on here is that there is some substitution using common arguments. Let’s look at these.</p>
 <div class="callout callout-style-simple callout-none no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -419,13 +438,13 @@ For FH Users
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<code>&gt;</code> - redirecting outputs to a file
+<span class="screen-reader-only">None</span><code>&gt;</code> - redirecting outputs to a file
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>The <code>&gt;</code> in the script means that we are going to direct the <em>output</em> of <code>samtools view -c</code> into a file.</p>
 <p>If we didn’t do this, <code>samtools_count.sh</code> would output everything to console.</p>
-<p>Much more info about this when we talk about the different outputs to console.</p>
+<p>Much more info about this when we talk about the different outputs to console (<a href="#sec-std" class="quarto-xref"><span>Section 2.11</span></a>).</p>
 </div>
 </div>
 <section id="positional-arguments-such-as-1" class="level3" data-number="2.5.1">
@@ -434,7 +453,7 @@ For FH Users
 <p>Note that this works even in quotes.</p>
 <p>So, to unpack our script, we are substituting our first argument for the <code>$1</code>.</p>
 <p>When we run this script, it will output into our <em>current</em> directory, which is the top level of the <code>bash_for_bio</code> folder. We can change the behavior of the script by doing the following:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-c</span> <span class="va">$1</span> <span class="op">&gt;</span> <span class="va">$2</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-c</span> <span class="va">$1</span> <span class="op">&gt;</span> <span class="va">$2</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>With the added complication that we need to specify a path for our counts file.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -442,30 +461,30 @@ For FH Users
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Test yourself
+<span class="screen-reader-only">Note</span>Test yourself
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>How would we rewrite <code>sam_run.sh</code> (shown below) if we wanted to specify the output file as the first argument and the bam file as the second argument?</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash/</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-c</span> <span class="va">$1</span> <span class="op">&gt;</span> <span class="va">$2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash/</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-c</span> <span class="va">$1</span> <span class="op">&gt;</span> <span class="va">$2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Answer
+<span class="screen-reader-only">Note</span>Answer
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>For this script, we would switch the positions of <code>$1</code> and <code>$2</code>.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash/</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-c</span> <span class="va">$2</span> <span class="op">&gt;</span> <span class="va">$1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash/</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-c</span> <span class="va">$2</span> <span class="op">&gt;</span> <span class="va">$1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -486,7 +505,7 @@ Answer
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Processing Files Best Practices
+<span class="screen-reader-only">None</span>Processing Files Best Practices
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -498,16 +517,16 @@ Processing Files Best Practices
 <section id="shellcheck" class="level2" data-number="2.7">
 <h2 data-number="2.7" class="anchored" data-anchor-id="shellcheck"><span class="header-section-number">2.7</span> <code>shellcheck</code></h2>
 <p>When you are writing shell scripts, <code>shellcheck</code> is a really handy way to check that you have syntax correctly.</p>
-<div class="sourceCode" id="annotated-cell-17"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><a class="code-annotation-anchor" data-target-cell="annotated-cell-17" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-17-1" class="code-annotation-target"><a href="#annotated-cell-17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#/bin/bash</span></span>
-<span id="annotated-cell-17-2"><a href="#annotated-cell-17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"blah blah"</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-20"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><a class="code-annotation-anchor" data-target-cell="annotated-cell-20" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-20-1" class="code-annotation-target"><a href="#annotated-cell-20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#/bin/bash</span></span>
+<span id="annotated-cell-20-2"><a href="#annotated-cell-20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"blah blah"</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-17" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-20" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-17" data-code-lines="1" data-code-annotation="1">A mistake! should be <code>#!/bin/bash</code>.</span>
+<span data-code-cell="annotated-cell-20" data-code-lines="1" data-code-annotation="1">A mistake! should be <code>#!/bin/bash</code>.</span>
 </dd>
 </dl>
 <p>If we run <code>shellcheck</code> on this script, it will catch the mistake:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">shellcheck</span> bad_script.sh </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">shellcheck</span> bad_script.sh </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><code>shellcheck</code> will give the following response:</p>
 <pre><code>In bad_script.sh line 1:
 #/bin/bash
@@ -518,14 +537,14 @@ Processing Files Best Practices
 <h2 data-number="2.8" class="anchored" data-anchor-id="sec-bash-variables"><span class="header-section-number">2.8</span> Variables in Bash Scripts</h2>
 <p>We saw a little bit about using <code>$1</code>, which is a <em>variable</em> in our Bash scripts. Let’s talk about declaring variables in bash scripts and using them using variable expansion.</p>
 <p>In Bash, we can declare a variable by using <code>&lt;variable_name&gt;=&lt;value&gt;</code>. Note there are no spaces between the variable (<code>my_variable</code>), equals sign, and the value (<code>"ggplot2"</code>).</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="va">my_variable</span><span class="op">=</span><span class="st">"ggplot2"</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"My favorite R package is </span><span class="va">${my_variable}</span><span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="va">my_variable</span><span class="op">=</span><span class="st">"ggplot2"</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"My favorite R package is </span><span class="va">${my_variable}</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <pre><code>My favorite R package is ggplot2</code></pre>
 <p>Take a look at line 3 above. We expand the variable (that is, we substitute the actual variable) by using <code>${my_variable}</code> in our <code>echo</code> statement.</p>
 <p>In general, when expanding a variable in a quoted string, it is better to use <code>${my_variable}</code> (the variable name in curly brackets). This is especially important when using the variable name as part of a string:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="va">my_var</span><span class="op">=</span><span class="st">"chr1"</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"</span><span class="va">${my_var}</span><span class="st">_1.vcf.gz"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="va">my_var</span><span class="op">=</span><span class="st">"chr1"</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"</span><span class="va">${my_var}</span><span class="st">_1.vcf.gz"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <pre><code>chr1_1.vcf.gz</code></pre>
 <p>If we didn’t use the braces here, like this:</p>
 <pre><code>echo "$my_var_1.vcf.gz"</code></pre>
@@ -539,14 +558,14 @@ Processing Files Best Practices
 <section id="putting-it-all-together" class="level2" data-number="2.9">
 <h2 data-number="2.9" class="anchored" data-anchor-id="putting-it-all-together"><span class="header-section-number">2.9</span> Putting it all together</h2>
 <p>We can run the script on a file:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./scripts/samcount.sh</span> data/my_sam_file.sam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./scripts/week2/samcount.sh</span> data/my_sam_file.sam</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-simple callout-none no-icon callout-empty-content callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Try it Out
+<span class="screen-reader-only">None</span>Try it Out
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -557,25 +576,39 @@ Try it Out
 <section id="aligning-a-file" class="level2" data-number="2.10">
 <h2 data-number="2.10" class="anchored" data-anchor-id="aligning-a-file"><span class="header-section-number">2.10</span> Aligning a file</h2>
 <p>How about running the <code>bwa-mem</code> aligner? Let’s run a FASTQ file into it:</p>
-<div class="sourceCode" id="annotated-cell-26"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-26-1"><a href="#annotated-cell-26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| filename: run_bwa.sh</span></span>
-<span id="annotated-cell-26-2"><a href="#annotated-cell-26-2" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-26-3" class="code-annotation-target"><a href="#annotated-cell-26-3" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load BWA/0.7.17-GCCcore-11.2.0</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-26-4" class="code-annotation-target"><a href="#annotated-cell-26-4" aria-hidden="true" tabindex="-1"></a><span class="va">REF_GENOME</span><span class="op">=</span><span class="st">"/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa"</span></span>
-<span id="annotated-cell-26-5"><a href="#annotated-cell-26-5" aria-hidden="true" tabindex="-1"></a><span class="ex">bwa</span> mem <span class="va">${REF_GENOME}</span> <span class="va">$1</span> <span class="op">&gt;</span> <span class="va">$1</span>.aligned.sam <span class="co">#&lt;3?&gt;</span></span>
-<span id="annotated-cell-26-6"><a href="#annotated-cell-26-6" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-29"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-29-1"><a href="#annotated-cell-29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| filename: scripts/week2/run_bwa.sh</span></span>
+<span id="annotated-cell-29-2"><a href="#annotated-cell-29-2" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-29-3" class="code-annotation-target"><a href="#annotated-cell-29-3" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load BWA/0.7.17-GCCcore-11.2.0</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-29-4" class="code-annotation-target"><a href="#annotated-cell-29-4" aria-hidden="true" tabindex="-1"></a><span class="va">input_fastq</span><span class="op">=</span><span class="va">${1}</span></span>
+<span id="annotated-cell-29-5"><a href="#annotated-cell-29-5" aria-hidden="true" tabindex="-1"></a><span class="co"># strip path and suffix</span></span>
+<span id="annotated-cell-29-6"><a href="#annotated-cell-29-6" aria-hidden="true" tabindex="-1"></a><span class="va">base_file_name</span><span class="op">=</span><span class="st">"</span><span class="va">${input_fastq</span><span class="op">%</span>.fastq<span class="va">}</span><span class="st">"</span></span>
+<span id="annotated-cell-29-7"><a href="#annotated-cell-29-7" aria-hidden="true" tabindex="-1"></a><span class="va">base_file_name</span><span class="op">=</span><span class="va">${base_file_name</span><span class="op">##</span><span class="pp">*</span>/<span class="va">}</span></span>
+<span id="annotated-cell-29-8"><a href="#annotated-cell-29-8" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"running </span><span class="va">$input_fastq</span><span class="st">"</span></span>
+<span id="annotated-cell-29-9"><a href="#annotated-cell-29-9" aria-hidden="true" tabindex="-1"></a><span class="va">sample_name</span><span class="op">=</span><span class="st">"SM:</span><span class="va">${base_file_name}</span><span class="st">"</span></span>
+<span id="annotated-cell-29-10"><a href="#annotated-cell-29-10" aria-hidden="true" tabindex="-1"></a><span class="va">read_group_id</span><span class="op">=</span><span class="st">"ID:</span><span class="va">${base_file_name}</span><span class="st">"</span></span>
+<span id="annotated-cell-29-11"><a href="#annotated-cell-29-11" aria-hidden="true" tabindex="-1"></a><span class="va">platform_info</span><span class="op">=</span><span class="st">"PL:Illumina"</span></span>
+<span id="annotated-cell-29-12"><a href="#annotated-cell-29-12" aria-hidden="true" tabindex="-1"></a><span class="va">ref_fasta_local</span><span class="op">=</span><span class="st">"/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa"</span> <span class="op">&lt;</span>2<span class="op">&gt;</span></span>
+<span id="annotated-cell-29-13"><a href="#annotated-cell-29-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-29-14"><a href="#annotated-cell-29-14" aria-hidden="true" tabindex="-1"></a><span class="ex">bwa</span> mem <span class="dt">\</span></span>
+<span id="annotated-cell-29-15"><a href="#annotated-cell-29-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">-p</span> <span class="at">-v</span> 3 <span class="at">-M</span> <span class="dt">\</span></span>
+<span id="annotated-cell-29-16"><a href="#annotated-cell-29-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">-R</span> <span class="st">"@RG\t</span><span class="va">${read_group_id}</span><span class="st">\t</span><span class="va">${sample_name}</span><span class="st">\t</span><span class="va">${platform_info}</span><span class="st">"</span> <span class="dt">\</span></span>
+<span id="annotated-cell-29-17"><a href="#annotated-cell-29-17" aria-hidden="true" tabindex="-1"></a>      <span class="st">"</span><span class="va">${ref_fasta_local}</span><span class="st">"</span> <span class="st">"</span><span class="va">${input_fastq}</span><span class="st">"</span> <span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="annotated-cell-29-18"><a href="#annotated-cell-29-18" aria-hidden="true" tabindex="-1"></a>      <span class="st">"</span><span class="va">${base_file_name}</span><span class="st">.sam"</span></span>
+<span id="annotated-cell-29-19"><a href="#annotated-cell-29-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-29-20"><a href="#annotated-cell-29-20" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-26" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-29" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-26" data-code-lines="3" data-code-annotation="1">Load <code>BWA</code> module.</span>
+<span data-code-cell="annotated-cell-29" data-code-lines="3" data-code-annotation="1">Load <code>BWA</code> module. Note that we are using a specific module version.</span>
 </dd>
-<dt data-target-cell="annotated-cell-26" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-29" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-26" data-code-lines="4" data-code-annotation="2">Set a variable called <code>$REF_GENOME</code>.</span>
+<span data-code-cell="annotated-cell-29" data-code-lines="4" data-code-annotation="2">Set a variable called <code>$ref_fasta_local</code>.</span>
 </dd>
 </dl>
 </section>
-<section id="using-pipes-stdin-stdout-stderr" class="level2" data-number="2.11">
-<h2 data-number="2.11" class="anchored" data-anchor-id="using-pipes-stdin-stdout-stderr"><span class="header-section-number">2.11</span> Using pipes: STDIN, STDOUT, STDERR</h2>
+<section id="sec-std" class="level2" data-number="2.11">
+<h2 data-number="2.11" class="anchored" data-anchor-id="sec-std"><span class="header-section-number">2.11</span> Using pipes: STDIN, STDOUT, STDERR</h2>
 <p>We will need to use pipes to chain our commands together. Specifically, we need to take a command that generates a list of files on the cluster shared filesystem, and then spawns individual jobs to process each file. For this reason, understanding a little bit more about how pipes (<code>|</code>) work in Bash is helpful.</p>
 <p>If we want to understand how to chain our scripts together into a pipeline, it is helpful to know about the different streams that are available to the utilities.</p>
 <div id="fig-std" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -633,9 +666,9 @@ Figure&nbsp;2.2: Piping a script <code>run_samtools.sh</code> into another comma
 </figure>
 </div>
 <p>We will mostly use STDOUT in our bash scripts, but STDERR can be really helpful in debugging what’s going wrong.</p>
-<section id="redirects" class="level3" data-number="2.11.1">
-<h3 data-number="2.11.1" class="anchored" data-anchor-id="redirects"><span class="header-section-number">2.11.1</span> <code>&gt;</code> (redirects)</h3>
-<p>Sometimes you want to direct the output of a script to a text file. A lot of bioinformatics tools output to standard out, and we need a way to save the results.</p>
+<section id="sec-redirects" class="level3" data-number="2.11.1">
+<h3 data-number="2.11.1" class="anchored" data-anchor-id="sec-redirects"><span class="header-section-number">2.11.1</span> <code>&gt;</code> (redirects)</h3>
+<p>Sometimes you want to direct the output of a script (STDOUT) to a text file. A lot of bioinformatics tools output to STDOUT, and we need a way to save the results.</p>
 <p>Enter <code>&gt;</code>, a redirect. We can put <code>&gt;</code> after our command followed by a file path to save the output.</p>
 <pre><code>samtools view -c my_bam_file.bam &gt; counts.txt</code></pre>
 <p>Here we are redirecting the output of <code>samtools view</code> into the <code>counts.txt</code> file. Note that everytime that we run the script, we will overwrite the current contents of the <code>counts.txt</code> file. Sometimes that is not what you want.</p>
@@ -647,7 +680,7 @@ Figure&nbsp;2.2: Piping a script <code>run_samtools.sh</code> into another comma
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Why this is important on the Cluster
+<span class="screen-reader-only">Note</span>Why this is important on the Cluster
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -680,28 +713,28 @@ Why this is important on the Cluster
 <div class="code-with-filename-file">
 <pre><strong>scripts/week2/process_data.R</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="annotated-cell-28"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-28-1"><a href="#annotated-cell-28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="annotated-cell-28-2"><a href="#annotated-cell-28-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-28-3"><a href="#annotated-cell-28-3" aria-hidden="true" tabindex="-1"></a>args <span class="ot">&lt;-</span> <span class="fu">commandArgs</span>()</span>
-<span id="annotated-cell-28-4"><a href="#annotated-cell-28-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-28-5"><a href="#annotated-cell-28-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Use arg$CSVFILE in read.csv</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-28-6" class="code-annotation-target"><a href="#annotated-cell-28-6" aria-hidden="true" tabindex="-1"></a>csv_file <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file=</span>args<span class="sc">$</span>CSVFILE)</span>
-<span id="annotated-cell-28-7"><a href="#annotated-cell-28-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-28-8"><a href="#annotated-cell-28-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Do some work with csv_file</span></span>
-<span id="annotated-cell-28-9"><a href="#annotated-cell-28-9" aria-hidden="true" tabindex="-1"></a>csv_filtered <span class="ot">&lt;-</span> csv_file <span class="sc">|&gt;</span> janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span>
-<span id="annotated-cell-28-10"><a href="#annotated-cell-28-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-28-11"><a href="#annotated-cell-28-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Write output</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-28-12" class="code-annotation-target"><a href="#annotated-cell-28-12" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(csv_filtered, <span class="at">file =</span> <span class="fu">paste0</span>(args<span class="sc">$</span>CSVFILE, <span class="st">"_filtered.csv"</span>))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-31"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-31-1"><a href="#annotated-cell-31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="annotated-cell-31-2"><a href="#annotated-cell-31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-31-3"><a href="#annotated-cell-31-3" aria-hidden="true" tabindex="-1"></a>args <span class="ot">&lt;-</span> <span class="fu">commandArgs</span>()</span>
+<span id="annotated-cell-31-4"><a href="#annotated-cell-31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-31-5"><a href="#annotated-cell-31-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Use arg$CSVFILE in read.csv</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-31" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-31-6" class="code-annotation-target"><a href="#annotated-cell-31-6" aria-hidden="true" tabindex="-1"></a>csv_file <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file=</span>args<span class="sc">$</span>CSVFILE)</span>
+<span id="annotated-cell-31-7"><a href="#annotated-cell-31-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-31-8"><a href="#annotated-cell-31-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Do some work with csv_file</span></span>
+<span id="annotated-cell-31-9"><a href="#annotated-cell-31-9" aria-hidden="true" tabindex="-1"></a>csv_filtered <span class="ot">&lt;-</span> csv_file <span class="sc">|&gt;</span> janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span>
+<span id="annotated-cell-31-10"><a href="#annotated-cell-31-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-31-11"><a href="#annotated-cell-31-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Write output</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-31" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-31-12" class="code-annotation-target"><a href="#annotated-cell-31-12" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(csv_filtered, <span class="at">file =</span> <span class="fu">paste0</span>(args<span class="sc">$</span>CSVFILE, <span class="st">"_filtered.csv"</span>))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-28" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-31" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-28" data-code-lines="6" data-code-annotation="1">Use <code>args$CSVFILE</code> as an input for <code>read.csv()</code></span>
+<span data-code-cell="annotated-cell-31" data-code-lines="6" data-code-annotation="1">Use <code>args$CSVFILE</code> as an input for <code>read.csv()</code></span>
 </dd>
-<dt data-target-cell="annotated-cell-28" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-31" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-28" data-code-lines="12" data-code-annotation="2">Use <code>args$CSVFILE</code> to specify the output name.</span>
+<span data-code-cell="annotated-cell-31" data-code-lines="12" data-code-annotation="2">Use <code>args$CSVFILE</code> to specify the output name.</span>
 </dd>
 </dl>
 </div>
@@ -711,7 +744,7 @@ Why this is important on the Cluster
 <h3 data-number="2.12.2" class="anchored" data-anchor-id="running-our-r-script"><span class="header-section-number">2.12.2</span> Running our R Script</h3>
 <p>Now that we’ve set it up, we can run the R script from the command line as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> process_data.R CSVFILE=<span class="st">"LUSC_clinical.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> process_data.R CSVFILE=<span class="st">"LUSC_clinical.csv"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="integrating-an-r-script-into-a-bash-script" class="level3" data-number="2.12.3">
@@ -722,15 +755,15 @@ Why this is important on the Cluster
 <div class="code-with-filename-file">
 <pre><strong>scripting-basics/wrap_r_script.sh</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load fhR</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> process_data.R CSVFILE=<span class="st">"</span><span class="va">${1}</span><span class="st">"</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load fhR</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> process_data.R CSVFILE=<span class="st">"</span><span class="va">${1}</span><span class="st">"</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <p>Then we can run</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> wrap_r_script.sh my_csvfile.csv </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> wrap_r_script.sh my_csvfile.csv </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>In our bash script, <code>my_bash_script.sh</code>, we’re using positional argument (for simplicity) to specify our csvfile, and then passing the positional argument to named ones (<code>CSVFILE</code>) for <code>my_r_script.R</code>.</p>
 </section>
@@ -753,20 +786,20 @@ Why this is important on the Cluster
 <div class="code-with-filename-file">
 <pre><strong>process_file.py</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="annotated-cell-33"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-33" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-33-1" class="code-annotation-target"><a href="#annotated-cell-33-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="annotated-cell-33-2"><a href="#annotated-cell-33-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-33" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-33-3" class="code-annotation-target"><a href="#annotated-cell-33-3" aria-hidden="true" tabindex="-1"></a><span class="bu">file</span> <span class="op">=</span> sys.argv[<span class="dv">1</span>]</span>
-<span id="annotated-cell-33-4"><a href="#annotated-cell-33-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="bu">file</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-36"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-36" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-36-1" class="code-annotation-target"><a href="#annotated-cell-36-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="annotated-cell-36-2"><a href="#annotated-cell-36-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-36" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-36-3" class="code-annotation-target"><a href="#annotated-cell-36-3" aria-hidden="true" tabindex="-1"></a><span class="bu">file</span> <span class="op">=</span> sys.argv[<span class="dv">1</span>]</span>
+<span id="annotated-cell-36-4"><a href="#annotated-cell-36-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="bu">file</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-33" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-36" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-33" data-code-lines="1" data-code-annotation="1">Import <code>sys</code> module</span>
+<span data-code-cell="annotated-cell-36" data-code-lines="1" data-code-annotation="1">Import <code>sys</code> module</span>
 </dd>
-<dt data-target-cell="annotated-cell-33" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-36" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-33" data-code-lines="3" data-code-annotation="2">Use <code>sys.argv</code> to access the first argument <code>sys.argv[1]</code></span>
+<span data-code-cell="annotated-cell-36" data-code-lines="3" data-code-annotation="2">Use <code>sys.argv</code> to access the first argument <code>sys.argv[1]</code></span>
 </dd>
 </dl>
 </div>
@@ -778,8 +811,8 @@ Why this is important on the Cluster
 <h3 data-number="2.13.2" class="anchored" data-anchor-id="running-our-python-script-on-the-command-line"><span class="header-section-number">2.13.2</span> Running our Python script on the command line</h3>
 <p>Now we have set up our python script, we can run it on the command line on <code>rhino</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load fhPython</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> process_file.py lusc_file.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load fhPython</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> process_file.py lusc_file.csv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>And we could wrap it up in a bash script:</p>
 <div class="cell">
@@ -787,10 +820,10 @@ Why this is important on the Cluster
 <div class="code-with-filename-file">
 <pre><strong>wrap_py_script.sh</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load fhPython</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> process_file.py <span class="va">${1}</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load fhPython</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> process_file.py <span class="va">${1}</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </section>
@@ -854,13 +887,14 @@ Why this is important on the Cluster
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

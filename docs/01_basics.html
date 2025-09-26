@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.30">
+<meta name="generator" content="quarto-1.8.24">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,14 +69,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="./index.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/quarto-contrib/glossary/glossary.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
@@ -131,7 +132,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Bash for Bioinformatics</a> 
     </div>
@@ -290,7 +293,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Reminder about Terminology
+<span class="screen-reader-only">Note</span>Reminder about Terminology
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -312,7 +315,7 @@ Reminder about Terminology
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-A helpful key: <code>&lt;Up Arrow&gt;</code>
+<span class="screen-reader-only">None</span>A helpful key: <code>&lt;Up Arrow&gt;</code>
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -347,7 +350,7 @@ A helpful key: <code>&lt;Up Arrow&gt;</code>
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Your current working directory: <code>.</code>
+<span class="screen-reader-only">None</span>Your current working directory: <code>.</code>
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -359,7 +362,7 @@ Your current working directory: <code>.</code>
 <h3 data-number="1.5.1" class="anchored" data-anchor-id="du-how-much-space"><span class="header-section-number">1.5.1</span> <code>du</code>: How much space?</h3>
 <p>One of the first things we can do is check for disk usage with the <code>du</code> command. If I run <code>du</code> by itself on the command line, it will give me the disk usage of all folders and files in our current directory, which is a lot of output.</p>
 <p>There is an option called <code>-d</code> that lets us specify the <em>depth</em>. <code>-d 1</code> will give us only the file sizes of the top level folders in our directory:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-d</span> 1 .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-d</span> 1 .</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Here are the first few lines of my <code>du</code> output.</p>
 <pre><code>630440  ./Code
 32  ./Downloads
@@ -372,7 +375,7 @@ Your current working directory: <code>.</code>
 32  ./Music
 32  ./Desktop</code></pre>
 <p>If we want to specify <code>du</code> to scan only a single folder, we can give the folder name.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-d</span> 1 Desktop/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-d</span> 1 Desktop/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>I have nothing really stored in my <code>Desktop/</code> folder, so I get the following:</p>
 <pre><code>32  Desktop/</code></pre>
 <div class="callout callout-style-simple callout-none no-icon callout-titled">
@@ -381,14 +384,14 @@ Your current working directory: <code>.</code>
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Try it out
+<span class="screen-reader-only">None</span>Try it out
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>Try checking the disk usage using <code>du</code> for the <code>Desktop</code> folder in your <code>/home</code> directory (mine is <code>/home/tladera2</code>).</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-d</span> 1 <span class="at">--------</span>/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-d</span> 1 <span class="at">--------</span>/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Try out using <code>du -d 2</code> on your home directory:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-d</span> 2 ~/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-d</span> 2 ~/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </section>
@@ -403,12 +406,12 @@ Try it out
 <li><code>/fh/regulated/</code> - A secure filesystem meant for NIH regulated data. If you are processing data that is regulated under the current NIH guidelines, you will process it here.</li>
 </ul>
 <p>So, how do we utilize these filesystems? We will be running commands like this:</p>
-<div class="sourceCode" id="annotated-cell-6"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-6-1" class="code-annotation-target"><a href="#annotated-cell-6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> BWA</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-6"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-6-1" class="code-annotation-target"><a href="#annotated-cell-6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> BWA</span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-6-2" class="code-annotation-target"><a href="#annotated-cell-6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">bwa</span> mem <span class="at">-M</span> <span class="at">-t</span> 2 <span class="dt">\</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-6-3" class="code-annotation-target"><a href="#annotated-cell-6-3" aria-hidden="true" tabindex="-1"></a>  /fh/fast/reference_data/chr20 <span class="dt">\</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-6-4" class="code-annotation-target"><a href="#annotated-cell-6-4" aria-hidden="true" tabindex="-1"></a>  /fh/fast/laderas_t/raw_data/na12878_1.fq <span class="dt">\</span></span>
 <span id="annotated-cell-6-5"><a href="#annotated-cell-6-5" aria-hidden="true" tabindex="-1"></a>  /fh/fast/laderas_t/raw_data/na12878_2.fq <span class="op">&gt;</span> <span class="dt">\</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-6-6" class="code-annotation-target"><a href="#annotated-cell-6-6" aria-hidden="true" tabindex="-1"></a>  /hpc/temp/laderas_t/aligned_data/na12878_1.sam</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-6-6" class="code-annotation-target"><a href="#annotated-cell-6-6" aria-hidden="true" tabindex="-1"></a>  /hpc/temp/laderas_t/aligned_data/na12878_1.sam</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-6" data-target-annotation="1">1</dt>
 <dd>
@@ -438,20 +441,20 @@ Try it out
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-When you need to span multiple lines: <code>\</code>
+<span class="screen-reader-only">None</span>When you need to span multiple lines: <code>\</code>
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>Sometimes it’s hard to read code that is a single line. You can break up a very long line of code using the <code>\</code> (backslash) character.</p>
 <p>For example, instead of:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bwa</span> mem <span class="at">-M</span> <span class="at">-t</span> 2 /fh/fast/reference_data/chr20 /fh/fast/laderas_t/raw_data/na12878_1.fq /fh/fast/laderas_t/raw_data/na12878_2.fq <span class="op">&gt;</span> /hpc/temp/laderas_t/aligned_data/na12878_1.sam  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bwa</span> mem <span class="at">-M</span> <span class="at">-t</span> 2 /fh/fast/reference_data/chr20 /fh/fast/laderas_t/raw_data/na12878_1.fq /fh/fast/laderas_t/raw_data/na12878_2.fq <span class="op">&gt;</span> /hpc/temp/laderas_t/aligned_data/na12878_1.sam  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>We can rewrite it as:</p>
-<div class="sourceCode" id="annotated-cell-34"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-34-1"><a href="#annotated-cell-34-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> BWA                                                </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-34"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-34-1"><a href="#annotated-cell-34-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> BWA                                                </span>
 <span id="annotated-cell-34-2"><a href="#annotated-cell-34-2" aria-hidden="true" tabindex="-1"></a><span class="ex">bwa</span> mem <span class="at">-M</span> <span class="at">-t</span> 2 <span class="dt">\ </span>                                    </span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-34" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-34-3" class="code-annotation-target"><a href="#annotated-cell-34-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">/fh/fast/reference_data/chr20</span> <span class="dt">\</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-34" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-34-4" class="code-annotation-target"><a href="#annotated-cell-34-4" aria-hidden="true" tabindex="-1"></a>  /fh/fast/laderas_t/raw_data/na12878_1.fq <span class="dt">\</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-34" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-34-5" class="code-annotation-target"><a href="#annotated-cell-34-5" aria-hidden="true" tabindex="-1"></a>  /fh/fast/laderas_t/raw_data/na12878_2.fq <span class="op">&gt;</span> <span class="dt">\</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-34" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-34-6" class="code-annotation-target"><a href="#annotated-cell-34-6" aria-hidden="true" tabindex="-1"></a>  /hpc/temp/laderas_t/aligned_data/na12878_1.sam</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-34" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-34-6" class="code-annotation-target"><a href="#annotated-cell-34-6" aria-hidden="true" tabindex="-1"></a>  /hpc/temp/laderas_t/aligned_data/na12878_1.sam</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-34" data-target-annotation="1">1</dt>
 <dd>
@@ -481,13 +484,13 @@ When you need to span multiple lines: <code>\</code>
 <pre><code>/fh/fast/laderast/immuno_project/raw_data/chr2.fa.gz</code></pre>
 <p>Absolute paths always start with <code>/</code>, because that is the root directory, where all the top folders and files live.</p>
 <p>In terms of folder structure, this is what this looks like:</p>
-<div class="sourceCode" id="annotated-cell-8"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-8-1" class="code-annotation-target"><a href="#annotated-cell-8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-8"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-8-1" class="code-annotation-target"><a href="#annotated-cell-8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-8-2" class="code-annotation-target"><a href="#annotated-cell-8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> fh</span>
 <span id="annotated-cell-8-3"><a href="#annotated-cell-8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └──fast</span>
 <span id="annotated-cell-8-4"><a href="#annotated-cell-8-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>       └──laderast</span>
 <span id="annotated-cell-8-5"><a href="#annotated-cell-8-5" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span>            <span class="ex">└──immuno_project</span></span>
 <span id="annotated-cell-8-6"><a href="#annotated-cell-8-6" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>                 └──raw_data</span>
-<span id="annotated-cell-8-7"><a href="#annotated-cell-8-7" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>                    └──chr2.fa.gz</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="annotated-cell-8-7"><a href="#annotated-cell-8-7" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>                    └──chr2.fa.gz</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-8" data-target-annotation="1">1</dt>
 <dd>
@@ -502,11 +505,11 @@ When you need to span multiple lines: <code>\</code>
 <p>If my current working directory is the directory <code>/fh/fast/laderas_t/immuno_project/</code>, then the relative path to that same file would be:</p>
 <pre><code>raw_data/chr2.fa.gz</code></pre>
 <p>We can visualize the relative path like this, where our working directory is indicated by a star:</p>
-<div class="sourceCode" id="annotated-cell-10"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><a class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-10-1" class="code-annotation-target"><a href="#annotated-cell-10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-10"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><a class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-10-1" class="code-annotation-target"><a href="#annotated-cell-10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-10-2" class="code-annotation-target"><a href="#annotated-cell-10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> fh/fast/laderast/immuno_project/</span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-10-3" class="code-annotation-target"><a href="#annotated-cell-10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span>                                   <span class="ex">└──raw_data</span></span>
 <span id="annotated-cell-10-4"><a href="#annotated-cell-10-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>                                      └──chr2.fa.gz</span>
-<span id="annotated-cell-10-5"><a href="#annotated-cell-10-5" aria-hidden="true" tabindex="-1"></a>                                    </span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="annotated-cell-10-5"><a href="#annotated-cell-10-5" aria-hidden="true" tabindex="-1"></a>                                    </span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-10" data-target-annotation="1">1</dt>
 <dd>
@@ -528,7 +531,7 @@ When you need to span multiple lines: <code>\</code>
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<code>&lt;TAB&gt;</code> is for autocompletion of paths
+<span class="screen-reader-only">None</span><code>&lt;TAB&gt;</code> is for autocompletion of paths
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -546,7 +549,7 @@ When you need to span multiple lines: <code>\</code>
 <section id="grabbing-stuff-from-github" class="level2" data-number="1.8">
 <h2 data-number="1.8" class="anchored" data-anchor-id="grabbing-stuff-from-github"><span class="header-section-number">1.8</span> Grabbing Stuff from GitHub</h2>
 <p>For the rest of the exercises for today, we’ll be grabbing the scripts from github using <code>git clone</code>.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/fhdsl/bash_for_bio_scripts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/fhdsl/bash_for_bio_scripts</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>This will create a folder called <code>bash_for_bio_scripts/</code> in our current directory.</p>
 </section>
 <section id="sec-permissions" class="level2" data-number="1.9">
@@ -614,9 +617,9 @@ When you need to span multiple lines: <code>\</code>
 </tbody>
 </table>
 <p>You can see the permissions for a file using the <code>ls -l &lt;FILENAME&gt;</code>. For example:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> scripts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> scripts</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>will give me the following line:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">-rwxrwxrwx</span> 1 tladera2  staff  16 Jul 11 11:05 tell_the_time.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">-rwxrwxrwx</span> 1 tladera2  staff  16 Jul 11 11:05 tell_the_time.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The cardinal rule to remember is that:</p>
 <blockquote class="blockquote">
 <p>If you want to run a file as an executable, you (or your group) needs to have executable level permission.</p>
@@ -631,7 +634,7 @@ When you need to span multiple lines: <code>\</code>
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Helpful unix permissions situations
+<span class="screen-reader-only">None</span>Helpful unix permissions situations
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -671,7 +674,7 @@ Helpful unix permissions situations
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Even if you don’t have execute permissions
+<span class="screen-reader-only">None</span>Even if you don’t have execute permissions
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -689,9 +692,9 @@ Even if you don’t have execute permissions
 <h2 data-number="1.10" class="anchored" data-anchor-id="sec-moving"><span class="header-section-number">1.10</span> Moving Things Around</h2>
 <p>A lot of the time, we need to move files between shared filesystems. One filesystem might be good at storage and be backed up on a regular basis, while another filesystem might be better for temporary work on the cluster.</p>
 <p>You might be familiar with <code>mv</code>, which lets you move files around in Unix. One thing to keep in mind when you’re <code>mv</code>ing things to a new folder that there is a difference between:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> log.txt my_folder   <span class="co">## renames log.txt to my_folder</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> log.txt my_folder   <span class="co">## renames log.txt to my_folder</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>and</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> log.txt my_folder/  <span class="co">## moves log.txt to be in my_folder</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> log.txt my_folder/  <span class="co">## moves log.txt to be in my_folder</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>This is one thing that still trips me up all the time.</p>
 <p>This is one situation where using a GUI such as Motuz (<span class="quarto-unresolved-ref">?sec-motuz</span>) can be very helpful. You don’t have to worry about accidentally renaming files.</p>
 <p>Other tools for sync’ing between filesystems include <code>rsync</code>, which requires careful reading of documentation.</p>
@@ -701,14 +704,14 @@ Even if you don’t have execute permissions
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Things I always forget: the difference between <code>/home/mydir/</code> and <code>home/mydir/</code>
+<span class="screen-reader-only">None</span>Things I always forget: the difference between <code>/home/mydir/</code> and <code>home/mydir/</code>
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>Some things that trip me up all the time. The difference between</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/home/mydir/</span>    <span class="co">#absolute path</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/home/mydir/</span>    <span class="co">#absolute path</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>and</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">home/mydir/</span>     <span class="co">#relative path</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">home/mydir/</span>     <span class="co">#relative path</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The first one is an <em>absolute path</em>, and the second is a <em>relative path</em>. Your clue is the leading <code>/</code> at the beginning of a path. If you’re getting <code>file not found</code> messages, check to make sure the path is the right format.</p>
 </div>
 </div>
@@ -722,7 +725,7 @@ Things I always forget: the difference between <code>/home/mydir/</code> and <co
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Try it Out
+<span class="screen-reader-only">Note</span>Try it Out
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -735,7 +738,7 @@ Try it Out
 <section id="whats-in-the-script" class="level2" data-number="1.11">
 <h2 data-number="1.11" class="anchored" data-anchor-id="whats-in-the-script"><span class="header-section-number">1.11</span> What’s in the script</h2>
 <p>We can see what’s in the script by using <code>cat</code>:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> tell_the_time.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> tell_the_time.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>And you’ll get the following:</p>
 <pre><code>#!/bin/bash
 date</code></pre>
@@ -744,7 +747,7 @@ date</code></pre>
 <h2 data-number="1.12" class="anchored" data-anchor-id="running-a-bash-script"><span class="header-section-number">1.12</span> Running a Bash Script</h2>
 <p>Ok, now we have a bash script <code>tell_the_time.sh</code> in our current directory, how do we run it?</p>
 <p>Because the script is not on our <code>$PATH</code> (<a href="configuring.html#sec-path" class="quarto-xref"><span>Section 8.5.2</span></a>), we’ll need to use <code>./</code> to execute it. <code>./</code> is an alias for the current folder, and it is an indicator to bash that the command we want to execute is in our current folder.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tladera2$</span> ./tell_the_time.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tladera2$</span> ./tell_the_time.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>If we haven’t set the permissions (<a href="#sec-permissions" class="quarto-xref"><span>Section 1.9</span></a>) correctly, we’ll get this message:</p>
 <pre><code>bash: ./scripts/tell_the_time.sh: Permission denied</code></pre>
 <p>But if we have execute access, we’ll get something like this:</p>
@@ -764,7 +767,7 @@ date</code></pre>
 <section id="try-it-out-3" class="level3" data-number="1.13.1">
 <h3 data-number="1.13.1" class="anchored" data-anchor-id="try-it-out-3"><span class="header-section-number">1.13.1</span> Try it Out</h3>
 <p>Try making your own file called <code>my_file.txt</code>:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> my_file.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> my_file.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Add some text to it.</p>
 <p>Use CTRL-X to exit, and make sure to select “Yes” to save.</p>
 </section>
@@ -774,8 +777,8 @@ date</code></pre>
 <section id="loading-the-fhr-or-fhpython-modules" class="level3" data-number="1.14.1">
 <h3 data-number="1.14.1" class="anchored" data-anchor-id="loading-the-fhr-or-fhpython-modules"><span class="header-section-number">1.14.1</span> Loading the <code>fhR</code> or <code>fhPython</code> modules</h3>
 <p>Before we can run our scripts in R or Python, we’ll need to load up either R or Python on the cluster. We can do this with the <code>module load</code> command:</p>
-<div class="sourceCode" id="annotated-cell-23"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><a class="code-annotation-anchor" data-target-cell="annotated-cell-23" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-23-1" class="code-annotation-target"><a href="#annotated-cell-23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load fhR</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-23" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-23-2" class="code-annotation-target"><a href="#annotated-cell-23-2" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load fhPython</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-23"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><a class="code-annotation-anchor" data-target-cell="annotated-cell-23" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-23-1" class="code-annotation-target"><a href="#annotated-cell-23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load fhR</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-23" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-23-2" class="code-annotation-target"><a href="#annotated-cell-23-2" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load fhPython</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-23" data-target-annotation="1">1</dt>
 <dd>
@@ -795,18 +798,18 @@ date</code></pre>
 <li>as an interactive console, which is what we usually use in an IDE such as RStudio</li>
 <li>on the command line using the <code>Rscript</code> command.</li>
 </ol>
-<div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> my_r_script.R</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> my_r_script.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>To run this script, we’ll need to first load <code>fhR</code>:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load fhR/</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> my_r_script.R</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load fhR/</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> my_r_script.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="python-users" class="level3" data-number="1.14.3">
 <h3 data-number="1.14.3" class="anchored" data-anchor-id="python-users"><span class="header-section-number">1.14.3</span> Python Users</h3>
 <p>Python users are much more aware that you can run Python scripts on the command line:</p>
 <pre><code>python3 my_python_script.py</code></pre>
 <p>To execute this on <code>gizmo</code>, we’ll first need to load <code>fhPython</code>:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load fhPython</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> my_python_script.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load fhPython</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> my_python_script.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Within a shell script, you can also use a shebang (<a href="02_scripting.html#sec-shebang" class="quarto-xref"><span>Section 2.3</span></a>) to make your script executable by providing the location of <code>python3</code>:</p>
 <pre><code>#!/bin/python3
 python3 my_python_script.py</code></pre>
@@ -815,7 +818,7 @@ python3 my_python_script.py</code></pre>
 <section id="getting-help" class="level2" data-number="1.15">
 <h2 data-number="1.15" class="anchored" data-anchor-id="getting-help"><span class="header-section-number">1.15</span> Getting Help</h2>
 <p>You may have heard about man pages. You can usually get help by using the <code>man</code> command:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">man</span> wc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">man</span> wc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>This is the first part of the output:</p>
 <pre><code>NAME
      wc – word, line, character, and byte count
@@ -914,13 +917,14 @@ DESCRIPTION
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
