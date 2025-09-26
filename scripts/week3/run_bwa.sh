@@ -1,6 +1,7 @@
-#/bin/bash
+#!/bin/bash
+module load BWA/0.7.17-GCCcore-11.2.0
 input_fastq=${1}
-base_file_name="${input_fastq\.fastq}"
+base_file_name="${input_fastq/.fastq/}"
 sample_name="SM:${base_file_name}"
 read_group_id="ID:${base_file_name}"
 platform_info="PL:Illumina"
@@ -8,6 +9,8 @@ ref_fasta_local="/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Seque
 
 bwa mem \
       -p -v 3 -M \
-      -R '@RG\t~{read_group_id}\t~{sample_name}\t~{platform_info}' \
-      ~{ref_fasta_local} ~{input_fastq} > \
-      ~{base_file_name}.sam 
+      -R "@RG\t${read_group_id}\t${sample_name}\t${platform_info}" \
+      "${ref_fasta_local}" "${input_fastq}" > \
+      "${base_file_name}.sam"
+
+module purge
