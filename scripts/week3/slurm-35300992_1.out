@@ -1,0 +1,10 @@
+0
+../../data/CALU1_combined_final.fastq
+running ../../data/CALU1_combined_final.fastq
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 805 sequences (61180 bp)...
+[M::process] 805 single-end sequences; 0 paired-end sequences
+[M::mem_process_seqs] Processed 805 reads in 0.030 CPU sec, 0.030 real sec
+[main] Version: 0.7.17-r1188
+[main] CMD: bwa mem -p -v 3 -M -R @RG\tID:CALU1_combined_final\tSM:CALU1_combined_final\tPL:Illumina /shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa ../../data/CALU1_combined_final.fastq
+[main] Real time: 3.085 sec; CPU: 3.070 sec
