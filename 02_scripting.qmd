@@ -213,7 +213,7 @@ For this script, we would switch the positions of `$1` and `$2`.
 
 ```bash
 #!/bin/bash/
-samtools stats $2 > $1
+samtools view -c $2 > $1
 ```
 :::
 
@@ -239,6 +239,30 @@ One thing to remember is to not touch the raw data. The original files should re
 A good way to do this is to have your outputs saved in a different folder.
 :::
 
+## `shellcheck`
+
+When you are writing shell scripts, `shellcheck` is a really handy way to check that you have syntax correctly.
+
+```bash
+#/bin/bash #<1>
+echo "blah blah"
+```
+1. A mistake! should be `#!/bin/bash`.
+
+If we run `shellcheck` on this script, it will catch the mistake: 
+
+```bash
+shellcheck bad_script.sh 
+```
+
+`shellcheck` will give the following response:
+
+```
+In bad_script.sh line 1:
+#/bin/bash
+ ^-- SC1113 (error): Use #!, not just #, for the shebang.
+```
+For more info, refer to Bite Sized Bash, page 6. 
 
 ## Variables in Bash Scripts {#sec-bash-variables}
 
@@ -312,6 +336,75 @@ module purge
 1. Load `BWA` module.
 2. Set a variable called `$REF_GENOME`.
 3. Run `bwa mem` on the first argument `$1`, using the `$REF_GENOME` variable, and output to `$1.aligned.sam`.
+
+## Using pipes: STDIN, STDOUT, STDERR
+
+We will need to use pipes to chain our commands together. Specifically, we need to take a command that generates a list of files on the cluster shared filesystem, and then spawns individual jobs to process each file. For this reason, understanding a little bit more about how pipes (`|`) work in Bash is helpful.
+
+If we want to understand how to chain our scripts together into a pipeline, it is helpful to know about the different streams that are available to the utilities.
+
+:::{#fig-std}
+```{mermaid}
+graph LR
+  A(STDIN) --> E[run_samtools.sh]
+  E --> B(STDOUT)
+  E --> C(STDERR)
+```
+Inputs/outputs to a script
+:::
+
+Every script has three streams available to it: Standard In (STDIN), Standard Out (STDOUT), and Standard Error (STDERR) (@fig-std).
+
+STDIN contains information that is directed to the input of a script (usually text output via STDOUT from another script). This includes arguments we pass onto the script.
+
+Why do these matter? To work in a Unix pipeline, a script must be able to utilize STDIN, and generate STDOUT, and STDERR.
+
+Specifically, in pipelines, STDOUT of a script (here it's `run_samtools`) is directed into STDIN of another command (here `wc`, or word count)
+
+:::{#fig-pipe}
+```{mermaid}
+graph LR
+  E[run_samtools.sh] --> B(STDOUT)
+  B --> F{"|"}
+  E --> C(STDERR)
+  F --> D("STDIN (wc)")
+  D --> G[wc]
+```
+Piping a script `run_samtools.sh` into another command (`wc`)
+:::
+
+We will mostly use STDOUT in our bash scripts, but STDERR can be really helpful in debugging what's going wrong. 
+
+### `>` (redirects)
+
+Sometimes you want to direct the output of a script to a text file. A lot of bioinformatics tools output to standard out, and we need a way to save the results.
+
+Enter `>`, a redirect. We can put `>` after our command followed by a file path to save the output.
+
+```
+samtools view -c my_bam_file.bam > counts.txt
+```
+
+Here we are redirecting the output of `samtools view` into the `counts.txt` file. Note that everytime that we run the script, we will overwrite the current contents of the `counts.txt` file. Sometimes that is not what you want.
+
+There is another kind of redirect, `>>`, that will append (that is, add to the end of a file). If the file does not exist, it will be created. But if it does exist, the output will be added to the end of the file.
+
+Much more information about redirects can be found here: <https://www.geeksforgeeks.org/linux-unix/input-output-redirection-in-linux/> and in Bite Sized Bash (page 13).
+
+:::{.callout-note}
+## Why this is important on the Cluster
+
+We'll use pipes and pipelines not only in starting a bunch of jobs using batch scripting on our home computer, but also when we are processing files within a job.
+
+Pipes are at the heart of multi-stage workflows. They allow us to specify multiple steps in processing a file. 
+:::
+
+### For more info about pipes and pipelines
+
+- Bite Size Bash Page 13 for more about redirects
+- Bite Size Bash Page 20 for more about pipes
+- <https://swcarpentry.github.io/shell-novice/04-pipefilter/index.html>
+- <https://datascienceatthecommandline.com/2e/chapter-2-getting-started.html?q=stdin#combining-command-line-tools>
 
 ## Arguments in R Scripts
 
@@ -429,75 +522,8 @@ python3 process_file.py ${1}
 module purge
 ```
 
-## Using pipes: STDIN, STDOUT, STDERR
 
-We will need to use pipes to chain our commands together. Specifically, we need to take a command that generates a list of files on the cluster shared filesystem, and then spawns individual jobs to process each file. For this reason, understanding a little bit more about how pipes (`|`) work in Bash is helpful.
+## Next Time
 
-If we want to understand how to chain our scripts together into a pipeline, it is helpful to know about the different streams that are available to the utilities.
+We'll work on batch processing, both on a local system and the HPC cluster.
 
-:::{#fig-std}
-```{mermaid}
-graph LR
-  A(STDIN) --> E[run_samtools.sh]
-  E --> B(STDOUT)
-  E --> C(STDERR)
-```
-Inputs/outputs to a script
-:::
-
-Every script has three streams available to it: Standard In (STDIN), Standard Out (STDOUT), and Standard Error (STDERR) (@fig-std).
-
-STDIN contains information that is directed to the input of a script (usually text output via STDOUT from another script). This includes arguments we pass onto the script.
-
-Why do these matter? To work in a Unix pipeline, a script must be able to utilize STDIN, and generate STDOUT, and STDERR.
-
-Specifically, in pipelines, STDOUT of a script (here it's `run_samtools`) is directed into STDIN of another command (here `wc`, or word count)
-
-:::{#fig-pipe}
-```{mermaid}
-graph LR
-  E[run_samtools.sh] --> B(STDOUT)
-  B --> F{"|"}
-  E --> C(STDERR)
-  F --> D("STDIN (wc)")
-  D --> G[wc]
-```
-Piping a script `run_samtools.sh` into another command (`wc`)
-:::
-
-We will mostly use STDOUT in our bash scripts, but STDERR can be really helpful in debugging what's going wrong. 
-
-### `>` (redirects)
-
-Sometimes you want to direct the output of a script to a text file. A lot of bioinformatics tools output to standard out, and we need a way to save the results.
-
-Enter `>`, a redirect. We can put `>` after our command followed by a file path to save the output.
-
-```
-samtools view -c my_bam_file.bam > counts.txt
-```
-
-Here we are redirecting the output of `samtools view` into the `counts.txt` file. Note that everytime that we run the script, we will overwrite the current contents of the `counts.txt` file. Sometimes that is not what you want.
-
-There is another kind of redirect, `>>`, that will append (that is, add to the end of a file). If the file does not exist, it will be created. But if it does exist, the output will be added to the end of the file.
-
-Much more information about redirects can be found here: <https://www.geeksforgeeks.org/linux-unix/input-output-redirection-in-linux/> and in Bite Sized Bash (page 13).
-
-:::{.callout-note}
-## Why this is important on the Cluster
-
-We'll use pipes and pipelines not only in starting a bunch of jobs using batch scripting on our home computer, but also when we are processing files within a job.
-
-Pipes are at the heart of multi-stage workflows. They allow us to specify multiple steps in processing a file. 
-:::
-
-### For more info about pipes and pipelines
-
-- Bite Size Bash Page 13 for more about redirects
-- Bite Size Bash Page 20 for more about pipes
-- <https://swcarpentry.github.io/shell-novice/04-pipefilter/index.html>
-- <https://datascienceatthecommandline.com/2e/chapter-2-getting-started.html?q=stdin#combining-command-line-tools>
-
-## Glossary
-
-{{<glossary table="true">}}

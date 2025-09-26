@@ -10,7 +10,7 @@ All exercises are required for the badge.
 ```bash
 #!/bin/bash
 module load SAMtools
-samtools view -c $1
+samtools view -c $1 
 ```
 
 How would we modify the above script to redirect the output to `${1}.counts.txt`?
@@ -19,7 +19,28 @@ How would we modify the above script to redirect the output to `${1}.counts.txt`
 
 ```
 
-2. Modify the below R script to be runnable. It should also take an argument called $FILEPATH for `read.csv()`:
+2. Make sure you can get `scripts/week2/run_bwa.sh` to run on `rhino`. 
+
+3. Modify `scripts/week2/run_bwa.sh` to 
+    a. Take an additional argument, a folder path
+    b. Save the SAM file to this folder path
+
+Hint 1: I recommend that you copy `run_bwa.sh` into a new script and work from there. Put your code into the codeblock below:
+
+```bash
+
+```
+
+Write an example to run your new version of the script below:
+
+```bash
+
+```
+
+
+For question 4, pick one language to answer.
+
+4R. (R) Modify the below R script and save it to a file called `r_csv_script.R`. It should also take an argument called $FILEPATH for `read.csv()`:
 
 ```r
 library(tidyverse)
@@ -34,7 +55,9 @@ module load fhR
 -----
 ```
 
-3. Modify the below Python script to be runnable. It should also take the first position argument (a file path) and process the file
+How would you redirect the output of your script to a file? 
+
+4Py. (py) Modify the below Python script to be runnable. It should also take the first position argument (a file path) and process the file
 
 ```{python}
 import pandas as pd

@@ -11,14 +11,20 @@ Exercises 1, 2, 3 are required for the badge.
 #!/bin/bash
 for file in ------
 do
-  awk $file
+  head ------
 done
 ```
 
-2. Write a `for` loop to count the number of lines for each file. The output should be:
+2. Write a `for` loop in a script to count the number of lines for each file. The output should be:
 
 ```
 echo "${file}\t(wc -l $file)\n"
+```
+
+Run the script and redirect your output to `files_out.txt`. Put your bash command you used below
+
+
+```
 ```
 
 3. Modify the below script to process the files in `data/week3/fastq/`

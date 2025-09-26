@@ -11,16 +11,6 @@ By the end of this session, you should be able to:
 - **Set** Permissions on and **execute** a bash script 
 - **Find** help on the system
 
-## Map of the Material
-
-```{mermaid}
-flowchart TD
-    A[Signing In] --> B[pwd: Find Current Directory]
-    B --> D[Absolute vs Relative Paths]
-    D --> F[chmod: set permissions]
-    F --> G[execute a script]
-```
-
 :::{.callout-note}
 ## Reminder about Terminology
 
@@ -78,7 +68,7 @@ Depending on how you work, you may want to store your scripts and workflows in `
 
 There is an alias for your current directory: `.` (the period sign).
 
-This becomes useful when you want to output files to your current location.
+This becomes useful when you want to output files to your current location. We'll use this later.
 :::
 
 ### `du`: How much space?
@@ -109,7 +99,7 @@ Here are the first few lines of my `du` output.
 If we want to specify `du` to scan only a single folder, we can give the folder name.
 
 ```bash
-du -d 1 Desktop
+du -d 1 Desktop/
 ```
 
 I have nothing really stored in my `Desktop/` folder, so I get the following:
@@ -177,11 +167,15 @@ We can rewrite it as:
 ```bash
 ml BWA                                                
 bwa mem -M -t 2 \                                     
-  /fh/fast/reference_data/chr20 \                       
-  /fh/fast/laderas_t/raw_data/na12878_1.fq \            
-  /fh/fast/laderas_t/raw_data/na12878_2.fq > \          
-  /hpc/temp/laderas_t/aligned_data/na12878_1.sam      
+  /fh/fast/reference_data/chr20 \      #<1>                 
+  /fh/fast/laderas_t/raw_data/na12878_1.fq \  #<2>            
+  /fh/fast/laderas_t/raw_data/na12878_2.fq > \  #<3>          
+  /hpc/temp/laderas_t/aligned_data/na12878_1.sam #<4>      
 ```
+1. Path of reference genome
+2. 1st paired end read FASTQ file
+3. 2nd paired end read FASTQ file
+4. Output file location
 
 We'll use this throughout the book so the code is easier to read. 
 
@@ -459,6 +453,7 @@ nano my_file.txt
 Add some text to it.
 
 Use CTRL-X to exit, and make sure to select "Yes" to save.
+
 
 ## Running an R or Python Script on the command line {#sec-rpy}
 
