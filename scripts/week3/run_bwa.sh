@@ -1,7 +1,10 @@
 #!/bin/bash
 module load BWA/0.7.17-GCCcore-11.2.0
 input_fastq=${1}
-base_file_name="${input_fastq/.fastq/}"
+# strip path and suffix
+base_file_name="${input_fastq%.fastq}"
+base_file_name=${base_file_name##*/}
+echo "running $input_fastq"
 sample_name="SM:${base_file_name}"
 read_group_id="ID:${base_file_name}"
 platform_info="PL:Illumina"
