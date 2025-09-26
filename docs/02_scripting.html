@@ -77,7 +77,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/quarto-contrib/glossary/glossary.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -233,30 +232,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#for-more-info" id="toc-for-more-info" class="nav-link" data-scroll-target="#for-more-info"><span class="header-section-number">2.5.2</span> For More Info</a></li>
   </ul></li>
   <li><a href="#module-purge" id="toc-module-purge" class="nav-link" data-scroll-target="#module-purge"><span class="header-section-number">2.6</span> <code>module purge</code></a></li>
-  <li><a href="#sec-bash-variables" id="toc-sec-bash-variables" class="nav-link" data-scroll-target="#sec-bash-variables"><span class="header-section-number">2.7</span> Variables in Bash Scripts</a>
+  <li><a href="#shellcheck" id="toc-shellcheck" class="nav-link" data-scroll-target="#shellcheck"><span class="header-section-number">2.7</span> <code>shellcheck</code></a></li>
+  <li><a href="#sec-bash-variables" id="toc-sec-bash-variables" class="nav-link" data-scroll-target="#sec-bash-variables"><span class="header-section-number">2.8</span> Variables in Bash Scripts</a>
   <ul class="collapse">
-  <li><a href="#for-more-information-1" id="toc-for-more-information-1" class="nav-link" data-scroll-target="#for-more-information-1"><span class="header-section-number">2.7.1</span> For more information</a></li>
+  <li><a href="#for-more-information-1" id="toc-for-more-information-1" class="nav-link" data-scroll-target="#for-more-information-1"><span class="header-section-number">2.8.1</span> For more information</a></li>
   </ul></li>
-  <li><a href="#putting-it-all-together" id="toc-putting-it-all-together" class="nav-link" data-scroll-target="#putting-it-all-together"><span class="header-section-number">2.8</span> Putting it all together</a></li>
-  <li><a href="#aligning-a-file" id="toc-aligning-a-file" class="nav-link" data-scroll-target="#aligning-a-file"><span class="header-section-number">2.9</span> Aligning a file</a></li>
-  <li><a href="#arguments-in-r-scripts" id="toc-arguments-in-r-scripts" class="nav-link" data-scroll-target="#arguments-in-r-scripts"><span class="header-section-number">2.10</span> Arguments in R Scripts</a>
+  <li><a href="#putting-it-all-together" id="toc-putting-it-all-together" class="nav-link" data-scroll-target="#putting-it-all-together"><span class="header-section-number">2.9</span> Putting it all together</a></li>
+  <li><a href="#aligning-a-file" id="toc-aligning-a-file" class="nav-link" data-scroll-target="#aligning-a-file"><span class="header-section-number">2.10</span> Aligning a file</a></li>
+  <li><a href="#using-pipes-stdin-stdout-stderr" id="toc-using-pipes-stdin-stdout-stderr" class="nav-link" data-scroll-target="#using-pipes-stdin-stdout-stderr"><span class="header-section-number">2.11</span> Using pipes: STDIN, STDOUT, STDERR</a>
   <ul class="collapse">
-  <li><a href="#using-named-arguments-in-an-r-script" id="toc-using-named-arguments-in-an-r-script" class="nav-link" data-scroll-target="#using-named-arguments-in-an-r-script"><span class="header-section-number">2.10.1</span> Using Named Arguments in an R script</a></li>
-  <li><a href="#running-our-r-script" id="toc-running-our-r-script" class="nav-link" data-scroll-target="#running-our-r-script"><span class="header-section-number">2.10.2</span> Running our R Script</a></li>
-  <li><a href="#integrating-an-r-script-into-a-bash-script" id="toc-integrating-an-r-script-into-a-bash-script" class="nav-link" data-scroll-target="#integrating-an-r-script-into-a-bash-script"><span class="header-section-number">2.10.3</span> Integrating an R script into a Bash Script</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">2.10.4</span> Summary</a></li>
+  <li><a href="#redirects" id="toc-redirects" class="nav-link" data-scroll-target="#redirects"><span class="header-section-number">2.11.1</span> <code>&gt;</code> (redirects)</a></li>
+  <li><a href="#for-more-info-about-pipes-and-pipelines" id="toc-for-more-info-about-pipes-and-pipelines" class="nav-link" data-scroll-target="#for-more-info-about-pipes-and-pipelines"><span class="header-section-number">2.11.2</span> For more info about pipes and pipelines</a></li>
   </ul></li>
-  <li><a href="#arguments-in-python-scripts" id="toc-arguments-in-python-scripts" class="nav-link" data-scroll-target="#arguments-in-python-scripts"><span class="header-section-number">2.11</span> Arguments in Python Scripts</a>
+  <li><a href="#arguments-in-r-scripts" id="toc-arguments-in-r-scripts" class="nav-link" data-scroll-target="#arguments-in-r-scripts"><span class="header-section-number">2.12</span> Arguments in R Scripts</a>
   <ul class="collapse">
-  <li><a href="#using-sys.argv" id="toc-using-sys.argv" class="nav-link" data-scroll-target="#using-sys.argv"><span class="header-section-number">2.11.1</span> Using <code>sys.argv</code></a></li>
-  <li><a href="#running-our-python-script-on-the-command-line" id="toc-running-our-python-script-on-the-command-line" class="nav-link" data-scroll-target="#running-our-python-script-on-the-command-line"><span class="header-section-number">2.11.2</span> Running our Python script on the command line</a></li>
+  <li><a href="#using-named-arguments-in-an-r-script" id="toc-using-named-arguments-in-an-r-script" class="nav-link" data-scroll-target="#using-named-arguments-in-an-r-script"><span class="header-section-number">2.12.1</span> Using Named Arguments in an R script</a></li>
+  <li><a href="#running-our-r-script" id="toc-running-our-r-script" class="nav-link" data-scroll-target="#running-our-r-script"><span class="header-section-number">2.12.2</span> Running our R Script</a></li>
+  <li><a href="#integrating-an-r-script-into-a-bash-script" id="toc-integrating-an-r-script-into-a-bash-script" class="nav-link" data-scroll-target="#integrating-an-r-script-into-a-bash-script"><span class="header-section-number">2.12.3</span> Integrating an R script into a Bash Script</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">2.12.4</span> Summary</a></li>
   </ul></li>
-  <li><a href="#using-pipes-stdin-stdout-stderr" id="toc-using-pipes-stdin-stdout-stderr" class="nav-link" data-scroll-target="#using-pipes-stdin-stdout-stderr"><span class="header-section-number">2.12</span> Using pipes: STDIN, STDOUT, STDERR</a>
+  <li><a href="#arguments-in-python-scripts" id="toc-arguments-in-python-scripts" class="nav-link" data-scroll-target="#arguments-in-python-scripts"><span class="header-section-number">2.13</span> Arguments in Python Scripts</a>
   <ul class="collapse">
-  <li><a href="#redirects" id="toc-redirects" class="nav-link" data-scroll-target="#redirects"><span class="header-section-number">2.12.1</span> <code>&gt;</code> (redirects)</a></li>
-  <li><a href="#for-more-info-about-pipes-and-pipelines" id="toc-for-more-info-about-pipes-and-pipelines" class="nav-link" data-scroll-target="#for-more-info-about-pipes-and-pipelines"><span class="header-section-number">2.12.2</span> For more info about pipes and pipelines</a></li>
+  <li><a href="#using-sys.argv" id="toc-using-sys.argv" class="nav-link" data-scroll-target="#using-sys.argv"><span class="header-section-number">2.13.1</span> Using <code>sys.argv</code></a></li>
+  <li><a href="#running-our-python-script-on-the-command-line" id="toc-running-our-python-script-on-the-command-line" class="nav-link" data-scroll-target="#running-our-python-script-on-the-command-line"><span class="header-section-number">2.13.2</span> Running our Python script on the command line</a></li>
   </ul></li>
-  <li><a href="#glossary" id="toc-glossary" class="nav-link" data-scroll-target="#glossary"><span class="header-section-number">2.13</span> Glossary</a></li>
+  <li><a href="#next-time" id="toc-next-time" class="nav-link" data-scroll-target="#next-time"><span class="header-section-number">2.14</span> Next Time</a></li>
   </ul>
 </nav>
     </div>
@@ -465,7 +465,7 @@ Answer
 <div class="callout-body-container callout-body">
 <p>For this script, we would switch the positions of <code>$1</code> and <code>$2</code>.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash/</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> stats <span class="va">$2</span> <span class="op">&gt;</span> <span class="va">$1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-c</span> <span class="va">$2</span> <span class="op">&gt;</span> <span class="va">$1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -495,32 +495,51 @@ Processing Files Best Practices
 </div>
 </div>
 </section>
-<section id="sec-bash-variables" class="level2" data-number="2.7">
-<h2 data-number="2.7" class="anchored" data-anchor-id="sec-bash-variables"><span class="header-section-number">2.7</span> Variables in Bash Scripts</h2>
+<section id="shellcheck" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="shellcheck"><span class="header-section-number">2.7</span> <code>shellcheck</code></h2>
+<p>When you are writing shell scripts, <code>shellcheck</code> is a really handy way to check that you have syntax correctly.</p>
+<div class="sourceCode" id="annotated-cell-17"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><a class="code-annotation-anchor" data-target-cell="annotated-cell-17" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-17-1" class="code-annotation-target"><a href="#annotated-cell-17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#/bin/bash</span></span>
+<span id="annotated-cell-17-2"><a href="#annotated-cell-17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"blah blah"</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-17" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-17" data-code-lines="1" data-code-annotation="1">A mistake! should be <code>#!/bin/bash</code>.</span>
+</dd>
+</dl>
+<p>If we run <code>shellcheck</code> on this script, it will catch the mistake:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">shellcheck</span> bad_script.sh </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>shellcheck</code> will give the following response:</p>
+<pre><code>In bad_script.sh line 1:
+#/bin/bash
+ ^-- SC1113 (error): Use #!, not just #, for the shebang.</code></pre>
+<p>For more info, refer to Bite Sized Bash, page 6.</p>
+</section>
+<section id="sec-bash-variables" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="sec-bash-variables"><span class="header-section-number">2.8</span> Variables in Bash Scripts</h2>
 <p>We saw a little bit about using <code>$1</code>, which is a <em>variable</em> in our Bash scripts. Let’s talk about declaring variables in bash scripts and using them using variable expansion.</p>
 <p>In Bash, we can declare a variable by using <code>&lt;variable_name&gt;=&lt;value&gt;</code>. Note there are no spaces between the variable (<code>my_variable</code>), equals sign, and the value (<code>"ggplot2"</code>).</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="va">my_variable</span><span class="op">=</span><span class="st">"ggplot2"</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"My favorite R package is </span><span class="va">${my_variable}</span><span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="va">my_variable</span><span class="op">=</span><span class="st">"ggplot2"</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"My favorite R package is </span><span class="va">${my_variable}</span><span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre><code>My favorite R package is ggplot2</code></pre>
 <p>Take a look at line 3 above. We expand the variable (that is, we substitute the actual variable) by using <code>${my_variable}</code> in our <code>echo</code> statement.</p>
 <p>In general, when expanding a variable in a quoted string, it is better to use <code>${my_variable}</code> (the variable name in curly brackets). This is especially important when using the variable name as part of a string:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="va">my_var</span><span class="op">=</span><span class="st">"chr1"</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"</span><span class="va">${my_var}</span><span class="st">_1.vcf.gz"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="va">my_var</span><span class="op">=</span><span class="st">"chr1"</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"</span><span class="va">${my_var}</span><span class="st">_1.vcf.gz"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre><code>chr1_1.vcf.gz</code></pre>
 <p>If we didn’t use the braces here, like this:</p>
 <pre><code>echo "$my_var_1.vcf.gz"</code></pre>
 <p>Bash would look for the variable <code>$my_var_1</code>, which doesn’t exist. So use the curly braces <code>{}</code> when you expand variables. It’s safer overall.</p>
 <p>There is an alternate method for variable expansion which we will use when we call a <em>sub-shell</em> - a shell within a shell. We need to use parentheses <code>()</code> to expand them within the sub-shell, but not the top-shell. We’ll use this when we process multiple files within a single worker.</p>
-<section id="for-more-information-1" class="level3" data-number="2.7.1">
-<h3 data-number="2.7.1" class="anchored" data-anchor-id="for-more-information-1"><span class="header-section-number">2.7.1</span> For more information</h3>
+<section id="for-more-information-1" class="level3" data-number="2.8.1">
+<h3 data-number="2.8.1" class="anchored" data-anchor-id="for-more-information-1"><span class="header-section-number">2.8.1</span> For more information</h3>
 <p>Please refer to Bite Size Bash page 7 for more information.</p>
 </section>
 </section>
-<section id="putting-it-all-together" class="level2" data-number="2.8">
-<h2 data-number="2.8" class="anchored" data-anchor-id="putting-it-all-together"><span class="header-section-number">2.8</span> Putting it all together</h2>
+<section id="putting-it-all-together" class="level2" data-number="2.9">
+<h2 data-number="2.9" class="anchored" data-anchor-id="putting-it-all-together"><span class="header-section-number">2.9</span> Putting it all together</h2>
 <p>We can run the script on a file:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./scripts/samcount.sh</span> data/my_sam_file.sam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./scripts/samcount.sh</span> data/my_sam_file.sam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -535,157 +554,28 @@ Try it Out
 </div>
 </div>
 </section>
-<section id="aligning-a-file" class="level2" data-number="2.9">
-<h2 data-number="2.9" class="anchored" data-anchor-id="aligning-a-file"><span class="header-section-number">2.9</span> Aligning a file</h2>
+<section id="aligning-a-file" class="level2" data-number="2.10">
+<h2 data-number="2.10" class="anchored" data-anchor-id="aligning-a-file"><span class="header-section-number">2.10</span> Aligning a file</h2>
 <p>How about running the <code>bwa-mem</code> aligner? Let’s run a FASTQ file into it:</p>
-<div class="sourceCode" id="annotated-cell-23"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-23-1"><a href="#annotated-cell-23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| filename: run_bwa.sh</span></span>
-<span id="annotated-cell-23-2"><a href="#annotated-cell-23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-23" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-23-3" class="code-annotation-target"><a href="#annotated-cell-23-3" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load BWA/0.7.17-GCCcore-11.2.0</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-23" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-23-4" class="code-annotation-target"><a href="#annotated-cell-23-4" aria-hidden="true" tabindex="-1"></a><span class="va">REF_GENOME</span><span class="op">=</span><span class="st">"/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa"</span></span>
-<span id="annotated-cell-23-5"><a href="#annotated-cell-23-5" aria-hidden="true" tabindex="-1"></a><span class="ex">bwa</span> mem <span class="va">${REF_GENOME}</span> <span class="va">$1</span> <span class="op">&gt;</span> <span class="va">$1</span>.aligned.sam <span class="co">#&lt;3?&gt;</span></span>
-<span id="annotated-cell-23-6"><a href="#annotated-cell-23-6" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="annotated-cell-26"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-26-1"><a href="#annotated-cell-26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| filename: run_bwa.sh</span></span>
+<span id="annotated-cell-26-2"><a href="#annotated-cell-26-2" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-26-3" class="code-annotation-target"><a href="#annotated-cell-26-3" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load BWA/0.7.17-GCCcore-11.2.0</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-26-4" class="code-annotation-target"><a href="#annotated-cell-26-4" aria-hidden="true" tabindex="-1"></a><span class="va">REF_GENOME</span><span class="op">=</span><span class="st">"/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa"</span></span>
+<span id="annotated-cell-26-5"><a href="#annotated-cell-26-5" aria-hidden="true" tabindex="-1"></a><span class="ex">bwa</span> mem <span class="va">${REF_GENOME}</span> <span class="va">$1</span> <span class="op">&gt;</span> <span class="va">$1</span>.aligned.sam <span class="co">#&lt;3?&gt;</span></span>
+<span id="annotated-cell-26-6"><a href="#annotated-cell-26-6" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-23" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-26" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-23" data-code-lines="3" data-code-annotation="1">Load <code>BWA</code> module.</span>
+<span data-code-cell="annotated-cell-26" data-code-lines="3" data-code-annotation="1">Load <code>BWA</code> module.</span>
 </dd>
-<dt data-target-cell="annotated-cell-23" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-26" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-23" data-code-lines="4" data-code-annotation="2">Set a variable called <code>$REF_GENOME</code>.</span>
+<span data-code-cell="annotated-cell-26" data-code-lines="4" data-code-annotation="2">Set a variable called <code>$REF_GENOME</code>.</span>
 </dd>
 </dl>
 </section>
-<section id="arguments-in-r-scripts" class="level2" data-number="2.10">
-<h2 data-number="2.10" class="anchored" data-anchor-id="arguments-in-r-scripts"><span class="header-section-number">2.10</span> Arguments in R Scripts</h2>
-<p>To make our R Script more useful, it must also accept arguments. Let’s explore how to achieve this.</p>
-<p>As we learned in (<a href="01_basics.html#sec-rpy" class="quarto-xref"><span>Section 1.15</span></a>), We can use <code>Rscript</code> to execute our command <em>non-interactively</em>. <code>Rscript</code>, which is the command line executable, will run our Rs cript on the command line.</p>
-<p>Note that we have a named argument called <code>input_file</code> and it is done differently than in Bash - how do we use this in our R Script?</p>
-<section id="using-named-arguments-in-an-r-script" class="level3" data-number="2.10.1">
-<h3 data-number="2.10.1" class="anchored" data-anchor-id="using-named-arguments-in-an-r-script"><span class="header-section-number">2.10.1</span> Using Named Arguments in an R script</h3>
-<p>We can pass arguments from our bash script to our R script by using <code>commandArgs()</code> - this will populate a list of named arguments (such as <code>CSVFILE</code>) that are passed into the R Script. We assign the output of <code>commandArgs()</code> into the <code>args</code> object.</p>
-<p>We refer to our <code>CSVFILE</code> argument as <code>args$CSVFILE</code> in our script.</p>
-<div class="cell">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>scripts/week2/process_data.R</strong></pre>
-</div>
-<div class="sourceCode cell-code" id="annotated-cell-24"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-24-1"><a href="#annotated-cell-24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="annotated-cell-24-2"><a href="#annotated-cell-24-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-24-3"><a href="#annotated-cell-24-3" aria-hidden="true" tabindex="-1"></a>args <span class="ot">&lt;-</span> <span class="fu">commandArgs</span>()</span>
-<span id="annotated-cell-24-4"><a href="#annotated-cell-24-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-24-5"><a href="#annotated-cell-24-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Use arg$CSVFILE in read.csv</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-24-6" class="code-annotation-target"><a href="#annotated-cell-24-6" aria-hidden="true" tabindex="-1"></a>csv_file <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file=</span>args<span class="sc">$</span>CSVFILE)</span>
-<span id="annotated-cell-24-7"><a href="#annotated-cell-24-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-24-8"><a href="#annotated-cell-24-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Do some work with csv_file</span></span>
-<span id="annotated-cell-24-9"><a href="#annotated-cell-24-9" aria-hidden="true" tabindex="-1"></a>csv_filtered <span class="ot">&lt;-</span> csv_file <span class="sc">|&gt;</span> janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span>
-<span id="annotated-cell-24-10"><a href="#annotated-cell-24-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-24-11"><a href="#annotated-cell-24-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Write output</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-24-12" class="code-annotation-target"><a href="#annotated-cell-24-12" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(csv_filtered, <span class="at">file =</span> <span class="fu">paste0</span>(args<span class="sc">$</span>CSVFILE, <span class="st">"_filtered.csv"</span>))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell-annotation">
-<dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-24" data-target-annotation="1">1</dt>
-<dd>
-<span data-code-cell="annotated-cell-24" data-code-lines="6" data-code-annotation="1">Use <code>args$CSVFILE</code> as an input for <code>read.csv()</code></span>
-</dd>
-<dt data-target-cell="annotated-cell-24" data-target-annotation="2">2</dt>
-<dd>
-<span data-code-cell="annotated-cell-24" data-code-lines="12" data-code-annotation="2">Use <code>args$CSVFILE</code> to specify the output name.</span>
-</dd>
-</dl>
-</div>
-</div>
-</section>
-<section id="running-our-r-script" class="level3" data-number="2.10.2">
-<h3 data-number="2.10.2" class="anchored" data-anchor-id="running-our-r-script"><span class="header-section-number">2.10.2</span> Running our R Script</h3>
-<p>Now that we’ve set it up, we can run the R script from the command line as follows:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> process_data.R CSVFILE=<span class="st">"LUSC_clinical.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="integrating-an-r-script-into-a-bash-script" class="level3" data-number="2.10.3">
-<h3 data-number="2.10.3" class="anchored" data-anchor-id="integrating-an-r-script-into-a-bash-script"><span class="header-section-number">2.10.3</span> Integrating an R script into a Bash Script</h3>
-<p>Say you have an R Script you need to run on the command line in combination with other unix commands. In our bash script, we can do the following:</p>
-<div class="cell">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>scripting-basics/wrap_r_script.sh</strong></pre>
-</div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load fhR</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> process_data.R CSVFILE=<span class="st">"</span><span class="va">${1}</span><span class="st">"</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<p>Then we can run</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> wrap_r_script.sh my_csvfile.csv </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>In our bash script, <code>my_bash_script.sh</code>, we’re using positional argument (for simplicity) to specify our csvfile, and then passing the positional argument to named ones (<code>CSVFILE</code>) for <code>my_r_script.R</code>.</p>
-</section>
-<section id="summary" class="level3" data-number="2.10.4">
-<h3 data-number="2.10.4" class="anchored" data-anchor-id="summary"><span class="header-section-number">2.10.4</span> Summary</h3>
-<ul>
-<li>R scripts will accept named arguments when called by <code>Rscript</code>:</li>
-</ul>
-<pre><code>Rscript process_csv.R CSVFILE="my_csvfile.csv"</code></pre>
-</section>
-</section>
-<section id="arguments-in-python-scripts" class="level2" data-number="2.11">
-<h2 data-number="2.11" class="anchored" data-anchor-id="arguments-in-python-scripts"><span class="header-section-number">2.11</span> Arguments in Python Scripts</h2>
-<p>Similarly, we will need Python scripts to accept arguments as well.</p>
-<section id="using-sys.argv" class="level3" data-number="2.11.1">
-<h3 data-number="2.11.1" class="anchored" data-anchor-id="using-sys.argv"><span class="header-section-number">2.11.1</span> Using <code>sys.argv</code></h3>
-<p>The <code>sys</code> module (built into Python) will let us access arguments by position:</p>
-<div class="cell">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>process_file.py</strong></pre>
-</div>
-<div class="sourceCode cell-code" id="annotated-cell-29"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-29-1" class="code-annotation-target"><a href="#annotated-cell-29-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="annotated-cell-29-2"><a href="#annotated-cell-29-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-29-3" class="code-annotation-target"><a href="#annotated-cell-29-3" aria-hidden="true" tabindex="-1"></a><span class="bu">file</span> <span class="op">=</span> sys.argv[<span class="dv">1</span>]</span>
-<span id="annotated-cell-29-4"><a href="#annotated-cell-29-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="bu">file</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell-annotation">
-<dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-29" data-target-annotation="1">1</dt>
-<dd>
-<span data-code-cell="annotated-cell-29" data-code-lines="1" data-code-annotation="1">Import <code>sys</code> module</span>
-</dd>
-<dt data-target-cell="annotated-cell-29" data-target-annotation="2">2</dt>
-<dd>
-<span data-code-cell="annotated-cell-29" data-code-lines="3" data-code-annotation="2">Use <code>sys.argv</code> to access the first argument <code>sys.argv[1]</code></span>
-</dd>
-</dl>
-</div>
-</div>
-<p>If you know a little bit about Python, you’ll know that arrays in python are <em>zero-indexed</em>, that is, they start at <code>[0]</code>, but we have started here at <code>sys.argv[1]</code> - what is at <code>sys.argv[0]</code>?</p>
-<p>It turns out that <code>sys.argv[0]</code> is the name of the script. In the above script <code>process_file.py</code>, it contains the string <code>"process_file.py"</code>. Having the name of the script can come in handy, especially when outputting things.</p>
-</section>
-<section id="running-our-python-script-on-the-command-line" class="level3" data-number="2.11.2">
-<h3 data-number="2.11.2" class="anchored" data-anchor-id="running-our-python-script-on-the-command-line"><span class="header-section-number">2.11.2</span> Running our Python script on the command line</h3>
-<p>Now we have set up our python script, we can run it on the command line on <code>rhino</code>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load fhPython</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> process_file.py lusc_file.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>And we could wrap it up in a bash script:</p>
-<div class="cell">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>wrap_py_script.sh</strong></pre>
-</div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load fhPython</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> process_file.py <span class="va">${1}</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</section>
-</section>
-<section id="using-pipes-stdin-stdout-stderr" class="level2" data-number="2.12">
-<h2 data-number="2.12" class="anchored" data-anchor-id="using-pipes-stdin-stdout-stderr"><span class="header-section-number">2.12</span> Using pipes: STDIN, STDOUT, STDERR</h2>
+<section id="using-pipes-stdin-stdout-stderr" class="level2" data-number="2.11">
+<h2 data-number="2.11" class="anchored" data-anchor-id="using-pipes-stdin-stdout-stderr"><span class="header-section-number">2.11</span> Using pipes: STDIN, STDOUT, STDERR</h2>
 <p>We will need to use pipes to chain our commands together. Specifically, we need to take a command that generates a list of files on the cluster shared filesystem, and then spawns individual jobs to process each file. For this reason, understanding a little bit more about how pipes (<code>|</code>) work in Bash is helpful.</p>
 <p>If we want to understand how to chain our scripts together into a pipeline, it is helpful to know about the different streams that are available to the utilities.</p>
 <div id="fig-std" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -743,8 +633,8 @@ Figure&nbsp;2.2: Piping a script <code>run_samtools.sh</code> into another comma
 </figure>
 </div>
 <p>We will mostly use STDOUT in our bash scripts, but STDERR can be really helpful in debugging what’s going wrong.</p>
-<section id="redirects" class="level3" data-number="2.12.1">
-<h3 data-number="2.12.1" class="anchored" data-anchor-id="redirects"><span class="header-section-number">2.12.1</span> <code>&gt;</code> (redirects)</h3>
+<section id="redirects" class="level3" data-number="2.11.1">
+<h3 data-number="2.11.1" class="anchored" data-anchor-id="redirects"><span class="header-section-number">2.11.1</span> <code>&gt;</code> (redirects)</h3>
 <p>Sometimes you want to direct the output of a script to a text file. A lot of bioinformatics tools output to standard out, and we need a way to save the results.</p>
 <p>Enter <code>&gt;</code>, a redirect. We can put <code>&gt;</code> after our command followed by a file path to save the output.</p>
 <pre><code>samtools view -c my_bam_file.bam &gt; counts.txt</code></pre>
@@ -766,8 +656,8 @@ Why this is important on the Cluster
 </div>
 </div>
 </section>
-<section id="for-more-info-about-pipes-and-pipelines" class="level3" data-number="2.12.2">
-<h3 data-number="2.12.2" class="anchored" data-anchor-id="for-more-info-about-pipes-and-pipelines"><span class="header-section-number">2.12.2</span> For more info about pipes and pipelines</h3>
+<section id="for-more-info-about-pipes-and-pipelines" class="level3" data-number="2.11.2">
+<h3 data-number="2.11.2" class="anchored" data-anchor-id="for-more-info-about-pipes-and-pipelines"><span class="header-section-number">2.11.2</span> For more info about pipes and pipelines</h3>
 <ul>
 <li>Bite Size Bash Page 13 for more about redirects</li>
 <li>Bite Size Bash Page 20 for more about pipes</li>
@@ -776,11 +666,138 @@ Why this is important on the Cluster
 </ul>
 </section>
 </section>
-<section id="glossary" class="level2" data-number="2.13">
-<h2 data-number="2.13" class="anchored" data-anchor-id="glossary"><span class="header-section-number">2.13</span> Glossary</h2>
-<table class="glossary_table">
-<tbody><tr><th> Term </th><th> Definition </th></tr>
-</tbody></table>
+<section id="arguments-in-r-scripts" class="level2" data-number="2.12">
+<h2 data-number="2.12" class="anchored" data-anchor-id="arguments-in-r-scripts"><span class="header-section-number">2.12</span> Arguments in R Scripts</h2>
+<p>To make our R Script more useful, it must also accept arguments. Let’s explore how to achieve this.</p>
+<p>As we learned in (<a href="01_basics.html#sec-rpy" class="quarto-xref"><span>Section 1.14</span></a>), We can use <code>Rscript</code> to execute our command <em>non-interactively</em>. <code>Rscript</code>, which is the command line executable, will run our Rs cript on the command line.</p>
+<p>Note that we have a named argument called <code>input_file</code> and it is done differently than in Bash - how do we use this in our R Script?</p>
+<section id="using-named-arguments-in-an-r-script" class="level3" data-number="2.12.1">
+<h3 data-number="2.12.1" class="anchored" data-anchor-id="using-named-arguments-in-an-r-script"><span class="header-section-number">2.12.1</span> Using Named Arguments in an R script</h3>
+<p>We can pass arguments from our bash script to our R script by using <code>commandArgs()</code> - this will populate a list of named arguments (such as <code>CSVFILE</code>) that are passed into the R Script. We assign the output of <code>commandArgs()</code> into the <code>args</code> object.</p>
+<p>We refer to our <code>CSVFILE</code> argument as <code>args$CSVFILE</code> in our script.</p>
+<div class="cell">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>scripts/week2/process_data.R</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="annotated-cell-28"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-28-1"><a href="#annotated-cell-28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="annotated-cell-28-2"><a href="#annotated-cell-28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-28-3"><a href="#annotated-cell-28-3" aria-hidden="true" tabindex="-1"></a>args <span class="ot">&lt;-</span> <span class="fu">commandArgs</span>()</span>
+<span id="annotated-cell-28-4"><a href="#annotated-cell-28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-28-5"><a href="#annotated-cell-28-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Use arg$CSVFILE in read.csv</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-28-6" class="code-annotation-target"><a href="#annotated-cell-28-6" aria-hidden="true" tabindex="-1"></a>csv_file <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file=</span>args<span class="sc">$</span>CSVFILE)</span>
+<span id="annotated-cell-28-7"><a href="#annotated-cell-28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-28-8"><a href="#annotated-cell-28-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Do some work with csv_file</span></span>
+<span id="annotated-cell-28-9"><a href="#annotated-cell-28-9" aria-hidden="true" tabindex="-1"></a>csv_filtered <span class="ot">&lt;-</span> csv_file <span class="sc">|&gt;</span> janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span>
+<span id="annotated-cell-28-10"><a href="#annotated-cell-28-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-28-11"><a href="#annotated-cell-28-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Write output</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-28-12" class="code-annotation-target"><a href="#annotated-cell-28-12" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(csv_filtered, <span class="at">file =</span> <span class="fu">paste0</span>(args<span class="sc">$</span>CSVFILE, <span class="st">"_filtered.csv"</span>))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-28" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-28" data-code-lines="6" data-code-annotation="1">Use <code>args$CSVFILE</code> as an input for <code>read.csv()</code></span>
+</dd>
+<dt data-target-cell="annotated-cell-28" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-28" data-code-lines="12" data-code-annotation="2">Use <code>args$CSVFILE</code> to specify the output name.</span>
+</dd>
+</dl>
+</div>
+</div>
+</section>
+<section id="running-our-r-script" class="level3" data-number="2.12.2">
+<h3 data-number="2.12.2" class="anchored" data-anchor-id="running-our-r-script"><span class="header-section-number">2.12.2</span> Running our R Script</h3>
+<p>Now that we’ve set it up, we can run the R script from the command line as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> process_data.R CSVFILE=<span class="st">"LUSC_clinical.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="integrating-an-r-script-into-a-bash-script" class="level3" data-number="2.12.3">
+<h3 data-number="2.12.3" class="anchored" data-anchor-id="integrating-an-r-script-into-a-bash-script"><span class="header-section-number">2.12.3</span> Integrating an R script into a Bash Script</h3>
+<p>Say you have an R Script you need to run on the command line in combination with other unix commands. In our bash script, we can do the following:</p>
+<div class="cell">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>scripting-basics/wrap_r_script.sh</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load fhR</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> process_data.R CSVFILE=<span class="st">"</span><span class="va">${1}</span><span class="st">"</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>Then we can run</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> wrap_r_script.sh my_csvfile.csv </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In our bash script, <code>my_bash_script.sh</code>, we’re using positional argument (for simplicity) to specify our csvfile, and then passing the positional argument to named ones (<code>CSVFILE</code>) for <code>my_r_script.R</code>.</p>
+</section>
+<section id="summary" class="level3" data-number="2.12.4">
+<h3 data-number="2.12.4" class="anchored" data-anchor-id="summary"><span class="header-section-number">2.12.4</span> Summary</h3>
+<ul>
+<li>R scripts will accept named arguments when called by <code>Rscript</code>:</li>
+</ul>
+<pre><code>Rscript process_csv.R CSVFILE="my_csvfile.csv"</code></pre>
+</section>
+</section>
+<section id="arguments-in-python-scripts" class="level2" data-number="2.13">
+<h2 data-number="2.13" class="anchored" data-anchor-id="arguments-in-python-scripts"><span class="header-section-number">2.13</span> Arguments in Python Scripts</h2>
+<p>Similarly, we will need Python scripts to accept arguments as well.</p>
+<section id="using-sys.argv" class="level3" data-number="2.13.1">
+<h3 data-number="2.13.1" class="anchored" data-anchor-id="using-sys.argv"><span class="header-section-number">2.13.1</span> Using <code>sys.argv</code></h3>
+<p>The <code>sys</code> module (built into Python) will let us access arguments by position:</p>
+<div class="cell">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>process_file.py</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="annotated-cell-33"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-33" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-33-1" class="code-annotation-target"><a href="#annotated-cell-33-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="annotated-cell-33-2"><a href="#annotated-cell-33-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-33" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-33-3" class="code-annotation-target"><a href="#annotated-cell-33-3" aria-hidden="true" tabindex="-1"></a><span class="bu">file</span> <span class="op">=</span> sys.argv[<span class="dv">1</span>]</span>
+<span id="annotated-cell-33-4"><a href="#annotated-cell-33-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="bu">file</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-33" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-33" data-code-lines="1" data-code-annotation="1">Import <code>sys</code> module</span>
+</dd>
+<dt data-target-cell="annotated-cell-33" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-33" data-code-lines="3" data-code-annotation="2">Use <code>sys.argv</code> to access the first argument <code>sys.argv[1]</code></span>
+</dd>
+</dl>
+</div>
+</div>
+<p>If you know a little bit about Python, you’ll know that arrays in python are <em>zero-indexed</em>, that is, they start at <code>[0]</code>, but we have started here at <code>sys.argv[1]</code> - what is at <code>sys.argv[0]</code>?</p>
+<p>It turns out that <code>sys.argv[0]</code> is the name of the script. In the above script <code>process_file.py</code>, it contains the string <code>"process_file.py"</code>. Having the name of the script can come in handy, especially when outputting things.</p>
+</section>
+<section id="running-our-python-script-on-the-command-line" class="level3" data-number="2.13.2">
+<h3 data-number="2.13.2" class="anchored" data-anchor-id="running-our-python-script-on-the-command-line"><span class="header-section-number">2.13.2</span> Running our Python script on the command line</h3>
+<p>Now we have set up our python script, we can run it on the command line on <code>rhino</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load fhPython</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> process_file.py lusc_file.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And we could wrap it up in a bash script:</p>
+<div class="cell">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>wrap_py_script.sh</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load fhPython</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> process_file.py <span class="va">${1}</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="next-time" class="level2" data-number="2.14">
+<h2 data-number="2.14" class="anchored" data-anchor-id="next-time"><span class="header-section-number">2.14</span> Next Time</h2>
+<p>We’ll work on batch processing, both on a local system and the HPC cluster.</p>
 
 
 </section>

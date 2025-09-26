@@ -105,9 +105,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
-<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
-<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 </head>
@@ -226,10 +223,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#what-is-a-container" id="toc-what-is-a-container" class="nav-link" data-scroll-target="#what-is-a-container"><span class="header-section-number">5.2.1</span> What is a Container?</a></li>
   <li><a href="#docker-vs.-apptainer" id="toc-docker-vs.-apptainer" class="nav-link" data-scroll-target="#docker-vs.-apptainer"><span class="header-section-number">5.2.2</span> Docker vs.&nbsp;Apptainer</a></li>
-  <li><a href="#common-containers-for-bioinformatics" id="toc-common-containers-for-bioinformatics" class="nav-link" data-scroll-target="#common-containers-for-bioinformatics"><span class="header-section-number">5.2.3</span> Common Containers for Bioinformatics</a></li>
-  <li><a href="#the-wilds-docker-library" id="toc-the-wilds-docker-library" class="nav-link" data-scroll-target="#the-wilds-docker-library"><span class="header-section-number">5.2.4</span> The WILDS Docker Library</a></li>
-  <li><a href="#pulling-a-docker-container" id="toc-pulling-a-docker-container" class="nav-link" data-scroll-target="#pulling-a-docker-container"><span class="header-section-number">5.2.5</span> Pulling a Docker Container</a></li>
-  <li><a href="#sec-bindpaths" id="toc-sec-bindpaths" class="nav-link" data-scroll-target="#sec-bindpaths"><span class="header-section-number">5.2.6</span> Testing out bind paths in containers</a></li>
+  <li><a href="#the-wilds-docker-library" id="toc-the-wilds-docker-library" class="nav-link" data-scroll-target="#the-wilds-docker-library"><span class="header-section-number">5.2.3</span> The WILDS Docker Library</a></li>
+  <li><a href="#pulling-a-docker-container" id="toc-pulling-a-docker-container" class="nav-link" data-scroll-target="#pulling-a-docker-container"><span class="header-section-number">5.2.4</span> Pulling a Docker Container</a></li>
+  <li><a href="#bind-paths" id="toc-bind-paths" class="nav-link" data-scroll-target="#bind-paths"><span class="header-section-number">5.2.5</span> Bind Paths</a></li>
   </ul></li>
   <li><a href="#glossary" id="toc-glossary" class="nav-link" data-scroll-target="#glossary"><span class="header-section-number">5.3</span> Glossary</a></li>
   </ul>
@@ -388,7 +384,7 @@ Answer
 <ul>
 <li><strong>Software</strong> - The software we want to run in a container. For bioinformatics work, this is usually something like an aligner like <code>bwa</code>, or utilities such as <code>samtools</code></li>
 <li><strong>Software Dependencies</strong> - various software packages needed to run the software. For example, if we wanted to run <code>tidyverse</code> in a container, we need to have <code>R</code> installed in the container as well.</li>
-<li><strong>Filesystem</strong> - containers have their own isolated filesystem that can be connected to the “outside world” - everything outside of the container. We’ll learn more about customizing these with bind paths (<a href="#sec-bindpaths" class="quarto-xref"><span>Section 5.2.6</span></a>).</li>
+<li><strong>Filesystem</strong> - containers have their own isolated filesystem that can be connected to the “outside world” - everything outside of the container. We’ll learn more about customizing these with bind paths (<a href="testing.html#sec-bindpaths" class="quarto-xref"><span>Section 7.2.3</span></a>).</li>
 </ul>
 <p>In short, the container has everything needed to run the software. It is not a full operating system, but a smaller mini-version that cuts out a lot of cruft.</p>
 <p>Containers are <button class="glossary"><span class="def">When you are finished with Docker containers, everything that you created in them will disappear when you finish running scripts in the container.</span>ephemeral</button>. They leverage the the file system of their host to manage files. These are called both <em>Volumes</em> (the Docker term) and <em>Bind Paths</em> (the apptainer term).</p>
@@ -401,7 +397,7 @@ Answer
 <li>Using the Apptainer software (for HPC systems)</li>
 </ol>
 <p>In general, Docker is used on systems where you have a high level of access to the system. This is because <code>docker</code> uses a special user group called <code>docker</code> that has essentially root level privileges. This is not something to be taken lightly.</p>
-<p>This is not the case for HPC systems, which are shared and granting this level of access to many people is not practical. This is when we use <button class="glossary"><span class="def">A container software that is often used on HPC systems. Can run Docker containers.</span>Apptainer</button> (which used to be called Singularity), which requires a much lower level of user privileges to execute tasks. For more info, see <a href="testing.html#sec-open-container" class="quarto-xref"><span>Section 7.2.1</span></a> .</p>
+<p>This is not the case for HPC systems, which are shared and granting this level of access to many people is not practical. This is when we use <button class="glossary"><span class="def">A container software that is often used on HPC systems. Can run Docker containers.</span>Apptainer</button> (which used to be called Singularity), which requires a much lower level of user privileges to execute tasks. For more info, see <a href="testing.html#sec-open-container" class="quarto-xref"><span>Section 7.2</span></a> .</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -423,18 +419,13 @@ Be Secure
 </div>
 </div>
 </section>
-<section id="common-containers-for-bioinformatics" class="level3" data-number="5.2.3">
-<h3 data-number="5.2.3" class="anchored" data-anchor-id="common-containers-for-bioinformatics"><span class="header-section-number">5.2.3</span> Common Containers for Bioinformatics</h3>
-<ul>
-<li>GATK (the genome analysis toolkit) is one common container that we can use for analysis.</li>
-<li></li>
-</ul>
-</section>
-<section id="the-wilds-docker-library" class="level3" data-number="5.2.4">
-<h3 data-number="5.2.4" class="anchored" data-anchor-id="the-wilds-docker-library"><span class="header-section-number">5.2.4</span> The WILDS Docker Library</h3>
+<section id="the-wilds-docker-library" class="level3" data-number="5.2.3">
+<h3 data-number="5.2.3" class="anchored" data-anchor-id="the-wilds-docker-library"><span class="header-section-number">5.2.3</span> The WILDS Docker Library</h3>
 <p>The Data Science Lab has a set of Docker containers for common Bioinformatics tasks available in the <a href="https://hub.docker.com/u/getwilds">WILDS Docker Library</a>. These include:</p>
 <ul>
+<li><code>bwa mem</code></li>
 <li><code>samtools</code></li>
+<li><code>gatk</code></li>
 <li><code>bcftools</code></li>
 <li><code>manta</code></li>
 <li><code>cnvkit</code></li>
@@ -442,45 +433,17 @@ Be Secure
 </ul>
 <p>Among many others. Be sure to check it out before you start building your own containers.</p>
 </section>
-<section id="pulling-a-docker-container" class="level3" data-number="5.2.5">
-<h3 data-number="5.2.5" class="anchored" data-anchor-id="pulling-a-docker-container"><span class="header-section-number">5.2.5</span> Pulling a Docker Container</h3>
+<section id="pulling-a-docker-container" class="level3" data-number="5.2.4">
+<h3 data-number="5.2.4" class="anchored" data-anchor-id="pulling-a-docker-container"><span class="header-section-number">5.2.4</span> Pulling a Docker Container</h3>
 <p>Let’s pull a docker container from the Docker registry. Note we have to specify <code>docker://</code> when we pull the container, because Apptainer has its own internal format called SIF.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> pull docker://ghcr.io/getwilds/scanpy:latest</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> run <span class="at">--bind</span> /path/to/data:/data,/path/to/script:/script docker://getwilds/scanpy:latest python /script/example.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="sec-bindpaths" class="level3" data-number="5.2.6">
-<h3 data-number="5.2.6" class="anchored" data-anchor-id="sec-bindpaths"><span class="header-section-number">5.2.6</span> Testing out bind paths in containers</h3>
-<p>One thing to keep in mind is that every container has its own filesystem. One of the hardest things to wrap your head around for containers is how their filesystems work, and how to access files that are outside of the container filesystem. We’ll call any filesystems outside of the container <em>external filesystems</em> to make the discussion a little easier.</p>
-<p>By default, the containers have access to your current working directory. We could make this where our scripts live (such as <code>/home/tladera2/</code>), but because our data is elsewhere, we’ll need to specify that location (<code>/fh/fast/mylab/</code>) as well.</p>
-<p>The main mechanism we have in Apptainer to access the external filesystem are <em>bind paths</em>. Much like mounting a drive, we can bind directories from the external filesystem using these bind points.</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart LR
-   B["External Directory\n/fh/fast/mydata/"] 
-   B --read--&gt; C
-   C --write--&gt; B
-   A["Container Filesystem\n/mydata/"]--write--&gt;C("--bind /fh/fast/mydata/:/mydata/")
-   C --read--&gt; A
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>I think of bind paths as “tunnels” that give access to particular folders in the external filesystem. Once the tunnel is open, we can access data files, process them, and save them using the bind path.</p>
-<p>Say my data lives in <code>/fh/fast/mydata/</code>. Then I can specify a bind point in my <code>apptainer shell</code> and <code>apptainer run</code> commands.</p>
-<p>We can do this with the <code>--bind</code> option:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> shell <span class="at">--bind</span> /fh/fast/mydata:/mydata docker://biocontainers/samtools:v1.9-4-deb_cv1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Note that the bind syntax doesn’t have the trailing slash (<code>/</code>). That is, note that it is:</p>
-<pre><code>--bind /fh/fast/mydata: ....</code></pre>
-<p>Rather than</p>
-<pre><code>--bind /fh/fast/mydata/: ....</code></pre>
-<p>Now our <code>/fh/fast/mydata/</code> folder will be available as <code>/mydata/</code> in my container. We can read and write files to this bind point. For example, I’d refer to the <code>.bam</code> file <code>/fh/fast/mydata/my_bam_file.bam</code> as:</p>
-<pre><code>samtools view -c /mydata/my_bam_file.bam</code></pre>
+<section id="bind-paths" class="level3" data-number="5.2.5">
+<h3 data-number="5.2.5" class="anchored" data-anchor-id="bind-paths"><span class="header-section-number">5.2.5</span> Bind Paths</h3>
+<p>One thing to keep in mind is that containers have their own filesystem. They can only read and write to folders in the external filesystem that you give them access to with <em>bind paths</em>. The one exception is the current working directory.</p>
+<p>For more info about bind paths see <a href="testing.html#sec-bindpaths" class="quarto-xref"><span>Section 7.2.3</span></a>.</p>
 </section>
 </section>
 <section id="glossary" class="level2" data-number="5.3">

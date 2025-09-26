@@ -260,7 +260,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="using-a-container" class="level2" data-number="6.2">
 <h2 data-number="6.2" class="anchored" data-anchor-id="using-a-container"><span class="header-section-number">6.2</span> Using a Container</h2>
-<p>In <a href="testing.html#sec-containers" class="quarto-xref"><span>Section 7.2</span></a>, we learned a little bit about using Apptainer to run a Docker container. Let’s try to pull a common container, the Genome Analysis Toolkit (GATK) and run things inside the container.</p>
+<p>In <span class="quarto-unresolved-ref">?sec-containers</span>, we learned a little bit about using Apptainer to run a Docker container. Let’s try to pull a common container, the Genome Analysis Toolkit (GATK) and run things inside the container.</p>
 <p>The first thing we need to do is load Apptainer:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Then we can pull the docker container:</p>
@@ -349,15 +349,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="executing-a-wdl-workflow" class="level3" data-number="6.3.2">
 <h3 data-number="6.3.2" class="anchored" data-anchor-id="executing-a-wdl-workflow"><span class="header-section-number">6.3.2</span> Executing a WDL workflow</h3>
 <p>Say someone has given us a WDL file - how do we set it up to run on our own data?</p>
-<p>We’ll use <code>cromwell</code> to run our WDL workflow.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load cromwell/87</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In order to test this out on a batch of files, we’ll first request a node using <code>grabnode</code> (<a href="testing.html#sec-testnode" class="quarto-xref"><span>Section 7.1.1</span></a>).</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">grabnode</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In our node, we’ll use <code>miniWDL</code> to run our WDL workflow. It is accessible via the <code>cirro</code> module.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load cirro</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> miniwdl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We will get the repsonse:</p>
-<pre><code>To execute cromwell, run: java -jar $EBROOTCROMWELL/cromwell.jar
-
-To execute womtool, run: java -jar $EBROOTCROMWELL/womtool.jar</code></pre>
-<p>We’ll investigate using <code>cromwell run</code> as an initial way to interact with <code>cromwell</code>.</p>
-<div class="sourceCode" id="annotated-cell-8"><pre class="sourceCode bash code-annotation-code code-with-copy"><code class="sourceCode bash"><span id="annotated-cell-8-1"><a href="#annotated-cell-8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">java</span> <span class="at">-jar</span> <span class="va">$EBROOTCROMWELL</span>/cromwell.jar run ww-star2-deseq2.wdl <span class="dt">\</span></span>
-<span id="annotated-cell-8-2"><a href="#annotated-cell-8-2" aria-hidden="true" tabindex="-1"></a>   <span class="at">--inputs</span> input_file.json</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>/app/software/cirro/1.7.0-foss-2024a/bin/miniwdl</code></pre>
+<p>We’ll investigate using <code>miniwdl run</code> as an initial way to interact with <code>miniwdl</code>.</p>
+<div class="sourceCode" id="annotated-cell-9"><pre class="sourceCode bash code-annotation-code code-with-copy"><code class="sourceCode bash"><span id="annotated-cell-9-1"><a href="#annotated-cell-9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">miniwdl</span> run </span>
+<span id="annotated-cell-9-2"><a href="#annotated-cell-9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">java</span> <span class="at">-jar</span> <span class="va">$EBROOTCROMWELL</span>/cromwell.jar run ww-star2-deseq2.wdl <span class="dt">\</span></span>
+<span id="annotated-cell-9-3"><a href="#annotated-cell-9-3" aria-hidden="true" tabindex="-1"></a>   <span class="at">--inputs</span> input_file.json</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -377,7 +379,7 @@ To execute womtool, run: java -jar $EBROOTCROMWELL/womtool.jar</code></pre>
 <section id="input-files-as-json" class="level3" data-number="6.3.3">
 <h3 data-number="6.3.3" class="anchored" data-anchor-id="input-files-as-json"><span class="header-section-number">6.3.3</span> Input Files as JSON</h3>
 <p>If you want to work with the JSON format (<a href="container-basics.html#sec-json" class="quarto-xref"><span>Section 5.1</span></a>), there is a trick to generating a template <code>.json</code> file for a workflow. There is an additional utility called <code>womtools</code> that will generate a template file from a workflow file.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">java</span> <span class="at">-jar</span> <span class="va">$EBROOTCROMWELL</span>/womtool.jar inputs ww-star2-deseq2.wdl <span class="op">&gt;</span> ww-star2-deseq2-inputs.json</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">java</span> <span class="at">-jar</span> <span class="va">$EBROOTCROMWELL</span>/womtool.jar inputs ww-star2-deseq2.wdl <span class="op">&gt;</span> ww-star2-deseq2-inputs.json</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This will generate a file called <code>ww-star2-deseq2-inputs.json</code> that contains all of the inputs:</p>
 <pre><code>{
   "star_deseq2.samples": "Array[WomCompositeType {\n name -&gt; String\nr1 -&gt; File\nr2 -&gt; File\ncondition -&gt; String \n}]",
@@ -419,61 +421,61 @@ To execute womtool, run: java -jar $EBROOTCROMWELL/womtool.jar</code></pre>
 </tbody>
 </table>
 <p>Here’s the workflow part of the file:</p>
-<div class="sourceCode" id="annotated-cell-11"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-11-1"><a href="#annotated-cell-11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">version</span> 1.0</span>
-<span id="annotated-cell-11-2"><a href="#annotated-cell-11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#### WORKFLOW DEFINITION</span></span>
-<span id="annotated-cell-11-3"><a href="#annotated-cell-11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-11-4"><a href="#annotated-cell-11-4" aria-hidden="true" tabindex="-1"></a><span class="ex">workflow</span> ParseBatchFile {</span>
-<span id="annotated-cell-11-5"><a href="#annotated-cell-11-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">input</span> {</span>
-<span id="annotated-cell-11-6"><a href="#annotated-cell-11-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> batch_file</span>
-<span id="annotated-cell-11-7"><a href="#annotated-cell-11-7" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
-<span id="annotated-cell-11-8"><a href="#annotated-cell-11-8" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-11-9" class="code-annotation-target"><a href="#annotated-cell-11-9" aria-hidden="true" tabindex="-1"></a>  <span class="va">Array</span><span class="op">[</span>Object<span class="op">]</span> <span class="ex">batch_info</span> = read_objects<span class="er">(</span><span class="ex">batch_file</span><span class="kw">)</span></span>
-<span id="annotated-cell-11-10"><a href="#annotated-cell-11-10" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-11-11" class="code-annotation-target"><a href="#annotated-cell-11-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">scatter</span> <span class="er">(</span><span class="ex">job</span> in batch_info<span class="kw">){</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-11-12" class="code-annotation-target"><a href="#annotated-cell-11-12" aria-hidden="true" tabindex="-1"></a>    <span class="ex">String</span> sample_name = job.sampleName</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-11-13" class="code-annotation-target"><a href="#annotated-cell-11-13" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> bam_file = job.bamLocation</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-11-14" class="code-annotation-target"><a href="#annotated-cell-11-14" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> bed_file = job.bedLocation</span>
-<span id="annotated-cell-11-15"><a href="#annotated-cell-11-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-11-16"><a href="#annotated-cell-11-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">## INSERT YOUR WORKFLOW TO RUN PER LINE IN YOUR BATCH FILE HERE!!!!</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-11-17" class="code-annotation-target"><a href="#annotated-cell-11-17" aria-hidden="true" tabindex="-1"></a>    <span class="ex">call</span> Test {</span>
-<span id="annotated-cell-11-18"><a href="#annotated-cell-11-18" aria-hidden="true" tabindex="-1"></a>      <span class="ex">input:</span> in1=sample_name, in2=bam_file, in3=bed_file</span>
-<span id="annotated-cell-11-19"><a href="#annotated-cell-11-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">}</span></span>
-<span id="annotated-cell-11-20"><a href="#annotated-cell-11-20" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span>  <span class="co"># End Scatter over the batch file</span></span>
-<span id="annotated-cell-11-21"><a href="#annotated-cell-11-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-11-22"><a href="#annotated-cell-11-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Outputs that will be retained when execution is complete</span></span>
-<span id="annotated-cell-11-23"><a href="#annotated-cell-11-23" aria-hidden="true" tabindex="-1"></a>  <span class="ex">output</span> {</span>
-<span id="annotated-cell-11-24"><a href="#annotated-cell-11-24" aria-hidden="true" tabindex="-1"></a>    <span class="va">Array</span><span class="op">[</span>File<span class="op">]</span> <span class="ex">output_array</span> = Test.item_out</span>
-<span id="annotated-cell-11-25"><a href="#annotated-cell-11-25" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
-<span id="annotated-cell-11-26"><a href="#annotated-cell-11-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-11-27"><a href="#annotated-cell-11-27" aria-hidden="true" tabindex="-1"></a>  <span class="ex">parameter_meta</span> {</span>
-<span id="annotated-cell-11-28"><a href="#annotated-cell-11-28" aria-hidden="true" tabindex="-1"></a>    <span class="ex">batch_file:</span> <span class="st">"input tsv containing details about each sample in the batch"</span></span>
-<span id="annotated-cell-11-29"><a href="#annotated-cell-11-29" aria-hidden="true" tabindex="-1"></a>    <span class="ex">output_array:</span> <span class="st">"array containing details about each samples in the batch"</span></span>
-<span id="annotated-cell-11-30"><a href="#annotated-cell-11-30" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
-<span id="annotated-cell-11-31"><a href="#annotated-cell-11-31" aria-hidden="true" tabindex="-1"></a><span class="er">}</span> <span class="co"># End workflow</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="annotated-cell-12"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-12-1"><a href="#annotated-cell-12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">version</span> 1.0</span>
+<span id="annotated-cell-12-2"><a href="#annotated-cell-12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#### WORKFLOW DEFINITION</span></span>
+<span id="annotated-cell-12-3"><a href="#annotated-cell-12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-12-4"><a href="#annotated-cell-12-4" aria-hidden="true" tabindex="-1"></a><span class="ex">workflow</span> ParseBatchFile {</span>
+<span id="annotated-cell-12-5"><a href="#annotated-cell-12-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">input</span> {</span>
+<span id="annotated-cell-12-6"><a href="#annotated-cell-12-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> batch_file</span>
+<span id="annotated-cell-12-7"><a href="#annotated-cell-12-7" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-12-8"><a href="#annotated-cell-12-8" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-12-9" class="code-annotation-target"><a href="#annotated-cell-12-9" aria-hidden="true" tabindex="-1"></a>  <span class="va">Array</span><span class="op">[</span>Object<span class="op">]</span> <span class="ex">batch_info</span> = read_objects<span class="er">(</span><span class="ex">batch_file</span><span class="kw">)</span></span>
+<span id="annotated-cell-12-10"><a href="#annotated-cell-12-10" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-12-11" class="code-annotation-target"><a href="#annotated-cell-12-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">scatter</span> <span class="er">(</span><span class="ex">job</span> in batch_info<span class="kw">){</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-12-12" class="code-annotation-target"><a href="#annotated-cell-12-12" aria-hidden="true" tabindex="-1"></a>    <span class="ex">String</span> sample_name = job.sampleName</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-12-13" class="code-annotation-target"><a href="#annotated-cell-12-13" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> bam_file = job.bamLocation</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-12-14" class="code-annotation-target"><a href="#annotated-cell-12-14" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> bed_file = job.bedLocation</span>
+<span id="annotated-cell-12-15"><a href="#annotated-cell-12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-12-16"><a href="#annotated-cell-12-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">## INSERT YOUR WORKFLOW TO RUN PER LINE IN YOUR BATCH FILE HERE!!!!</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-12-17" class="code-annotation-target"><a href="#annotated-cell-12-17" aria-hidden="true" tabindex="-1"></a>    <span class="ex">call</span> Test {</span>
+<span id="annotated-cell-12-18"><a href="#annotated-cell-12-18" aria-hidden="true" tabindex="-1"></a>      <span class="ex">input:</span> in1=sample_name, in2=bam_file, in3=bed_file</span>
+<span id="annotated-cell-12-19"><a href="#annotated-cell-12-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">}</span></span>
+<span id="annotated-cell-12-20"><a href="#annotated-cell-12-20" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span>  <span class="co"># End Scatter over the batch file</span></span>
+<span id="annotated-cell-12-21"><a href="#annotated-cell-12-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-12-22"><a href="#annotated-cell-12-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Outputs that will be retained when execution is complete</span></span>
+<span id="annotated-cell-12-23"><a href="#annotated-cell-12-23" aria-hidden="true" tabindex="-1"></a>  <span class="ex">output</span> {</span>
+<span id="annotated-cell-12-24"><a href="#annotated-cell-12-24" aria-hidden="true" tabindex="-1"></a>    <span class="va">Array</span><span class="op">[</span>File<span class="op">]</span> <span class="ex">output_array</span> = Test.item_out</span>
+<span id="annotated-cell-12-25"><a href="#annotated-cell-12-25" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-12-26"><a href="#annotated-cell-12-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-12-27"><a href="#annotated-cell-12-27" aria-hidden="true" tabindex="-1"></a>  <span class="ex">parameter_meta</span> {</span>
+<span id="annotated-cell-12-28"><a href="#annotated-cell-12-28" aria-hidden="true" tabindex="-1"></a>    <span class="ex">batch_file:</span> <span class="st">"input tsv containing details about each sample in the batch"</span></span>
+<span id="annotated-cell-12-29"><a href="#annotated-cell-12-29" aria-hidden="true" tabindex="-1"></a>    <span class="ex">output_array:</span> <span class="st">"array containing details about each samples in the batch"</span></span>
+<span id="annotated-cell-12-30"><a href="#annotated-cell-12-30" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-12-31"><a href="#annotated-cell-12-31" aria-hidden="true" tabindex="-1"></a><span class="er">}</span> <span class="co"># End workflow</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-11" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-12" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-11" data-code-lines="9" data-code-annotation="1">Read in file manifest line by line, and store in the array called <code>batch_info</code>.</span>
+<span data-code-cell="annotated-cell-12" data-code-lines="9" data-code-annotation="1">Read in file manifest line by line, and store in the array called <code>batch_info</code>.</span>
 </dd>
-<dt data-target-cell="annotated-cell-11" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-12" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-11" data-code-lines="11" data-code-annotation="2">Cycle through the manifest line by line, <code>scatter</code>ing to multiple nodes</span>
+<span data-code-cell="annotated-cell-12" data-code-lines="11" data-code-annotation="2">Cycle through the manifest line by line, <code>scatter</code>ing to multiple nodes</span>
 </dd>
-<dt data-target-cell="annotated-cell-11" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-12" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-11" data-code-lines="12" data-code-annotation="3">Get <code>sample_name</code> input from <code>job.sample_name</code></span>
+<span data-code-cell="annotated-cell-12" data-code-lines="12" data-code-annotation="3">Get <code>sample_name</code> input from <code>job.sample_name</code></span>
 </dd>
-<dt data-target-cell="annotated-cell-11" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-12" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-11" data-code-lines="13" data-code-annotation="4">Get <code>bam_file</code> input from <code>job.bam_file</code></span>
+<span data-code-cell="annotated-cell-12" data-code-lines="13" data-code-annotation="4">Get <code>bam_file</code> input from <code>job.bam_file</code></span>
 </dd>
-<dt data-target-cell="annotated-cell-11" data-target-annotation="5">5</dt>
+<dt data-target-cell="annotated-cell-12" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-cell="annotated-cell-11" data-code-lines="14" data-code-annotation="5">Get <code>bed_file</code> input from <code>job.bed_file</code></span>
+<span data-code-cell="annotated-cell-12" data-code-lines="14" data-code-annotation="5">Get <code>bed_file</code> input from <code>job.bed_file</code></span>
 </dd>
-<dt data-target-cell="annotated-cell-11" data-target-annotation="6">6</dt>
+<dt data-target-cell="annotated-cell-12" data-target-annotation="6">6</dt>
 <dd>
-<span data-code-cell="annotated-cell-11" data-code-lines="17" data-code-annotation="6">Do something with the inputs.</span>
+<span data-code-cell="annotated-cell-12" data-code-lines="17" data-code-annotation="6">Do something with the inputs.</span>
 </dd>
 </dl>
 </section>
@@ -483,73 +485,73 @@ To execute womtool, run: java -jar $EBROOTCROMWELL/womtool.jar</code></pre>
 </section>
 <section id="anatomy-of-a-task" class="level3" data-number="6.3.6">
 <h3 data-number="6.3.6" class="anchored" data-anchor-id="anatomy-of-a-task"><span class="header-section-number">6.3.6</span> Anatomy of a Task</h3>
-<div class="sourceCode" id="annotated-cell-12"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-12-1"><a href="#annotated-cell-12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">task</span> build_star_index {</span>
-<span id="annotated-cell-12-2"><a href="#annotated-cell-12-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">meta</span> {</span>
-<span id="annotated-cell-12-3"><a href="#annotated-cell-12-3" aria-hidden="true" tabindex="-1"></a>      <span class="ex">...</span></span>
-<span id="annotated-cell-12-4"><a href="#annotated-cell-12-4" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
-<span id="annotated-cell-12-5"><a href="#annotated-cell-12-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-12-6"><a href="#annotated-cell-12-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">parameter_meta</span> {</span>
-<span id="annotated-cell-12-7"><a href="#annotated-cell-12-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">reference_fasta:</span> <span class="st">"Reference genome FASTA file"</span></span>
-<span id="annotated-cell-12-8"><a href="#annotated-cell-12-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">reference_gtf:</span> <span class="st">"Reference genome GTF annotation file"</span></span>
-<span id="annotated-cell-12-9"><a href="#annotated-cell-12-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">sjdb_overhang:</span> <span class="st">"Length of the genomic sequence around the annotated junction to be used in constructing the splice junctions database"</span></span>
-<span id="annotated-cell-12-10"><a href="#annotated-cell-12-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">genome_sa_index_nbases:</span> <span class="st">"Length (bases) of the SA pre-indexing string, typically between 10-15 (scales with genome size)"</span></span>
-<span id="annotated-cell-12-11"><a href="#annotated-cell-12-11" aria-hidden="true" tabindex="-1"></a>    <span class="ex">memory_gb:</span> <span class="st">"Memory allocated for the task in GB"</span></span>
-<span id="annotated-cell-12-12"><a href="#annotated-cell-12-12" aria-hidden="true" tabindex="-1"></a>    <span class="ex">cpu_cores:</span> <span class="st">"Number of CPU cores allocated for the task"</span></span>
-<span id="annotated-cell-12-13"><a href="#annotated-cell-12-13" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
-<span id="annotated-cell-12-14"><a href="#annotated-cell-12-14" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-12-15" class="code-annotation-target"><a href="#annotated-cell-12-15" aria-hidden="true" tabindex="-1"></a>  <span class="ex">input</span> {</span>
-<span id="annotated-cell-12-16"><a href="#annotated-cell-12-16" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> reference_fasta</span>
-<span id="annotated-cell-12-17"><a href="#annotated-cell-12-17" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> reference_gtf</span>
-<span id="annotated-cell-12-18"><a href="#annotated-cell-12-18" aria-hidden="true" tabindex="-1"></a>    <span class="ex">Int</span> sjdb_overhang = 100</span>
-<span id="annotated-cell-12-19"><a href="#annotated-cell-12-19" aria-hidden="true" tabindex="-1"></a>    <span class="ex">Int</span> genome_sa_index_nbases = 14</span>
-<span id="annotated-cell-12-20"><a href="#annotated-cell-12-20" aria-hidden="true" tabindex="-1"></a>    <span class="ex">Int</span> memory_gb = 64</span>
-<span id="annotated-cell-12-21"><a href="#annotated-cell-12-21" aria-hidden="true" tabindex="-1"></a>    <span class="ex">Int</span> cpu_cores = 8</span>
-<span id="annotated-cell-12-22"><a href="#annotated-cell-12-22" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
-<span id="annotated-cell-12-23"><a href="#annotated-cell-12-23" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-12-24" class="code-annotation-target"><a href="#annotated-cell-12-24" aria-hidden="true" tabindex="-1"></a>  <span class="bu">command</span> <span class="op">&lt;&lt;&lt;</span></span>
-<span id="annotated-cell-12-25"><a href="#annotated-cell-12-25" aria-hidden="true" tabindex="-1"></a>    <span class="bu">set</span> <span class="at">-eo</span> pipefail</span>
-<span id="annotated-cell-12-26"><a href="#annotated-cell-12-26" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="annotated-cell-12-27"><a href="#annotated-cell-12-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mkdir</span> star_index</span>
-<span id="annotated-cell-12-28"><a href="#annotated-cell-12-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-12-29"><a href="#annotated-cell-12-29" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Building STAR index..."</span></span>
-<span id="annotated-cell-12-30"><a href="#annotated-cell-12-30" aria-hidden="true" tabindex="-1"></a>    <span class="ex">STAR</span> <span class="dt">\</span></span>
-<span id="annotated-cell-12-31"><a href="#annotated-cell-12-31" aria-hidden="true" tabindex="-1"></a>      <span class="at">--runMode</span> genomeGenerate <span class="dt">\</span></span>
-<span id="annotated-cell-12-32"><a href="#annotated-cell-12-32" aria-hidden="true" tabindex="-1"></a>      <span class="at">--runThreadN</span> ~{cpu_cores} <span class="dt">\</span></span>
-<span id="annotated-cell-12-33"><a href="#annotated-cell-12-33" aria-hidden="true" tabindex="-1"></a>      <span class="at">--genomeDir</span> star_index <span class="dt">\</span></span>
-<span id="annotated-cell-12-34"><a href="#annotated-cell-12-34" aria-hidden="true" tabindex="-1"></a>      <span class="at">--genomeFastaFiles</span> <span class="st">"~{reference_fasta}"</span> <span class="dt">\</span></span>
-<span id="annotated-cell-12-35"><a href="#annotated-cell-12-35" aria-hidden="true" tabindex="-1"></a>      <span class="at">--sjdbGTFfile</span> <span class="st">"~{reference_gtf}"</span> <span class="dt">\</span></span>
-<span id="annotated-cell-12-36"><a href="#annotated-cell-12-36" aria-hidden="true" tabindex="-1"></a>      <span class="at">--sjdbOverhang</span> ~{sjdb_overhang} <span class="dt">\</span></span>
-<span id="annotated-cell-12-37"><a href="#annotated-cell-12-37" aria-hidden="true" tabindex="-1"></a>      <span class="at">--genomeSAindexNbases</span> ~{genome_sa_index_nbases}</span>
-<span id="annotated-cell-12-38"><a href="#annotated-cell-12-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-12-39"><a href="#annotated-cell-12-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tar</span> <span class="at">-czf</span> star_index.tar.gz star_index/</span>
-<span id="annotated-cell-12-40"><a href="#annotated-cell-12-40" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;&gt;&gt;</span></span>
-<span id="annotated-cell-12-41"><a href="#annotated-cell-12-41" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-12-42" class="code-annotation-target"><a href="#annotated-cell-12-42" aria-hidden="true" tabindex="-1"></a>  <span class="ex">output</span> {</span>
-<span id="annotated-cell-12-43"><a href="#annotated-cell-12-43" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> star_index_tar = <span class="st">"star_index.tar.gz"</span></span>
-<span id="annotated-cell-12-44"><a href="#annotated-cell-12-44" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
-<span id="annotated-cell-12-45"><a href="#annotated-cell-12-45" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-12-46" class="code-annotation-target"><a href="#annotated-cell-12-46" aria-hidden="true" tabindex="-1"></a>  <span class="ex">runtime</span> {</span>
-<span id="annotated-cell-12-47"><a href="#annotated-cell-12-47" aria-hidden="true" tabindex="-1"></a>    <span class="ex">docker:</span> <span class="st">"getwilds/star:2.7.6a"</span></span>
-<span id="annotated-cell-12-48"><a href="#annotated-cell-12-48" aria-hidden="true" tabindex="-1"></a>    <span class="ex">memory:</span> <span class="st">"~{memory_gb} GB"</span></span>
-<span id="annotated-cell-12-49"><a href="#annotated-cell-12-49" aria-hidden="true" tabindex="-1"></a>    <span class="ex">cpu:</span> cpu_cores</span>
-<span id="annotated-cell-12-50"><a href="#annotated-cell-12-50" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
-<span id="annotated-cell-12-51"><a href="#annotated-cell-12-51" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="annotated-cell-13"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-13-1"><a href="#annotated-cell-13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">task</span> build_star_index {</span>
+<span id="annotated-cell-13-2"><a href="#annotated-cell-13-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">meta</span> {</span>
+<span id="annotated-cell-13-3"><a href="#annotated-cell-13-3" aria-hidden="true" tabindex="-1"></a>      <span class="ex">...</span></span>
+<span id="annotated-cell-13-4"><a href="#annotated-cell-13-4" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-13-5"><a href="#annotated-cell-13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-13-6"><a href="#annotated-cell-13-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">parameter_meta</span> {</span>
+<span id="annotated-cell-13-7"><a href="#annotated-cell-13-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">reference_fasta:</span> <span class="st">"Reference genome FASTA file"</span></span>
+<span id="annotated-cell-13-8"><a href="#annotated-cell-13-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">reference_gtf:</span> <span class="st">"Reference genome GTF annotation file"</span></span>
+<span id="annotated-cell-13-9"><a href="#annotated-cell-13-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">sjdb_overhang:</span> <span class="st">"Length of the genomic sequence around the annotated junction to be used in constructing the splice junctions database"</span></span>
+<span id="annotated-cell-13-10"><a href="#annotated-cell-13-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">genome_sa_index_nbases:</span> <span class="st">"Length (bases) of the SA pre-indexing string, typically between 10-15 (scales with genome size)"</span></span>
+<span id="annotated-cell-13-11"><a href="#annotated-cell-13-11" aria-hidden="true" tabindex="-1"></a>    <span class="ex">memory_gb:</span> <span class="st">"Memory allocated for the task in GB"</span></span>
+<span id="annotated-cell-13-12"><a href="#annotated-cell-13-12" aria-hidden="true" tabindex="-1"></a>    <span class="ex">cpu_cores:</span> <span class="st">"Number of CPU cores allocated for the task"</span></span>
+<span id="annotated-cell-13-13"><a href="#annotated-cell-13-13" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-13-14"><a href="#annotated-cell-13-14" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-13-15" class="code-annotation-target"><a href="#annotated-cell-13-15" aria-hidden="true" tabindex="-1"></a>  <span class="ex">input</span> {</span>
+<span id="annotated-cell-13-16"><a href="#annotated-cell-13-16" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> reference_fasta</span>
+<span id="annotated-cell-13-17"><a href="#annotated-cell-13-17" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> reference_gtf</span>
+<span id="annotated-cell-13-18"><a href="#annotated-cell-13-18" aria-hidden="true" tabindex="-1"></a>    <span class="ex">Int</span> sjdb_overhang = 100</span>
+<span id="annotated-cell-13-19"><a href="#annotated-cell-13-19" aria-hidden="true" tabindex="-1"></a>    <span class="ex">Int</span> genome_sa_index_nbases = 14</span>
+<span id="annotated-cell-13-20"><a href="#annotated-cell-13-20" aria-hidden="true" tabindex="-1"></a>    <span class="ex">Int</span> memory_gb = 64</span>
+<span id="annotated-cell-13-21"><a href="#annotated-cell-13-21" aria-hidden="true" tabindex="-1"></a>    <span class="ex">Int</span> cpu_cores = 8</span>
+<span id="annotated-cell-13-22"><a href="#annotated-cell-13-22" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-13-23"><a href="#annotated-cell-13-23" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-13-24" class="code-annotation-target"><a href="#annotated-cell-13-24" aria-hidden="true" tabindex="-1"></a>  <span class="bu">command</span> <span class="op">&lt;&lt;&lt;</span></span>
+<span id="annotated-cell-13-25"><a href="#annotated-cell-13-25" aria-hidden="true" tabindex="-1"></a>    <span class="bu">set</span> <span class="at">-eo</span> pipefail</span>
+<span id="annotated-cell-13-26"><a href="#annotated-cell-13-26" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="annotated-cell-13-27"><a href="#annotated-cell-13-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mkdir</span> star_index</span>
+<span id="annotated-cell-13-28"><a href="#annotated-cell-13-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-13-29"><a href="#annotated-cell-13-29" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Building STAR index..."</span></span>
+<span id="annotated-cell-13-30"><a href="#annotated-cell-13-30" aria-hidden="true" tabindex="-1"></a>    <span class="ex">STAR</span> <span class="dt">\</span></span>
+<span id="annotated-cell-13-31"><a href="#annotated-cell-13-31" aria-hidden="true" tabindex="-1"></a>      <span class="at">--runMode</span> genomeGenerate <span class="dt">\</span></span>
+<span id="annotated-cell-13-32"><a href="#annotated-cell-13-32" aria-hidden="true" tabindex="-1"></a>      <span class="at">--runThreadN</span> ~{cpu_cores} <span class="dt">\</span></span>
+<span id="annotated-cell-13-33"><a href="#annotated-cell-13-33" aria-hidden="true" tabindex="-1"></a>      <span class="at">--genomeDir</span> star_index <span class="dt">\</span></span>
+<span id="annotated-cell-13-34"><a href="#annotated-cell-13-34" aria-hidden="true" tabindex="-1"></a>      <span class="at">--genomeFastaFiles</span> <span class="st">"~{reference_fasta}"</span> <span class="dt">\</span></span>
+<span id="annotated-cell-13-35"><a href="#annotated-cell-13-35" aria-hidden="true" tabindex="-1"></a>      <span class="at">--sjdbGTFfile</span> <span class="st">"~{reference_gtf}"</span> <span class="dt">\</span></span>
+<span id="annotated-cell-13-36"><a href="#annotated-cell-13-36" aria-hidden="true" tabindex="-1"></a>      <span class="at">--sjdbOverhang</span> ~{sjdb_overhang} <span class="dt">\</span></span>
+<span id="annotated-cell-13-37"><a href="#annotated-cell-13-37" aria-hidden="true" tabindex="-1"></a>      <span class="at">--genomeSAindexNbases</span> ~{genome_sa_index_nbases}</span>
+<span id="annotated-cell-13-38"><a href="#annotated-cell-13-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-13-39"><a href="#annotated-cell-13-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tar</span> <span class="at">-czf</span> star_index.tar.gz star_index/</span>
+<span id="annotated-cell-13-40"><a href="#annotated-cell-13-40" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;&gt;&gt;</span></span>
+<span id="annotated-cell-13-41"><a href="#annotated-cell-13-41" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-13-42" class="code-annotation-target"><a href="#annotated-cell-13-42" aria-hidden="true" tabindex="-1"></a>  <span class="ex">output</span> {</span>
+<span id="annotated-cell-13-43"><a href="#annotated-cell-13-43" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> star_index_tar = <span class="st">"star_index.tar.gz"</span></span>
+<span id="annotated-cell-13-44"><a href="#annotated-cell-13-44" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-13-45"><a href="#annotated-cell-13-45" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-13-46" class="code-annotation-target"><a href="#annotated-cell-13-46" aria-hidden="true" tabindex="-1"></a>  <span class="ex">runtime</span> {</span>
+<span id="annotated-cell-13-47"><a href="#annotated-cell-13-47" aria-hidden="true" tabindex="-1"></a>    <span class="ex">docker:</span> <span class="st">"getwilds/star:2.7.6a"</span></span>
+<span id="annotated-cell-13-48"><a href="#annotated-cell-13-48" aria-hidden="true" tabindex="-1"></a>    <span class="ex">memory:</span> <span class="st">"~{memory_gb} GB"</span></span>
+<span id="annotated-cell-13-49"><a href="#annotated-cell-13-49" aria-hidden="true" tabindex="-1"></a>    <span class="ex">cpu:</span> cpu_cores</span>
+<span id="annotated-cell-13-50"><a href="#annotated-cell-13-50" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-13-51"><a href="#annotated-cell-13-51" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-12" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-13" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-12" data-code-lines="15" data-code-annotation="1">Input for our task.</span>
+<span data-code-cell="annotated-cell-13" data-code-lines="15" data-code-annotation="1">Input for our task.</span>
 </dd>
-<dt data-target-cell="annotated-cell-12" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-13" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-12" data-code-lines="24" data-code-annotation="2">Bash commands to execute in task</span>
+<span data-code-cell="annotated-cell-13" data-code-lines="24" data-code-annotation="2">Bash commands to execute in task</span>
 </dd>
-<dt data-target-cell="annotated-cell-12" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-13" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-12" data-code-lines="42" data-code-annotation="3">Description of output</span>
+<span data-code-cell="annotated-cell-13" data-code-lines="42" data-code-annotation="3">Description of output</span>
 </dd>
-<dt data-target-cell="annotated-cell-12" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-13" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-12" data-code-lines="46" data-code-annotation="4">Runtime requirements for execution. This is a lot like the <code>#SBATCH</code> directives.</span>
+<span data-code-cell="annotated-cell-13" data-code-lines="46" data-code-annotation="4">Runtime requirements for execution. This is a lot like the <code>#SBATCH</code> directives.</span>
 </dd>
 </dl>
 <p>Everything between the <code>&lt;&lt;&lt;</code> and <code>&gt;&gt;&gt;</code> is essentially a bash script. WDL has its own variables</p>
@@ -558,80 +560,80 @@ To execute womtool, run: java -jar $EBROOTCROMWELL/womtool.jar</code></pre>
 <h3 data-number="6.3.7" class="anchored" data-anchor-id="architecture-of-a-wdl-file"><span class="header-section-number">6.3.7</span> Architecture of a WDL file</h3>
 <p>The best way to read WDL files is to read them top down. We’ll focus on the basic sections of a WDL file before we see how they work together.</p>
 <p>The code below is from the <a href="https://github.com/getwilds/ww-star-deseq2/blob/main/ww-star-deseq2.wdl">WILDs WDL Repo</a>.</p>
-<div class="sourceCode" id="annotated-cell-13"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-13-1"><a href="#annotated-cell-13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">workflow</span> SRA_STAR2Pass {</span>
-<span id="annotated-cell-13-2"><a href="#annotated-cell-13-2" aria-hidden="true" tabindex="-1"></a>   <span class="ex">meta{</span></span>
-<span id="annotated-cell-13-3"><a href="#annotated-cell-13-3" aria-hidden="true" tabindex="-1"></a>   <span class="ex">...</span></span>
-<span id="annotated-cell-13-4"><a href="#annotated-cell-13-4" aria-hidden="true" tabindex="-1"></a>   <span class="er">}</span></span>
-<span id="annotated-cell-13-5"><a href="#annotated-cell-13-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-13-6"><a href="#annotated-cell-13-6" aria-hidden="true" tabindex="-1"></a>   <span class="ex">parameter_meta{</span></span>
-<span id="annotated-cell-13-7"><a href="#annotated-cell-13-7" aria-hidden="true" tabindex="-1"></a>   <span class="ex">...</span></span>
-<span id="annotated-cell-13-8"><a href="#annotated-cell-13-8" aria-hidden="true" tabindex="-1"></a>   <span class="er">}</span></span>
-<span id="annotated-cell-13-9"><a href="#annotated-cell-13-9" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-13-10" class="code-annotation-target"><a href="#annotated-cell-13-10" aria-hidden="true" tabindex="-1"></a>  <span class="ex">input</span> {</span>
-<span id="annotated-cell-13-11"><a href="#annotated-cell-13-11" aria-hidden="true" tabindex="-1"></a>    <span class="ex">...</span></span>
-<span id="annotated-cell-13-12"><a href="#annotated-cell-13-12" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
-<span id="annotated-cell-13-13"><a href="#annotated-cell-13-13" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-13-14" class="code-annotation-target"><a href="#annotated-cell-13-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="kw">(</span><span class="ex">!defined</span><span class="er">(</span><span class="ex">reference_genome</span><span class="kw">))</span> <span class="kw">{</span></span>
-<span id="annotated-cell-13-15"><a href="#annotated-cell-13-15" aria-hidden="true" tabindex="-1"></a>    <span class="ex">call</span> download_reference {}</span>
-<span id="annotated-cell-13-16"><a href="#annotated-cell-13-16" aria-hidden="true" tabindex="-1"></a>  <span class="kw">}</span></span>
-<span id="annotated-cell-13-17"><a href="#annotated-cell-13-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-13-18"><a href="#annotated-cell-13-18" aria-hidden="true" tabindex="-1"></a>  <span class="ex">RefGenome</span> ref_genome_final = select_first<span class="er">(</span><span class="ex">[reference_genome,</span> download_reference.genome]<span class="kw">)</span></span>
-<span id="annotated-cell-13-19"><a href="#annotated-cell-13-19" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-13-20" class="code-annotation-target"><a href="#annotated-cell-13-20" aria-hidden="true" tabindex="-1"></a>  <span class="ex">call</span> build_star_index {</span>
-<span id="annotated-cell-13-21"><a href="#annotated-cell-13-21" aria-hidden="true" tabindex="-1"></a>    <span class="ex">...</span></span>
-<span id="annotated-cell-13-22"><a href="#annotated-cell-13-22" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
-<span id="annotated-cell-13-23"><a href="#annotated-cell-13-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-13-24"><a href="#annotated-cell-13-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Outputs that will be retained when execution is complete</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-13-25" class="code-annotation-target"><a href="#annotated-cell-13-25" aria-hidden="true" tabindex="-1"></a>  <span class="ex">output</span> {</span>
-<span id="annotated-cell-13-26"><a href="#annotated-cell-13-26" aria-hidden="true" tabindex="-1"></a>    <span class="ex">...</span></span>
-<span id="annotated-cell-13-27"><a href="#annotated-cell-13-27" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
-<span id="annotated-cell-13-28"><a href="#annotated-cell-13-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-13-29"><a href="#annotated-cell-13-29" aria-hidden="true" tabindex="-1"></a><span class="er">}</span> </span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="annotated-cell-14"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-14-1"><a href="#annotated-cell-14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">workflow</span> SRA_STAR2Pass {</span>
+<span id="annotated-cell-14-2"><a href="#annotated-cell-14-2" aria-hidden="true" tabindex="-1"></a>   <span class="ex">meta{</span></span>
+<span id="annotated-cell-14-3"><a href="#annotated-cell-14-3" aria-hidden="true" tabindex="-1"></a>   <span class="ex">...</span></span>
+<span id="annotated-cell-14-4"><a href="#annotated-cell-14-4" aria-hidden="true" tabindex="-1"></a>   <span class="er">}</span></span>
+<span id="annotated-cell-14-5"><a href="#annotated-cell-14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-14-6"><a href="#annotated-cell-14-6" aria-hidden="true" tabindex="-1"></a>   <span class="ex">parameter_meta{</span></span>
+<span id="annotated-cell-14-7"><a href="#annotated-cell-14-7" aria-hidden="true" tabindex="-1"></a>   <span class="ex">...</span></span>
+<span id="annotated-cell-14-8"><a href="#annotated-cell-14-8" aria-hidden="true" tabindex="-1"></a>   <span class="er">}</span></span>
+<span id="annotated-cell-14-9"><a href="#annotated-cell-14-9" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-14" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-14-10" class="code-annotation-target"><a href="#annotated-cell-14-10" aria-hidden="true" tabindex="-1"></a>  <span class="ex">input</span> {</span>
+<span id="annotated-cell-14-11"><a href="#annotated-cell-14-11" aria-hidden="true" tabindex="-1"></a>    <span class="ex">...</span></span>
+<span id="annotated-cell-14-12"><a href="#annotated-cell-14-12" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-14-13"><a href="#annotated-cell-14-13" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-14" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-14-14" class="code-annotation-target"><a href="#annotated-cell-14-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="kw">(</span><span class="ex">!defined</span><span class="er">(</span><span class="ex">reference_genome</span><span class="kw">))</span> <span class="kw">{</span></span>
+<span id="annotated-cell-14-15"><a href="#annotated-cell-14-15" aria-hidden="true" tabindex="-1"></a>    <span class="ex">call</span> download_reference {}</span>
+<span id="annotated-cell-14-16"><a href="#annotated-cell-14-16" aria-hidden="true" tabindex="-1"></a>  <span class="kw">}</span></span>
+<span id="annotated-cell-14-17"><a href="#annotated-cell-14-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-14-18"><a href="#annotated-cell-14-18" aria-hidden="true" tabindex="-1"></a>  <span class="ex">RefGenome</span> ref_genome_final = select_first<span class="er">(</span><span class="ex">[reference_genome,</span> download_reference.genome]<span class="kw">)</span></span>
+<span id="annotated-cell-14-19"><a href="#annotated-cell-14-19" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-14" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-14-20" class="code-annotation-target"><a href="#annotated-cell-14-20" aria-hidden="true" tabindex="-1"></a>  <span class="ex">call</span> build_star_index {</span>
+<span id="annotated-cell-14-21"><a href="#annotated-cell-14-21" aria-hidden="true" tabindex="-1"></a>    <span class="ex">...</span></span>
+<span id="annotated-cell-14-22"><a href="#annotated-cell-14-22" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-14-23"><a href="#annotated-cell-14-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-14-24"><a href="#annotated-cell-14-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Outputs that will be retained when execution is complete</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-14" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-14-25" class="code-annotation-target"><a href="#annotated-cell-14-25" aria-hidden="true" tabindex="-1"></a>  <span class="ex">output</span> {</span>
+<span id="annotated-cell-14-26"><a href="#annotated-cell-14-26" aria-hidden="true" tabindex="-1"></a>    <span class="ex">...</span></span>
+<span id="annotated-cell-14-27"><a href="#annotated-cell-14-27" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-14-28"><a href="#annotated-cell-14-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-14-29"><a href="#annotated-cell-14-29" aria-hidden="true" tabindex="-1"></a><span class="er">}</span> </span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-13" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-14" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-13" data-code-lines="10" data-code-annotation="1">Inputs for workflow</span>
+<span data-code-cell="annotated-cell-14" data-code-lines="10" data-code-annotation="1">Inputs for workflow</span>
 </dd>
-<dt data-target-cell="annotated-cell-13" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-14" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-13" data-code-lines="14" data-code-annotation="2">If/then statement of workflow</span>
+<span data-code-cell="annotated-cell-14" data-code-lines="14" data-code-annotation="2">If/then statement of workflow</span>
 </dd>
-<dt data-target-cell="annotated-cell-13" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-14" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-13" data-code-lines="20" data-code-annotation="3">call a task</span>
+<span data-code-cell="annotated-cell-14" data-code-lines="20" data-code-annotation="3">call a task</span>
 </dd>
-<dt data-target-cell="annotated-cell-13" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-14" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-13" data-code-lines="25" data-code-annotation="4">Outputs of workflow</span>
+<span data-code-cell="annotated-cell-14" data-code-lines="25" data-code-annotation="4">Outputs of workflow</span>
 </dd>
 </dl>
 <p>Let’s go through each of these in detail (we’ll get back to the <code>meta</code> and <code>parameters-meta</code> sections)</p>
 <p>The structure of the workflow</p>
-<div class="sourceCode" id="annotated-cell-14"><pre class="sourceCode bash code-annotation-code code-with-copy"><code class="sourceCode bash"><span id="annotated-cell-14-1"><a href="#annotated-cell-14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">workflow</span> SRA_STAR2Pass {</span>
-<span id="annotated-cell-14-2"><a href="#annotated-cell-14-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">input</span> {</span>
-<span id="annotated-cell-14-3"><a href="#annotated-cell-14-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">Array</span><span class="op">[</span>SampleInfo<span class="op">]</span> <span class="ex">samples</span></span>
-<span id="annotated-cell-14-4"><a href="#annotated-cell-14-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">RefGenome?</span> reference_genome</span>
-<span id="annotated-cell-14-5"><a href="#annotated-cell-14-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">String</span> reference_level = <span class="st">""</span></span>
-<span id="annotated-cell-14-6"><a href="#annotated-cell-14-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">String</span> contrast = <span class="st">""</span></span>
-<span id="annotated-cell-14-7"><a href="#annotated-cell-14-7" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
-<span id="annotated-cell-14-8"><a href="#annotated-cell-14-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-14-9"><a href="#annotated-cell-14-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="kw">(</span><span class="ex">!defined</span><span class="er">(</span><span class="ex">reference_genome</span><span class="kw">))</span> <span class="kw">{</span></span>
-<span id="annotated-cell-14-10"><a href="#annotated-cell-14-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">call</span> download_reference {}</span>
-<span id="annotated-cell-14-11"><a href="#annotated-cell-14-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">}</span></span>
-<span id="annotated-cell-14-12"><a href="#annotated-cell-14-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-14-13"><a href="#annotated-cell-14-13" aria-hidden="true" tabindex="-1"></a>  <span class="ex">RefGenome</span> ref_genome_final = select_first<span class="er">(</span><span class="ex">[reference_genome,</span> download_reference.genome]<span class="kw">)</span></span>
-<span id="annotated-cell-14-14"><a href="#annotated-cell-14-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-14-15"><a href="#annotated-cell-14-15" aria-hidden="true" tabindex="-1"></a>  <span class="ex">call</span> build_star_index { input:</span>
-<span id="annotated-cell-14-16"><a href="#annotated-cell-14-16" aria-hidden="true" tabindex="-1"></a>      <span class="ex">reference_fasta</span> = ref_genome_final.fasta,</span>
-<span id="annotated-cell-14-17"><a href="#annotated-cell-14-17" aria-hidden="true" tabindex="-1"></a>      <span class="ex">reference_gtf</span> = ref_genome_final.gtf</span>
-<span id="annotated-cell-14-18"><a href="#annotated-cell-14-18" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
-<span id="annotated-cell-14-19"><a href="#annotated-cell-14-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-14-20"><a href="#annotated-cell-14-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Outputs that will be retained when execution is complete</span></span>
-<span id="annotated-cell-14-21"><a href="#annotated-cell-14-21" aria-hidden="true" tabindex="-1"></a>  <span class="ex">output</span> {</span>
-<span id="annotated-cell-14-22"><a href="#annotated-cell-14-22" aria-hidden="true" tabindex="-1"></a>    <span class="ex">...</span></span>
-<span id="annotated-cell-14-23"><a href="#annotated-cell-14-23" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
-<span id="annotated-cell-14-24"><a href="#annotated-cell-14-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-14-25"><a href="#annotated-cell-14-25" aria-hidden="true" tabindex="-1"></a><span class="er">}</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="annotated-cell-15"><pre class="sourceCode bash code-annotation-code code-with-copy"><code class="sourceCode bash"><span id="annotated-cell-15-1"><a href="#annotated-cell-15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">workflow</span> SRA_STAR2Pass {</span>
+<span id="annotated-cell-15-2"><a href="#annotated-cell-15-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">input</span> {</span>
+<span id="annotated-cell-15-3"><a href="#annotated-cell-15-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">Array</span><span class="op">[</span>SampleInfo<span class="op">]</span> <span class="ex">samples</span></span>
+<span id="annotated-cell-15-4"><a href="#annotated-cell-15-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">RefGenome?</span> reference_genome</span>
+<span id="annotated-cell-15-5"><a href="#annotated-cell-15-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">String</span> reference_level = <span class="st">""</span></span>
+<span id="annotated-cell-15-6"><a href="#annotated-cell-15-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">String</span> contrast = <span class="st">""</span></span>
+<span id="annotated-cell-15-7"><a href="#annotated-cell-15-7" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-15-8"><a href="#annotated-cell-15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-15-9"><a href="#annotated-cell-15-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="kw">(</span><span class="ex">!defined</span><span class="er">(</span><span class="ex">reference_genome</span><span class="kw">))</span> <span class="kw">{</span></span>
+<span id="annotated-cell-15-10"><a href="#annotated-cell-15-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">call</span> download_reference {}</span>
+<span id="annotated-cell-15-11"><a href="#annotated-cell-15-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">}</span></span>
+<span id="annotated-cell-15-12"><a href="#annotated-cell-15-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-15-13"><a href="#annotated-cell-15-13" aria-hidden="true" tabindex="-1"></a>  <span class="ex">RefGenome</span> ref_genome_final = select_first<span class="er">(</span><span class="ex">[reference_genome,</span> download_reference.genome]<span class="kw">)</span></span>
+<span id="annotated-cell-15-14"><a href="#annotated-cell-15-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-15-15"><a href="#annotated-cell-15-15" aria-hidden="true" tabindex="-1"></a>  <span class="ex">call</span> build_star_index { input:</span>
+<span id="annotated-cell-15-16"><a href="#annotated-cell-15-16" aria-hidden="true" tabindex="-1"></a>      <span class="ex">reference_fasta</span> = ref_genome_final.fasta,</span>
+<span id="annotated-cell-15-17"><a href="#annotated-cell-15-17" aria-hidden="true" tabindex="-1"></a>      <span class="ex">reference_gtf</span> = ref_genome_final.gtf</span>
+<span id="annotated-cell-15-18"><a href="#annotated-cell-15-18" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-15-19"><a href="#annotated-cell-15-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-15-20"><a href="#annotated-cell-15-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Outputs that will be retained when execution is complete</span></span>
+<span id="annotated-cell-15-21"><a href="#annotated-cell-15-21" aria-hidden="true" tabindex="-1"></a>  <span class="ex">output</span> {</span>
+<span id="annotated-cell-15-22"><a href="#annotated-cell-15-22" aria-hidden="true" tabindex="-1"></a>    <span class="ex">...</span></span>
+<span id="annotated-cell-15-23"><a href="#annotated-cell-15-23" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-15-24"><a href="#annotated-cell-15-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-15-25"><a href="#annotated-cell-15-25" aria-hidden="true" tabindex="-1"></a><span class="er">}</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
 <section id="where-next" class="level2" data-number="6.4">
