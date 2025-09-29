@@ -43,8 +43,9 @@ We can use `globs`, or wildcard characters to select multiple files with a crite
 For example, `*.qmd` will list all of the `.qmd` files in the `bash_for_bio` directory. 
 
 ```bash
+#| filename: ./scripts/week3/batch_on_rhino.sh
 #!/bin/bash
-for file in *.qmd #<1>
+for file in ./data/*.fastq #<1>
 do                #<2>
   wc $file        #<3>
 done              #<4>
@@ -57,19 +58,12 @@ done              #<4>
 If we run this in our repository, we get something similar to this:
 
 ```
-      22      92     634 01_assignment.qmd
-     462    2417   15396 01_basics.qmd
-       5       8      49 02_assignment.qmd
-     303    1577    9509 02_scripting.qmd
-     303    1667   10233 03_batch.qmd
-     198    1368    9027 04_containers_workflows.qmd
-     205    1151    7858 configuring.qmd
-      53     363    2516 index.qmd
-       9      25     157 intro.qmd
-     214    1314    8001 miscellaneous.qmd
+3220   3220 142485 ./data/CALU1_combined_final.fastq
+2484   2484 109917 ./data/HCC4006_final.fastq
+1836   1836 81243 ./data/MOLM13_combined_final.fastq
 ```
 
-The `*.qmd` (the wildcard operator, also known as a {{<glossary glob>}}) can be used in various ways. For example, if our files are in a folder called `raw_data/`, we could specify:
+The `*.fasta` (the wildcard operator, also known as a {{<glossary glob>}}) can be used in various ways. For example, if our files are in a folder called `data/`, we could specify:
 
 ```
 for file in ./data/*.fastq
@@ -78,23 +72,28 @@ do
 done
 ```
 
+### Try it out
+
+```
+./scripts/week3/batch_on_rhino.sh
+```
+
 :::{.callout}
 ## A common pattern: a folder with only one type of file in them
 
 One thing that makes it easier to process a bunch of files is to have the data be in the same folder, with nothing else in them.
 
-For example, I might create a `fastq/` folder where I store my data, so I can pass the glob `fastq/*` to process the files in that.
+For example, I might create a `fastq/` folder where I store my data, so I can pass the glob `fastq/*` to process the files in that. 
 
 ```bash
 #!/bin/bash
 module load BWA
 module load SAMtools
 FASTA_LOCATION=""
-OUTPUT_FOLDER="/hpc/temp/my_lab/project_x/bam_files/"
+OUTPUT_FOLDER="/home/tladera2/project_x/bam_files/"
 for file in fastq/*
 do
-  bwa mem ${FASTA_LOCATION} file > ${OUTPUT_FOLDER}/${file}.bam 
-  samtools sort ${OUTPUT_FOLDER}/${file}.bam |> ${OUTPUT_FOLDER}/${file}.sorted.bam
+  bwa mem ${FASTA_LOCATION} file > ${OUTPUT_FOLDER}${file}.bam 
 done
 module purge
 ```
@@ -168,6 +167,12 @@ Much more information about the kinds of directives that you can specify in a SL
 The most important directive you should be aware of is how many nodes you need to request, and how much memory your jobs will need.
 :::
 
+:::{.callout-note}
+## All About Jobs
+
+There is a ton of information that I'm not including about the `gizmo` cluster. For much more info on submitting jobs, please refer to <https://sciwiki.fredhutch.org/scicomputing/compute_jobs/>. 
+:::
+
 ### Job Arrays
 
 This line:
@@ -235,6 +240,15 @@ graph TD
 ```
 
 What happened here? `sbatch` submitted our job array as 3 different subjobs to 3 different nodes under a single job id. Each node then outputs a file with the subjob id that contains the job number. 
+
+### Try it out
+
+Try running 
+
+```bash
+sbatch ./scripts/week3/sbatch_test.sh
+```
+And look at the resulting `.out` files.
 
 ### Processing lists of files using Job Arrays
 
@@ -311,6 +325,38 @@ total 312
 And you'll see we generated our SAM files for each sample! Neat. There are also the `.out` files from each subjob as well, which will contain the <STDOUT> for each subjob. 
 
 You can see that we outputted our files to the `scripts/week3/` directory. It's part of your job in the exercises to adapt `run_sbatch.sh` and `run_bwa.sh` to output to a directory of your choosing.
+
+:::{.callout-note}
+## Why isn't my job launching?
+
+The `gizmo` cluster is used by a lot of people at the Hutch, so it gets busy from time to time.
+
+Don't worry, your jobs will be eventually processed if your requests are reasonable.
+
+f you want to look at the jobs that a particular user is running, you can use the -u flag. Try squeue -u on one of the users in the queue, for example `tladera2`:
+
+```bash
+squeue -u tladera2
+```
+
+You will usually use `squeue -u` on your own username, so you can see the status of your jobs. This is an example from my previous career at OHSU (I didn't have time to generate one on `gizmo`)
+
+```
+            JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+           3970834 very_long KIRC.bla    wooma  R 11-04:21:09      1 exanode-7-15
+           3970835 very_long OV.blast    wooma  R 11-04:20:32      1 exanode-7-5
+```
+
+Let’s take a look at the output. You can see some pretty useful info: the JOBID, what PARTITION the job is running under, and the STatus.
+
+STatus is really important, because it can tell you whether your job is:
+
+`R` (Running), `PD` (Pending), `ST` (Stopped), `S` (Suspended), `CD` (Completed).
+
+`R` or `PD` status is what you want to see, because that means it's in the queue and will be executed. 
+
+For much more info, please check out <https://sciwiki.fredhutch.org/scicomputing/compute_jobs/#job-priority> and <https://sciwiki.fredhutch.org/scicomputing/compute_jobs/#why-isnt-my-job-running>.
+:::
 
 ### `scancel`ing a jobarray
 

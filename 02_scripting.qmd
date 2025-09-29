@@ -401,17 +401,16 @@ read_group_id="ID:${base_file_name}"
 platform_info="PL:Illumina"
 ref_fasta_local="/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa" <2>
 
-bwa mem \
+bwa mem \  #<3>
       -p -v 3 -M \
       -R "@RG\t${read_group_id}\t${sample_name}\t${platform_info}" \
       "${ref_fasta_local}" "${input_fastq}" > \
       "${base_file_name}.sam"
-
 module purge
 ```
 1. Load `BWA` module. Note that we are using a specific module version.
 2. Set a variable called `$ref_fasta_local`, using the location of the `hg19` reference.
-3. Run `bwa mem` on the `$input_fasq`, using the `$ref_fasta_local` variable, and output to `${base_file_name}.sam`.
+3. Run `bwa mem` on the `$input_fastq`, using the `$ref_fasta_local` variable, and output to `${base_file_name}.sam`.
 
 We can run this script using:
 
@@ -518,7 +517,7 @@ csv_file <- read.csv(file=args$input_file) #<1>
 csv_filtered <- csv_file |> janitor::clean_names()
 
 # Write output
-write.csv(csv_filtered, file = paste0(args$CSVFILE, "_filtered.csv")) #<2>
+write.csv(csv_filtered, file = paste0(args$CSVFILE, "_cleaned.csv")) #<2>
 ```
 1. Use `args$input_file` as an input for `read.csv()`
 2. Use `args$input_file` to specify the output name. 
@@ -551,7 +550,7 @@ Then we can run
 
 ```{bash}
 #| eval: false
-bash wrap_r_script.sh my_csvfile.csv 
+bash wrap_r_script.sh .data/PRAD.csv 
 ```
 
 In our bash script, `my_bash_script.sh`, we're using positional argument (for simplicity) to specify our csvfile, and then passing the positional argument to named ones (`input_file`) for `my_r_script.R`.

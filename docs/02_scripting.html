@@ -624,13 +624,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="annotated-cell-29-11"><a href="#annotated-cell-29-11" aria-hidden="true" tabindex="-1"></a><span class="va">platform_info</span><span class="op">=</span><span class="st">"PL:Illumina"</span></span>
 <span id="annotated-cell-29-12"><a href="#annotated-cell-29-12" aria-hidden="true" tabindex="-1"></a><span class="va">ref_fasta_local</span><span class="op">=</span><span class="st">"/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa"</span> <span class="op">&lt;</span>2<span class="op">&gt;</span></span>
 <span id="annotated-cell-29-13"><a href="#annotated-cell-29-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-29-14"><a href="#annotated-cell-29-14" aria-hidden="true" tabindex="-1"></a><span class="ex">bwa</span> mem <span class="dt">\</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-29-14" class="code-annotation-target"><a href="#annotated-cell-29-14" aria-hidden="true" tabindex="-1"></a><span class="ex">bwa</span> mem <span class="dt">\</span></span>
 <span id="annotated-cell-29-15"><a href="#annotated-cell-29-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">-p</span> <span class="at">-v</span> 3 <span class="at">-M</span> <span class="dt">\</span></span>
 <span id="annotated-cell-29-16"><a href="#annotated-cell-29-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">-R</span> <span class="st">"@RG\t</span><span class="va">${read_group_id}</span><span class="st">\t</span><span class="va">${sample_name}</span><span class="st">\t</span><span class="va">${platform_info}</span><span class="st">"</span> <span class="dt">\</span></span>
 <span id="annotated-cell-29-17"><a href="#annotated-cell-29-17" aria-hidden="true" tabindex="-1"></a>      <span class="st">"</span><span class="va">${ref_fasta_local}</span><span class="st">"</span> <span class="st">"</span><span class="va">${input_fastq}</span><span class="st">"</span> <span class="op">&gt;</span> <span class="dt">\</span></span>
 <span id="annotated-cell-29-18"><a href="#annotated-cell-29-18" aria-hidden="true" tabindex="-1"></a>      <span class="st">"</span><span class="va">${base_file_name}</span><span class="st">.sam"</span></span>
-<span id="annotated-cell-29-19"><a href="#annotated-cell-29-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-29-20"><a href="#annotated-cell-29-20" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="annotated-cell-29-19"><a href="#annotated-cell-29-19" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-29" data-target-annotation="1">1</dt>
 <dd>
@@ -639,6 +638,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <dt data-target-cell="annotated-cell-29" data-target-annotation="2">2</dt>
 <dd>
 <span data-code-cell="annotated-cell-29" data-code-lines="4" data-code-annotation="2">Set a variable called <code>$ref_fasta_local</code>, using the location of the <code>hg19</code> reference.</span>
+</dd>
+<dt data-target-cell="annotated-cell-29" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-29" data-code-lines="14" data-code-annotation="3">Run <code>bwa mem</code> on the <code>$input_fastq</code>, using the <code>$ref_fasta_local</code> variable, and output to <code>${base_file_name}.sam</code>.</span>
 </dd>
 </dl>
 <p>We can run this script using:</p>
@@ -762,7 +765,7 @@ Figure&nbsp;2.2: Piping a script <code>run_samtools.sh</code> into another comma
 <span id="annotated-cell-32-9"><a href="#annotated-cell-32-9" aria-hidden="true" tabindex="-1"></a>csv_filtered <span class="ot">&lt;-</span> csv_file <span class="sc">|&gt;</span> janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span>
 <span id="annotated-cell-32-10"><a href="#annotated-cell-32-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="annotated-cell-32-11"><a href="#annotated-cell-32-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Write output</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-32" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-32-12" class="code-annotation-target"><a href="#annotated-cell-32-12" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(csv_filtered, <span class="at">file =</span> <span class="fu">paste0</span>(args<span class="sc">$</span>CSVFILE, <span class="st">"_filtered.csv"</span>))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-32" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-32-12" class="code-annotation-target"><a href="#annotated-cell-32-12" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(csv_filtered, <span class="at">file =</span> <span class="fu">paste0</span>(args<span class="sc">$</span>CSVFILE, <span class="st">"_cleaned.csv"</span>))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-grid">
@@ -803,7 +806,7 @@ Figure&nbsp;2.2: Piping a script <code>run_samtools.sh</code> into another comma
 </div>
 <p>Then we can run</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> wrap_r_script.sh my_csvfile.csv </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> wrap_r_script.sh .data/PRAD.csv </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>In our bash script, <code>my_bash_script.sh</code>, we’re using positional argument (for simplicity) to specify our csvfile, and then passing the positional argument to named ones (<code>input_file</code>) for <code>my_r_script.R</code>.</p>
 </section>

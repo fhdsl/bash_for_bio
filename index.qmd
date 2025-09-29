@@ -70,7 +70,7 @@ You should have completed the readings before class, so we can hit the ground ru
 
 ## Badge of completion
 
-![](img/badge.png){width="450"}
+![](images/BASH.png){width="450"}
 
 We offer a [badge of completion](https://www.credly.com/org/fred-hutch/badge/bash-for-bio) when you finish the course!
 
@@ -84,8 +84,5 @@ What it isn't:
 
 Requirements:
 
+-   Sign up on the badging spreadsheet (will send link out in class).
 -   Complete badge-required sections of the exercises for 3 out of 4 assignments. We'll cover this in class.
-
-## Glossary
-
-{{<glossary table="true">}}
