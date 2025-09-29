@@ -119,7 +119,7 @@ Each sample in the `PairedFastqsToUnmappedCram.batch_info` list is its own objec
 Because we are aligned paired-end data, notice there are two keys, `fastq_r1_locations` and `fastq_r2_locations`. 
 
 
-## Containers
+## Containers {#sec-containers}
 
 We already learned about software modules (@sec-modules) on the `gizmo` cluster. There is an alternative way to use software: pulling and running a software {{<glossary "container">}}.
 

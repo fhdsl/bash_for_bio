@@ -59,7 +59,7 @@ A good workflow manager will allow you to:
 
 Many bioinformaticists have used workflow managers to process and manage hundreds or thousands of files at a time. They are well worth the extra effort it takes to learn. 
 
-Here is an overview of some of the common bioinformatics workflow managers. We will be using `cromwell`, which runs WDL files.
+Here is an overview of some of the common bioinformatics workflow managers. We will be using `miniWDL`, which runs WDL files.
 
 |Manager Software|Workflow Formats|Notes|
 |----------------|-------|-----|
@@ -80,7 +80,7 @@ git clone https://github.com/getwilds/ww-star-deseq2/
 
 Say someone has given us a WDL file - how do we set it up to run on our own data?
 
-In order to test this out on a batch of files, we'll first request a node using `grabnode` (@sec-testnode). 
+In order to test this out on a batch of files, we'll first request a node using `grabnode` (@sec-grabnode). 
 
 ```bash
 grabnode
@@ -108,24 +108,12 @@ java -jar $EBROOTCROMWELL/cromwell.jar run ww-star2-deseq2.wdl \ #<1>
    --inputs input_file.json
 ```
 
-:::{.callout}
-## `cromwell serve`
-
-The other way to run Cromwell is to run it in *server* mode. You can start the server by using:
-
-```
-java -jar $EBROOTCROMWELL/cromwell.jar serve
-```
-
-While you can run the server on the command line, I don't recommend it. I would check out the PROOF application for a GUI based way to execute workflows. It handles `cromwell` server management automatically.
-:::
-
 ### Input Files as JSON
 
 If you want to work with the JSON format (@sec-json), there is a trick to generating a template `.json` file for a workflow. There is an additional utility called `womtools` that will generate a template file from a workflow file.
 
 ```bash
-java -jar $EBROOTCROMWELL/womtool.jar inputs ww-star2-deseq2.wdl > ww-star2-deseq2-inputs.json
+miniwdl input-template ww-star2-deseq2.wdl > ww-star2-deseq2-inputs.json
 ```
 This will generate a file called `ww-star2-deseq2-inputs.json` that contains all of the inputs: 
 
@@ -195,8 +183,6 @@ workflow ParseBatchFile {
 4. Get `bam_file` input from `job.bam_file`
 5. Get `bed_file` input from `job.bed_file`
 6. Do something with the inputs.
-
-
 
 
 ### Let's start with WDL Tasks

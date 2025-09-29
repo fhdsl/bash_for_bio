@@ -3,6 +3,12 @@ title: "Week 3 Assignment"
 format: html
 ---
 
+## In-class
+
+
+
+## Out of class exercises
+
 Exercises 1, 2, 3 are required for the badge.
 
 1. In the `data/` folder, there is a list of `.csv` files. Modify the code to process each file.
@@ -15,24 +21,28 @@ do
 done
 ```
 
-2. Write a `for` loop in a script to count the number of lines for each file. The output should be:
+2. Write a `for` loop in a script to count the number of lines for each `.csv` file. The output should be:
 
 ```
 echo "${file}\t(wc -l $file)\n"
 ```
 
-Run the script and redirect your output to `files_out.txt`. Put your bash command you used below
+Run the script and redirect your output to `files_out.txt`. Put your bash command you used below:
 
 
+```bash
 ```
-```
 
-3. Modify the below script to process the files in `data/week3/fastq/`
+3. Modify the below script to process the ".sam" files in `./data/`. How many files were generated?
 
 ```bash
 #!/bin/bash
 #SBATCH --array=1-________  
-ml 
+module load SAMtools
+file_array=(./data/*.sam) 
+ind=$((SLURM_ARRAY_TASK_ID-1)) 
+current_file=${file_array[$ind]} 
+samtools view -c $current_file > ${current_file}.counts.out
 ```
 
 4. Challenge: 

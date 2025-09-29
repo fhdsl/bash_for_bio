@@ -318,6 +318,7 @@ I tend to just go by memory when setting file permissions. These are the common 
 |---------|-------|
 |Only I can execute/read/write a file|`chmod 700 <filename>`|
 |Only I and my group can read a file|`chmod 110 <filename>` |
+|Only I and my group can read/write/execute a file|`chmod 770 <filename>` |
 |Grant my group read permissions|`chmod 710 <filename>`|
 |Make executable/read/write by all|`chmod 777 <filename>`|
 
@@ -454,6 +455,9 @@ Add some text to it.
 
 Use CTRL-X to exit, and make sure to select "Yes" to save.
 
+### Editing on your own machine
+
+One thing you can do to make your life easier is to edit scripts with an editor on your own machine that is connected to `rhino` through SSH. 
 
 ## Running an R or Python Script on the command line {#sec-rpy}
 

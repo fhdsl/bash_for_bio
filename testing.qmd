@@ -11,7 +11,7 @@ A lot of the issues you might have is because you need to understand the mental 
 
 Let's explore how we can do that.
 
-### Testing code on a compute node {#sec-testnode}
+### Testing code on a compute node {#sec-grabnode}
 
 Fred Hutch users have the advantage of `grabnode`, which is a custom command that lets you request an interactive instance of a compute node. (Non-FH folks can usually request this with the `-it` flag for `srun`)
 
