@@ -322,7 +322,7 @@ I tend to just go by memory when setting file permissions. These are the common 
 |Grant my group read permissions|`chmod 710 <filename>`|
 |Make executable/read/write by all|`chmod 777 <filename>`|
 
-If you have different permission situations that you need to set, please refer to: 
+If you have different permission situations that you need to set, please refer to: <https://www.redhat.com/en/blog/linux-file-permissions-explained>
 :::
 
 :::{.callout}
@@ -388,7 +388,7 @@ Ideally, we want to make the naming conventions of our code and our data as simi
 :::{.callout-note}
 ## Try it Out
 
-Copy the script `tell_the_time.sh` in the `scripts/` directory to your home directory. 
+Copy the script `tell_the_time.sh` in the `scripts/week1/` directory to the top directory of `bash_for_bio`. 
 
 Make the script executable.
 :::
@@ -488,8 +488,9 @@ Rscript my_r_script.R
 To run this script, we'll need to first load `fhR`:
 
 ```bash
-module load fhR/
+module load fhR
 Rscript my_r_script.R
+module purge
 ```
 
 ### Python Users
@@ -505,6 +506,7 @@ To execute this on `gizmo`, we'll first need to load `fhPython`:
 ```bash
 module load fhPython
 python3 my_python_script.py
+module purge
 ```
 
 Within a shell script, you can also use a shebang (@sec-shebang) to make your script executable by providing the location of `python3`:

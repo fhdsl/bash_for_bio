@@ -11,7 +11,7 @@ format: html
 
 Exercises 1, 2, 3 are required for the badge.
 
-1. In the `data/` folder, there is a list of `.csv` files. Modify the code to process each file.
+1. In the `data/` folder, there is a list of `.csv` files. Modify the code below to process each file.
 
 ```bash
 #!/bin/bash
@@ -21,7 +21,7 @@ do
 done
 ```
 
-2. Write a `for` loop in a script to count the number of lines for each `.csv` file. The output should be:
+2. Modify the code in 1) to write a `for` loop in a script to count the number of lines for each `.csv` file. The output should be:
 
 ```
 echo "${file}\t(wc -l $file)\n"
@@ -33,7 +33,7 @@ Run the script and redirect your output to `files_out.txt`. Put your bash comman
 ```bash
 ```
 
-3. Modify the below script to process the ".sam" files in `./data/`. How many files were generated?
+3. Modify the below script to process the `.sam` files in `./data/`. Save it as `sbatch_sam.sh` and run it. How many files were generated?
 
 ```bash
 #!/bin/bash
@@ -44,5 +44,3 @@ ind=$((SLURM_ARRAY_TASK_ID-1))
 current_file=${file_array[$ind]} 
 samtools view -c $current_file > ${current_file}.counts.out
 ```
-
-4. Challenge: 

@@ -243,6 +243,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#editing-on-a-linux-machine" id="toc-editing-on-a-linux-machine" class="nav-link" data-scroll-target="#editing-on-a-linux-machine"><span class="header-section-number">1.13</span> Editing on a Linux Machine</a>
   <ul class="collapse">
   <li><a href="#try-it-out-3" id="toc-try-it-out-3" class="nav-link" data-scroll-target="#try-it-out-3"><span class="header-section-number">1.13.1</span> Try it Out</a></li>
+  <li><a href="#editing-on-your-own-machine" id="toc-editing-on-your-own-machine" class="nav-link" data-scroll-target="#editing-on-your-own-machine"><span class="header-section-number">1.13.2</span> Editing on your own machine</a></li>
   </ul></li>
   <li><a href="#sec-rpy" id="toc-sec-rpy" class="nav-link" data-scroll-target="#sec-rpy"><span class="header-section-number">1.14</span> Running an R or Python Script on the command line</a>
   <ul class="collapse">
@@ -640,6 +641,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="callout-body-container callout-body">
 <p>I tend to just go by memory when setting file permissions. These are the common situations that I’ve encountered:</p>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 56%">
+<col style="width: 43%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Situation</th>
@@ -656,16 +661,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td><code>chmod 110 &lt;filename&gt;</code></td>
 </tr>
 <tr class="odd">
+<td>Only I and my group can read/write/execute a file</td>
+<td><code>chmod 770 &lt;filename&gt;</code></td>
+</tr>
+<tr class="even">
 <td>Grant my group read permissions</td>
 <td><code>chmod 710 &lt;filename&gt;</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Make executable/read/write by all</td>
 <td><code>chmod 777 &lt;filename&gt;</code></td>
 </tr>
 </tbody>
 </table>
-<p>If you have different permission situations that you need to set, please refer to:</p>
+<p>If you have different permission situations that you need to set, please refer to: <a href="https://www.redhat.com/en/blog/linux-file-permissions-explained" class="uri">https://www.redhat.com/en/blog/linux-file-permissions-explained</a></p>
 </div>
 </div>
 <div class="callout callout-style-simple callout-none no-icon callout-titled">
@@ -729,7 +738,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Copy the script <code>tell_the_time.sh</code> in the <code>scripts/</code> directory to your home directory.</p>
+<p>Copy the script <code>tell_the_time.sh</code> in the <code>scripts/week1/</code> directory to the top directory of <code>bash_for_bio</code>.</p>
 <p>Make the script executable.</p>
 </div>
 </div>
@@ -771,6 +780,10 @@ date</code></pre>
 <p>Add some text to it.</p>
 <p>Use CTRL-X to exit, and make sure to select “Yes” to save.</p>
 </section>
+<section id="editing-on-your-own-machine" class="level3" data-number="1.13.2">
+<h3 data-number="1.13.2" class="anchored" data-anchor-id="editing-on-your-own-machine"><span class="header-section-number">1.13.2</span> Editing on your own machine</h3>
+<p>One thing you can do to make your life easier is to edit scripts with an editor on your own machine that is connected to <code>rhino</code> through SSH.</p>
+</section>
 </section>
 <section id="sec-rpy" class="level2" data-number="1.14">
 <h2 data-number="1.14" class="anchored" data-anchor-id="sec-rpy"><span class="header-section-number">1.14</span> Running an R or Python Script on the command line</h2>
@@ -800,8 +813,9 @@ date</code></pre>
 </ol>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> my_r_script.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>To run this script, we’ll need to first load <code>fhR</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load fhR/</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> my_r_script.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load fhR</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> my_r_script.R</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="python-users" class="level3" data-number="1.14.3">
 <h3 data-number="1.14.3" class="anchored" data-anchor-id="python-users"><span class="header-section-number">1.14.3</span> Python Users</h3>
@@ -809,7 +823,8 @@ date</code></pre>
 <pre><code>python3 my_python_script.py</code></pre>
 <p>To execute this on <code>gizmo</code>, we’ll first need to load <code>fhPython</code>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load fhPython</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> my_python_script.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> my_python_script.py</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Within a shell script, you can also use a shebang (<a href="02_scripting.html#sec-shebang" class="quarto-xref"><span>Section 2.3</span></a>) to make your script executable by providing the location of <code>python3</code>:</p>
 <pre><code>#!/bin/python3
 python3 my_python_script.py</code></pre>

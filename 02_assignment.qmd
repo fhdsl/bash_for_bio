@@ -31,7 +31,7 @@ Hint 1: I recommend that you copy `run_bwa.sh` into a new script and work from t
 
 ```
 
-Write an example to run your new version of the script below:
+Write an example to run your new version of the script below and run it:
 
 ```bash
 
@@ -53,11 +53,12 @@ How would you run this on the command line?
 ```bash
 module load fhR
 -----
+module purge
 ```
 
 How would you redirect the output of your script to a file? 
 
-4Py. (py) Modify the below Python script to be runnable. It should also take the first position argument (a file path) and process the file
+4Py. (py) Modify the below Python script to be runnable and save it to `py_csv_script.py`. Your new version should also take the first position argument (a file path) and process the file:
 
 ```{python}
 import pandas as pd
@@ -70,4 +71,5 @@ How would you run this on the command line?
 ```bash
 module load fhPython
 -----
+module purge
 ```

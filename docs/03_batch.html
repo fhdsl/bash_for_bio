@@ -338,9 +338,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
        9      25     157 intro.qmd
      214    1314    8001 miscellaneous.qmd</code></pre>
 <p>The <code>*.qmd</code> (the wildcard operator, also known as a <button class="glossary"><span class="def">a pattern-matching mechanism used primarily in shells (like Bash) and various programming languages to match filenames and paths. It is also known as “filename expansion” or “wildcard matching.”</span>glob</button>) can be used in various ways. For example, if our files are in a folder called <code>raw_data/</code>, we could specify:</p>
-<pre><code>for file in raw_data/*.fq
+<pre><code>for file in ./data/*.fastq
 do
-  bwa mem 
+  wc $file 
 done</code></pre>
 <div class="callout callout-style-simple callout-none no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -442,7 +442,7 @@ done</code></pre>
 </div>
 <div class="callout-body-container callout-body">
 <p>Much more information about the kinds of directives that you can specify in a SLURM script is available here: <a href="https://www.osc.edu/supercomputing/batch-processing-at-osc/slurm_directives_summary" class="uri">https://www.osc.edu/supercomputing/batch-processing-at-osc/slurm_directives_summary</a></p>
-<p>The most important directive you should be aware of is how</p>
+<p>The most important directive you should be aware of is how many nodes you need to request, and how much memory your jobs will need.</p>
 </div>
 </div>
 </section>

@@ -1,0 +1,4 @@
+- source: project
+  netlify:
+    - id: ef9c1bf7-974c-4d29-af56-21c4ba80cc23
+      url: https://bashforbio.netlify.app

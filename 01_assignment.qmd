@@ -22,7 +22,12 @@ Try running it in your home directory - did it work?
 
 `./run_this.sh`
 
-3. Take a look at `scripts/week1/rnorm.R` or `scripts/week1/random_num.py`. Load up the `fhR` or `fhPython` modules on `rhino` using `module load`. Run it on the command line with `Rscript` or `python3`. 
+3. (pick python or R) Take a look at `scripts/week1/rnorm.R` or `scripts/week1/random_num.py`. Load up the `fhR` or `fhPython` modules on `rhino` using `module load`. Run it on the command line with `Rscript` or `python3`. 
 
 Did you need to make this script executable before you ran it?
 
+```bash
+module load _____
+--------
+module purge
+```

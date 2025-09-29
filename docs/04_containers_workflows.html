@@ -303,7 +303,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Adapt to different computing architectures (HPC/cloud/etc)</li>
 </ul>
 <p>Many bioinformaticists have used workflow managers to process and manage hundreds or thousands of files at a time. They are well worth the extra effort it takes to learn.</p>
-<p>Here is an overview of some of the common bioinformatics workflow managers. We will be using <code>cromwell</code>, which runs WDL files.</p>
+<p>Here is an overview of some of the common bioinformatics workflow managers. We will be using <code>miniWDL</code>, which runs WDL files.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -352,7 +352,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="executing-a-wdl-workflow" class="level3" data-number="6.3.2">
 <h3 data-number="6.3.2" class="anchored" data-anchor-id="executing-a-wdl-workflow"><span class="header-section-number">6.3.2</span> Executing a WDL workflow</h3>
 <p>Say someone has given us a WDL file - how do we set it up to run on our own data?</p>
-<p>In order to test this out on a batch of files, we’ll first request a node using <code>grabnode</code> (<span class="quarto-unresolved-ref">?sec-testnode</span>).</p>
+<p>In order to test this out on a batch of files, we’ll first request a node using <code>grabnode</code> (<a href="testing.html#sec-grabnode" class="quarto-xref"><span>Section 7.1.1</span></a>).</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">grabnode</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>In our node, we’ll use <code>miniWDL</code> to run our WDL workflow. It is accessible via the <code>cirro</code> module.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load cirro</span>
@@ -363,26 +363,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-9"><pre class="sourceCode bash code-annotation-code code-with-copy"><code class="sourceCode bash"><span id="annotated-cell-9-1"><a href="#annotated-cell-9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">miniwdl</span> run </span>
 <span id="annotated-cell-9-2"><a href="#annotated-cell-9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">java</span> <span class="at">-jar</span> <span class="va">$EBROOTCROMWELL</span>/cromwell.jar run ww-star2-deseq2.wdl <span class="dt">\</span></span>
 <span id="annotated-cell-9-3"><a href="#annotated-cell-9-3" aria-hidden="true" tabindex="-1"></a>   <span class="at">--inputs</span> input_file.json</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="callout callout-style-simple callout-none no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">None</span><code>cromwell serve</code>
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The other way to run Cromwell is to run it in <em>server</em> mode. You can start the server by using:</p>
-<pre><code>java -jar $EBROOTCROMWELL/cromwell.jar serve</code></pre>
-<p>While you can run the server on the command line, I don’t recommend it. I would check out the PROOF application for a GUI based way to execute workflows. It handles <code>cromwell</code> server management automatically.</p>
-</div>
-</div>
 </section>
 <section id="input-files-as-json" class="level3" data-number="6.3.3">
 <h3 data-number="6.3.3" class="anchored" data-anchor-id="input-files-as-json"><span class="header-section-number">6.3.3</span> Input Files as JSON</h3>
 <p>If you want to work with the JSON format (<a href="container-basics.html#sec-json" class="quarto-xref"><span>Section 5.1</span></a>), there is a trick to generating a template <code>.json</code> file for a workflow. There is an additional utility called <code>womtools</code> that will generate a template file from a workflow file.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">java</span> <span class="at">-jar</span> <span class="va">$EBROOTCROMWELL</span>/womtool.jar inputs ww-star2-deseq2.wdl <span class="op">&gt;</span> ww-star2-deseq2-inputs.json</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">miniwdl</span> input-template ww-star2-deseq2.wdl <span class="op">&gt;</span> ww-star2-deseq2-inputs.json</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>This will generate a file called <code>ww-star2-deseq2-inputs.json</code> that contains all of the inputs:</p>
 <pre><code>{
   "star_deseq2.samples": "Array[WomCompositeType {\n name -&gt; String\nr1 -&gt; File\nr2 -&gt; File\ncondition -&gt; String \n}]",
