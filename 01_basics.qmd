@@ -11,6 +11,10 @@ By the end of this session, you should be able to:
 - **Set** Permissions on and **execute** a bash script 
 - **Find** help on the system
 
+## Exercises
+
+[Open up the exercises here](https://github.com/fhdsl/bash_for_bio/blob/main/01_basics.qmd).
+
 :::{.callout-note}
 ## Reminder about Terminology
 
@@ -260,6 +264,14 @@ git clone https://github.com/fhdsl/bash_for_bio_scripts
 ```
 
 This will create a folder called `bash_for_bio_scripts/` in our current directory. 
+
+:::{.callout-important}
+## Stay in `bash_for_bio/`
+
+Throughout this course, I expect you to run code in the base `bash_for_bio/` folder, not in `scripts` or in `data`. All of the code is tested with this in mind. 
+
+If you are having problems executing the code, please make sure you are in the base `bash_for_bio` folder, or adjust your file paths when running the script.
+:::
 
 ## File Permissions {#sec-permissions}
 

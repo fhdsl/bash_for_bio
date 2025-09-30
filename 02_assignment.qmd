@@ -3,6 +3,42 @@ title: "Week 2 Assignment"
 format: html
 ---
 
+## In-class exercises
+
+1. We can run the script on a file (assuming we are in `bash_for_bio/`):
+
+```bash
+./scripts/week2/sam_count.sh ./data/my_file.bam
+```
+
+Try out the above script on `./data/CALU1_combined_final.sam`.
+
+Make sure you are in the top folder (`bash_for_bio`) when you do it.
+
+2. Run `run_bwa.sh` using:
+
+```bash
+./scripts/week2/run_bwa.sh ./data/CALU1_combined_final.fasta
+```
+
+3. Run `process_data.R`:
+
+```bash
+module load fhR
+Rscript process_data.R input_file="LUSC_clinical.csv"
+module purge
+```
+
+4. Run `process_data.py`:
+
+```bash
+module load fhPython
+python3 process_file.py lusc_file.csv
+module purge
+```
+
+## Homework Exercises
+
 All exercises are required for the badge.
 
 1. Copy the below script into a file called `samtools_count.sh`. What does the script do?
@@ -40,7 +76,7 @@ Write an example to run your new version of the script below and run it:
 
 For question 4, pick one language to answer.
 
-4R. (R) Modify the below R script and save it to a file called `r_csv_script.R`. It should also take an argument called $FILEPATH for `read.csv()`:
+4R. (R) Modify the below R script and save it to a file called `scripts/week2/r_csv_script.R`. It should also take an argument called $FILEPATH for `read.csv()`:
 
 ```r
 library(tidyverse)
@@ -58,9 +94,10 @@ module purge
 
 How would you redirect the output of your script to a file? 
 
-4Py. (py) Modify the below Python script to be runnable and save it to `py_csv_script.py`. Your new version should also take the first position argument (a file path) and process the file:
+4Py. (py) Modify the below Python script to be runnable and save it to `scripts/week2/py_csv_script.py`. Your new version should also take the first position argument (a file path) and process the file:
 
-```{python}
+```python
+#| eval: false
 import pandas as pd
 csv_file = pd.read_csv("my_file.csv")
 csv_file.describe()

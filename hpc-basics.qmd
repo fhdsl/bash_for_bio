@@ -122,7 +122,7 @@ There are three main filesystems you will probably use:
 
 - `/home/` - usually where your scripts will live
 - `/fh/fast/` - Where data lives. You will usually transfer data files over to `/hpc/temp/` and when you generate results, transfer them from `/hpc/temp/` back to `/fh/fast/`
-- `/fh/temp/` - A temporary filesystem. Don't store files here long term - mostly use this as a faster system to do computations on.
+- `/hpc/temp/` - A temporary filesystem. Don't store files here long term - mostly use this as a faster system to do computations on.
 :::
 
 ### Further Reading
@@ -135,9 +135,8 @@ How do you request a set of machines on the HPC? There are multiple ways to do s
 
 - Open an Interactive shell on a Node
 - As part of a job using `srun` or `sbatch`
-- Using Cromwell or Nextflow
 
-In general, we recommend 
+In general, we recommend trying to use SLURM as much as possible with `srun` or `sbatch`. The larger recommendation overall is that we encourage you to use a workflow runner such as PROOF or Nextflow.
 
 ### Scattering: Distribute the Work
 
@@ -168,14 +167,10 @@ In general, scatter over multiple nodes is handled by `sbatch` or your workflow 
 :::{.callout-note}
 ## For FH Users: Running Workflows
 
-At Fred Hutch, we have two main ways to run workflows on `gizmo`: Cromwell and NextFlow. Cromwell users have a nifty GUI to run their workflows called PROOF. 
+At Fred Hutch, we have two main ways to run workflows on `gizmo`: Cromwell/MiniWDL and NextFlow. Cromwell users have a nifty GUI to run their workflows called PROOF. 
 :::
 
 
 ## What's Next?
 
-We'll leverage this knowledge 
-
-## Glossary
-
-{{<glossary table="true">}}
+We'll leverage this knowledge to actually start batching on the `gizmo` cluster.

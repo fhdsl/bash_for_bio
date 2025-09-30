@@ -2,6 +2,10 @@
 title: "Batch Processing and Submitting Jobs"
 ---
 
+## Exercises
+
+[Open up the exercises here](https://github.com/fhdsl/bash_for_bio/blob/main/03_assignment.qmd).
+
 ## Learning Objectives
 
 - **Execute** a script to run over a list of files on one system
@@ -164,7 +168,7 @@ echo "${SLURM_ARRAY_TASK_ID} job" #<3>
 
 Much more information about the kinds of directives that you can specify in a SLURM script is available here: <https://www.osc.edu/supercomputing/batch-processing-at-osc/slurm_directives_summary>
 
-The most important directive you should be aware of is how many nodes you need to request, and how much memory your jobs will need.
+The most important directive you should be aware of is how many nodes you need to request, and how much memory your jobs will need. `gizmo` does not use the memory parameter. Instead, use the number of cores as a proxy for memory. Much more information is here <https://sciwiki.fredhutch.org/scicomputing/compute_jobs/#memory>
 :::
 
 :::{.callout-note}

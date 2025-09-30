@@ -1,13 +1,33 @@
 ---
-title: "Week 3 Assignment"
+title: "Week 3 Exercises"
 format: html
 ---
 
 ## In-class
 
+1. Try it out:
+
+```bash
+./scripts/week3/batch_on_rhino.sh
+```
+
+2. Try it out:
+
+```bash
+#| eval: false
+sbatch sbatch_test.sh
+```
+
+and examine the following output files:
+
+3. Try it out:
+
+```bash
+
+```
 
 
-## Out of class exercises
+## Homework exercises
 
 Exercises 1, 2, 3 are required for the badge.
 
