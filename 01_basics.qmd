@@ -9,11 +9,12 @@ By the end of this session, you should be able to:
 - **Navigate** and **copy** data to the different filesystems available at Fred Hutch.
 - **Explain** the difference between *absolute* and *relative* file paths.
 - **Set** Permissions on and **execute** a bash script 
-- **Find** help on the system
+- **Execute** scripts written in Python and R on the command line
+- **Find** help on the system and on the web
 
 ## Exercises
 
-[Open up the exercises here](https://github.com/fhdsl/bash_for_bio/blob/main/01_basics.qmd).
+[Open up the exercises here](https://github.com/fhdsl/bash_for_bio/blob/main/01_assignment.qmd).
 
 :::{.callout-note}
 ## Reminder about Terminology
