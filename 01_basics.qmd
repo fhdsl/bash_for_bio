@@ -14,7 +14,7 @@ By the end of this session, you should be able to:
 
 ## Exercises
 
-[Open up the exercises here](https://github.com/fhdsl/bash_for_bio/blob/main/01_assignment.qmd).
+[Open up the exercises here](https://github.com/fhdsl/bash_for_bio/blob/main/01_assignment.qmd) or in Google Classroom.
 
 :::{.callout-note}
 ## Reminder about Terminology
@@ -156,7 +156,7 @@ du -d 2 ~/
 
 When working on the Fred Hutch HPC, there are four main filesystems you should consider:
 
-- `/home/` - The home filesystem. Your scripts can live here. Also where your configuration files (such as `.bashrc`) live. Can be accessed using `~/`.
+- `/home/` - The home filesystem. Your scripts can live here. Also where your configuration files (such as `.bashrc`) live. Can be accessed using `~/`. 
 - `/fh/fast/` (also known as `fast`) - Research storage. Raw files and processed results should live here. 
 - `/hpc/temp/` (also known as `temp`) - The temporary filesystem. This filesystem is faster to access for gizmo nodes on the cluster, so files can be copied to for computation. The output files you generate should be moved back into an appropriate folder on `/fh/fast/`. Note that files on `/hpc/temp/` will be deleted after 30 days. 
 - `/fh/regulated/` - A secure filesystem meant for NIH regulated data. If you are processing data that is regulated under the current NIH guidelines, you will process it here.
@@ -326,8 +326,8 @@ will give me the following line:
 It's this first part that we want to examine:
 
 ```
-        everyone_else
-        |     
+folder  everyone_else
+|       |     
 -rw-rw----
  |  |
  you group
@@ -349,7 +349,7 @@ That would mean we have read, write, and e**x**ecute access.
 
 Similarly, the 5th to 7th letters are the permissions for your group. In many cases at Fred Hutch, the group level maps to your lab or group.
 
-The last 3 letters correspond to *everyone else*.
+The last 3 letters correspond to *everyone else* on the system. Think about whether you want to make your scripts accessible to everyone.
 
 In this case, since the permissions are:
 
@@ -357,11 +357,11 @@ In this case, since the permissions are:
 ---
 ```
 
-That means that everyone else cannot read, write, or execute your files.
+That means that everyone else cannot read, write, or execute your files. Your files are locked down.
 
 The cardinal rule to remember is that: 
 
-> If you want to run a file as an executable, you (or your group) needs to have executable level permission.
+> If you want to run a file as an executable, you (or your group) needs to have *executable level permission*.
 
 For example, if I want to run a script called `run_samtools.sh` in my directory like this:
 
@@ -391,6 +391,8 @@ For right now, let's set scripts to be read/write/executable by us:
 ```
 chmod -R 700 scripts/
 ```
+
+The `-R` in this case is the `recursive` argument, which means apply `chmod` to everything within the `scripts/` folder.
 
 This will save us some headaches when we try to execute our scripts.
 

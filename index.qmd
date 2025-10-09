@@ -49,9 +49,48 @@ We know that not all of us have the same vocabulary. We try to define terminolog
 You can click and hold on the term to define it.
 :::
 
+ ## Instructors / TAs
+
+If you need to schedule some time to talk, please schedule with Ted.
+
+-   Ted Laderas (Main Instructor), Director of Training and Community, Office of the Chief Data Officer
+-   Taylor Firman (TA), Research Informatics Lead, Office of the Chief Data Officer
+-   Scott Chamberlain (TA), Software Developer, Office of the Chief Data Officer
+-   Chris Lo (TA), Data Science Trainer, Office of the Chief Data Officer
+
+We all have experience running jobs on HPC. Please reach out if you have any questions.
+
+## Introductions
+
+In chat, please introduce yourself:
+
+-   Your Name & Your Group
+-   What you want to learn in this course
+-   Favorite Fall activity
+
+## Culture of the course
+
+-   Learning on the job is challenging
+    -   I will move at learner's pace; we are learning together.
+    -   Teach not for mastery, but teach for empowerment to learn effectively.
+
+We sometimes struggle with our data science in isolation, unaware that someone two doors down from us has gone through the same struggle.
+
+-   *We learn and work better with our peers.*
+-   *Know that if you have a question, other people will have it.*
+-   *Asking questions is our way of taking care of others.*
+
+We ask you to follow [Participation Guidelines](https://hutchdatascience.org/communitystudios/guidelines/) and [Code of Conduct](https://github.com/fhdsl/coc).
+
+Please note that this is the first time this course has been given - we have done our best to edit all mistakes out there, but there may be mistakes. So be patient and reach out if something isn't working. 
+
+If you do find a mistake, please report it to Ted. I'll add you to the acknowledgements below. 
+
 ## Schedule
 
-You should have completed the readings before class, so we can hit the ground running.
+Class is on Thursdays, 12:00 - 1:30 PM. There will be an office hour 1/2 hour after class if you need help. 
+
+You should complete the readings before class for weeks 3 and 4, so we can hit the ground running.
 
 |Week|Date|Topics|Reading|
 |----|----|------|-------|
@@ -87,3 +126,17 @@ Requirements:
 
 -   Sign up on the badging spreadsheet (will send link out in class).
 -   Complete badge-required sections of the exercises for 3 out of 4 assignments. We'll cover this in class.
+
+## Acknowledgements
+
+This course would not be live without the efforts of:
+
+- Emma Bishop
+- Scott Chamberlain
+- Taylor Firman
+- Chris Lo
+- Sonu Mishra
+- Sitapriya Moorthi
+- Dan Tenenbaum
+
+Thanking you for all your help testing and editing this course. 

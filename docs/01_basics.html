@@ -317,7 +317,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="exercises" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="exercises"><span class="header-section-number">1.2</span> Exercises</h2>
-<p><a href="https://github.com/fhdsl/bash_for_bio/blob/main/01_assignment.qmd">Open up the exercises here</a>.</p>
+<p><a href="https://github.com/fhdsl/bash_for_bio/blob/main/01_assignment.qmd">Open up the exercises here</a> or in Google Classroom.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -680,8 +680,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="ex">-rw-rw----</span> 1 tladera2 g_tladera2  13K Oct  2 15:21 03_batch.qmd</span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="ex">-rw-rw----</span> 1 tladera2 g_tladera2    0 Oct  2 15:21 04_assignment.qmd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>It’s this first part that we want to examine:</p>
-<pre><code>        everyone_else
-        |     
+<pre><code>folder  everyone_else
+|       |     
 -rw-rw----
  |  |
  you group</code></pre>
@@ -691,13 +691,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>rwx</code></pre>
 <p>That would mean we have read, write, and e<strong>x</strong>ecute access.</p>
 <p>Similarly, the 5th to 7th letters are the permissions for your group. In many cases at Fred Hutch, the group level maps to your lab or group.</p>
-<p>The last 3 letters correspond to <em>everyone else</em>.</p>
+<p>The last 3 letters correspond to <em>everyone else</em> on the system. Think about whether you want to make your scripts accessible to everyone.</p>
 <p>In this case, since the permissions are:</p>
 <pre><code>---</code></pre>
-<p>That means that everyone else cannot read, write, or execute your files.</p>
+<p>That means that everyone else cannot read, write, or execute your files. Your files are locked down.</p>
 <p>The cardinal rule to remember is that:</p>
 <blockquote class="blockquote">
-<p>If you want to run a file as an executable, you (or your group) needs to have executable level permission.</p>
+<p>If you want to run a file as an executable, you (or your group) needs to have <em>executable level permission</em>.</p>
 </blockquote>
 <p>For example, if I want to run a script called <code>run_samtools.sh</code> in my directory like this:</p>
 <pre><code>./run_samtools.sh my_bam_file.bam</code></pre>
@@ -750,6 +750,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <p>For right now, let’s set scripts to be read/write/executable by us:</p>
 <pre><code>chmod -R 700 scripts/</code></pre>
+<p>The <code>-R</code> in this case is the <code>recursive</code> argument, which means apply <code>chmod</code> to everything within the <code>scripts/</code> folder.</p>
 <p>This will save us some headaches when we try to execute our scripts.</p>
 <p>If you have different permission situations that you need to set, please refer to: <a href="https://www.redhat.com/en/blog/linux-file-permissions-explained" class="uri">https://www.redhat.com/en/blog/linux-file-permissions-explained</a></p>
 </div>

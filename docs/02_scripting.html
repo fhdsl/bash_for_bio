@@ -582,9 +582,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>For example, if my file name is <code>CALU final.fasta</code></p>
 <p>I can refer to it as:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./scripts/week2/run_bwa.sh</span> <span class="st">"CALU final.fasta"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The escape character is a way to put spaces in a bash command without bash interpreting everything after the space as an argument.</p>
+<p>The escape character (<code>\</code>) is a way to put spaces in a bash command without bash interpreting everything after the space as an argument. Essentially, it tells <code>bash</code> to literally interpret the character that follows it.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./scripts/week2/run_bwa.sh</span> CALU<span class="dt">\ </span>final.fasta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>I prefer to use double quotes. You’ll notice that all file names in this course use an underscore (<code>_</code>) instead of spaces, which makes them easier to handle.</p>
+<p>I prefer to use double quotes. You’ll notice that all file names in this course use an underscore (<code>_</code>) or dashes (<code>-</code>) instead of spaces, which makes them easier to handle.</p>
 </div>
 </div>
 </section>

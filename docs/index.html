@@ -208,9 +208,12 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#who-this-course-is-for" id="toc-who-this-course-is-for" class="nav-link" data-scroll-target="#who-this-course-is-for">Who this course is for</a></li>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning Objectives</a></li>
   <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a></li>
+  <li><a href="#introductions" id="toc-introductions" class="nav-link" data-scroll-target="#introductions">Introductions</a></li>
+  <li><a href="#culture-of-the-course" id="toc-culture-of-the-course" class="nav-link" data-scroll-target="#culture-of-the-course">Culture of the course</a></li>
   <li><a href="#schedule" id="toc-schedule" class="nav-link" data-scroll-target="#schedule">Schedule</a></li>
   <li><a href="#reference-texts" id="toc-reference-texts" class="nav-link" data-scroll-target="#reference-texts">Reference Texts</a></li>
   <li><a href="#badge-of-completion" id="toc-badge-of-completion" class="nav-link" data-scroll-target="#badge-of-completion">Badge of completion</a></li>
+  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -256,7 +259,7 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li>Have you needed to align a folder of FASTA files and not know how to do it?</li>
 <li>Do you want to automate an R or Python script you wrote to work on a bunch of files?</li>
-<li>Do you want to do all of this on a high performance cluster (<button class="glossary"><span class="def">Short for High Performance Computing. See the hpc basics chapter for more info.</span>HPC</button>)?</li>
+<li>Do you want to do all of this on a high performance cluster (<button class="glossary"><span class="def"></span>HPC</button>)?</li>
 </ul>
 <p>If so, this course is for you! We will learn enough bash scripting to do useful things on the Fred Hutch computing cluster (affectionately called “gizmo”) and automate the boring parts.</p>
 </section>
@@ -268,7 +271,7 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Manage</strong> software dependencies reproducibly using container-based technologies such as Docker/Apptainer containers or EasyBuild modules</li>
 <li><strong>Articulate</strong> basic HPC architecture concepts and why they’re useful in your work</li>
 <li><strong>Leverage</strong> bash scripting to <strong>execute</strong> <button class="glossary"><span class="def">Running the same task on a group of files. Can be done locally (on your computer) or on a cluster.</span>batch jobs</button> on a high performance cluster.</li>
-<li><strong>Utilize</strong> workflow managers such as <code>cromwell</code> to process multiple files in a multi-step <button class="glossary"><span class="def">Short for Workflow Description Language. A standard for specifying a workflow, which includes describing inputs, saving intermediate outputs, and outputting processed files.</span>WDL</button> workflow.</li>
+<li><strong>Utilize</strong> workflow managers such as <code>cromwell</code> to process multiple files in a multi-step <button class="glossary"><span class="def"></span>WDL</button> workflow.</li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -282,7 +285,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="callout-body-container callout-body">
 <p>I originally wrote a book that was called Bash for Bioinformatics, which was about learning enough bash to use the cloud-based DNANexus platform effectively.</p>
 <p>I have renamed that book <a href="https://laderast.github.io/bash_for_dnanexus/">Bash for DNANexus</a>, and named this course <em>Bash for Bioinformatics</em>.</p>
-<p>This book shares bones with <em>Bash for DNANexus</em>, but has more of a focus on running tasks on high performance computing systems (<button class="glossary"><span class="def">Short for High Performance Computing. See the hpc basics chapter for more info.</span>HPC</button>).</p>
+<p>This book shares bones with <em>Bash for DNANexus</em>, but has more of a focus on running tasks on high performance computing systems (<button class="glossary"><span class="def"></span>HPC</button>).</p>
 </div>
 </div>
 </section>
@@ -310,14 +313,52 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="callout-body-container callout-body">
 <p>We know that not all of us have the same vocabulary. We try to define terminology as much as possible. These are indicated by double underlines such as this:</p>
-<p><button class="glossary"><span class="def"></span>Compute Job</button></p>
+<p><button class="glossary"><span class="def">A task that we have assigned a computer to run. This computer can be a compute node in a cluster, or our own machine.</span>Compute Job</button></p>
 <p>You can click and hold on the term to define it.</p>
 </div>
 </div>
+<p>## Instructors / TAs</p>
+<p>If you need to schedule some time to talk, please schedule with Ted.</p>
+<ul>
+<li>Ted Laderas (Main Instructor), Director of Training and Community, Office of the Chief Data Officer</li>
+<li>Taylor Firman (TA), Research Informatics Lead, Office of the Chief Data Officer</li>
+<li>Scott Chamberlain (TA), Software Developer, Office of the Chief Data Officer</li>
+<li>Chris Lo (TA), Data Science Trainer, Office of the Chief Data Officer</li>
+</ul>
+<p>We all have experience running jobs on HPC. Please reach out if you have any questions.</p>
+</section>
+<section id="introductions" class="level2">
+<h2 class="anchored" data-anchor-id="introductions">Introductions</h2>
+<p>In chat, please introduce yourself:</p>
+<ul>
+<li>Your Name &amp; Your Group</li>
+<li>What you want to learn in this course</li>
+<li>Favorite Fall activity</li>
+</ul>
+</section>
+<section id="culture-of-the-course" class="level2">
+<h2 class="anchored" data-anchor-id="culture-of-the-course">Culture of the course</h2>
+<ul>
+<li>Learning on the job is challenging
+<ul>
+<li>I will move at learner’s pace; we are learning together.</li>
+<li>Teach not for mastery, but teach for empowerment to learn effectively.</li>
+</ul></li>
+</ul>
+<p>We sometimes struggle with our data science in isolation, unaware that someone two doors down from us has gone through the same struggle.</p>
+<ul>
+<li><em>We learn and work better with our peers.</em></li>
+<li><em>Know that if you have a question, other people will have it.</em></li>
+<li><em>Asking questions is our way of taking care of others.</em></li>
+</ul>
+<p>We ask you to follow <a href="https://hutchdatascience.org/communitystudios/guidelines/">Participation Guidelines</a> and <a href="https://github.com/fhdsl/coc">Code of Conduct</a>.</p>
+<p>Please note that this is the first time this course has been given - we have done our best to edit all mistakes out there, but there may be mistakes. So be patient and reach out if something isn’t working.</p>
+<p>If you do find a mistake, please report it to Ted. I’ll add you to the acknowledgements below.</p>
 </section>
 <section id="schedule" class="level2">
 <h2 class="anchored" data-anchor-id="schedule">Schedule</h2>
-<p>You should have completed the readings before class, so we can hit the ground running.</p>
+<p>Class is on Thursdays, 12:00 - 1:30 PM. There will be an office hour 1/2 hour after class if you need help.</p>
+<p>You should complete the readings before class for weeks 3 and 4, so we can hit the ground running.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -403,6 +444,19 @@ ul.task-list li input[type="checkbox"] {
 <li>Sign up on the badging spreadsheet (will send link out in class).</li>
 <li>Complete badge-required sections of the exercises for 3 out of 4 assignments. We’ll cover this in class.</li>
 </ul>
+</section>
+<section id="acknowledgements" class="level2">
+<h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
+<p>This course would not be live without the efforts of:</p>
+<ul>
+<li>Emma Bishop</li>
+<li>Scott Chamberlain</li>
+<li>Taylor Firman</li>
+<li>Chris Lo</li>
+<li>Sitapriya Moorthi</li>
+<li>Dan Tenenbaum</li>
+</ul>
+<p>Thanking you for all your help.</p>
 
 
 </section>
