@@ -11,15 +11,6 @@ There are 2 things you should know how to set:
 - Aliases
 - Environment Variables, especially `$PATH`
 
-## When does the `bashrc` file get loaded?
-
-You can force reloading of the 
-
-
-## An example `.bashrc` file
-
-
-
 ## Aliases
 
 Aliases are shortcuts for commands. You can specify them using `alias` as a line in your `.bashrc` file:
@@ -36,15 +27,15 @@ Some people even add aliases for things they mistype frequently.
 
 Environment variables are variables which can be seen globally in the Linux (or Windows) system across executables. 
 
-You can get a list of all set environment variables by using the `env` command. Here's an example from my own system:
+You can get a list of all set environment variables by using the `env` command. Here's an example from my own home system:
 
 ```bash
 env
 ```
+
 ```
 SHELL=/bin/bash
 NVM_INC=/home/tladera2/.nvm/versions/node/v21.7.1/include/node
-WSL_DISTRO_NAME=Ubuntu
 NAME=2QM6TV3
 PWD=/home/tladera2
 LOGNAME=tladera2
@@ -105,9 +96,14 @@ In this line, we are adding the path `/home/tladera2/samtools/` to our `$PATH` e
 :::{.callout-note}
 ## Order matters in your `$PATH`
 
+The order of directories is the order in which `bash` will look for executables. If you install software yourself on `gizmo` (using `make` or such), you should *prepend* the binary directory with your software to the `$PATH`:
+
+```bash
+export PATH=/home/tladeras/samtools/:$PATH
+```
 :::
 
-TLDR: We declare the variable using `export PATH` (no dollar sign) and we append to the variable using `$PATH` (with dollar sign). This is something that trips me up all the time. 
+TLDR: We declare the variable using `export PATH` (no dollar sign) and we append or prepend to this variable using `$PATH` (with dollar sign). This is something that trips me up all the time. 
 
 :::{.callout-note}
 ## For FH Users
@@ -149,62 +145,5 @@ source ~/.bashrc
 ```
 
 That way, everything in the `.bashrc` file is loaded when you log in interactively.
-:::
-
-## Project/folder based workflows {#sec-project}
-
-On a particular machine, using *absolute* paths is safe. However, you do this at the cost of *portability* - code that you write on one machine may not run on another. 
-
-If you ever anticipate doing the analysis on a separate machine, using project structures with relative paths is the safest. For example, you may want to move from the on-premise FH system to working with the data in AWS. 
-
-Here's one example of putting everything into a single folder:
-
-```bash
-my_project
-├── data
-│   ├── chr1.fa.gz
-│   ├── chr2.fa.gz
-│   └── chr3.fa.gz
-├── results
-├── run_workflow.sh
-└── scripts
-    └── run_bowtie.sh
-```
-
-In the above example, our project is named `my_project`, and there are three folders inside it: `data/`, `results/`, and `scripts/`. Our main script for running is `my_project/run_workflow.sh`. Because this script is in the root folder, we can refer to the `data/` folder to process files:
-
-```bash
-./scripts/run_bowtie.sh data/*.fa.gz results/
-```
-
-When we run `run_workflow.sh`, it will execute `run_bowtie.sh` on all of the files in `data/`, and save them in `results/`, resulting in the following updated structure.
-
-```bash
-my_project
-├── data
-│   ├── chr1.fa.gz
-│   ├── chr2.fa.gz
-│   └── chr3.fa.gz
-├── results
-│   ├── chr1.bam
-│   ├── chr2.bam
-│   └── chr3.bam
-├── run_workflow.sh
-└── scripts
-    └── run_bowtie.sh
-```
-
-
-You may have seen relative paths such as `../another_directory/` - the `..` means to go up a directory in the file hierarchy, and then look in that directory for the `another_directory/` directory. I try to avoid using relative paths like these.
-
-In general for portability and reproducibility, you will want to use relative paths **within a directory**, and avoid using relative paths like `../../my_folder`, where you are navigating up. In general, use relative paths to navigate down. 
-
-:::{.callout}
-## Why This is Important
-
-When you start executing scripts, it's important to know where the results go. When you execute SAMtools on a file in `/fh/temp/`, for example, where does the output go?
-
-Workflow Runners such as Cromwell and Nextflow will output into certain file structures by default. This can be changed, but knowing the default behavior is super helpful when you don't specify an output directory.
-
 :::
 

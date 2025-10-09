@@ -40,7 +40,16 @@ The <Up Arrow> key will let you cycle through your history, or previous executed
 
 ## Setting Yourself Up for Success
 
-So we have logged into `rhino`. Now what?
+Make Sure you:
+
+- [x] Connect to VPN
+- [x] Keep the Bash for Bioformatics page open
+- [x] Open the assignment in Google Classroom to take notes
+- [x] Connect to `rhino` using `terminal` or `PuTTY` or `On Demand` (see below).
+
+I will demo how to connect to `rhino` using the [Scicomp `On Demand` dashboard](https://openondemand.fredhutch.org/pun/sys/dashboard/). This site has a handy "Rhino Shell Access" menu item under "Clusters".
+
+So now we have logged into `rhino`. Now what?
 
 ## Navigating the Filesystems
 
@@ -54,7 +63,9 @@ If I run `pwd` right after signing into `rhino` I get:
 /home/tladera2
 ```
 
-You should have a similar path, except with your user name. This is your *home directory* - where you have a limited amount of space to store scripts and other files. Don't worry, the majority of your data is stored elsewhere ()
+You should have a similar path, except with your user name. This is your *home directory* - where you have a limited amount of space (100 Gb) to store scripts and other files. 
+
+Don't worry, the majority of your data is stored elsewhere (see @sec-filesystems).
 
 ## Going `/home`: `~/` {#sec-home}
 

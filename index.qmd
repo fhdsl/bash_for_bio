@@ -58,7 +58,7 @@ If you need to schedule some time to talk, please schedule with Ted.
 -   Scott Chamberlain (TA), Software Developer, Office of the Chief Data Officer
 -   Chris Lo (TA), Data Science Trainer, Office of the Chief Data Officer
 
-We all have experience running jobs on HPC. Please reach out if you have any questions.
+We all have experience running jobs on HPC and `gizmo`. Please reach out if you have any questions.
 
 ## Introductions
 
@@ -69,6 +69,8 @@ In chat, please introduce yourself:
 -   Favorite Fall activity
 
 ## Culture of the course
+
+It is hard work teaching an online/hybrid course. If you can, please turn your camera on - it is difficult to teach to a group of blank screens.
 
 -   Learning on the job is challenging
     -   I will move at learner's pace; we are learning together.
