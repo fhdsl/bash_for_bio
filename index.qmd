@@ -53,26 +53,27 @@ You can click and hold on the term to define it.
 
 You should have completed the readings before class, so we can hit the ground running.
 
-|Week|Topics|Reading|
-|----|------|-------|
-|Preclass|Review [Intro to Command Line](https://hutchdatascience.org/Intro_to_Command_Line/) and [Cluster 101](https://hutchdatascience.org/FH_Cluster_101/)||
-|Week 1|[Filesystem Basics](01_basics.qmd)|Bite Size Bash|
-|Week 2|[Writing and Running Bash Scripts](02_scripting.qmd)|Bite Size Bash|
-|Week 3|[Batch Processing and HPC Jobs](03_batch.qmd)|[HPC Basics](hpc-basics.qmd)
-|Week 4|[Testing Scripts/Workflow Managers](04_containers_workflows.qmd)|[Container Basics](container-basics.qmd)|
+|Week|Date|Topics|Reading|
+|----|----|------|-------|
+|Preclass||Review [Intro to Command Line](https://hutchdatascience.org/Intro_to_Command_Line/) and [Cluster 101](https://hutchdatascience.org/FH_Cluster_101/)||
+|Week 1|October 9|[Filesystem Basics](01_basics.qmd)|Bite Size Bash|
+|Week 2|October 16|[Writing and Running Bash Scripts](02_scripting.qmd)|Bite Size Bash|
+|No Class|October 23|OCDO Retreat||
+|Week 3|October 30|[Batch Processing and HPC Jobs](03_batch.qmd)|[HPC Basics](hpc-basics.qmd)
+|Week 4|November 6|[Testing Scripts/Workflow Managers](04_containers_workflows.qmd)|[Container Basics](container-basics.qmd)|
 |On your own time|[Testing Scripts](testing.qmd)||
 |On your own time|[Configuring your Bash Shell](configuring.qmd)||
 
 ## Reference Texts 
 
-- We will be using Julia Evan's [Bite Size Bash](https://wizardzines.com/zines/bite-size-bash/) as our reference text. Julia's explanations are incredibly clear and it will be a valuable reference even beyond this course. You will receive the PDF as part of class, and I will refer to it throughout the course.
+- We will be using Julia Evan's [Bite Size Bash](https://wizardzines.com/zines/bite-size-bash/) as our reference text. Julia's explanations are incredibly clear and it will be a valuable reference even beyond this course. The PDF is available in the Google Classroom materials. Please do not share with others - we have a group rate and it is only $12 for individual purchases.
 - If you want to know the true power of the command line, I recommend [Data Science at the Command Line](https://jeroenjanssens.com/dsatcl/). This book showcases how much you can get done with just command line.
 
 ## Badge of completion
 
 ![](images/BASH.png){width="450"}
 
-We offer a [badge of completion](https://www.credly.com/org/fred-hutch/badge/bash-for-bio) when you finish the course!
+We offer a [badge of completion](https://www.credly.com/org/fred-hutch/badge/bash-for-bioinformatics) when you finish the course!
 
 What it is:
 

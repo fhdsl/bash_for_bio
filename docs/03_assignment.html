@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>5&nbsp; Reading: HPC Basics – Bash for Bioinformatics</title>
+<title>7&nbsp; Week 3 Exercises – Bash for Bioinformatics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +65,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./03_batch.html" rel="next">
-<link href="./02_assignment.html" rel="prev">
+<link href="./container-basics.html" rel="next">
+<link href="./03_batch.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -83,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./hpc-basics.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: HPC Basics</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_assignment.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Week 3 Exercises</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -145,7 +180,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./hpc-basics.html" class="sidebar-item-text sidebar-link active">
+  <a href="./hpc-basics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: HPC Basics</span></span></a>
   </div>
 </li>
@@ -157,7 +192,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03_assignment.html" class="sidebar-item-text sidebar-link">
+  <a href="./03_assignment.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Week 3 Exercises</span></span></a>
   </div>
 </li>
@@ -201,27 +236,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">5.1</span> Learning Objectives</a></li>
-  <li><a href="#important-terminology" id="toc-important-terminology" class="nav-link" data-scroll-target="#important-terminology"><span class="header-section-number">5.2</span> Important Terminology</a></li>
-  <li><a href="#understanding-the-key-players" id="toc-understanding-the-key-players" class="nav-link" data-scroll-target="#understanding-the-key-players"><span class="header-section-number">5.3</span> Understanding the key players</a>
-  <ul class="collapse">
-  <li><a href="#key-players-in-local-computing" id="toc-key-players-in-local-computing" class="nav-link" data-scroll-target="#key-players-in-local-computing"><span class="header-section-number">5.3.1</span> Key Players in Local Computing</a></li>
-  <li><a href="#key-players-in-hpc" id="toc-key-players-in-hpc" class="nav-link" data-scroll-target="#key-players-in-hpc"><span class="header-section-number">5.3.2</span> Key Players in HPC</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">5.3.3</span> Further Reading</a></li>
-  </ul></li>
-  <li><a href="#sec-srun" id="toc-sec-srun" class="nav-link" data-scroll-target="#sec-srun"><span class="header-section-number">5.4</span> Sequence of Events of Running a Job</a>
-  <ul class="collapse">
-  <li><a href="#key-differences-with-local-computing" id="toc-key-differences-with-local-computing" class="nav-link" data-scroll-target="#key-differences-with-local-computing"><span class="header-section-number">5.4.1</span> Key Differences with local computing</a></li>
-  </ul></li>
-  <li><a href="#the-shared-filesystem" id="toc-the-shared-filesystem" class="nav-link" data-scroll-target="#the-shared-filesystem"><span class="header-section-number">5.5</span> The Shared Filesystem</a>
-  <ul class="collapse">
-  <li><a href="#further-reading-1" id="toc-further-reading-1" class="nav-link" data-scroll-target="#further-reading-1"><span class="header-section-number">5.5.1</span> Further Reading</a></li>
-  </ul></li>
-  <li><a href="#requesting-machines" id="toc-requesting-machines" class="nav-link" data-scroll-target="#requesting-machines"><span class="header-section-number">5.6</span> Requesting Machines</a>
-  <ul class="collapse">
-  <li><a href="#scattering-distribute-the-work" id="toc-scattering-distribute-the-work" class="nav-link" data-scroll-target="#scattering-distribute-the-work"><span class="header-section-number">5.6.1</span> Scattering: Distribute the Work</a></li>
-  </ul></li>
-  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next"><span class="header-section-number">5.7</span> What’s Next?</a></li>
+  <li><a href="#in-class" id="toc-in-class" class="nav-link active" data-scroll-target="#in-class"><span class="header-section-number">7.1</span> In-class</a></li>
+  <li><a href="#homework-exercises" id="toc-homework-exercises" class="nav-link" data-scroll-target="#homework-exercises"><span class="header-section-number">7.2</span> Homework exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -230,7 +246,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-HPC" class="quarto-section-identifier"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: HPC Basics</span></span></h1>
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Week 3 Exercises</span></h1>
 </div>
 
 
@@ -247,233 +263,50 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>We all need to start somewhere when we work with High Performance Computing (HPC).</p>
-<p>This chapter is a review of how HPC works and the basic concepts. If you haven’t used HPC before, no worries! This chapter will get you up to speed.</p>
-<section id="learning-objectives" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">5.1</span> Learning Objectives</h2>
-<p>After reading this chapter, you should be able to:</p>
+<section id="in-class" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="in-class"><span class="header-section-number">7.1</span> In-class</h2>
 <ol type="1">
-<li><strong>Define</strong> key players in both local computing and HPC</li>
-<li><strong>Articulate</strong> key differences between local computing and HPC</li>
-<li><strong>Describe</strong> the sequence of events in launching jobs in the HPC cluster</li>
-<li><strong>Differentiate</strong> local storage from shared storage and <strong>articulate</strong> the advantages of shared storage.</li>
-<li><strong>Describe</strong> the differences between a single job and a batch job.</li>
+<li>Try it out:</li>
 </ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./scripts/week3/batch_on_rhino.sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ol start="2" type="1">
+<li>Try it out:</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> sbatch_test.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>and examine the following output files:</p>
+<ol start="3" type="1">
+<li>Try it out:</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="important-terminology" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="important-terminology"><span class="header-section-number">5.2</span> Important Terminology</h2>
-<p>Let’s establish the terminology we need to talk about HPC computing.</p>
-<ul>
-<li><strong>High Performance Computing</strong> - A type of computing that uses higher spec machines, or multiple machines that are joined together in a <em>cluster</em>. These machines can either be on-premise (also called <em>on-prem</em>), or in the cloud (such as Amazon EC machines, or Azure Batch).</li>
-<li><strong>Cluster</strong> - a group of machines networked such that users can use one or more machines at once.</li>
-<li><strong>Allocation</strong> - a temporary set of one or more computers requested from a cluster.</li>
-<li><strong>Toolchain</strong> - a piece of software and its dependencies needed to build a tool on a computer. For example, <code>cromwell</code> (a workflow runner), and <code>java</code>.</li>
-<li><strong>Software Environment</strong> - everything needed to run a piece of software on a brand new computer. For example, this would include installing <code>tidyverse</code>, but also all of its dependencies (<code>R</code>) as well. A <em>toolchain</em> is similar, but might not contain all system dependencies.</li>
-<li><strong>Executable</strong> - software that is available on the HPC.</li>
-<li><strong>Shared Filesystem</strong> - Part of the HPC that stores our files and other objects. We’ll see that these other objects include applets, databases, and other object types.</li>
-<li><strong>SLURM</strong> - The workload manager of the HPC. Commands in <strong>SLURM</strong> such as <code>srun</code>, (see <a href="#sec-srun" class="quarto-xref"><span>Section 5.4</span></a>) kick off the processes on executing jobs on the <strong>worker nodes</strong>.</li>
-<li><strong>Interactive Analysis</strong> - Any analysis that requires interactive input from the user. Using RStudio and JupyterLab are two examples of interactive analysis. As opposed to <em>non-interactive</em> analysis, which is done via scripts.</li>
-</ul>
-</section>
-<section id="understanding-the-key-players" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="understanding-the-key-players"><span class="header-section-number">5.3</span> Understanding the key players</h2>
-<p>In order to understand what’s going on with HPC, we will have to change our mental model of computing.</p>
-<p>Let’s contrast the key players in local computing with the key players in HPC.</p>
-<section id="key-players-in-local-computing" class="level3" data-number="5.3.1">
-<h3 data-number="5.3.1" class="anchored" data-anchor-id="key-players-in-local-computing"><span class="header-section-number">5.3.1</span> Key Players in Local Computing</h3>
-<div id="fig-local" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-local-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/local_computing.png" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-local-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5.1: Local Computing
-</figcaption>
-</figure>
-</div>
-<ul>
-<li><strong>Our Machine</strong></li>
-</ul>
-<p>When we run an analysis or process files on our computer, we are in control of all aspects of our computer. We are able to install a software environment, such as R or Python, and then execute scripts/notebooks that reside on our computer on data that’s on our computer.</p>
-<p>Our main point of access to either the HPC cluster is going to be our computer.</p>
-</section>
-<section id="key-players-in-hpc" class="level3" data-number="5.3.2">
-<h3 data-number="5.3.2" class="anchored" data-anchor-id="key-players-in-hpc"><span class="header-section-number">5.3.2</span> Key Players in HPC</h3>
-<p>Let’s contrast our view of local computing with the key players in the HPC cluster (<a href="#fig-hpc-architecture" class="quarto-xref">Figure&nbsp;<span>5.2</span></a>).</p>
-<div id="fig-hpc-architecture" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-hpc-architecture-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/hpc_architecture.png" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hpc-architecture-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5.2: Key Players in HPC
-</figcaption>
-</figure>
-</div>
-<ul>
-<li><strong>Our Machine</strong> - We interact with the HPC via the terminal installed on our machine. When we utilize HPC resources, we request them from our own computer using commands from the dx toolkit.</li>
-<li><strong>Head Node</strong> - The “boss” of the cluster. It keeps tract of which worker nodes is doing what, and which nodes are available for allocations. Our request gets sent to the HPC cluster, and given availability, it will grant access to temporary worker.</li>
-<li><strong>Worker Node</strong> - A temporary machine that comes from a pool of available machines in the cluster. We’ll see that it starts out as a blank slate, and we need to establish a <em>software environment</em> to run things on a worker.</li>
-<li><strong>Shared Filesystem</strong> A distributed filesystem that can be seen by all of the nodes in the cluster. Our scripts and data live here.</li>
-</ul>
-</section>
-<section id="further-reading" class="level3" data-number="5.3.3">
-<h3 data-number="5.3.3" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">5.3.3</span> Further Reading</h3>
-<ul>
-<li><a href="https://epcced.github.io/2022-01-28-hpc-intro-online/12-cluster/index.html">Working on a remote HPC system</a> is also a good overview of the different parts of HPC.</li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>For Fred Hutch Users
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The <code>gizmo</code> cluster at Fred Hutch actually has 3 head nodes called <code>rhino</code> (<code>rhino01</code>, <code>rhino02</code>, <code>rhino03</code>) that are high spec machines (70+ cores, lots of memory). You can run jobs on these nodes, but be aware that others may be running jobs here as well.</p>
-<p>The worker nodes on the <code>gizmo</code> cluster all have names like <code>gizmoj6</code>, depending on their architecture. You can request certain kinds of nodes in an allocation in several ways:</p>
+<section id="homework-exercises" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="homework-exercises"><span class="header-section-number">7.2</span> Homework exercises</h2>
+<p>Exercises 1, 2, 3 are required for the badge.</p>
 <ol type="1">
-<li>When you use <code>grabnode</code> (<a href="testing.html#sec-grabnode" class="quarto-xref"><span>Section 10.1.1</span></a>)</li>
-<li>In your request when you run <code>srun</code> or <code>sbatch</code></li>
-<li>In your WDL or Nextflow Workflow.</li>
+<li>In the <code>data/</code> folder, there is a list of <code>.csv</code> files. Modify the code below to process each file.</li>
 </ol>
-</div>
-</div>
-<div class="callout callout-style-simple callout-none no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">None</span>FH Users: Launching Jobs on <code>gizmo</code>
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>In a SLURM cluster like <code>gizmo</code>, <a href="https://slurm.schedmd.com/overview.html">SLURM (Simple Linux Utility for Resource Management)</a> is software that runs on the head node that manages jobs on individual nodes.</p>
-<p>The two main mechanisms for running SLURM jobs are <code>srun</code> (used for single jobs) and <code>sbatch</code> (used for multiple related jobs, such as aligning a set of FASTA files).</p>
-<p>When scaling to a larger number of files, we do recommend that you use a workflow manager such as Cromwell, or PROOF, or Nextflow for batching files.</p>
-</div>
-</div>
-</section>
-</section>
-<section id="sec-srun" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="sec-srun"><span class="header-section-number">5.4</span> Sequence of Events of Running a Job</h2>
-<p>Let’s run through the order of operations of running a job on the HPC cluster. Let’s focus on running an aligner (BWA-MEM) on a FASTQ file. Our output will be a .BAM (aligned reads) file.</p>
-<p>Let’s go over the order of operations needed to execute our job on the HPC cluster (<a href="#fig-cluster" class="quarto-xref">Figure&nbsp;<span>5.3</span></a>).</p>
-<div id="fig-cluster" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-cluster-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/hpc_process.png" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cluster-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5.3: Order of Operations
-</figcaption>
-</figure>
-</div>
-<p>A. <strong>Start a job using <code>srun</code> to send a request to the cluster.</strong> In order to start a job, we will need two things: software (<code>samtools</code>), and a file to process from the shared filesystem (not shown). When we use <code>srun</code>, a request is sent to the cluster.</p>
-<p>B. <strong>Head node requests for a worker from available workers; worker made available on cluster.</strong> In this step, the head node looks for a set of workers that can meet our needs. Then the computations run on the worker; output files are generated.** Once our app is ready and our file is transferred, we can run the computation on the worker.</p>
-<p>C. <strong>Output files transferred back to project storage.</strong> Any files that we generate during our computation (<code>53525342.bam</code>) must be transferred back into the shared filesystem.</p>
-<p>When you are working with an HPC cluster, especially with batch jobs, keep in mind this order of execution. Being familiar with how the key players interact on the cluster is key to running efficient jobs.</p>
-<section id="key-differences-with-local-computing" class="level3" data-number="5.4.1">
-<h3 data-number="5.4.1" class="anchored" data-anchor-id="key-differences-with-local-computing"><span class="header-section-number">5.4.1</span> Key Differences with local computing</h3>
-<p>As you might have surmised, running a job on the HPC cluster is very different from computing on your local computer. Here are a few key differences:</p>
-<ol type="1">
-<li>We don’t own the worker machine, we only have temporary access to it. A lot of the complications of running HPC computations comes from this.</li>
-<li>We have to be explicit about what kind of machine we want. We’ll talk much more about this in terms of machine types and classifieds.</li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> file <span class="kw">in</span> <span class="at">------</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span> <span class="at">------</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ol start="2" type="1">
+<li>Modify the code in 1) to write a <code>for</code> loop in a script to count the number of lines for each <code>.csv</code> file. The output should be:</li>
 </ol>
-</section>
-</section>
-<section id="the-shared-filesystem" class="level2" data-number="5.5">
-<h2 data-number="5.5" class="anchored" data-anchor-id="the-shared-filesystem"><span class="header-section-number">5.5</span> The Shared Filesystem</h2>
-<p>Clusters often have a shared filesystem to make things easier. These filesystems can be accessed by all the nodes in a cluster and are designed for fast file transfers and reading. One example of a filesystem is Lustre.</p>
-<p>Think about that: it’s like having an SSD attached to all of the nodes. But how does the shared storage work?</p>
-<p>The filesystem is distributed such that each set of nodes has a relatively fast access to the files on the system. The data itself is <em>sharded</em>, or broken up, and distributed among the storage servers that provide access to the files.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>For FH Users
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>There are three main filesystems you will probably use:</p>
-<ul>
-<li><code>/home/</code> - usually where your scripts will live</li>
-<li><code>/fh/fast/</code> - Where data lives. You will usually transfer data files over to <code>/hpc/temp/</code> and when you generate results, transfer them from <code>/hpc/temp/</code> back to <code>/fh/fast/</code></li>
-<li><code>/hpc/temp/</code> - A temporary filesystem. Don’t store files here long term - mostly use this as a faster system to do computations on.</li>
-</ul>
-</div>
-</div>
-<section id="further-reading-1" class="level3" data-number="5.5.1">
-<h3 data-number="5.5.1" class="anchored" data-anchor-id="further-reading-1"><span class="header-section-number">5.5.1</span> Further Reading</h3>
-<ul>
-<li><a href="https://epcced.github.io/2022-01-28-hpc-intro-online/15-transferring-files/index.html">Transferring Files</a> is a nice overview of the ways to transfer files to and from a remote system.</li>
-</ul>
-</section>
-</section>
-<section id="requesting-machines" class="level2" data-number="5.6">
-<h2 data-number="5.6" class="anchored" data-anchor-id="requesting-machines"><span class="header-section-number">5.6</span> Requesting Machines</h2>
-<p>How do you request a set of machines on the HPC? There are multiple ways to do so:</p>
-<ul>
-<li>Open an Interactive shell on a Node</li>
-<li>As part of a job using <code>srun</code> or <code>sbatch</code></li>
-</ul>
-<p>In general, we recommend trying to use SLURM as much as possible with <code>srun</code> or <code>sbatch</code>. The larger recommendation overall is that we encourage you to use a workflow runner such as PROOF or Nextflow.</p>
-<section id="scattering-distribute-the-work" class="level3" data-number="5.6.1">
-<h3 data-number="5.6.1" class="anchored" data-anchor-id="scattering-distribute-the-work"><span class="header-section-number">5.6.1</span> Scattering: Distribute the Work</h3>
-<div id="fig-scatter" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-scatter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/scatter.png" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scatter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5.4: The scattering process
-</figcaption>
-</figure>
-</div>
-<p>So far, everything we’ve seen so far can be run on a single computer. In the cluster, we have access to higher spec’ed machines, but using the cluster in this way doesn’t take advantage of the efficiency of <em>distributed computing</em>, or dividing the work up among multiple worker nodes.</p>
-<p>We can see an example of this in <a href="#fig-scatter" class="quarto-xref">Figure&nbsp;<span>5.4</span></a>. In distributed computing, we break our job up into smaller parts. One of the easiest way to do this is to split up a list of files (<code>file1.bam</code>, <code>file2.bam</code>, <code>file3.bam</code>) that we need to process, process each file separately on a different node, and then bring the results back together. Each node is only doing part of the work, but because we have multiple nodes, it is getting done 3 times faster.</p>
-<p>You can orchestrate this process yourself with tools such as <code>sbatch</code>, but it is usually much easier to utilize workflow runners such as Cromwell/PROOF (for <code>.wdl</code> files) or Nextflow (for <code>.nf</code> files), because they automatically handle saving the results of intermediate steps.</p>
-<p>Trust me, it is a little more of a learning curve to learn Cromwell or Nextflow, but once you know more about it, the automatic file management and node management makes it much easier in the long run.</p>
-<div class="callout callout-style-simple callout-none no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">None</span>Nodes versus CPUs
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>One thing that confused me was understanding the difference between requesting a system with multiple cores versus requesting multiple nodes.</p>
-<p><em>Cores</em> roughly correspond to processors, so a 24-core allocation is a single node that has 24 CPUs.</p>
-<p><em>Nodes</em> correspond to machines - so a 24 node allocation is 24 machines.</p>
-<p>The reason why this is important is that you use them differently - we use scatter to utilize a 24 node allocation, whereas we can use multicore packages such as <code>{parallel}</code> and <code>mcapply()</code> to utilize a multi-core system.</p>
-<p>In general, scatter over multiple nodes is handled by <code>sbatch</code> or your workflow runner.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>For FH Users: Running Workflows
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>At Fred Hutch, we have two main ways to run workflows on <code>gizmo</code>: Cromwell/MiniWDL and NextFlow. Cromwell users have a nifty GUI to run their workflows called PROOF.</p>
-</div>
-</div>
-</section>
-</section>
-<section id="whats-next" class="level2" data-number="5.7">
-<h2 data-number="5.7" class="anchored" data-anchor-id="whats-next"><span class="header-section-number">5.7</span> What’s Next?</h2>
-<p>We’ll leverage this knowledge to actually start batching on the <code>gizmo</code> cluster.</p>
+<pre><code>echo "${file}\t(wc -l $file)\n"</code></pre>
+<p>Run the script and redirect your output to <code>files_out.txt</code>. Put your bash command you used below:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ol start="3" type="1">
+<li>Modify the below script to process the <code>.sam</code> files in <code>./data/</code>. Save it as <code>sbatch_sam.sh</code> and run it. How many files were generated?</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=1-________  </span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load SAMtools</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="va">file_array</span><span class="op">=</span><span class="va">(</span>./data/<span class="pp">*</span>.sam<span class="va">)</span> </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="va">ind</span><span class="op">=</span><span class="va">$((SLURM_ARRAY_TASK_ID</span><span class="op">-</span><span class="dv">1</span><span class="va">))</span> </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="va">current_file</span><span class="op">=</span><span class="va">${file_array</span><span class="op">[</span><span class="va">$ind</span><span class="op">]</span><span class="va">}</span> </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-c</span> <span class="va">$current_file</span> <span class="op">&gt;</span> <span class="va">${current_file}</span>.counts.out</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
 </section>
@@ -881,13 +714,13 @@ Figure&nbsp;5.4: The scattering process
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./02_assignment.html" class="pagination-link" aria-label="Week 2 Exercises">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Week 2 Exercises</span></span>
+      <a href="./03_batch.html" class="pagination-link" aria-label="Batch Processing and Submitting Jobs">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Batch Processing and Submitting Jobs</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./03_batch.html" class="pagination-link" aria-label="Batch Processing and Submitting Jobs">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Batch Processing and Submitting Jobs</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./container-basics.html" class="pagination-link" aria-label="Reading: JSON/Container Basics">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Reading: JSON/Container Basics</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -1,8 +1,10 @@
 ---
 title: "Week 3 Exercises"
-format: html
+format: 
+    html: default
+    docx: default
 ---
-
+ 
 ## In-class
 
 1. Try it out:

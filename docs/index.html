@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ted Laderas">
-<meta name="dcterms.date" content="2025-07-09">
+<meta name="dcterms.date" content="2025-10-02">
 
 <title>Bash for Bioinformatics</title>
 <style>
@@ -103,6 +103,9 @@ ul.task-list li input[type="checkbox"] {
       </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Bash for Bioinformatics</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/fhdsl/bash_for_bio" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -126,50 +129,68 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./01_assignment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Week 1 Exercises</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./02_scripting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction to Scripting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to Scripting</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_assignment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Week 2 Exercises</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./hpc-basics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reading: HPC Basics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: HPC Basics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./03_batch.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Batch Processing and Submitting Jobs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Batch Processing and Submitting Jobs</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_assignment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Week 3 Exercises</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./container-basics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: JSON/Container Basics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Reading: JSON/Container Basics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04_containers_workflows.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Workflows</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Workflows</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Testing Scripts</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Testing Scripts</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./configuring.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Appendix: Configuring your Shell</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Appendix: Configuring your Shell</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./miscellaneous.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Miscellaneous</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Miscellaneous</span></span></a>
   </div>
 </li>
     </ul>
@@ -216,7 +237,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">July 9, 2025</p>
+      <p class="date">October 2, 2025</p>
     </div>
   </div>
   
@@ -235,7 +256,7 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li>Have you needed to align a folder of FASTA files and not know how to do it?</li>
 <li>Do you want to automate an R or Python script you wrote to work on a bunch of files?</li>
-<li>Do you want to do all of this on a high performance cluster (<button class="glossary"><span class="def"></span>HPC</button>)?</li>
+<li>Do you want to do all of this on a high performance cluster (<button class="glossary"><span class="def">Short for High Performance Computing. See the hpc basics chapter for more info.</span>HPC</button>)?</li>
 </ul>
 <p>If so, this course is for you! We will learn enough bash scripting to do useful things on the Fred Hutch computing cluster (affectionately called “gizmo”) and automate the boring parts.</p>
 </section>
@@ -247,7 +268,7 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Manage</strong> software dependencies reproducibly using container-based technologies such as Docker/Apptainer containers or EasyBuild modules</li>
 <li><strong>Articulate</strong> basic HPC architecture concepts and why they’re useful in your work</li>
 <li><strong>Leverage</strong> bash scripting to <strong>execute</strong> <button class="glossary"><span class="def">Running the same task on a group of files. Can be done locally (on your computer) or on a cluster.</span>batch jobs</button> on a high performance cluster.</li>
-<li><strong>Utilize</strong> workflow managers such as <code>cromwell</code> to process multiple files in a multi-step <button class="glossary"><span class="def"></span>WDL</button> workflow.</li>
+<li><strong>Utilize</strong> workflow managers such as <code>cromwell</code> to process multiple files in a multi-step <button class="glossary"><span class="def">Short for Workflow Description Language. A standard for specifying a workflow, which includes describing inputs, saving intermediate outputs, and outputting processed files.</span>WDL</button> workflow.</li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -261,7 +282,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="callout-body-container callout-body">
 <p>I originally wrote a book that was called Bash for Bioinformatics, which was about learning enough bash to use the cloud-based DNANexus platform effectively.</p>
 <p>I have renamed that book <a href="https://laderast.github.io/bash_for_dnanexus/">Bash for DNANexus</a>, and named this course <em>Bash for Bioinformatics</em>.</p>
-<p>This book shares bones with <em>Bash for DNANexus</em>, but has more of a focus on running tasks on high performance computing systems (<button class="glossary"><span class="def"></span>HPC</button>).</p>
+<p>This book shares bones with <em>Bash for DNANexus</em>, but has more of a focus on running tasks on high performance computing systems (<button class="glossary"><span class="def">Short for High Performance Computing. See the hpc basics chapter for more info.</span>HPC</button>).</p>
 </div>
 </div>
 </section>
@@ -301,6 +322,7 @@ ul.task-list li input[type="checkbox"] {
 <thead>
 <tr class="header">
 <th>Week</th>
+<th>Date</th>
 <th>Topics</th>
 <th>Reading</th>
 </tr>
@@ -308,37 +330,50 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td>Preclass</td>
+<td></td>
 <td>Review <a href="https://hutchdatascience.org/Intro_to_Command_Line/">Intro to Command Line</a> and <a href="https://hutchdatascience.org/FH_Cluster_101/">Cluster 101</a></td>
 <td></td>
 </tr>
 <tr class="even">
 <td>Week 1</td>
+<td>October 9</td>
 <td><a href="./01_basics.html">Filesystem Basics</a></td>
 <td>Bite Size Bash</td>
 </tr>
 <tr class="odd">
 <td>Week 2</td>
+<td>October 16</td>
 <td><a href="./02_scripting.html">Writing and Running Bash Scripts</a></td>
 <td>Bite Size Bash</td>
 </tr>
 <tr class="even">
-<td>Week 3</td>
-<td><a href="./03_batch.html">Batch Processing and HPC Jobs</a></td>
-<td><a href="./hpc-basics.html">HPC Basics</a></td>
-</tr>
-<tr class="odd">
-<td>Week 4</td>
-<td><a href="./04_containers_workflows.html">Testing Scripts/Workflow Managers</a></td>
-<td><a href="./container-basics.html">Container Basics</a></td>
-</tr>
-<tr class="even">
-<td>On your own time</td>
-<td><a href="./testing.html">Testing Scripts</a></td>
+<td>No Class</td>
+<td>October 23</td>
+<td>OCDO Retreat</td>
 <td></td>
 </tr>
 <tr class="odd">
+<td>Week 3</td>
+<td>October 30</td>
+<td><a href="./03_batch.html">Batch Processing and HPC Jobs</a></td>
+<td><a href="./hpc-basics.html">HPC Basics</a></td>
+</tr>
+<tr class="even">
+<td>Week 4</td>
+<td>November 6</td>
+<td><a href="./04_containers_workflows.html">Testing Scripts/Workflow Managers</a></td>
+<td><a href="./container-basics.html">Container Basics</a></td>
+</tr>
+<tr class="odd">
+<td>On your own time</td>
+<td><a href="./testing.html">Testing Scripts</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
 <td>On your own time</td>
 <td><a href="./configuring.html">Configuring your Bash Shell</a></td>
+<td></td>
 <td></td>
 </tr>
 </tbody>
@@ -347,14 +382,14 @@ ul.task-list li input[type="checkbox"] {
 <section id="reference-texts" class="level2">
 <h2 class="anchored" data-anchor-id="reference-texts">Reference Texts</h2>
 <ul>
-<li>We will be using Julia Evan’s <a href="https://wizardzines.com/zines/bite-size-bash/">Bite Size Bash</a> as our reference text. Julia’s explanations are incredibly clear and it will be a valuable reference even beyond this course. You will receive the PDF as part of class, and I will refer to it throughout the course.</li>
+<li>We will be using Julia Evan’s <a href="https://wizardzines.com/zines/bite-size-bash/">Bite Size Bash</a> as our reference text. Julia’s explanations are incredibly clear and it will be a valuable reference even beyond this course. The PDF is available in the Google Classroom materials. Please do not share with others - we have a group rate and it is only $12 for individual purchases.</li>
 <li>If you want to know the true power of the command line, I recommend <a href="https://jeroenjanssens.com/dsatcl/">Data Science at the Command Line</a>. This book showcases how much you can get done with just command line.</li>
 </ul>
 </section>
 <section id="badge-of-completion" class="level2">
 <h2 class="anchored" data-anchor-id="badge-of-completion">Badge of completion</h2>
 <p><img src="images/BASH.png" class="img-fluid" width="450"></p>
-<p>We offer a <a href="https://www.credly.com/org/fred-hutch/badge/bash-for-bio">badge of completion</a> when you finish the course!</p>
+<p>We offer a <a href="https://www.credly.com/org/fred-hutch/badge/bash-for-bioinformatics">badge of completion</a> when you finish the course!</p>
 <p>What it is:</p>
 <ul>
 <li>A display of what you accomplished in the course, shareable in your professional networks such as LinkedIn, similar to online education services such as Coursera. A way for you to be accountable for your learning.</li>
@@ -365,6 +400,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <p>Requirements:</p>
 <ul>
+<li>Sign up on the badging spreadsheet (will send link out in class).</li>
 <li>Complete badge-required sections of the exercises for 3 out of 4 assignments. We’ll cover this in class.</li>
 </ul>
 

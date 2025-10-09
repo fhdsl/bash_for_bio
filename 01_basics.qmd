@@ -76,50 +76,73 @@ There is an alias for your current directory: `.` (the period sign).
 This becomes useful when you want to output files to your current location. We'll use this later.
 :::
 
+## Grabbing Stuff from GitHub
+
+For the rest of the exercises for today, we'll be grabbing the scripts from github using `git clone`. 
+
+```bash
+git clone https://github.com/fhdsl/bash_for_bio
+```
+
+This will create a folder called `bash_for_bio/` in our current directory. This directory has all of the course materials, including the scripts.
+
+:::{.callout-important}
+## Stay in `bash_for_bio/`
+
+Throughout this course, I expect you to run code in the base `bash_for_bio/` folder, not in `scripts` or in `data`. All of the code is tested with this in mind. 
+
+If you are having problems executing the code, please make sure you are in the base `bash_for_bio` folder, or adjust your file paths when running the script.
+:::
+
 ### `du`: How much space?
 
 One of the first things we can do is check for disk usage with the `du` command. If I run `du` by itself on the command line, it will give me the disk usage of all folders and files in our current directory, which is a lot of output.
 
-There is an option called `-d` that lets us specify the *depth*. `-d 1` will give us only the file sizes of the top level folders in our directory:
+There is an option called `-d` that lets us specify the *depth*. `-d 1` will give us only the file sizes of the top level folders in our directory. 
+
+Make sure you are in the `bash_for_bio/` directory. Then try the following command:
 
 ```bash
-du -d 1 .
+du -d 1 -h .
 ```
 
-Here are the first few lines of my `du` output. 
+Here are the first few lines of my `du` output within the `bash_for_bio` folder: 
 
 ```
-630440	./Code
-32	./Downloads
-32	./Pictures
-2495144	./miniconda3
-64	./.launch-rstudio-server
-72	./.ipynb_checkpoints
-64	./.qt
-1616	./.config
-32	./Music
-32	./Desktop
+240K	./_extensions
+192K	./.quarto
+616K	./scripts
+1.9M	./data
+8.6M	./.git
+6.7M	./docs
+10M	./images
+30M	.
+
 ```
 
 If we want to specify `du` to scan only a single folder, we can give the folder name.
 
 ```bash
-du -d 1 Desktop/
+du -d 1 scripts
 ```
 
-I have nothing really stored in my `Desktop/` folder, so I get the following:
+And I will get the following output:
 
 ```
-32	Desktop/
+144K	scripts/week1
+56K	scripts/__pycache__
+128K	scripts/week3
+232K	scripts/week2
+616K	scripts
 ```
 
 :::{.callout}
 ### Try it out
 
-Try checking the disk usage using `du` for the `Desktop` folder in your `/home` directory (mine is `/home/tladera2`).
+Try checking the disk usage using `du` for the `bash_for_bio/` folder in your `/home` directory (mine is `/home/tladera2/bash_for_bio/`).
 
 ```bash
-du -d 1 --------/
+du -d 1 bash_for_bio/
 ```
 
 Try out using `du -d 2` on your home directory:
@@ -186,6 +209,9 @@ We'll use this throughout the book so the code is easier to read.
 
 :::
 
+### More about the FH Filesystems
+
+<https://sciwiki.fredhutch.org/scicomputing/store_posix/>
 
 ## Absolute versus relative paths {#sec-paths}
 
@@ -256,23 +282,6 @@ And if the prefix `my_` is unique in my folder, it will autocomplete the path:
 Note that we need to use enough of the folder name so that completing it is unambiguous. If there are multiple choices, then autocomplete will list all of them.
 :::
 
-## Grabbing Stuff from GitHub
-
-For the rest of the exercises for today, we'll be grabbing the scripts from github using `git clone`. 
-
-```bash
-git clone https://github.com/fhdsl/bash_for_bio_scripts
-```
-
-This will create a folder called `bash_for_bio_scripts/` in our current directory. 
-
-:::{.callout-important}
-## Stay in `bash_for_bio/`
-
-Throughout this course, I expect you to run code in the base `bash_for_bio/` folder, not in `scripts` or in `data`. All of the code is tested with this in mind. 
-
-If you are having problems executing the code, please make sure you are in the base `bash_for_bio` folder, or adjust your file paths when running the script.
-:::
 
 ## File Permissions {#sec-permissions}
 
@@ -299,14 +308,56 @@ Each level has the following type of access:
 You can see the permissions for a file using the `ls -l <FILENAME>`. For example: 
 
 ```bash
-ls -l scripts
+ls -l -h .
 ```
 
 will give me the following line:
 
 ```bash
--rwxrwxrwx 1 tladera2  staff  16 Jul 11 11:05 tell_the_time.sh
+-rw-rw---- 1 tladera2 g_tladera2 1.8K Oct  2 15:21 01_assignment.qmd
+-rw-rw---- 1 tladera2 g_tladera2  21K Oct  2 15:21 01_basics.qmd
+-rw-rw---- 1 tladera2 g_tladera2 2.3K Oct  2 15:21 02_assignment.qmd
+-rw-rw---- 1 tladera2 g_tladera2  21K Oct  2 15:21 02_scripting.qmd
+-rw-rw---- 1 tladera2 g_tladera2 1.2K Oct  2 15:21 03_assignment.qmd
+-rw-rw---- 1 tladera2 g_tladera2  13K Oct  2 15:21 03_batch.qmd
+-rw-rw---- 1 tladera2 g_tladera2    0 Oct  2 15:21 04_assignment.qmd
 ```
+
+It's this first part that we want to examine:
+
+```
+        everyone_else
+        |     
+-rw-rw----
+ |  |
+ you group
+```
+
+The 2nd to 4th letters define your own access to the files. The 
+
+```
+rw-
+```
+
+Means that you have **r**ead and **w**rite access. If we had the following:
+
+```
+rwx
+```
+
+That would mean we have read, write, and e**x**ecute access.
+
+Similarly, the 5th to 7th letters are the permissions for your group. In many cases at Fred Hutch, the group level maps to your lab or group.
+
+The last 3 letters correspond to *everyone else*.
+
+In this case, since the permissions are:
+
+```
+---
+```
+
+That means that everyone else cannot read, write, or execute your files.
 
 The cardinal rule to remember is that: 
 
@@ -318,14 +369,14 @@ For example, if I want to run a script called `run_samtools.sh` in my directory 
 ./run_samtools.sh my_bam_file.bam
 ```
 
-I will need to have execute privileges at the user, group, or others level.
+I will need to have execute privileges at the user, group, or others level for `run_samtools.sh`.
 
 We can change the permissions of our files using the `chmod` command. 
 
 :::{.callout}
 ## Helpful unix permissions situations
 
-I tend to just go by memory when setting file permissions. These are the common situations that I've encountered:
+I tend to just go by memory when setting file permissions. These are the common situations that I've encountered that I use regularly:
 
 |Situation|Command|
 |---------|-------|
@@ -334,6 +385,14 @@ I tend to just go by memory when setting file permissions. These are the common 
 |Only I and my group can read/write/execute a file|`chmod 770 <filename>` |
 |Grant my group read permissions|`chmod 710 <filename>`|
 |Make executable/read/write by all|`chmod 777 <filename>`|
+
+For right now, let's set scripts to be read/write/executable by us:
+
+```
+chmod -R 700 scripts/
+```
+
+This will save us some headaches when we try to execute our scripts.
 
 If you have different permission situations that you need to set, please refer to: <https://www.redhat.com/en/blog/linux-file-permissions-explained>
 :::
@@ -371,7 +430,7 @@ mv log.txt my_folder/  ## moves log.txt to be in my_folder
 ```
 This is one thing that still trips me up all the time. 
 
-This is one situation where using a GUI such as Motuz (@sec-motuz) can be very helpful. You don't have to worry about accidentally renaming files. 
+This is one situation where using a GUI such as [Motuz](https://sciwiki.fredhutch.org/compdemos/motuz/) can be very helpful. You don't have to worry about accidentally renaming files. 
 
 Other tools for sync'ing between filesystems include `rsync`, which requires careful reading of documentation. 
 
@@ -456,6 +515,8 @@ On the `rhino` machines, we have the option to use the `nano` editor. `nano` is 
 - Find in file: `<CTRL> + w`
 - Copy from outside the terminal (dependent on terminal program)
 
+Pasting will depend on your terminal program. On macs it is Command-V, and on PuTTY it is using Right Click on the mouse
+
 ### Try it Out
 
 Try making your own file called `my_file.txt`:
@@ -470,7 +531,11 @@ Use CTRL-X to exit, and make sure to select "Yes" to save.
 
 ### Editing on your own machine
 
-One thing you can do to make your life easier is to edit scripts with an editor on your own machine that is connected to `rhino` through SSH. 
+One thing you can do to make your life easier is to edit scripts with an editor on your own machine that is connected to `rhino` through Samba. You will able to open up files you create in the editor of you choice on your system, and when you save the file, the changes will be make on `rhino`.
+
+Instructions are here: <https://sciwiki.fredhutch.org/scicomputing/store_posix/#how-to-access-fred-hutch-storage> and follow the instructions for mapping your network drive ([Mac](https://centernet.fredhutch.org/u/it/help-desk/mapping-network-drives.html#mac)) and ([Windows](https://centernet.fredhutch.org/u/it/help-desk/mapping-network-drives.html#windows)).
+
+You will want to use the connection strings specified for `home`.
 
 ## Running an R or Python Script on the command line {#sec-rpy}
 

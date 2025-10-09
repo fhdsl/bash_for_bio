@@ -5,13 +5,18 @@ project:
 book:
   title: "Bash for Bioinformatics"
   author: "Ted Laderas"
-  date: "7/9/2025"
+  date: "10/2/2025"
+  search: true
+  repo-url: https://github.com/fhdsl/bash_for_bio
   chapters:
     - index.qmd
     - 01_basics.qmd
+    - 01_assignment.qmd
     - 02_scripting.qmd
+    - 02_assignment.qmd
     - hpc-basics.qmd
     - 03_batch.qmd
+    - 03_assignment.qmd
     - container-basics.qmd
     - 04_containers_workflows.qmd
     - testing.qmd

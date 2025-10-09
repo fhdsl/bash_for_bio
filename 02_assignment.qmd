@@ -1,6 +1,8 @@
 ---
-title: "Week 2 Assignment"
-format: html
+title: "Week 2 Exercises"
+format: 
+    docx: default
+    html: default
 ---
 
 ## In-class exercises

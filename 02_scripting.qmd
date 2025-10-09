@@ -283,7 +283,8 @@ echo "blah blah"
 If we run `shellcheck` on this script, it will catch the mistake: 
 
 ```bash
-shellcheck bad_script.sh 
+ml shellcheck   #load the shellcheck module
+shellcheck scripts/week2/bad_script.sh 
 ```
 
 `shellcheck` will give the following response:
@@ -294,7 +295,7 @@ In bad_script.sh line 1:
  ^-- SC1113 (error): Use #!, not just #, for the shebang.
 ```
 
-`shellcheck` is not directly available on `rhino`, but you can install the VSCode Extension. 
+`shellcheck` is available on `rhino` via `ml`, you can also install the VSCode Extension if you are editing in VSCode. 
 
 For more info about `shellcheck`, refer to Bite Sized Bash, page 6. 
 
@@ -313,13 +314,13 @@ I can refer to it as:
 ./scripts/week2/run_bwa.sh "CALU final.fasta"
 ```
 
-The escape character is a way to put spaces in a bash command without bash interpreting everything after the space as an argument.
+The escape character (`\`) is a way to put spaces in a bash command without bash interpreting everything after the space as an argument. Essentially, it tells `bash` to literally interpret the character that follows it.
 
 ```bash
 ./scripts/week2/run_bwa.sh CALU\ final.fasta
 ```
 
-I prefer to use double quotes. You'll notice that all file names in this course use an underscore (`_`) instead of spaces, which makes them easier to handle.
+I prefer to use double quotes. You'll notice that all file names in this course use an underscore (`_`) or dashes (`-`) instead of spaces, which makes them easier to handle.
 :::
 
 
@@ -379,12 +380,21 @@ We can run the script on a file (assuming we are in `bash_for_bio/`):
 ./scripts/week2/sam_count.sh ./data/my_file.bam
 ```
 
-:::{.callout}
-## Try it Out
+### Try it Out
 
 Try out the above script on `./data/CALU1_combined_final.sam` 
 
 Make sure you are in the top folder (`bash_for_bio`) when you do it.
+
+
+:::{.callout-note}
+## When should you hard code a path?
+
+In general, hard coding absolute paths (such as `/home/laderast/bash_for_bio/scripts/week1/run_this.sh`) makes your code less reproducible. Using a project-based workflow (where your paths mostly refer within a single folder) makes it more reproducible.
+
+Of course, there are cases (such as hard coding a genome reference) which should use absolute paths, since the location of these differs across systems. Just make a note when sharing which paths are hard-coded.
+
+I talk about the benefits of project based workflows here: (@sec-project).
 :::
 
 ## Aligning a file
@@ -576,6 +586,8 @@ Similarly, we will need Python scripts to accept arguments as well.
 ### Using `sys.argv`
 
 The `sys` module (built into Python) will let us access arguments by position:
+
+[argparse]
 
 ```{python}
 #| eval: false

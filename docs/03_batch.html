@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4&nbsp; Batch Processing and Submitting Jobs – Bash for Bioinformatics</title>
+<title>6&nbsp; Batch Processing and Submitting Jobs – Bash for Bioinformatics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./container-basics.html" rel="next">
+<link href="./03_assignment.html" rel="next">
 <link href="./hpc-basics.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -122,7 +122,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_batch.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Batch Processing and Submitting Jobs</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_batch.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Batch Processing and Submitting Jobs</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -140,6 +140,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Bash for Bioinformatics</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/fhdsl/bash_for_bio" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -163,50 +166,68 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./01_assignment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Week 1 Exercises</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./02_scripting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction to Scripting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to Scripting</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_assignment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Week 2 Exercises</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./hpc-basics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reading: HPC Basics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: HPC Basics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./03_batch.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Batch Processing and Submitting Jobs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Batch Processing and Submitting Jobs</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_assignment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Week 3 Exercises</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./container-basics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: JSON/Container Basics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Reading: JSON/Container Basics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04_containers_workflows.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Workflows</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Workflows</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Testing Scripts</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Testing Scripts</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./configuring.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Appendix: Configuring your Shell</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Appendix: Configuring your Shell</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./miscellaneous.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Miscellaneous</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Miscellaneous</span></span></a>
   </div>
 </li>
     </ul>
@@ -219,23 +240,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">4.1</span> Learning Objectives</a></li>
-  <li><a href="#using-for-loops-to-cycle-through-files" id="toc-using-for-loops-to-cycle-through-files" class="nav-link" data-scroll-target="#using-for-loops-to-cycle-through-files"><span class="header-section-number">4.2</span> Using <code>for</code> loops to cycle through files</a></li>
-  <li><a href="#globs-selecting-multiple-files" id="toc-globs-selecting-multiple-files" class="nav-link" data-scroll-target="#globs-selecting-multiple-files"><span class="header-section-number">4.3</span> globs: selecting multiple files</a>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link active" data-scroll-target="#exercises"><span class="header-section-number">6.1</span> Exercises</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">6.2</span> Learning Objectives</a></li>
+  <li><a href="#using-for-loops-to-cycle-through-files" id="toc-using-for-loops-to-cycle-through-files" class="nav-link" data-scroll-target="#using-for-loops-to-cycle-through-files"><span class="header-section-number">6.3</span> Using <code>for</code> loops to cycle through files</a></li>
+  <li><a href="#globs-selecting-multiple-files" id="toc-globs-selecting-multiple-files" class="nav-link" data-scroll-target="#globs-selecting-multiple-files"><span class="header-section-number">6.4</span> globs: selecting multiple files</a>
   <ul class="collapse">
-  <li><a href="#try-it-out" id="toc-try-it-out" class="nav-link" data-scroll-target="#try-it-out"><span class="header-section-number">4.3.1</span> Try it out</a></li>
-  <li><a href="#for-more-info-on-globs" id="toc-for-more-info-on-globs" class="nav-link" data-scroll-target="#for-more-info-on-globs"><span class="header-section-number">4.3.2</span> For more info on globs</a></li>
+  <li><a href="#try-it-out" id="toc-try-it-out" class="nav-link" data-scroll-target="#try-it-out"><span class="header-section-number">6.4.1</span> Try it out</a></li>
+  <li><a href="#for-more-info-on-globs" id="toc-for-more-info-on-globs" class="nav-link" data-scroll-target="#for-more-info-on-globs"><span class="header-section-number">6.4.2</span> For more info on globs</a></li>
   </ul></li>
-  <li><a href="#batching-on-hpc" id="toc-batching-on-hpc" class="nav-link" data-scroll-target="#batching-on-hpc"><span class="header-section-number">4.4</span> Batching on HPC</a>
+  <li><a href="#batching-on-hpc" id="toc-batching-on-hpc" class="nav-link" data-scroll-target="#batching-on-hpc"><span class="header-section-number">6.5</span> Batching on HPC</a>
   <ul class="collapse">
-  <li><a href="#slurm-scripts" id="toc-slurm-scripts" class="nav-link" data-scroll-target="#slurm-scripts"><span class="header-section-number">4.4.1</span> SLURM Scripts</a></li>
-  <li><a href="#slurm-directives" id="toc-slurm-directives" class="nav-link" data-scroll-target="#slurm-directives"><span class="header-section-number">4.4.2</span> SLURM Directives</a></li>
-  <li><a href="#job-arrays" id="toc-job-arrays" class="nav-link" data-scroll-target="#job-arrays"><span class="header-section-number">4.4.3</span> Job Arrays</a></li>
-  <li><a href="#try-it-out-1" id="toc-try-it-out-1" class="nav-link" data-scroll-target="#try-it-out-1"><span class="header-section-number">4.4.4</span> Try it out</a></li>
-  <li><a href="#processing-lists-of-files-using-job-arrays" id="toc-processing-lists-of-files-using-job-arrays" class="nav-link" data-scroll-target="#processing-lists-of-files-using-job-arrays"><span class="header-section-number">4.4.5</span> Processing lists of files using Job Arrays</a></li>
-  <li><a href="#scanceling-a-jobarray" id="toc-scanceling-a-jobarray" class="nav-link" data-scroll-target="#scanceling-a-jobarray"><span class="header-section-number">4.4.6</span> <code>scancel</code>ing a jobarray</a></li>
+  <li><a href="#slurm-scripts" id="toc-slurm-scripts" class="nav-link" data-scroll-target="#slurm-scripts"><span class="header-section-number">6.5.1</span> SLURM Scripts</a></li>
+  <li><a href="#slurm-directives" id="toc-slurm-directives" class="nav-link" data-scroll-target="#slurm-directives"><span class="header-section-number">6.5.2</span> SLURM Directives</a></li>
+  <li><a href="#job-arrays" id="toc-job-arrays" class="nav-link" data-scroll-target="#job-arrays"><span class="header-section-number">6.5.3</span> Job Arrays</a></li>
+  <li><a href="#try-it-out-1" id="toc-try-it-out-1" class="nav-link" data-scroll-target="#try-it-out-1"><span class="header-section-number">6.5.4</span> Try it out</a></li>
+  <li><a href="#processing-lists-of-files-using-job-arrays" id="toc-processing-lists-of-files-using-job-arrays" class="nav-link" data-scroll-target="#processing-lists-of-files-using-job-arrays"><span class="header-section-number">6.5.5</span> Processing lists of files using Job Arrays</a></li>
+  <li><a href="#scanceling-a-jobarray" id="toc-scanceling-a-jobarray" class="nav-link" data-scroll-target="#scanceling-a-jobarray"><span class="header-section-number">6.5.6</span> <code>scancel</code>ing a jobarray</a></li>
   </ul></li>
-  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next"><span class="header-section-number">4.5</span> What’s Next?</a></li>
+  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next"><span class="header-section-number">6.6</span> What’s Next?</a></li>
   </ul>
 </nav>
     </div>
@@ -244,7 +266,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Batch Processing and Submitting Jobs</span></h1>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Batch Processing and Submitting Jobs</span></h1>
 </div>
 
 
@@ -261,16 +283,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="learning-objectives" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">4.1</span> Learning Objectives</h2>
+<section id="exercises" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="exercises"><span class="header-section-number">6.1</span> Exercises</h2>
+<p><a href="https://github.com/fhdsl/bash_for_bio/blob/main/03_assignment.qmd">Open up the exercises here</a>.</p>
+</section>
+<section id="learning-objectives" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">6.2</span> Learning Objectives</h2>
 <ul>
 <li><strong>Execute</strong> a script to run over a list of files on one system</li>
 <li><strong>Utilize</strong> globs to specify multiple files in your script</li>
 <li><strong>Batch Process</strong> files to run locally and on the HPC cluster</li>
 </ul>
 </section>
-<section id="using-for-loops-to-cycle-through-files" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="using-for-loops-to-cycle-through-files"><span class="header-section-number">4.2</span> Using <code>for</code> loops to cycle through files</h2>
+<section id="using-for-loops-to-cycle-through-files" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="using-for-loops-to-cycle-through-files"><span class="header-section-number">6.3</span> Using <code>for</code> loops to cycle through files</h2>
 <p>A very common pattern is cycling through multiple files in a folder and applying the same script or command to them.</p>
 <p>There is a simple method for batch processing a bunch of files: a <code>for</code> loop. In our case, a for loop takes a list of file paths (such as a list of FASTA files we want to process), and performs the same task for each element of the list.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-1"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-1-1" class="code-annotation-target"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> file <span class="kw">in</span> 01_assignment.qmd 02_scripting.qmd</span>
@@ -300,8 +326,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>      26      96     656 01_assignment.qmd
      493    2609   16206 02_scripting.qmd</code></pre>
 </section>
-<section id="globs-selecting-multiple-files" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="globs-selecting-multiple-files"><span class="header-section-number">4.3</span> globs: selecting multiple files</h2>
+<section id="globs-selecting-multiple-files" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="globs-selecting-multiple-files"><span class="header-section-number">6.4</span> globs: selecting multiple files</h2>
 <p>However, typing each element of our list is going to be difficult - can we select files in a different way?</p>
 <p>We can use <code>globs</code>, or wildcard characters to select multiple files with a criteria.</p>
 <p>For example, <code>*.qmd</code> will list all of the <code>.qmd</code> files in the <code>bash_for_bio</code> directory.</p>
@@ -338,8 +364,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 do
   wc $file 
 done</code></pre>
-<section id="try-it-out" class="level3" data-number="4.3.1">
-<h3 data-number="4.3.1" class="anchored" data-anchor-id="try-it-out"><span class="header-section-number">4.3.1</span> Try it out</h3>
+<section id="try-it-out" class="level3" data-number="6.4.1">
+<h3 data-number="6.4.1" class="anchored" data-anchor-id="try-it-out"><span class="header-section-number">6.4.1</span> Try it out</h3>
 <pre><code>./scripts/week3/batch_on_rhino.sh</code></pre>
 <div class="callout callout-style-simple callout-none no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -366,8 +392,8 @@ done</code></pre>
 </div>
 </div>
 </section>
-<section id="for-more-info-on-globs" class="level3" data-number="4.3.2">
-<h3 data-number="4.3.2" class="anchored" data-anchor-id="for-more-info-on-globs"><span class="header-section-number">4.3.2</span> For more info on globs</h3>
+<section id="for-more-info-on-globs" class="level3" data-number="6.4.2">
+<h3 data-number="6.4.2" class="anchored" data-anchor-id="for-more-info-on-globs"><span class="header-section-number">6.4.2</span> For more info on globs</h3>
 <p>See page 12 in Bite Size Bash.</p>
 <div class="callout callout-style-simple callout-none no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -395,12 +421,12 @@ done</code></pre>
 </div>
 </section>
 </section>
-<section id="batching-on-hpc" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="batching-on-hpc"><span class="header-section-number">4.4</span> Batching on HPC</h2>
+<section id="batching-on-hpc" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="batching-on-hpc"><span class="header-section-number">6.5</span> Batching on HPC</h2>
 <p>Now we can start to do more advanced things on the HPC cluster: use one machine to process each file. We will use a slightly different mechanism to cycle through files: the <button class="glossary"><span class="def">A numbered list that usually goes from 1 to the length of the list. Used in SLURM batch processing.</span>job array</button>.</p>
 <p>Let’s start out with <button class="glossary"><span class="def">“Simple Linux Utility for Resource Management” - it handles scheduling and distributing jobs among the compute nodes in the cluster.</span>SLURM</button> scripts.</p>
-<section id="slurm-scripts" class="level3" data-number="4.4.1">
-<h3 data-number="4.4.1" class="anchored" data-anchor-id="slurm-scripts"><span class="header-section-number">4.4.1</span> SLURM Scripts</h3>
+<section id="slurm-scripts" class="level3" data-number="6.5.1">
+<h3 data-number="6.5.1" class="anchored" data-anchor-id="slurm-scripts"><span class="header-section-number">6.5.1</span> SLURM Scripts</h3>
 <p>SLURM scripts are a special kind of shell script that contain additional information for the SLURM manager. This includes:</p>
 <ol type="1">
 <li>Number of nodes (machines) to request</li>
@@ -411,8 +437,8 @@ done</code></pre>
 <p>In this example, we are specifying the number of nodes.</p>
 <p>Note that because directives begin with a <code>#</code> - they are treated like comments by <code>bash</code>, but are usable by <code>SLURM</code>.n</p>
 </section>
-<section id="slurm-directives" class="level3" data-number="4.4.2">
-<h3 data-number="4.4.2" class="anchored" data-anchor-id="slurm-directives"><span class="header-section-number">4.4.2</span> SLURM Directives</h3>
+<section id="slurm-directives" class="level3" data-number="6.5.2">
+<h3 data-number="6.5.2" class="anchored" data-anchor-id="slurm-directives"><span class="header-section-number">6.5.2</span> SLURM Directives</h3>
 <p>We are able to set some configuration on running our jobs.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-8"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-8-1"><a href="#annotated-cell-8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
 <span id="annotated-cell-8-2"><a href="#annotated-cell-8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| filename: scripts/week3/sbatch_test.sh</span></span>
@@ -441,7 +467,7 @@ done</code></pre>
 </div>
 <div class="callout-body-container callout-body">
 <p>Much more information about the kinds of directives that you can specify in a SLURM script is available here: <a href="https://www.osc.edu/supercomputing/batch-processing-at-osc/slurm_directives_summary" class="uri">https://www.osc.edu/supercomputing/batch-processing-at-osc/slurm_directives_summary</a></p>
-<p>The most important directive you should be aware of is how many nodes you need to request, and how much memory your jobs will need.</p>
+<p>The most important directive you should be aware of is how many nodes you need to request, and how much memory your jobs will need. <code>gizmo</code> does not use the memory parameter. Instead, use the number of cores as a proxy for memory. Much more information is here <a href="https://sciwiki.fredhutch.org/scicomputing/compute_jobs/#memory" class="uri">https://sciwiki.fredhutch.org/scicomputing/compute_jobs/#memory</a></p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -458,8 +484,8 @@ done</code></pre>
 </div>
 </div>
 </section>
-<section id="job-arrays" class="level3" data-number="4.4.3">
-<h3 data-number="4.4.3" class="anchored" data-anchor-id="job-arrays"><span class="header-section-number">4.4.3</span> Job Arrays</h3>
+<section id="job-arrays" class="level3" data-number="6.5.3">
+<h3 data-number="6.5.3" class="anchored" data-anchor-id="job-arrays"><span class="header-section-number">6.5.3</span> Job Arrays</h3>
 <p>This line:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=1-3 </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Will create a job array. This will create a variable called <code>$SLURM_ARRAY_TASK_ID</code> that will cycle through the numbers 1-3. Each Task ID corresponds to a different subjob. Let’s try a simpler script to show what’s going on:</p>
@@ -502,14 +528,14 @@ done</code></pre>
 </div>
 <p>What happened here? <code>sbatch</code> submitted our job array as 3 different subjobs to 3 different nodes under a single job id. Each node then outputs a file with the subjob id that contains the job number.</p>
 </section>
-<section id="try-it-out-1" class="level3" data-number="4.4.4">
-<h3 data-number="4.4.4" class="anchored" data-anchor-id="try-it-out-1"><span class="header-section-number">4.4.4</span> Try it out</h3>
+<section id="try-it-out-1" class="level3" data-number="6.5.4">
+<h3 data-number="6.5.4" class="anchored" data-anchor-id="try-it-out-1"><span class="header-section-number">6.5.4</span> Try it out</h3>
 <p>Try running</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> ./scripts/week3/sbatch_test.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>And look at the resulting <code>.out</code> files.</p>
 </section>
-<section id="processing-lists-of-files-using-job-arrays" class="level3" data-number="4.4.5">
-<h3 data-number="4.4.5" class="anchored" data-anchor-id="processing-lists-of-files-using-job-arrays"><span class="header-section-number">4.4.5</span> Processing lists of files using Job Arrays</h3>
+<section id="processing-lists-of-files-using-job-arrays" class="level3" data-number="6.5.5">
+<h3 data-number="6.5.5" class="anchored" data-anchor-id="processing-lists-of-files-using-job-arrays"><span class="header-section-number">6.5.5</span> Processing lists of files using Job Arrays</h3>
 <p>So now we know that <code>${SLURM_ARRAY_TASK_ID}</code> will let us specify a subjob within our script, how do we use it in our script?</p>
 <p>Say, we have a list of 3 files in our directory <code>data/</code>, and we can list them by using <code>../../data/*.fastq</code>. We can use the <code>${SLURM_ARRAY_TASK_ID}</code> as an index to specify a different file.</p>
 <p>The one caveat is that we need to know the number of files beforehand.</p>
@@ -596,17 +622,17 @@ done</code></pre>
 </div>
 </div>
 </section>
-<section id="scanceling-a-jobarray" class="level3" data-number="4.4.6">
-<h3 data-number="4.4.6" class="anchored" data-anchor-id="scanceling-a-jobarray"><span class="header-section-number">4.4.6</span> <code>scancel</code>ing a jobarray</h3>
+<section id="scanceling-a-jobarray" class="level3" data-number="6.5.6">
+<h3 data-number="6.5.6" class="anchored" data-anchor-id="scanceling-a-jobarray"><span class="header-section-number">6.5.6</span> <code>scancel</code>ing a jobarray</h3>
 <p>As we noted, one of the strengths in using a job array to process multiple files is that they are spawned as <em>sub</em> or <em>child</em> jobs of a parent job id.</p>
 <p>What if we made a mistake? We can use the <code>scancel</code> command to cancel the entire set of jobs by giving it our parent job id:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">scancel</span> 26328834</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>This will cancel all sub jobs related to the parent job. No fuss, no muss.</p>
 </section>
 </section>
-<section id="whats-next" class="level2" data-number="4.5">
-<h2 data-number="4.5" class="anchored" data-anchor-id="whats-next"><span class="header-section-number">4.5</span> What’s Next?</h2>
-<p>Next week we will discuss using <code>MiniWDL</code> (a workflow manager) to process files through multi-step workflows in <button class="glossary"><span class="def"></span>WDL</button>.</p>
+<section id="whats-next" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="whats-next"><span class="header-section-number">6.6</span> What’s Next?</h2>
+<p>Next week we will discuss using <code>MiniWDL</code> (a workflow manager) to process files through multi-step workflows in <button class="glossary"><span class="def">Short for Workflow Description Language. A standard for specifying a workflow, which includes describing inputs, saving intermediate outputs, and outputting processed files.</span>WDL</button>.</p>
 
 
 </section>
@@ -1015,12 +1041,12 @@ done</code></pre>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./hpc-basics.html" class="pagination-link" aria-label="Reading: HPC Basics">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reading: HPC Basics</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: HPC Basics</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./container-basics.html" class="pagination-link" aria-label="Reading: JSON/Container Basics">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: JSON/Container Basics</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./03_assignment.html" class="pagination-link" aria-label="Week 3 Exercises">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Week 3 Exercises</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

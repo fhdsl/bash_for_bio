@@ -1,22 +1,14 @@
 ---
 title: "Week 1 Exercises"
+format: 
+#    html: default
+    docx: default
 ---
 
 ## In class code examples
 
-1. Try checking the disk usage using `du` for the `Desktop` folder in your `/home` directory (mine is `/home/tladera2`).
 
-```bash
-du -d 1 --------/
-```
-
-Try out using `du -d 2` on your home directory:
-
-```bash
-du -d 2 ~/
-```
-
-2. Clone the `bash_for_bio` repository into your home directory:
+1. Clone the `bash_for_bio` repository into your home directory:
 
 ```bash
 git clone https://github.com/fhdsl/bash_for_bio
@@ -28,13 +20,27 @@ Change directories:
 cd bash_for_bio
 ```
 
+
+2. Try checking the disk usage using `du` for the `bash_for_bio` folder in your `/home` directory (mine is `/home/tladera2/bash_for_bio`).
+
+```bash
+du -d 1 -h /home/tladera2/bash_for_bio/
+```
+
+Try out using `du -d -h 2` on your home directory:
+
+```bash
+du -d 2 ~/
+```
+
+
 3. What are the permissions for the GitHub repo (bash_for_bio) that you just downloaded?
 
 4. Copy the script `tell_the_time.sh` in the `scripts/week1/` directory to the top directory of `bash_for_bio`. 
-Make the script executable.
+Make the script executable. Run the script.
 
 ```bash
-
+#put code here
 ```
 
 5. Try making your own file called `my_file.txt`:
@@ -47,21 +53,27 @@ Add some text to it.
 
 Use CTRL-X to exit, and make sure to select "Yes" to save.
 
+6. Change permissions for the `scripts/` folder:
+
+```bash
+chmod -R 700 scripts/
+```
+
 ## Homework Exercises
 
 All exercises are required for the badge.
 
-1. Use `du` to check the disk usage of two folders in your `/home/` directory. Set the depth (`-d`) option to 1. Put your code in the box below
+1. Use `du` to check the disk usage of two folders in your `/bash_for_bio` directory. Set the depth (`-d`) option to 1. Put your code in the box below
 
 ```bash
-du -d 1 -------
+du -d 1 -h -------
 ```
 
 2. Copy a file from the `scripts/week1/` directory in `bash_for_bio/` to your own home directory.
 
 `/home/tladera2/bash_for_bio/scripts/week1/run_this.sh`
 
-Change the script to executable for yourself:
+Check the permissions. If necessary, change the script to read/write/executable for yourself:
 
 `chmod --- run_this.sh`
 

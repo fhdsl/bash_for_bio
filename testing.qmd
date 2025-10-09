@@ -9,7 +9,7 @@ One of the hard things to understand is what can be run on a compute node versus
 
 A lot of the issues you might have is because you need to understand the mental model of how cluster computing works. And the best way to understand that is to test your code on a compute node. 
 
-Let's explore how we can do that.
+Let's explore how we can do that. You should also review the material about using `screen` (@sec-screen).
 
 ### Testing code on a compute node {#sec-grabnode}
 

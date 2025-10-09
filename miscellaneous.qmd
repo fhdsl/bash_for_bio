@@ -28,7 +28,7 @@ After logging into `rhino`, try running `hostname`. What host are you on?
 
 ### One Workflow: `/fh/fast/` and `/hpc/temp/`
 
-One approach is to have your scripts also live in your project folder in `fast`. Then, you can sync the project in `/fh/fast/` over to `/hpc/temp/`, run the scripts in `/hpc/temp/`, and then sync the two folders again. You can do the file sync'ing in both directions with Motuz (@sec-motuz), which has its own advantages. 
+One approach is to have your scripts also live in your project folder in `fast`. Then, you can sync the project in `/fh/fast/` over to `/hpc/temp/`, run the scripts in `/hpc/temp/`, and then sync the two folders again. You can do the file sync'ing in both directions with [Motuz](https://sciwiki.fredhutch.org/compdemos/motuz/), which has its own advantages. 
 
 If you want to go this route, you should think about using a Folder Based Workflow (@sec-project), where everything lives in a folder. 
 
@@ -483,3 +483,61 @@ mybamfile.txt
 ```
 
 This is a very helpful trick. Note that it only works if the string to remove (the file extension) is a suffix at the end of the filepath. There is a similar trick using `#` if you want to remove the prefix of a file name.
+
+## Project/folder based workflows {#sec-project}
+
+On a particular machine, using *absolute* paths is safe. However, you do this at the cost of *portability* - code that you write on one machine may not run on another. 
+
+If you ever anticipate doing the analysis on a separate machine, using project structures with relative paths is the safest. For example, you may want to move from the on-premise FH system to working with the data in AWS. 
+
+Here's one example of putting everything into a single folder:
+
+```bash
+my_project
+├── data
+│   ├── chr1.fa.gz
+│   ├── chr2.fa.gz
+│   └── chr3.fa.gz
+├── results
+├── run_workflow.sh
+└── scripts
+    └── run_bowtie.sh
+```
+
+In the above example, our project is named `my_project`, and there are three folders inside it: `data/`, `results/`, and `scripts/`. Our main script for running is `my_project/run_workflow.sh`. Because this script is in the root folder, we can refer to the `data/` folder to process files:
+
+```bash
+./scripts/run_bowtie.sh data/*.fa.gz results/
+```
+
+When we run `run_workflow.sh`, it will execute `run_bowtie.sh` on all of the files in `data/`, and save them in `results/`, resulting in the following updated structure.
+
+```bash
+my_project
+├── data
+│   ├── chr1.fa.gz
+│   ├── chr2.fa.gz
+│   └── chr3.fa.gz
+├── results
+│   ├── chr1.bam
+│   ├── chr2.bam
+│   └── chr3.bam
+├── run_workflow.sh
+└── scripts
+    └── run_bowtie.sh
+```
+
+
+You may have seen relative paths such as `../another_directory/` - the `..` means to go up a directory in the file hierarchy, and then look in that directory for the `another_directory/` directory. I try to avoid using relative paths like these.
+
+In general for portability and reproducibility, you will want to use relative paths **within a directory**, and avoid using relative paths like `../../my_folder`, where you are navigating up. In general, use relative paths to navigate down. 
+
+:::{.callout}
+## Why This is Important
+
+When you start executing scripts, it's important to know where the results go. When you execute SAMtools on a file in `/fh/temp/`, for example, where does the output go?
+
+Workflow Runners such as Cromwell and Nextflow will output into certain file structures by default. This can be changed, but knowing the default behavior is super helpful when you don't specify an output directory.
+
+:::
+
