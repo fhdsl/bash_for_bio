@@ -1,0 +1,13 @@
+{
+"bwa_samtools_workflow.ref_fasta": "/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa",
+  "bwa_samtools_workflow.ref_bwt": "/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa.bwt",
+  "bwa_samtools_workflow.ref_pac": "/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa.pac",
+  "bwa_samtools_workflow.ref_amb": "/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa.amb",
+  "bwa_samtools_workflow.ref_ann": "/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa.ann",
+  "bwa_samtools_workflow.ref_sa": "/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa.sa",
+  "bwa_samtools_workflow.fastq_r1": [
+    "data/CALU1_combined_final.fastq",
+    "data/HCC4006_final.fastq",
+    "data/MOLM13_combined_final.fastq"
+  ]
+}
