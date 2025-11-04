@@ -36,19 +36,19 @@ workflow bwa_samtools_workflow {
             reference_sa = ref_sa,
             reference_fasta = ref_fasta,
             reads = fq
-    }
+        }
 
    call samtools_process {
     input:
-      sam_file = bw_align.bwa_output,
-      name = name
-    }
-}
+      sam_file = bwa_align.bwa_output
+        }
+  }
 
 output {
     Array[File] sorted_bam = samtools_process.sorted_bam
     Array[File] sorted_bai = samtools_process.sorted_bai
   }
+}
 
 task bwa_align {
   meta {
@@ -57,11 +57,12 @@ task bwa_align {
       bwa_output: "Output SAM file containing aligned reads"
     }
   }
+
   parameter_meta {
-    reference_fasta: "Reference genome FASTA file"
+    reference_fasta: "Reference genome FASTA file",
     reads: "FASTQ of forward (R1) reads"
-    name: "Sample name for output SAM file"
   }
+
   input {
     File reference_fasta
     File reference_bwt
@@ -71,22 +72,25 @@ task bwa_align {
     File reference_sa
     File reads
   }
+
   # Get name of reference fasta file within 'bwa_index' folder
   String ref_name = reference_fasta
-  out_name = basename(reads)
+  String out_name = basename(reads)
   command <<<
     # BWA alignment using 8 threads
     bwa mem -t 8 "~{ref_name}" "~{reads}" > "~{out_name}.sam"
   >>>
   output {
-    File bwa_output = "~{name}.sam"
+    File bwa_output = "~{out_name}.sam"
   }
+
   runtime {
     docker: "getwilds/bwa:0.7.17"
     cpu: 8
     memory: "16 GB"
   }
 }
+
 task samtools_process {
   meta {
     description: "Sorts SAM alignment file by coordinate and creates an index"
@@ -97,16 +101,15 @@ task samtools_process {
   }
   parameter_meta {
     sam_file: "SAM alignment file to be sorted and indexed"
-    name: "Sample name for output files"
   }
-  out_name = basename(sam_file)
+
   input {
     File sam_file
-    String name
   }
+  String out_name = basename(sam_file)
   command <<<
     # Sort SAM file and convert to BAM format using 8 threads
-    samtools sort -@ 8 -o "~{outname}_sorted.bam" "~{sam_file}"
+    samtools sort -@ 8 -o "~{out_name}_sorted.bam" "~{sam_file}"
     # Create index for sorted BAM file
     samtools index "~{out_name}_sorted.bam"
   >>>
