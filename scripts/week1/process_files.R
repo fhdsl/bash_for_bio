@@ -1,13 +1,12 @@
 library(tidyverse)
-library(janitor)
 
-args <- commandArgs()
+args <- commandArgs(trailingOnly = TRUE)
 
-# Use arg$CSVFILE in read.csv
-csv_file <- read.csv(file=args$input_file)
+# Use the first argument to read the file
+csv_file <- read.csv(file=args[1])
 
 # Do some work with csv_file
-csv_filtered <- csv_file |>  summary()
+csv_filtered <- csv_file |>  count(tumor_stage)
 
-# Write output
-write.csv(csv_filtered, file = paste0(args$input_file, "_summary.csv"))
+# Write output using the first argument
+write.csv(csv_filtered, file = paste0(args[1], "_summary.csv"))
