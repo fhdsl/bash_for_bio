@@ -7,7 +7,7 @@ args <- commandArgs()
 csv_file <- read.csv(file=args$input_file)
 
 # Do some work with csv_file
-csv_filtered <- csv_file |> janitor::clean_names()
+csv_filtered <- csv_file |>  summary()
 
 # Write output
-write.csv(csv_filtered, file = paste0(args$CSVFILE, "_cleaned.csv"))
+write.csv(csv_filtered, file = paste0(args$input_file, "_summary.csv"))
