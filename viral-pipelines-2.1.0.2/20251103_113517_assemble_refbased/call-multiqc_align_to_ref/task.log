@@ -1,0 +1,36 @@
+2025-11-03 11:38:08.184 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref NOTICE task setup :: name: "MultiQC", source: "../tasks/tasks_reports.wdl", line: 267, column: 1, dir: "/Users/tladera2/Code/bash_for_bio/viral-pipelines-2.1.0.2/20251103_113517_assemble_refbased/call-multiqc_align_to_ref", thread: 6178484224
+2025-11-03 11:38:08.200 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref INFO input :: name: "input_files", value: ["/mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.mapped_fastqc.zip"]
+2025-11-03 11:38:08.201 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref INFO eval :: name: "flat", value: false
+2025-11-03 11:38:08.201 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref INFO eval :: name: "force", value: false
+2025-11-03 11:38:08.202 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref INFO eval :: name: "lint", value: false
+2025-11-03 11:38:08.202 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref INFO eval :: name: "comment", value: null
+2025-11-03 11:38:08.202 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref INFO eval :: name: "out_dir", value: "./multiqc-output"
+2025-11-03 11:38:08.202 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref INFO eval :: name: "exclude_modules", value: null
+2025-11-03 11:38:08.203 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref INFO eval :: name: "config_yaml", value: null
+2025-11-03 11:38:08.203 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref INFO eval :: name: "output_data_format", value: null
+2025-11-03 11:38:08.203 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref INFO eval :: name: "module_to_use", value: null
+2025-11-03 11:38:08.204 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref INFO eval :: name: "file_name", value: null
+2025-11-03 11:38:08.204 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref INFO eval :: name: "template", value: null
+2025-11-03 11:38:08.204 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref INFO eval :: name: "ignore_sample_names", value: null
+2025-11-03 11:38:08.205 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref INFO eval :: name: "megaQC_upload", value: false
+2025-11-03 11:38:08.205 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref INFO eval :: name: "docker", value: "quay.io/biocontainers/multiqc:1.8--py_2"
+2025-11-03 11:38:08.205 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref INFO eval :: name: "sample_names", value: null
+2025-11-03 11:38:08.205 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref INFO eval :: name: "report_filename", value: "multiqc"
+2025-11-03 11:38:08.205 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref INFO eval :: name: "tag", value: null
+2025-11-03 11:38:08.205 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref INFO eval :: name: "full_names", value: false
+2025-11-03 11:38:08.205 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref INFO eval :: name: "no_data_dir", value: false
+2025-11-03 11:38:08.205 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref INFO eval :: name: "pdf", value: false
+2025-11-03 11:38:08.205 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref INFO eval :: name: "export", value: false
+2025-11-03 11:38:08.205 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref INFO eval :: name: "data_dir", value: false
+2025-11-03 11:38:08.206 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref INFO eval :: name: "zip_data_dir", value: false
+2025-11-03 11:38:08.206 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref INFO eval :: name: "title", value: null
+2025-11-03 11:38:08.206 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref INFO eval :: name: "interactive", value: true
+2025-11-03 11:38:08.206 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref INFO eval :: name: "ignore_analysis_files", value: null
+2025-11-03 11:38:08.206 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref INFO eval :: name: "config", value: null
+2025-11-03 11:38:08.206 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref INFO effective runtime :: docker: "quay.io/biocontainers/multiqc:1.8--py_2", cpu: 2, memory_reservation: 3000000000
+2025-11-03 11:38:08.206 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref WARNING ignored runtime settings :: keys: ["disks", "dx_instance_type"]
+2025-11-03 11:38:08.217 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref INFO docker pull :: tag: "quay.io/biocontainers/multiqc:1.8--py_2"
+2025-11-03 11:38:20.818 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref NOTICE docker image :: tag: "quay.io/biocontainers/multiqc:1.8--py_2", id: "sha256:641e73c2487e223a37f3930e36f4cb0a87b9428309fe5495cb9ba25b6d5869b9", RepoDigest: "quay.io/biocontainers/multiqc@sha256:641e73c2487e223a37f3930e36f4cb0a87b9428309fe5495cb9ba25b6d5869b9"
+2025-11-03 11:38:21.986 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref.stderr VERBOSE + echo /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.mapped_fastqc.zip
+2025-11-03 11:38:21.987 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref.stderr VERBOSE + echo ''
+2025-11-03 11:38:21.987 wdl.w:assemble_refbased.t:call-multiqc_align_to_ref.stderr VERBOSE + multiqc --file-list input-filenames.txt --dirs --outdir ./multiqc-output --interactive --no-megaqc-upload

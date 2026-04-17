@@ -1,0 +1,365 @@
+v2.4.3-3-gd3ad25d5
+18959
+# Creating 8 indexing threads.
+sanitizing: KJ660346.2 ====> KJ660346.2  
+out_filepath /mnt/miniwdl_task_container/work/assembly.sanitized_ids.fasta
+os.path.dirname(out_filepath) /mnt/miniwdl_task_container/work
+sanitizing: KJ660346.2 ====> KJ660346.2  
+out_filepath /tmp/tmpir5l6wnm_assembly.fasta
+os.path.dirname(out_filepath) /tmp
+# Creating 8 indexing threads.
+sanitizing: KJ660346.2 ====> KJ660346.2  
+out_filepath /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpugi9sr9y_assembly.fasta
+os.path.dirname(out_filepath) /tmp/tmp-read_utils-align_and_fix-6ngl2xmy
+sanitizing: KJ660346.2 ====> KJ660346.2  
+out_filepath /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.sanitized_ids.fasta
+os.path.dirname(out_filepath) /tmp/tmp-read_utils-align_and_fix-6ngl2xmy
+sanitizing: KJ660346.2 ====> KJ660346.2  
+out_filepath /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpdadyy_gj_tmps41dib98.ref_copy.fasta
+os.path.dirname(out_filepath) /tmp/tmp-read_utils-align_and_fix-6ngl2xmy
+Command line argument ignored: -k option is only available in licensed versions. at '-k'
+/opt/miniconda/envs/viral-ngs-env/bin/novoalign -f /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpb91x5wtv.HAVA0.1.in.bam -r Random -l 40 -g 40 -x 20 -t 501 -k -F BAM -d /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.nix -o SAM 
+# novoalign (V3.09.04 - Build Oct  4 2019 @ 11:49:27) - A short read aligner with qualities.
+# (C) 2008-2016 Novocraft Technologies Sdn Bhd.
+# License file: 
+# Licensed for evaluation, educational, and not-for-profit use only.
+#  novoalign -f /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpb91x5wtv.HAVA0.1.in.bam -r Random -l 40 -g 40 -x 20 -t 501 -k -F BAM -d /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.nix -o SAM
+# Starting at Mon Nov  3 19:37:28 2025
+# Interpreting input files as Unaligned BAM Mode.
+# Index Build Version: 3.9
+#   Hash length:    9
+#     Step size:    1
+#       Paired Reads:      391
+#       Proper Pairs:      334 (85.4%)
+#     Read Sequences:      782
+#   Unique Alignment:      746 (95.4%)
+#       Multi Mapped:        0 ( 0.0%)
+#   No Mapping Found:       19 ( 2.4%)
+# QC Failures...
+#        Read Length:       17 ( 2.2%)
+# Timers
+#       Elapsed Time: 0.151 (secs.)
+#           CPU Time: 0.15 (secs.)
+# Fragment Length Distribution
+#	From	To	Count
+#	90	104	67
+#	105	119	109
+#	120	134	47
+#	135	149	21
+#	150	164	15
+#	165	179	16
+#	180	194	14
+#	195	209	12
+#	210	224	8
+#	225	239	4
+#	240	254	7
+#	255	269	7
+#	270	284	4
+#	285	299	0
+#	300	314	1
+#	315	329	0
+#	330	344	2
+# Mean   138, Std Dev  47.7
+# Done at Mon Nov  3 19:37:28 2025
+Command line argument ignored: -k option is only available in licensed versions. at '-k'
+/opt/miniconda/envs/viral-ngs-env/bin/novoalign -f /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpw1jwtmld.HAVA0.2.in.bam -r Random -l 40 -g 40 -x 20 -t 501 -k -F BAM -d /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.nix -o SAM 
+# novoalign (V3.09.04 - Build Oct  4 2019 @ 11:49:27) - A short read aligner with qualities.
+# (C) 2008-2016 Novocraft Technologies Sdn Bhd.
+# License file: 
+# Licensed for evaluation, educational, and not-for-profit use only.
+#  novoalign -f /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpw1jwtmld.HAVA0.2.in.bam -r Random -l 40 -g 40 -x 20 -t 501 -k -F BAM -d /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.nix -o SAM
+# Starting at Mon Nov  3 19:37:30 2025
+# Interpreting input files as Unaligned BAM Mode.
+# Index Build Version: 3.9
+#   Hash length:    9
+#     Step size:    1
+#       Paired Reads:     1554
+#       Proper Pairs:     1483 (95.4%)
+#     Read Sequences:     3108
+#   Unique Alignment:     3068 (98.7%)
+#       Multi Mapped:        0 ( 0.0%)
+#   No Mapping Found:       34 ( 1.1%)
+# QC Failures...
+#        Read Length:        6 ( 0.2%)
+# Timers
+#       Elapsed Time: 0.566 (secs.)
+#           CPU Time: 0.56 (secs.)
+# Fragment Length Distribution
+#	From	To	Count
+#	90	104	250
+#	105	119	464
+#	120	134	314
+#	135	149	174
+#	150	164	72
+#	165	179	67
+#	180	194	35
+#	195	209	20
+#	210	224	19
+#	225	239	15
+#	240	254	8
+#	255	269	8
+#	270	284	10
+#	285	299	4
+#	300	314	6
+#	315	329	7
+#	330	344	0
+#	345	359	1
+#	360	374	0
+#	375	389	2
+#	390	404	3
+#	405	419	0
+#	420	434	2
+#	435	449	0
+#	450	464	0
+#	465	479	0
+#	480	494	1
+#	495	509	1
+# Mean   134, Std Dev  44.7
+# Done at Mon Nov  3 19:37:30 2025
+Command line argument ignored: -k option is only available in licensed versions. at '-k'
+/opt/miniconda/envs/viral-ngs-env/bin/novoalign -f /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpablw6ucl.HBDBR.1.in.bam -r Random -l 40 -g 40 -x 20 -t 501 -k -F BAM -d /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.nix -o SAM 
+# novoalign (V3.09.04 - Build Oct  4 2019 @ 11:49:27) - A short read aligner with qualities.
+# (C) 2008-2016 Novocraft Technologies Sdn Bhd.
+# License file: 
+# Licensed for evaluation, educational, and not-for-profit use only.
+#  novoalign -f /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpablw6ucl.HBDBR.1.in.bam -r Random -l 40 -g 40 -x 20 -t 501 -k -F BAM -d /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.nix -o SAM
+# Starting at Mon Nov  3 19:37:32 2025
+# Interpreting input files as Unaligned BAM Mode.
+# Index Build Version: 3.9
+#   Hash length:    9
+#     Step size:    1
+#       Paired Reads:        2
+#       Proper Pairs:        1 (50.0%)
+#     Read Sequences:        4
+#   Unique Alignment:        3 (75.0%)
+#       Multi Mapped:        0 ( 0.0%)
+#   No Mapping Found:        0 ( 0.0%)
+# QC Failures...
+#        Read Length:        1 (25.0%)
+# Timers
+#       Elapsed Time: 0.009 (secs.)
+#           CPU Time: 0.00 (secs.)
+# Fragment Length Distribution
+#	From	To	Count
+#	90	104	1
+# Mean    97, Std Dev   0.0
+# Done at Mon Nov  3 19:37:32 2025
+Command line argument ignored: -k option is only available in licensed versions. at '-k'
+/opt/miniconda/envs/viral-ngs-env/bin/novoalign -f /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmphuqvi6gk.HBDFG.2.in.bam -r Random -l 40 -g 40 -x 20 -t 501 -k -F BAM -d /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.nix -o SAM 
+# novoalign (V3.09.04 - Build Oct  4 2019 @ 11:49:27) - A short read aligner with qualities.
+# (C) 2008-2016 Novocraft Technologies Sdn Bhd.
+# License file: 
+# Licensed for evaluation, educational, and not-for-profit use only.
+#  novoalign -f /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmphuqvi6gk.HBDFG.2.in.bam -r Random -l 40 -g 40 -x 20 -t 501 -k -F BAM -d /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.nix -o SAM
+# Starting at Mon Nov  3 19:37:34 2025
+# Interpreting input files as Unaligned BAM Mode.
+# Index Build Version: 3.9
+#   Hash length:    9
+#     Step size:    1
+#       Paired Reads:        2
+#       Proper Pairs:        1 (50.0%)
+#     Read Sequences:        4
+#   Unique Alignment:        3 (75.0%)
+#       Multi Mapped:        0 ( 0.0%)
+#   No Mapping Found:        1 (25.0%)
+# Timers
+#       Elapsed Time: 0.010 (secs.)
+#           CPU Time: 0.00 (secs.)
+# Fragment Length Distribution
+#	From	To	Count
+#	90	104	1
+# Mean    97, Std Dev   0.0
+# Done at Mon Nov  3 19:37:34 2025
+Command line argument ignored: -k option is only available in licensed versions. at '-k'
+/opt/miniconda/envs/viral-ngs-env/bin/novoalign -f /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpm6it9m48.HBDJG.1.in.bam -r Random -l 40 -g 40 -x 20 -t 501 -k -F BAM -d /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.nix -o SAM 
+# novoalign (V3.09.04 - Build Oct  4 2019 @ 11:49:27) - A short read aligner with qualities.
+# (C) 2008-2016 Novocraft Technologies Sdn Bhd.
+# License file: 
+# Licensed for evaluation, educational, and not-for-profit use only.
+#  novoalign -f /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpm6it9m48.HBDJG.1.in.bam -r Random -l 40 -g 40 -x 20 -t 501 -k -F BAM -d /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.nix -o SAM
+# Starting at Mon Nov  3 19:37:35 2025
+# Interpreting input files as Unaligned BAM Mode.
+# Index Build Version: 3.9
+#   Hash length:    9
+#     Step size:    1
+#       Paired Reads:      653
+#       Proper Pairs:      607 (93.0%)
+#     Read Sequences:     1306
+#   Unique Alignment:     1274 (97.5%)
+#       Multi Mapped:        0 ( 0.0%)
+#   No Mapping Found:       20 ( 1.5%)
+# QC Failures...
+#        Read Length:       12 ( 0.9%)
+# Timers
+#       Elapsed Time: 0.237 (secs.)
+#           CPU Time: 0.23 (secs.)
+# Fragment Length Distribution
+#	From	To	Count
+#	90	104	135
+#	105	119	161
+#	120	134	94
+#	135	149	55
+#	150	164	44
+#	165	179	26
+#	180	194	22
+#	195	209	19
+#	210	224	9
+#	225	239	11
+#	240	254	8
+#	255	269	6
+#	270	284	1
+#	285	299	4
+#	300	314	2
+#	315	329	2
+#	330	344	0
+#	345	359	2
+#	360	374	1
+#	375	389	0
+#	390	404	3
+#	405	419	0
+#	420	434	0
+#	435	449	1
+#	450	464	0
+#	465	479	0
+#	480	494	0
+#	495	509	1
+# Mean   139, Std Dev  52.5
+# Done at Mon Nov  3 19:37:35 2025
+There were no warn messages.
+There were no warn messages.
+Command line argument ignored: -k option is only available in licensed versions. at '-k'
+/opt/miniconda/envs/viral-ngs-env/bin/novoalign -f /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmph6jdyej_.HBDJG.2.in.bam -r Random -l 40 -g 40 -x 20 -t 501 -k -F BAM -d /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.nix -o SAM 
+# novoalign (V3.09.04 - Build Oct  4 2019 @ 11:49:27) - A short read aligner with qualities.
+# (C) 2008-2016 Novocraft Technologies Sdn Bhd.
+# License file: 
+# Licensed for evaluation, educational, and not-for-profit use only.
+#  novoalign -f /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmph6jdyej_.HBDJG.2.in.bam -r Random -l 40 -g 40 -x 20 -t 501 -k -F BAM -d /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.nix -o SAM
+# Starting at Mon Nov  3 19:37:37 2025
+# Interpreting input files as Unaligned BAM Mode.
+# Index Build Version: 3.9
+#   Hash length:    9
+#     Step size:    1
+#       Paired Reads:     6750
+#       Proper Pairs:     6442 (95.4%)
+#     Read Sequences:    13500
+#   Unique Alignment:    13342 (98.8%)
+#       Multi Mapped:        0 ( 0.0%)
+#   No Mapping Found:      149 ( 1.1%)
+# QC Failures...
+#        Read Length:        9 ( 0.1%)
+# Timers
+#       Elapsed Time: 2.052 (secs.)
+#           CPU Time: 2.06 (secs.)
+# Fragment Length Distribution
+#	From	To	Count
+#	90	104	485
+#	105	119	1098
+#	120	134	1045
+#	135	149	873
+#	150	164	710
+#	165	179	561
+#	180	194	439
+#	195	209	323
+#	210	224	237
+#	225	239	208
+#	240	254	115
+#	255	269	100
+#	270	284	56
+#	285	299	58
+#	300	314	37
+#	315	329	23
+#	330	344	23
+#	345	359	10
+#	360	374	12
+#	375	389	13
+#	390	404	6
+#	405	419	1
+#	420	434	4
+#	435	449	2
+#	450	464	0
+#	465	479	0
+#	480	494	1
+#	495	509	1
+#	510	524	0
+#	525	539	1
+# Mean   158, Std Dev  51.7
+# Done at Mon Nov  3 19:37:39 2025
+Command line argument ignored: -k option is only available in licensed versions. at '-k'
+/opt/miniconda/envs/viral-ngs-env/bin/novoalign -f /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp3pdkz5sn.HBDJL.1.in.bam -r Random -l 40 -g 40 -x 20 -t 501 -k -F BAM -d /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.nix -o SAM 
+# novoalign (V3.09.04 - Build Oct  4 2019 @ 11:49:27) - A short read aligner with qualities.
+# (C) 2008-2016 Novocraft Technologies Sdn Bhd.
+# License file: 
+# Licensed for evaluation, educational, and not-for-profit use only.
+#  novoalign -f /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp3pdkz5sn.HBDJL.1.in.bam -r Random -l 40 -g 40 -x 20 -t 501 -k -F BAM -d /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.nix -o SAM
+# Starting at Mon Nov  3 19:37:41 2025
+# Interpreting input files as Unaligned BAM Mode.
+# Index Build Version: 3.9
+#   Hash length:    9
+#     Step size:    1
+#       Paired Reads:        1
+#       Proper Pairs:        1 (100.0%)
+#     Read Sequences:        2
+#   Unique Alignment:        2 (100.0%)
+#       Multi Mapped:        0 ( 0.0%)
+#   No Mapping Found:        0 ( 0.0%)
+# Timers
+#       Elapsed Time: 0.009 (secs.)
+#           CPU Time: 0.00 (secs.)
+# Fragment Length Distribution
+#	From	To	Count
+#	210	224	1
+# Mean   217, Std Dev   0.0
+# Done at Mon Nov  3 19:37:41 2025
+Command line argument ignored: -k option is only available in licensed versions. at '-k'
+/opt/miniconda/envs/viral-ngs-env/bin/novoalign -f /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpk2nt7lnq.HBDJL.2.in.bam -r Random -l 40 -g 40 -x 20 -t 501 -k -F BAM -d /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.nix -o SAM 
+# novoalign (V3.09.04 - Build Oct  4 2019 @ 11:49:27) - A short read aligner with qualities.
+# (C) 2008-2016 Novocraft Technologies Sdn Bhd.
+# License file: 
+# Licensed for evaluation, educational, and not-for-profit use only.
+#  novoalign -f /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpk2nt7lnq.HBDJL.2.in.bam -r Random -l 40 -g 40 -x 20 -t 501 -k -F BAM -d /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.nix -o SAM
+# Starting at Mon Nov  3 19:37:43 2025
+# Interpreting input files as Unaligned BAM Mode.
+# Index Build Version: 3.9
+#   Hash length:    9
+#     Step size:    1
+#       Paired Reads:        2
+#       Proper Pairs:        2 (100.0%)
+#     Read Sequences:        4
+#   Unique Alignment:        4 (100.0%)
+#       Multi Mapped:        0 ( 0.0%)
+#   No Mapping Found:        0 ( 0.0%)
+# Timers
+#       Elapsed Time: 0.009 (secs.)
+#           CPU Time: 0.00 (secs.)
+# Fragment Length Distribution
+#	From	To	Count
+#	120	134	1
+#	135	149	0
+#	150	164	0
+#	165	179	0
+#	180	194	0
+#	195	209	0
+#	210	224	1
+# Mean   172, Std Dev  45.0
+# Done at Mon Nov  3 19:37:43 2025
+18959
+18710
+17644
+18442 + 0 in total (QC-passed reads + QC-failed reads)
+18442 + 0 primary
+0 + 0 secondary
+0 + 0 supplementary
+205 + 0 duplicates
+205 + 0 primary duplicates
+18442 + 0 mapped (100.00% : N/A)
+18442 + 0 primary mapped (100.00% : N/A)
+18442 + 0 paired in sequencing
+9227 + 0 read1
+9215 + 0 read2
+17742 + 0 properly paired (96.20% : N/A)
+18174 + 0 with itself and mate mapped
+268 + 0 singletons (1.45% : N/A)
+0 + 0 with mate mapped to a different chr
+0 + 0 with mate mapped to a different chr (mapQ>=5)
+17742
+1782044

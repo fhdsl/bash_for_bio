@@ -1,0 +1,54 @@
+
+set -ex # do not set pipefail, since grep exits 1 if it can't find the pattern
+
+read_utils.py --version | tee VERSION
+
+cp /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/ebov-makona.fasta assembly.fasta
+grep -v '^>' assembly.fasta | tr -d '\n' | wc -c | tee assembly_length
+
+if [ "$(cat assembly_length)" != "0" ]; then
+
+  # only perform the following if the reference is non-empty
+
+  if [ "novoalign" == "novoalign" ]; then
+    read_utils.py novoindex \
+      assembly.fasta \
+       \
+      --loglevel=DEBUG
+  fi
+  read_utils.py index_fasta_picard assembly.fasta --loglevel=DEBUG
+  read_utils.py index_fasta_samtools assembly.fasta --loglevel=DEBUG
+
+  read_utils.py align_and_fix \
+    /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.bam \
+    assembly.fasta \
+    --outBamAll "G5012.3.testreads.all.bam" \
+    --outBamFiltered "G5012.3.testreads.mapped.bam" \
+    --aligner novoalign \
+    --aligner_options "-r Random -l 40 -g 40 -x 20 -t 501 -k" \
+     \
+    --JVMmemory=3g \
+     \
+    --loglevel=DEBUG
+
+else
+  # handle special case of empty reference fasta -- emit empty bams (with original bam headers)
+  samtools view -H -b "/mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.bam" > "G5012.3.testreads.all.bam"
+  samtools view -H -b "/mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.bam" > "G5012.3.testreads.mapped.bam"
+
+  samtools index "G5012.3.testreads.all.bam" "G5012.3.testreads.all.bai"
+  samtools index "G5012.3.testreads.mapped.bam" "G5012.3.testreads.mapped.bai"
+fi
+
+# collect figures of merit
+grep -v '^>' assembly.fasta | tr -d '\nNn' | wc -c | tee assembly_length_unambiguous
+samtools view -c /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.bam | tee reads_provided
+samtools view -c G5012.3.testreads.mapped.bam | tee reads_aligned
+# report only primary alignments 260=exclude unaligned reads and secondary mappings
+samtools view -h -F 260 G5012.3.testreads.all.bam | samtools flagstat - | tee G5012.3.testreads.all.bam.flagstat.txt
+grep properly G5012.3.testreads.all.bam.flagstat.txt | cut -f 1 -d ' ' | tee read_pairs_aligned
+samtools view G5012.3.testreads.mapped.bam | cut -f10 | tr -d '\n' | wc -c | tee bases_aligned
+python -c "print (float("$(cat bases_aligned)")/"$(cat assembly_length_unambiguous)") if "$(cat assembly_length_unambiguous)">0 else print(0)" > mean_coverage
+
+# fastqc mapped bam
+reports.py fastqc G5012.3.testreads.mapped.bam G5012.3.testreads.mapped_fastqc.html --out_zip G5012.3.testreads.mapped_fastqc.zip

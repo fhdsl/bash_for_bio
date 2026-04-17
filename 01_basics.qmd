@@ -1,5 +1,5 @@
 ---
-title: "Navigating the Bash Filesystem"
+title: "Week 1: Navigating"
 ---
 
 ## Learning Objectives
@@ -49,43 +49,10 @@ Make Sure you:
 
 I will demo how to connect to `rhino` using the [Scicomp `On Demand` dashboard](https://openondemand.fredhutch.org/pun/sys/dashboard/). This site has a handy "Rhino Shell Access" menu item under "Clusters".
 
+When you are scripting, I suggest you open two terminal windows: the first one is for editing scripts, and the second one is for running scripts on the command line.
+
 So now we have logged into `rhino`. Now what?
 
-## Navigating the Filesystems
-
-### `pwd` Where Am I? 
-
-The `pwd` command (short for *present working directory*) will let you know your current location in the filesystem. Knowing your current directory is critical when using *relative* file paths.
-
-If I run `pwd` right after signing into `rhino` I get:
-
-```
-/home/tladera2
-```
-
-You should have a similar path, except with your user name. This is your *home directory* - where you have a limited amount of space (100 Gb) to store scripts and other files. 
-
-Don't worry, the majority of your data is stored elsewhere (see @sec-filesystems).
-
-## Going `/home`: `~/` {#sec-home}
-
-There is one important file alias you should always remember: `~/` is shorthand for your own *home directory*.
-
-Depending on the linux distribution, this can be a different location. On the FH filesystem, when I use `~/`, it maps to:
-
-`/home/tladera2/`
-
-The home directory is also important because it is where your configuration files live, such as `.bashrc` (see @sec-bashrc).
-
-Depending on how you work, you may want to store your scripts and workflows in `/home/`. Some people prefer to keep their scripts, data, and results in a single folder. This is not really practical for most genomics projects, unless you are saving processed data. For more info, see @sec-project.
-
-:::{.callout}
-## Your current working directory: `.`
-
-There is an alias for your current directory: `.` (the period sign).
-
-This becomes useful when you want to output files to your current location. We'll use this later.
-:::
 
 ## Grabbing Stuff from GitHub
 
@@ -224,192 +191,6 @@ We'll use this throughout the book so the code is easier to read.
 
 <https://sciwiki.fredhutch.org/scicomputing/store_posix/>
 
-## Absolute versus relative paths {#sec-paths}
-
-You may have muddled with file paths, and maybe have used absolute paths to specify the location of a file. When you are processing files, it is important to understand the difference.
-
-**Absolute paths** contain all the information needed to find a file in a file system from the root `/` directory. For example, this would be an absolute path:
-
-```
-/fh/fast/laderast/immuno_project/raw_data/chr2.fa.gz
-```
-
-Absolute paths always start with `/`, because that is the root directory, where all the top folders and files live. 
-
-In terms of folder structure, this is what this looks like:
-
-```bash
-/                                     # <1>
-├── fh                                # <2>
-│   └──fast
-│       └──laderast
-|            └──immuno_project
-│                 └──raw_data
-│                    └──chr2.fa.gz
-```
-1. Root directory
-2. Folders in root directory
-
-**Relative paths** break up an absolute path into two pieces of information: 1) your current directory and 2) the path *relative* to that directory. Relative paths are really helpful because things don't break when you move your folder or files. 
-
-If my current working directory is the directory `/fh/fast/laderas_t/immuno_project/`, then the relative path to that same file would be:
-
-```
-raw_data/chr2.fa.gz
-```
-
-We can visualize the relative path like this, where our working directory is indicated by a star:
-
-```bash
-/                                                      # <1>
-├── fh/fast/laderast/immuno_project/                   # <2>
-|                                   └──raw_data        # <3>
-│                                      └──chr2.fa.gz   # <3>
-                                    
-```
-1. The root directory
-2. Our working directory
-3. Our relative path
-
-Note that this relative path does not start with a `/`, because our current directory isn't the root directory. Relative paths are incredibly useful when scripting in a reproducible manner, such as using project-based workflows to process files in a single folder.
-
-:::{.callout}
-## `<TAB>` is for autocompletion of paths
-
-Never underestimate the usefulness of the `<TAB>` key, which triggers autocompletion on the command line. It can help you complete paths to files and save you a lot of typing.
-
-For example, say I have a path that I want to navigate to
-
-`/home/tladera2/my_long_path`
-
-I can type in the first part of the path and then hit `<TAB>`:
-
-`/home/tladera2/my_<TAB>` 
-
-And if the prefix `my_` is unique in my folder, it will autocomplete the path:
-
-`/home/tladera2/my_long_path`
-
-Note that we need to use enough of the folder name so that completing it is unambiguous. If there are multiple choices, then autocomplete will list all of them.
-:::
-
-
-## File Permissions {#sec-permissions}
-
-File permissions are {{< glossary metadata>}} that are attached to file objects. They are how the system prevents certain files from being modified or restricting access of these files to certain people or groups.
-
-All files have the following level of access permissions:
-
-|Level|Description|
-|-----|-----------|
-|Owner-level|The owner of the file|
-|Group-level|The group of the file|
-|Everyone|The rest of the world|
-
-For example, if I'm the owner of the file, I can restrict the type of access to only myself (owner-level), the group I'm in (Group-level), or make the file freely available to everyone on the system (Everyone).
-
-Each level has the following type of access:
-
-|Type|Description|Abbreviation|Example|
-|----|-----------|------------|-------|
-|Read|Level can only read contents of file|`r`|A list of users in a text file|
-|Write|Level can write to the file|`w`|Appending an entry to the end of a log|
-|Execute|Level can run the file as an executable|`x`|samtools|
-
-You can see the permissions for a file using the `ls -l <FILENAME>`. For example: 
-
-```bash
-ls -l -h .
-```
-
-will give me the following line:
-
-```bash
--rw-rw---- 1 tladera2 g_tladera2 1.8K Oct  2 15:21 01_assignment.qmd
--rw-rw---- 1 tladera2 g_tladera2  21K Oct  2 15:21 01_basics.qmd
--rw-rw---- 1 tladera2 g_tladera2 2.3K Oct  2 15:21 02_assignment.qmd
--rw-rw---- 1 tladera2 g_tladera2  21K Oct  2 15:21 02_scripting.qmd
--rw-rw---- 1 tladera2 g_tladera2 1.2K Oct  2 15:21 03_assignment.qmd
--rw-rw---- 1 tladera2 g_tladera2  13K Oct  2 15:21 03_batch.qmd
--rw-rw---- 1 tladera2 g_tladera2    0 Oct  2 15:21 04_assignment.qmd
-```
-
-It's this first part that we want to examine:
-
-```
-folder  everyone_else
-|       |     
--rw-rw----
- |  |
- you group
-```
-
-The 2nd to 4th letters define your own access to the files. The 
-
-```
-rw-
-```
-
-Means that you have **r**ead and **w**rite access. If we had the following:
-
-```
-rwx
-```
-
-That would mean we have read, write, and e**x**ecute access.
-
-Similarly, the 5th to 7th letters are the permissions for your group. In many cases at Fred Hutch, the group level maps to your lab or group.
-
-The last 3 letters correspond to *everyone else* on the system. Think about whether you want to make your scripts accessible to everyone.
-
-In this case, since the permissions are:
-
-```
----
-```
-
-That means that everyone else cannot read, write, or execute your files. Your files are locked down.
-
-The cardinal rule to remember is that: 
-
-> If you want to run a file as an executable, you (or your group) needs to have *executable level permission*.
-
-For example, if I want to run a script called `run_samtools.sh` in my directory like this:
-
-```
-./run_samtools.sh my_bam_file.bam
-```
-
-I will need to have execute privileges at the user, group, or others level for `run_samtools.sh`.
-
-We can change the permissions of our files using the `chmod` command. 
-
-:::{.callout}
-## Helpful unix permissions situations
-
-I tend to just go by memory when setting file permissions. These are the common situations that I've encountered that I use regularly:
-
-|Situation|Command|
-|---------|-------|
-|Only I can execute/read/write a file|`chmod 700 <filename>`|
-|Only I and my group can read a file|`chmod 110 <filename>` |
-|Only I and my group can read/write/execute a file|`chmod 770 <filename>` |
-|Grant my group read permissions|`chmod 710 <filename>`|
-|Make executable/read/write by all|`chmod 777 <filename>`|
-
-For right now, let's set scripts to be read/write/executable by us:
-
-```
-chmod -R 700 scripts/
-```
-
-The `-R` in this case is the `recursive` argument, which means apply `chmod` to everything within the `scripts/` folder.
-
-This will save us some headaches when we try to execute our scripts.
-
-If you have different permission situations that you need to set, please refer to: <https://www.redhat.com/en/blog/linux-file-permissions-explained>
-:::
-
 :::{.callout}
 ## Even if you don't have execute permissions
 
@@ -425,73 +206,6 @@ This is also the case for scripts that use she-bangs (@sec-shebang) for R or Pyt
 ### Try it out
 
 What are the permissions for the GitHub repo (bash_for_bio) that you just downloaded?
-
-## Moving Things Around {#sec-moving}
-
-A lot of the time, we need to move files between shared filesystems. One filesystem might be good at storage and be backed up on a regular basis, while another filesystem might be better for temporary work on the cluster. 
-
-You might be familiar with `mv`, which lets you move files around in Unix. One thing to keep in mind when you're `mv`ing things to a new folder that there is a difference between:
-
-```bash
-mv log.txt my_folder   ## renames log.txt to my_folder
-```
-
-and
-
-```bash
-mv log.txt my_folder/  ## moves log.txt to be in my_folder
-```
-This is one thing that still trips me up all the time. 
-
-This is one situation where using a GUI such as [Motuz](https://sciwiki.fredhutch.org/compdemos/motuz/) can be very helpful. You don't have to worry about accidentally renaming files. 
-
-Other tools for sync'ing between filesystems include `rsync`, which requires careful reading of documentation. 
-
-:::{.callout}
-### Things I always forget: the difference between `/home/mydir/`  and `home/mydir/`
-
-Some things that trip me up all the time. The difference between 
-
-```bash
-/home/mydir/    #absolute path
-```
-and 
-
-```bash
-home/mydir/     #relative path
-```
-The first one is an *absolute path*, and the second is a *relative path*. Your clue is the leading `/` at the beginning of a path. If you're getting `file not found` messages, check to make sure the path is the right format.
-:::
-
-### Keep Everything in Folders
-
-We need to talk about code and data organization. For the FH system, we have a `/home/` directory, and if we have generated research data, a `/fh/fast/` directory. If we want our scripts to live in `/home/` and our data is in `/hpc/temp/`, we'll need to refer to each of these file locations.
-
-Ideally, we want to make the naming conventions of our code and our data as similar as possible.
-
-
-:::{.callout-note}
-## Try it Out
-
-Copy the script `tell_the_time.sh` in the `scripts/week1/` directory to the top directory of `bash_for_bio`. 
-
-Make the script executable.
-:::
-
-## What's in the script
-
-We can see what's in the script by using `cat`:
-
-```bash
-cat tell_the_time.sh
-```
-
-And you'll get the following: 
-
-```
-#!/bin/bash
-date
-```
 
 
 ## Running a Bash Script
@@ -518,37 +232,6 @@ Fri Jul 11 13:27:47 PDT 2025
 
 Which is the current date and time.
 
-## Editing on a Linux Machine
-
-On the `rhino` machines, we have the option to use the `nano` editor. `nano` is the most like a word processor or code editors.
-
-- Open a file in `nano`: `nano <filename>`
-- Save and quit: `<CTRL> + x` and then  `yes`
-- Navigate in file: using the arrow keys will work
-- Find in file: `<CTRL> + w`
-- Copy from outside the terminal (dependent on terminal program)
-
-Pasting will depend on your terminal program. On macs it is Command-V, and on PuTTY it is using Right Click on the mouse
-
-### Try it Out
-
-Try making your own file called `my_file.txt`:
-
-```bash
-nano my_file.txt
-```
-
-Add some text to it.
-
-Use CTRL-X to exit, and make sure to select "Yes" to save.
-
-### Editing on your own machine
-
-One thing you can do to make your life easier is to edit scripts with an editor on your own machine that is connected to `rhino` through Samba. You will able to open up files you create in the editor of you choice on your system, and when you save the file, the changes will be make on `rhino`.
-
-Instructions are here: <https://sciwiki.fredhutch.org/scicomputing/store_posix/#how-to-access-fred-hutch-storage> and follow the instructions for mapping your network drive ([Mac](https://centernet.fredhutch.org/u/it/help-desk/mapping-network-drives.html#mac)) and ([Windows](https://centernet.fredhutch.org/u/it/help-desk/mapping-network-drives.html#windows)).
-
-You will want to use the connection strings specified for `home`.
 
 ## Running an R or Python Script on the command line {#sec-rpy}
 
@@ -650,16 +333,14 @@ I personally find man pages very hard to read, especially when there are lots of
 Instead, I use `tldr`, which contain examples of the most commonly used options in a command.  It is not installed on gizmo, but you can use the page at <https://tldr.inbrowser.app/>, which has all of the `tldr` help pages.
 
 
+
+
+
 ## Recap
 
 We learned the following this week:
 
 - **Navigate** and **copy** data to the different filesystems available at Fred Hutch.
-- **Explain** the difference between *absolute* and *relative* file paths.
 - **Set** Permissions on and **execute** a bash script 
 - **Find** help on the system
-
-## Next Week
-
-We'll focus on adding *arguments* to our scripts, and more about software modules
 

@@ -10,12 +10,12 @@ If so, this course is for you! We will learn enough bash scripting to do useful 
 
 ## Learning Objectives
 
-- **Apply** bash scripting to execute alignment, and Python/R scripts
+- **Apply** bash scripting to execute bioinformatics software, and Python/R scripts
 - **Navigate** and **process** data on the different filesystems available at FH
 - **Manage** software dependencies reproducibly using container-based technologies such as Docker/Apptainer containers or EasyBuild modules
 - **Articulate** basic HPC architecture concepts and why they’re useful in your work
 - **Leverage** bash scripting to **execute** {{<glossary "batch jobs">}} on a high performance cluster.
-- **Utilize** workflow managers such as `cromwell` to process multiple files in a multi-step {{<glossary WDL>}} workflow.
+- **Utilize** workflow managers such as `cromwell`/`miniWDL` to process multiple files in a multi-step {{<glossary WDL>}} workflow.
 
 
 :::{.callout-note}
@@ -31,11 +31,12 @@ This book shares bones with *Bash for DNANexus*, but has more of a focus on runn
 ## Prerequisites
 
 - You will need an account on `rhino` and know how to connect to it through VPN. If you have taken the [Intro to Fred Hutch Cluster Computing](https://hutchdatascience.org/FH_Cluster_101/) workshop, then you will be ready.
-- We highly recommend reviewing  [Intro to Command Line](https://hutchdatascience.org/Intro_to_Command_Line/) and [Intro to Fred Hutch Cluster Computing](https://hutchdatascience.org/FH_Cluster_101/).
 - Basic knowledge of the following commands:
   - `ls`
   - `cd` and basic directory navigation
   - `mv`/`cp`/`mkdir`/`rm`
+- We highly recommend reviewing  [Intro to Command Line](https://hutchdatascience.org/Intro_to_Command_Line/) and [Intro to Fred Hutch Cluster Computing](https://hutchdatascience.org/FH_Cluster_101/). A list of the concepts you need to know are in [the prework section](00_prework.qmd).
+
 
 We will assume that you will do all of your work in your home directory on Rhino. We will not be using that much space in your home directory.
 
@@ -49,14 +50,14 @@ We know that not all of us have the same vocabulary. We try to define terminolog
 You can click and hold on the term to define it.
 :::
 
- ## Instructors / TAs
+## Instructors / TAs
 
 If you need to schedule some time to talk, please schedule with Ted.
 
 -   Ted Laderas (Main Instructor), Director of Training and Community, Office of the Chief Data Officer
--   Taylor Firman (TA), Research Informatics Lead, Office of the Chief Data Officer
--   Scott Chamberlain (TA), Software Developer, Office of the Chief Data Officer
 -   Chris Lo (TA), Data Science Trainer, Office of the Chief Data Officer
+-   Dan Tenenbaum (TA), HPC System Engineer III, Scientific Computing (Weeks 2-4)
+-   Taylor Firman (TA), Research Informatics Lead, Office of the Chief Data Officer (Weeks 3-4)
 
 We all have experience running jobs on HPC and `gizmo`. Please reach out if you have any questions.
 
@@ -66,7 +67,7 @@ In chat, please introduce yourself:
 
 -   Your Name & Your Group
 -   What you want to learn in this course
--   Favorite Fall activity
+-   Favorite spring activity or spring vegetable
 
 ## Culture of the course
 
@@ -90,18 +91,17 @@ If you do find a mistake, please report it to Ted. I'll add you to the acknowled
 
 ## Schedule
 
-Class is on Thursdays, 12:00 - 1:30 PM. There will be an office hour 1/2 hour after class if you need help. 
+Class is on Fridays, 12:00 - 1:30 PM. There will be an office hour 1/2 hour after class if you need help. 
 
-You should complete the readings before class for weeks 3 and 4, so we can hit the ground running.
+You should complete the readings before class, so we can hit the ground running.
 
 |Week|Date|Topics|Reading|
 |----|----|------|-------|
-|Preclass||Review [Intro to Command Line](https://hutchdatascience.org/Intro_to_Command_Line/) and [Cluster 101](https://hutchdatascience.org/FH_Cluster_101/)||
-|Week 1|October 9|[Filesystem Basics](01_basics.qmd)|Bite Size Bash|
-|Week 2|October 16|[Writing and Running Bash Scripts](02_scripting.qmd)|Bite Size Bash|
-|No Class|October 23|OCDO Retreat||
-|Week 3|October 30|[Batch Processing and HPC Jobs](03_batch.qmd)|[HPC Basics](hpc-basics.qmd)
-|Week 4|November 6|[Testing Scripts/Workflow Managers](04_containers_workflows.qmd)|[Container Basics](container-basics.qmd)|
+|Preclass||Review [Intro to Command Line](https://hutchdatascience.org/Intro_to_Command_Line/) and [Cluster 101](https://hutchdatascience.org/FH_Cluster_101/)|[Prework](00_prework.qmd)|
+|Week 1|May 15|[Filesystem Basics](01_basics.qmd) and [Writing and Running Bash Scripts](01_scripting.qmd)|Bite Size Bash|
+|Week 2|May 22|[Batch Processing and HPC Jobs](02_batch.qmd)|[HPC Basics](hpc-basics.qmd)|
+|Week 3|May 29|[Containers](03_containers.qmd)|[Container Concepts](containers_reading.qmd)|
+|Week 4|June 5|[Workflow Managers](04_containers_workflows.qmd)|[Container Basics](pipes_json_reading.qmd)|
 |On your own time|[Testing Scripts](testing.qmd)||
 |On your own time|[Configuring your Bash Shell](configuring.qmd)||
 
@@ -128,6 +128,18 @@ Requirements:
 
 -   Sign up on the badging spreadsheet (will send link out in class).
 -   Complete badge-required sections of the exercises for 3 out of 4 assignments. We'll cover this in class.
+
+## First Survey
+
+Please take the survey, as it helps me understand your background and how to tailor the course.
+
+[First Survey Link](https://forms.gle/aBnuoR4ZSdyVDK4n6)
+
+## Weekly Check in
+
+If the topic is moving too quickly, or there is something else you want to let us know, please fill out the form. All responses are anonymous unless you want to know who you are. 
+
+<https://forms.gle/yVgxiUpbeTx8sp5z8>
 
 ## Acknowledgements
 

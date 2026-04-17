@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.24">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>11&nbsp; Appendix: Configuring your Shell – Bash for Bioinformatics</title>
+<title>15&nbsp; Appendix: Configuring your Shell – Bash for Bioinformatics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -118,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./configuring.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Appendix: Configuring your Shell</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./configuring.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Appendix: Configuring your Shell</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -156,74 +156,98 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./00_prework.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Prework</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./01_basics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Navigating the Bash Filesystem</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Week 1: Navigating</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_scripting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Week 1: Introduction to Scripting</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01_assignment.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Week 1 Exercises</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./02_scripting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to Scripting</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./02_assignment.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Week 2 Exercises</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Week 1 Exercises</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./hpc-basics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: HPC Basics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Week 2 Reading: HPC Basics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03_batch.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Batch Processing and Submitting Jobs</span></span></a>
+  <a href="./02_batch.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Week 2: Batch Processing and Submitting Jobs</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_assignment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Week 2 Exercises</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./containers_reading.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Week 3 Reading: Containers</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_containers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Week 3: Containers</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./03_assignment.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Week 3 Exercises</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Week 3: Assignment</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./container-basics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Reading: JSON/Container Basics</span></span></a>
+  <a href="./pipes_json_reading.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Week 4 Reading: Pipes/JSON</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04_containers_workflows.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Workflows</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Week 4: Workflows</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_assignment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Week 4 Exercises</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Testing Scripts</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Testing Scripts</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./configuring.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Appendix: Configuring your Shell</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Appendix: Configuring your Shell</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./miscellaneous.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Miscellaneous</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Miscellaneous</span></span></a>
   </div>
 </li>
     </ul>
@@ -236,17 +260,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-bashrc" id="toc-sec-bashrc" class="nav-link active" data-scroll-target="#sec-bashrc"><span class="header-section-number">11.1</span> <code>.bashrc</code>: Where do I put my configuration?</a></li>
-  <li><a href="#when-does-the-bashrc-file-get-loaded" id="toc-when-does-the-bashrc-file-get-loaded" class="nav-link" data-scroll-target="#when-does-the-bashrc-file-get-loaded"><span class="header-section-number">11.2</span> When does the <code>bashrc</code> file get loaded?</a></li>
-  <li><a href="#an-example-.bashrc-file" id="toc-an-example-.bashrc-file" class="nav-link" data-scroll-target="#an-example-.bashrc-file"><span class="header-section-number">11.3</span> An example <code>.bashrc</code> file</a></li>
-  <li><a href="#aliases" id="toc-aliases" class="nav-link" data-scroll-target="#aliases"><span class="header-section-number">11.4</span> Aliases</a></li>
-  <li><a href="#sec-environment" id="toc-sec-environment" class="nav-link" data-scroll-target="#sec-environment"><span class="header-section-number">11.5</span> Environment Variables</a>
+  <li><a href="#sec-bashrc" id="toc-sec-bashrc" class="nav-link active" data-scroll-target="#sec-bashrc"><span class="header-section-number">15.1</span> <code>.bashrc</code>: Where do I put my configuration?</a></li>
+  <li><a href="#aliases" id="toc-aliases" class="nav-link" data-scroll-target="#aliases"><span class="header-section-number">15.2</span> Aliases</a></li>
+  <li><a href="#sec-environment" id="toc-sec-environment" class="nav-link" data-scroll-target="#sec-environment"><span class="header-section-number">15.3</span> Environment Variables</a>
   <ul class="collapse">
-  <li><a href="#setting-environment-variables" id="toc-setting-environment-variables" class="nav-link" data-scroll-target="#setting-environment-variables"><span class="header-section-number">11.5.1</span> Setting Environment Variables</a></li>
-  <li><a href="#sec-path" id="toc-sec-path" class="nav-link" data-scroll-target="#sec-path"><span class="header-section-number">11.5.2</span> A Very Special Environment Variable: <code>$PATH</code></a></li>
-  <li><a href="#making-your-own-environment-variables" id="toc-making-your-own-environment-variables" class="nav-link" data-scroll-target="#making-your-own-environment-variables"><span class="header-section-number">11.5.3</span> Making your own environment variables</a></li>
+  <li><a href="#setting-environment-variables" id="toc-setting-environment-variables" class="nav-link" data-scroll-target="#setting-environment-variables"><span class="header-section-number">15.3.1</span> Setting Environment Variables</a></li>
+  <li><a href="#sec-path" id="toc-sec-path" class="nav-link" data-scroll-target="#sec-path"><span class="header-section-number">15.3.2</span> A Very Special Environment Variable: <code>$PATH</code></a></li>
+  <li><a href="#making-your-own-environment-variables" id="toc-making-your-own-environment-variables" class="nav-link" data-scroll-target="#making-your-own-environment-variables"><span class="header-section-number">15.3.3</span> Making your own environment variables</a></li>
   </ul></li>
-  <li><a href="#sec-project" id="toc-sec-project" class="nav-link" data-scroll-target="#sec-project"><span class="header-section-number">11.6</span> Project/folder based workflows</a></li>
   </ul>
 </nav>
     </div>
@@ -255,7 +276,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Appendix: Configuring your Shell</span></h1>
+<h1 class="title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Appendix: Configuring your Shell</span></h1>
 </div>
 
 
@@ -272,8 +293,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="sec-bashrc" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="sec-bashrc"><span class="header-section-number">11.1</span> <code>.bashrc</code>: Where do I put my configuration?</h2>
+<section id="sec-bashrc" class="level2" data-number="15.1">
+<h2 data-number="15.1" class="anchored" data-anchor-id="sec-bashrc"><span class="header-section-number">15.1</span> <code>.bashrc</code>: Where do I put my configuration?</h2>
 <p>There is a file in your home directory called <code>.bashrc</code>. This is where you can customize the way the Bash shell behaves.</p>
 <p>There are 2 things you should know how to set:</p>
 <ul>
@@ -281,28 +302,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Environment Variables, especially <code>$PATH</code></li>
 </ul>
 </section>
-<section id="when-does-the-bashrc-file-get-loaded" class="level2" data-number="11.2">
-<h2 data-number="11.2" class="anchored" data-anchor-id="when-does-the-bashrc-file-get-loaded"><span class="header-section-number">11.2</span> When does the <code>bashrc</code> file get loaded?</h2>
-<p>You can force reloading of the</p>
-</section>
-<section id="an-example-.bashrc-file" class="level2" data-number="11.3">
-<h2 data-number="11.3" class="anchored" data-anchor-id="an-example-.bashrc-file"><span class="header-section-number">11.3</span> An example <code>.bashrc</code> file</h2>
-</section>
-<section id="aliases" class="level2" data-number="11.4">
-<h2 data-number="11.4" class="anchored" data-anchor-id="aliases"><span class="header-section-number">11.4</span> Aliases</h2>
+<section id="aliases" class="level2" data-number="15.2">
+<h2 data-number="15.2" class="anchored" data-anchor-id="aliases"><span class="header-section-number">15.2</span> Aliases</h2>
 <p>Aliases are shortcuts for commands. You can specify them using <code>alias</code> as a line in your <code>.bashrc</code> file:</p>
 <pre><code>alias ll='ls -la'</code></pre>
 <p>We are defining an alias called <code>ll</code> that runs <code>ls -la</code> (long listing for directory for all files) here. Once</p>
 <p>Some people even add aliases for things they mistype frequently.</p>
 </section>
-<section id="sec-environment" class="level2" data-number="11.5">
-<h2 data-number="11.5" class="anchored" data-anchor-id="sec-environment"><span class="header-section-number">11.5</span> Environment Variables</h2>
+<section id="sec-environment" class="level2" data-number="15.3">
+<h2 data-number="15.3" class="anchored" data-anchor-id="sec-environment"><span class="header-section-number">15.3</span> Environment Variables</h2>
 <p>Environment variables are variables which can be seen globally in the Linux (or Windows) system across executables.</p>
-<p>You can get a list of all set environment variables by using the <code>env</code> command. Here’s an example from my own system:</p>
+<p>You can get a list of all set environment variables by using the <code>env</code> command. Here’s an example from my own home system:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">env</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <pre><code>SHELL=/bin/bash
 NVM_INC=/home/tladera2/.nvm/versions/node/v21.7.1/include/node
-WSL_DISTRO_NAME=Ubuntu
 NAME=2QM6TV3
 PWD=/home/tladera2
 LOGNAME=tladera2
@@ -311,8 +324,8 @@ LOGNAME=tladera2
 <p>You can see whether an environment variable is set using <code>echo</code>, such as</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$PATH</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <pre><code>/home/tladera2/.local/bin:/home/tladera2/gems/bin:/home/tladera2/.nvm/versions/node/v21.7.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/ [....]</code></pre>
-<section id="setting-environment-variables" class="level3" data-number="11.5.1">
-<h3 data-number="11.5.1" class="anchored" data-anchor-id="setting-environment-variables"><span class="header-section-number">11.5.1</span> Setting Environment Variables</h3>
+<section id="setting-environment-variables" class="level3" data-number="15.3.1">
+<h3 data-number="15.3.1" class="anchored" data-anchor-id="setting-environment-variables"><span class="header-section-number">15.3.1</span> Setting Environment Variables</h3>
 <p>In Bash, we use the <code>export</code> command to declare an environment variable. For example, if we wanted to declare the environment variable <code>$SAMTOOLS_PATH</code> we’d do the following:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># works: note no spaces</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">SAMTOOLS_PATH</span><span class="op">=</span><span class="st">"/home/tladera2/miniconda/bin/"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -324,13 +337,13 @@ LOGNAME=tladera2
 <p>In this case, the value of <code>$SAMTOOLS_PATH</code> will be expanded (substituted) to give the overall path:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/home/tladera2/miniconda/bin/samtools</span> view <span class="at">-c</span> <span class="va">$input_file</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="sec-path" class="level3" data-number="11.5.2">
-<h3 data-number="11.5.2" class="anchored" data-anchor-id="sec-path"><span class="header-section-number">11.5.2</span> A Very Special Environment Variable: <code>$PATH</code></h3>
+<section id="sec-path" class="level3" data-number="15.3.2">
+<h3 data-number="15.3.2" class="anchored" data-anchor-id="sec-path"><span class="header-section-number">15.3.2</span> A Very Special Environment Variable: <code>$PATH</code></h3>
 <p>The most important environment variable is the <code>$PATH</code> variable. This variable is important because it determines where to search for software executables (also called binaries). If you have softwware installed by a package manager (such as <code>miniconda</code>), you may need to add the location of your executables to your <code>$PATH</code>.</p>
 <p>We can add more directories to the <code>$PATH</code> by appending to it. You might have seen the following bit of code in your <code>.bashrc</code>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH</span><span class="op">=</span><span class="va">$PATH</span>:/home/tladera2/samtools/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>In this line, we are adding the path <code>/home/tladera2/samtools/</code> to our <code>$PATH</code> environment variable. Note that how we refer to the <code>PATH</code> variable is different depending on which side the variable is on of the equals sign.</p>
-<div class="callout callout-style-default callout-note callout-empty-content callout-titled">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -340,10 +353,11 @@ LOGNAME=tladera2
 </div>
 </div>
 <div class="callout-body-container callout-body">
-
+<p>The order of directories is the order in which <code>bash</code> will look for executables. If you install software yourself on <code>gizmo</code> (using <code>make</code> or such), you should <em>prepend</em> the binary directory with your software to the <code>$PATH</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH</span><span class="op">=</span>/home/tladeras/samtools/:<span class="va">$PATH</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
-<p>TLDR: We declare the variable using <code>export PATH</code> (no dollar sign) and we append to the variable using <code>$PATH</code> (with dollar sign). This is something that trips me up all the time.</p>
+<p>TLDR: We declare the variable using <code>export PATH</code> (no dollar sign) and we append or prepend to this variable using <code>$PATH</code> (with dollar sign). This is something that trips me up all the time.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -359,14 +373,14 @@ LOGNAME=tladera2
 </div>
 </div>
 </section>
-<section id="making-your-own-environment-variables" class="level3" data-number="11.5.3">
-<h3 data-number="11.5.3" class="anchored" data-anchor-id="making-your-own-environment-variables"><span class="header-section-number">11.5.3</span> Making your own environment variables</h3>
+<section id="making-your-own-environment-variables" class="level3" data-number="15.3.3">
+<h3 data-number="15.3.3" class="anchored" data-anchor-id="making-your-own-environment-variables"><span class="header-section-number">15.3.3</span> Making your own environment variables</h3>
 <p>One of the difficulties with working on a cluster is that your scripts may be in one filesystem (<code>/home/</code>), and your data might be in another filesystem (<code>/fh/fast/</code>). And it might be recommended that you transfer over files to a faster-access filesystem (<code>/fh/temp/</code>) to process them.</p>
 <p>You can set your own environment variables for use in your own scripts. For example, we might define a <code>$TCR_FILE_HOME</code> variable:</p>
 <pre><code>export TCR_FILE_HOME=/fh/fast/my_tcr_project/</code></pre>
 <p>to save us some typing across our scripts. We can use this new environment variable like any other existing environment variable:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/Bash</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">my_file_location</span><span class="op">=</span><span class="va">$TCR_FILE_HOME</span>/fasta_files/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/Bash</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">my_file_location</span><span class="op">=</span><span class="va">$TCR_FILE_HOME</span>/fasta_files/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -381,59 +395,13 @@ LOGNAME=tladera2
 <p>The main difference is when these two files are sourced. <code>bash_profile</code> is used when you do an interactive login, and <code>.bashrc</code> is used for non-interactive shells.</p>
 <p><code>.bashrc</code> should contain the environment variables that you use all the time, such as <code>$PATH</code> and <code>$JAVA_HOME</code> for example.</p>
 <p>You can get the best of both worlds by including the following line in your <code>.bash_profile</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.bashrc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.bashrc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>That way, everything in the <code>.bashrc</code> file is loaded when you log in interactively.</p>
 </div>
 </div>
-</section>
-</section>
-<section id="sec-project" class="level2" data-number="11.6">
-<h2 data-number="11.6" class="anchored" data-anchor-id="sec-project"><span class="header-section-number">11.6</span> Project/folder based workflows</h2>
-<p>On a particular machine, using <em>absolute</em> paths is safe. However, you do this at the cost of <em>portability</em> - code that you write on one machine may not run on another.</p>
-<p>If you ever anticipate doing the analysis on a separate machine, using project structures with relative paths is the safest. For example, you may want to move from the on-premise FH system to working with the data in AWS.</p>
-<p>Here’s one example of putting everything into a single folder:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">my_project</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> data</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> ├── chr1.fa.gz</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> ├── chr2.fa.gz</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> └── chr3.fa.gz</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> results</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> run_workflow.sh</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> scripts</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> run_bowtie.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>In the above example, our project is named <code>my_project</code>, and there are three folders inside it: <code>data/</code>, <code>results/</code>, and <code>scripts/</code>. Our main script for running is <code>my_project/run_workflow.sh</code>. Because this script is in the root folder, we can refer to the <code>data/</code> folder to process files:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./scripts/run_bowtie.sh</span> data/<span class="pp">*</span>.fa.gz results/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>When we run <code>run_workflow.sh</code>, it will execute <code>run_bowtie.sh</code> on all of the files in <code>data/</code>, and save them in <code>results/</code>, resulting in the following updated structure.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">my_project</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> data</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> ├── chr1.fa.gz</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> ├── chr2.fa.gz</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> └── chr3.fa.gz</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> results</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> ├── chr1.bam</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> ├── chr2.bam</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> └── chr3.bam</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> run_workflow.sh</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> scripts</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> run_bowtie.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>You may have seen relative paths such as <code>../another_directory/</code> - the <code>..</code> means to go up a directory in the file hierarchy, and then look in that directory for the <code>another_directory/</code> directory. I try to avoid using relative paths like these.</p>
-<p>In general for portability and reproducibility, you will want to use relative paths <strong>within a directory</strong>, and avoid using relative paths like <code>../../my_folder</code>, where you are navigating up. In general, use relative paths to navigate down.</p>
-<div class="callout callout-style-simple callout-none no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">None</span>Why This is Important
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>When you start executing scripts, it’s important to know where the results go. When you execute SAMtools on a file in <code>/fh/temp/</code>, for example, where does the output go?</p>
-<p>Workflow Runners such as Cromwell and Nextflow will output into certain file structures by default. This can be changed, but knowing the default behavior is super helpful when you don’t specify an output directory.</p>
-</div>
-</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -840,12 +808,12 @@ LOGNAME=tladera2
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./testing.html" class="pagination-link" aria-label="Testing Scripts">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Testing Scripts</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Testing Scripts</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./miscellaneous.html" class="pagination-link" aria-label="Miscellaneous">
-        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Miscellaneous</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Miscellaneous</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

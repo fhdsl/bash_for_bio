@@ -1,0 +1,15 @@
+{
+  "align_reads.aligned_bam": "/Users/tladera2/Code/bash_for_bio/viral-pipelines-2.1.0.2/20251103_113517_assemble_refbased/call-align_to_ref-0/out/aligned_bam/G5012.3.testreads.all.bam",
+  "align_reads.aligned_bam_flagstat": "/Users/tladera2/Code/bash_for_bio/viral-pipelines-2.1.0.2/20251103_113517_assemble_refbased/call-align_to_ref-0/out/aligned_bam_flagstat/G5012.3.testreads.all.bam.flagstat.txt",
+  "align_reads.aligned_bam_idx": "/Users/tladera2/Code/bash_for_bio/viral-pipelines-2.1.0.2/20251103_113517_assemble_refbased/call-align_to_ref-0/out/aligned_bam_idx/G5012.3.testreads.all.bai",
+  "align_reads.aligned_only_reads_bam": "/Users/tladera2/Code/bash_for_bio/viral-pipelines-2.1.0.2/20251103_113517_assemble_refbased/call-align_to_ref-0/out/aligned_only_reads_bam/G5012.3.testreads.mapped.bam",
+  "align_reads.aligned_only_reads_bam_idx": "/Users/tladera2/Code/bash_for_bio/viral-pipelines-2.1.0.2/20251103_113517_assemble_refbased/call-align_to_ref-0/out/aligned_only_reads_bam_idx/G5012.3.testreads.mapped.bai",
+  "align_reads.aligned_only_reads_fastqc": "/Users/tladera2/Code/bash_for_bio/viral-pipelines-2.1.0.2/20251103_113517_assemble_refbased/call-align_to_ref-0/out/aligned_only_reads_fastqc/G5012.3.testreads.mapped_fastqc.html",
+  "align_reads.aligned_only_reads_fastqc_zip": "/Users/tladera2/Code/bash_for_bio/viral-pipelines-2.1.0.2/20251103_113517_assemble_refbased/call-align_to_ref-0/out/aligned_only_reads_fastqc_zip/G5012.3.testreads.mapped_fastqc.zip",
+  "align_reads.bases_aligned": 1782044,
+  "align_reads.mean_coverage": 93.99461996940767,
+  "align_reads.read_pairs_aligned": 17742,
+  "align_reads.reads_aligned": 17644,
+  "align_reads.reads_provided": 18710,
+  "align_reads.viralngs_version": "v2.4.3-3-gd3ad25d5"
+}

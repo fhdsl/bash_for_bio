@@ -1,0 +1,515 @@
++ tee VERSION
++ read_utils.py --version
++ cp /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/ebov-makona.fasta assembly.fasta
++ grep -v '^>' assembly.fasta
++ wc -c
++ tee assembly_length
++ tr -d '\n'
+++ cat assembly_length
++ '[' 18959 '!=' 0 ']'
++ '[' novoalign == novoalign ']'
++ read_utils.py novoindex assembly.fasta --loglevel=DEBUG
+2025-11-03 19:37:24,130 - cmd:196:main_argparse - INFO - software version: v2.4.3-3-gd3ad25d5, python version: 3.12.11 | packaged by conda-forge | (main, Jun  4 2025, 14:45:31) [GCC 13.3.0]
+2025-11-03 19:37:24,131 - cmd:197:main_argparse - INFO - command: /opt/viral-ngs/source/read_utils.py novoindex refFasta=assembly.fasta novoalign_license_path=None loglevel=DEBUG
+2025-11-03 19:37:24,132 - novoalign:212:index_fasta - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/novoindex assembly.nix assembly.fasta
+# novoindex (3.9) - Universal k-mer index constructor.
+# (C) 2008 - 2011 NovoCraft Technologies Sdn Bhd
+# novoindex assembly.nix assembly.fasta 
+# Building with 9-mer and step of 1 bp.
+# novoindex construction dT = 0.0s
+# Index memory size   0.001Gbyte.
+# Done.
++ read_utils.py index_fasta_picard assembly.fasta --loglevel=DEBUG
+2025-11-03 19:37:24,666 - cmd:196:main_argparse - INFO - software version: v2.4.3-3-gd3ad25d5, python version: 3.12.11 | packaged by conda-forge | (main, Jun  4 2025, 14:45:31) [GCC 13.3.0]
+2025-11-03 19:37:24,667 - cmd:197:main_argparse - INFO - command: /opt/viral-ngs/source/read_utils.py index_fasta_picard inFasta=assembly.fasta JVMmemory=512m picardOptions=[] loglevel=DEBUG tmp_dir=/tmp tmp_dirKeep=False
+2025-11-03 19:37:24,669 - cmd:212:main_argparse - DEBUG - using tempDir: /tmp/tmp-read_utils-index_fasta_picard-idx50wn4
+2025-11-03 19:37:24,671 - picard:50:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/picard -Xmx512m -Djava.io.tmpdir=/tmp/tmp-read_utils-index_fasta_picard-idx50wn4 CreateSequenceDictionary REFERENCE=/mnt/miniwdl_task_container/work/assembly.sanitized_ids.fasta OUTPUT=assembly.dict
+INFO	2025-11-03 19:37:25	CreateSequenceDictionary	
+
+********** NOTE: Picard's command line syntax is changing.
+**********
+********** For more information, please see:
+********** https://github.com/broadinstitute/picard/wiki/Command-Line-Syntax-Transition-For-Users-(Pre-Transition)
+**********
+********** The command line looks like this in the new syntax:
+**********
+**********    CreateSequenceDictionary -REFERENCE /mnt/miniwdl_task_container/work/assembly.sanitized_ids.fasta -OUTPUT assembly.dict
+**********
+
+
+19:37:25.944 INFO  NativeLibraryLoader - Loading libgkl_compression.so from jar:file:/opt/miniconda/envs/viral-ngs-env/share/picard-2.25.6-0/picard.jar!/com/intel/gkl/native/libgkl_compression.so
+[Mon Nov 03 19:37:25 UTC 2025] CreateSequenceDictionary OUTPUT=assembly.dict REFERENCE=/mnt/miniwdl_task_container/work/assembly.sanitized_ids.fasta    TRUNCATE_NAMES_AT_WHITESPACE=true NUM_SEQUENCES=2147483647 VERBOSITY=INFO QUIET=false VALIDATION_STRINGENCY=STRICT COMPRESSION_LEVEL=5 MAX_RECORDS_IN_RAM=500000 CREATE_INDEX=false CREATE_MD5_FILE=false GA4GH_CLIENT_SECRETS=client_secrets.json USE_JDK_DEFLATER=false USE_JDK_INFLATER=false
+[Mon Nov 03 19:37:25 UTC 2025] Executing as root@d89b99e72e29 on Linux 6.10.14-linuxkit amd64; OpenJDK 64-Bit Server VM 1.8.0_412-b08; Deflater: Intel; Inflater: Intel; Provider GCS is not available; Picard version: 2.25.6
+[Mon Nov 03 19:37:25 UTC 2025] picard.sam.CreateSequenceDictionary done. Elapsed time: 0.00 minutes.
+Runtime.totalMemory()=124780544
++ read_utils.py index_fasta_samtools assembly.fasta --loglevel=DEBUG
+2025-11-03 19:37:26,550 - cmd:196:main_argparse - INFO - software version: v2.4.3-3-gd3ad25d5, python version: 3.12.11 | packaged by conda-forge | (main, Jun  4 2025, 14:45:31) [GCC 13.3.0]
+2025-11-03 19:37:26,551 - cmd:197:main_argparse - INFO - command: /opt/viral-ngs/source/read_utils.py index_fasta_samtools inFasta=assembly.fasta loglevel=DEBUG
+2025-11-03 19:37:26,553 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools faidx /tmp/tmpir5l6wnm_assembly.fasta
++ read_utils.py align_and_fix /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.bam assembly.fasta --outBamAll G5012.3.testreads.all.bam --outBamFiltered G5012.3.testreads.mapped.bam --aligner novoalign --aligner_options '-r Random -l 40 -g 40 -x 20 -t 501 -k' --JVMmemory=3g --loglevel=DEBUG
+2025-11-03 19:37:27,086 - cmd:196:main_argparse - INFO - software version: v2.4.3-3-gd3ad25d5, python version: 3.12.11 | packaged by conda-forge | (main, Jun  4 2025, 14:45:31) [GCC 13.3.0]
+2025-11-03 19:37:27,087 - cmd:197:main_argparse - INFO - command: /opt/viral-ngs/source/read_utils.py align_and_fix inBam=/mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.bam refFasta=assembly.fasta outBamAll=G5012.3.testreads.all.bam outBamFiltered=G5012.3.testreads.mapped.bam aligner_options=-r Random -l 40 -g 40 -x 20 -t 501 -k aligner=novoalign bwa_min_score=None novoalign_amplicons_bed=None amplicon_window=4 JVMmemory=3g threads=None skip_mark_dupes=False gatk_path=None novoalign_license_path=None loglevel=DEBUG tmp_dir=/tmp tmp_dirKeep=False
+2025-11-03 19:37:27,088 - cmd:212:main_argparse - DEBUG - using tempDir: /tmp/tmp-read_utils-align_and_fix-6ngl2xmy
+2025-11-03 19:37:27,089 - picard:50:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/picard -Xmx3g -Djava.io.tmpdir=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy CreateSequenceDictionary REFERENCE=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.sanitized_ids.fasta OUTPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.dict
+INFO	2025-11-03 19:37:27	CreateSequenceDictionary	
+
+********** NOTE: Picard's command line syntax is changing.
+**********
+********** For more information, please see:
+********** https://github.com/broadinstitute/picard/wiki/Command-Line-Syntax-Transition-For-Users-(Pre-Transition)
+**********
+********** The command line looks like this in the new syntax:
+**********
+**********    CreateSequenceDictionary -REFERENCE /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.sanitized_ids.fasta -OUTPUT /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.dict
+**********
+
+
+19:37:28.295 INFO  NativeLibraryLoader - Loading libgkl_compression.so from jar:file:/opt/miniconda/envs/viral-ngs-env/share/picard-2.25.6-0/picard.jar!/com/intel/gkl/native/libgkl_compression.so
+[Mon Nov 03 19:37:28 UTC 2025] CreateSequenceDictionary OUTPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.dict REFERENCE=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.sanitized_ids.fasta    TRUNCATE_NAMES_AT_WHITESPACE=true NUM_SEQUENCES=2147483647 VERBOSITY=INFO QUIET=false VALIDATION_STRINGENCY=STRICT COMPRESSION_LEVEL=5 MAX_RECORDS_IN_RAM=500000 CREATE_INDEX=false CREATE_MD5_FILE=false GA4GH_CLIENT_SECRETS=client_secrets.json USE_JDK_DEFLATER=false USE_JDK_INFLATER=false
+[Mon Nov 03 19:37:28 UTC 2025] Executing as root@d89b99e72e29 on Linux 6.10.14-linuxkit amd64; OpenJDK 64-Bit Server VM 1.8.0_412-b08; Deflater: Intel; Inflater: Intel; Provider GCS is not available; Picard version: 2.25.6
+[Mon Nov 03 19:37:28 UTC 2025] picard.sam.CreateSequenceDictionary done. Elapsed time: 0.00 minutes.
+Runtime.totalMemory()=124780544
+2025-11-03 19:37:28,349 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools faidx /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpdadyy_gj_tmps41dib98.ref_copy.fasta
+2025-11-03 19:37:28,366 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools view -H -o /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpfrfonu64.txt /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.bam
+2025-11-03 19:37:28,387 - novoalign:212:index_fasta - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/novoindex /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.nix /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.fasta
+# novoindex (3.9) - Universal k-mer index constructor.
+# (C) 2008 - 2011 NovoCraft Technologies Sdn Bhd
+# novoindex /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.nix /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.fasta 
+# Building with 9-mer and step of 1 bp.
+# novoindex construction dT = 0.0s
+# Index memory size   0.001Gbyte.
+# Done.
+2025-11-03 19:37:28,407 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools view -H -o /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpyika6lit.txt /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.bam
+2025-11-03 19:37:28,427 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools view -H -o /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp53qqdebp.txt /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.bam
+2025-11-03 19:37:28,448 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools view -b -r HAVA0.1 -o /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpeuet91rz.onebam.bam /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.bam
+2025-11-03 19:37:28,500 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools view -H -o /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpadavafmt.txt /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.bam
+2025-11-03 19:37:28,520 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools reheader /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpepqgts8u.HAVA0.1.header.txt /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpeuet91rz.onebam.bam
+2025-11-03 19:37:28,540 - novoalign:171:align_one_rg_bam - INFO - novoalign on /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpb91x5wtv.HAVA0.1.in.bam (62928B), read group HAVA0.1
+2025-11-03 19:37:28,541 - novoalign:175:align_one_rg_bam - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/novoalign -f /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpb91x5wtv.HAVA0.1.in.bam -r Random -l 40 -g 40 -x 20 -t 501 -k -F BAM -d /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.nix -o SAM
+2025-11-03 19:37:28,781 - picard:50:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/picard -Xmx3g -Djava.io.tmpdir=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy SortSam INPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpq1alged1.novoalign.sam OUTPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpydb67otf.HAVA0.1.bam SORT_ORDER=coordinate CREATE_INDEX=true VALIDATION_STRINGENCY=SILENT
+INFO	2025-11-03 19:37:29	SortSam	
+
+********** NOTE: Picard's command line syntax is changing.
+**********
+********** For more information, please see:
+********** https://github.com/broadinstitute/picard/wiki/Command-Line-Syntax-Transition-For-Users-(Pre-Transition)
+**********
+********** The command line looks like this in the new syntax:
+**********
+**********    SortSam -INPUT /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpq1alged1.novoalign.sam -OUTPUT /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpydb67otf.HAVA0.1.bam -SORT_ORDER coordinate -CREATE_INDEX true -VALIDATION_STRINGENCY SILENT
+**********
+
+
+19:37:29.988 INFO  NativeLibraryLoader - Loading libgkl_compression.so from jar:file:/opt/miniconda/envs/viral-ngs-env/share/picard-2.25.6-0/picard.jar!/com/intel/gkl/native/libgkl_compression.so
+[Mon Nov 03 19:37:30 UTC 2025] SortSam INPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpq1alged1.novoalign.sam OUTPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpydb67otf.HAVA0.1.bam SORT_ORDER=coordinate VALIDATION_STRINGENCY=SILENT CREATE_INDEX=true    VERBOSITY=INFO QUIET=false COMPRESSION_LEVEL=5 MAX_RECORDS_IN_RAM=500000 CREATE_MD5_FILE=false GA4GH_CLIENT_SECRETS=client_secrets.json USE_JDK_DEFLATER=false USE_JDK_INFLATER=false
+[Mon Nov 03 19:37:30 UTC 2025] Executing as root@d89b99e72e29 on Linux 6.10.14-linuxkit amd64; OpenJDK 64-Bit Server VM 1.8.0_412-b08; Deflater: Intel; Inflater: Intel; Provider GCS is not available; Picard version: 2.25.6
+INFO	2025-11-03 19:37:30	SortSam	Finished reading inputs, merging and writing to output now.
+[Mon Nov 03 19:37:30 UTC 2025] picard.sam.SortSam done. Elapsed time: 0.00 minutes.
+Runtime.totalMemory()=124780544
+2025-11-03 19:37:30,202 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools view -b -r HAVA0.2 -o /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpzozdzi3t.onebam.bam /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.bam
+2025-11-03 19:37:30,266 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools view -H -o /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpb7tfe02i.txt /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.bam
+2025-11-03 19:37:30,287 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools reheader /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpnmxzrelc.HAVA0.2.header.txt /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpzozdzi3t.onebam.bam
+2025-11-03 19:37:30,308 - novoalign:171:align_one_rg_bam - INFO - novoalign on /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpw1jwtmld.HAVA0.2.in.bam (239692B), read group HAVA0.2
+2025-11-03 19:37:30,308 - novoalign:175:align_one_rg_bam - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/novoalign -f /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpw1jwtmld.HAVA0.2.in.bam -r Random -l 40 -g 40 -x 20 -t 501 -k -F BAM -d /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.nix -o SAM
+2025-11-03 19:37:30,931 - picard:50:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/picard -Xmx3g -Djava.io.tmpdir=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy SortSam INPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpsgf4ktm3.novoalign.sam OUTPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp1g264ssh.HAVA0.2.bam SORT_ORDER=coordinate CREATE_INDEX=true VALIDATION_STRINGENCY=SILENT
+INFO	2025-11-03 19:37:31	SortSam	
+
+********** NOTE: Picard's command line syntax is changing.
+**********
+********** For more information, please see:
+********** https://github.com/broadinstitute/picard/wiki/Command-Line-Syntax-Transition-For-Users-(Pre-Transition)
+**********
+********** The command line looks like this in the new syntax:
+**********
+**********    SortSam -INPUT /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpsgf4ktm3.novoalign.sam -OUTPUT /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp1g264ssh.HAVA0.2.bam -SORT_ORDER coordinate -CREATE_INDEX true -VALIDATION_STRINGENCY SILENT
+**********
+
+
+19:37:32.118 INFO  NativeLibraryLoader - Loading libgkl_compression.so from jar:file:/opt/miniconda/envs/viral-ngs-env/share/picard-2.25.6-0/picard.jar!/com/intel/gkl/native/libgkl_compression.so
+[Mon Nov 03 19:37:32 UTC 2025] SortSam INPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpsgf4ktm3.novoalign.sam OUTPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp1g264ssh.HAVA0.2.bam SORT_ORDER=coordinate VALIDATION_STRINGENCY=SILENT CREATE_INDEX=true    VERBOSITY=INFO QUIET=false COMPRESSION_LEVEL=5 MAX_RECORDS_IN_RAM=500000 CREATE_MD5_FILE=false GA4GH_CLIENT_SECRETS=client_secrets.json USE_JDK_DEFLATER=false USE_JDK_INFLATER=false
+[Mon Nov 03 19:37:32 UTC 2025] Executing as root@d89b99e72e29 on Linux 6.10.14-linuxkit amd64; OpenJDK 64-Bit Server VM 1.8.0_412-b08; Deflater: Intel; Inflater: Intel; Provider GCS is not available; Picard version: 2.25.6
+INFO	2025-11-03 19:37:32	SortSam	Seen many non-increasing record positions. Printing Read-names as well.
+INFO	2025-11-03 19:37:32	SortSam	Finished reading inputs, merging and writing to output now.
+[Mon Nov 03 19:37:32 UTC 2025] picard.sam.SortSam done. Elapsed time: 0.01 minutes.
+Runtime.totalMemory()=157286400
+2025-11-03 19:37:32,437 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools view -b -r HBDBR.1 -o /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpwvcx1us5.onebam.bam /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.bam
+2025-11-03 19:37:32,486 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools view -H -o /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp_ggfs0hp.txt /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.bam
+2025-11-03 19:37:32,505 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools reheader /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpc16zg4tw.HBDBR.1.header.txt /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpwvcx1us5.onebam.bam
+2025-11-03 19:37:32,525 - novoalign:171:align_one_rg_bam - INFO - novoalign on /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpablw6ucl.HBDBR.1.in.bam (903B), read group HBDBR.1
+2025-11-03 19:37:32,526 - novoalign:175:align_one_rg_bam - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/novoalign -f /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpablw6ucl.HBDBR.1.in.bam -r Random -l 40 -g 40 -x 20 -t 501 -k -F BAM -d /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.nix -o SAM
+2025-11-03 19:37:32,592 - picard:50:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/picard -Xmx3g -Djava.io.tmpdir=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy SortSam INPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmphph68hr1.novoalign.sam OUTPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpxsw3tbf5.HBDBR.1.bam SORT_ORDER=coordinate CREATE_INDEX=true VALIDATION_STRINGENCY=SILENT
+INFO	2025-11-03 19:37:33	SortSam	
+
+********** NOTE: Picard's command line syntax is changing.
+**********
+********** For more information, please see:
+********** https://github.com/broadinstitute/picard/wiki/Command-Line-Syntax-Transition-For-Users-(Pre-Transition)
+**********
+********** The command line looks like this in the new syntax:
+**********
+**********    SortSam -INPUT /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmphph68hr1.novoalign.sam -OUTPUT /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpxsw3tbf5.HBDBR.1.bam -SORT_ORDER coordinate -CREATE_INDEX true -VALIDATION_STRINGENCY SILENT
+**********
+
+
+19:37:33.797 INFO  NativeLibraryLoader - Loading libgkl_compression.so from jar:file:/opt/miniconda/envs/viral-ngs-env/share/picard-2.25.6-0/picard.jar!/com/intel/gkl/native/libgkl_compression.so
+[Mon Nov 03 19:37:33 UTC 2025] SortSam INPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmphph68hr1.novoalign.sam OUTPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpxsw3tbf5.HBDBR.1.bam SORT_ORDER=coordinate VALIDATION_STRINGENCY=SILENT CREATE_INDEX=true    VERBOSITY=INFO QUIET=false COMPRESSION_LEVEL=5 MAX_RECORDS_IN_RAM=500000 CREATE_MD5_FILE=false GA4GH_CLIENT_SECRETS=client_secrets.json USE_JDK_DEFLATER=false USE_JDK_INFLATER=false
+[Mon Nov 03 19:37:33 UTC 2025] Executing as root@d89b99e72e29 on Linux 6.10.14-linuxkit amd64; OpenJDK 64-Bit Server VM 1.8.0_412-b08; Deflater: Intel; Inflater: Intel; Provider GCS is not available; Picard version: 2.25.6
+INFO	2025-11-03 19:37:33	SortSam	Finished reading inputs, merging and writing to output now.
+[Mon Nov 03 19:37:33 UTC 2025] picard.sam.SortSam done. Elapsed time: 0.00 minutes.
+Runtime.totalMemory()=124780544
+2025-11-03 19:37:33,878 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools view -b -r HBDBR.2 -o /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpmf1gjx1o.onebam.bam /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.bam
+2025-11-03 19:37:33,925 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools view -b -r HBDCC.1 -o /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpzdgj9jt3.onebam.bam /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.bam
+2025-11-03 19:37:33,969 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools view -b -r HBDCC.2 -o /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpub7brhyk.onebam.bam /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.bam
+2025-11-03 19:37:34,014 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools view -b -r HBDFG.1 -o /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpl8hacmwm.onebam.bam /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.bam
+2025-11-03 19:37:34,059 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools view -b -r HBDFG.2 -o /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpo7ilmo_w.onebam.bam /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.bam
+2025-11-03 19:37:34,105 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools view -H -o /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp13ezj9ep.txt /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.bam
+2025-11-03 19:37:34,124 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools reheader /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmppf4gpwus.HBDFG.2.header.txt /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpo7ilmo_w.onebam.bam
+2025-11-03 19:37:34,145 - novoalign:171:align_one_rg_bam - INFO - novoalign on /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmphuqvi6gk.HBDFG.2.in.bam (871B), read group HBDFG.2
+2025-11-03 19:37:34,145 - novoalign:175:align_one_rg_bam - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/novoalign -f /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmphuqvi6gk.HBDFG.2.in.bam -r Random -l 40 -g 40 -x 20 -t 501 -k -F BAM -d /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.nix -o SAM
+2025-11-03 19:37:34,212 - picard:50:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/picard -Xmx3g -Djava.io.tmpdir=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy SortSam INPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpp6whwgjl.novoalign.sam OUTPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpk9ouvu5j.HBDFG.2.bam SORT_ORDER=coordinate CREATE_INDEX=true VALIDATION_STRINGENCY=SILENT
+INFO	2025-11-03 19:37:35	SortSam	
+
+********** NOTE: Picard's command line syntax is changing.
+**********
+********** For more information, please see:
+********** https://github.com/broadinstitute/picard/wiki/Command-Line-Syntax-Transition-For-Users-(Pre-Transition)
+**********
+********** The command line looks like this in the new syntax:
+**********
+**********    SortSam -INPUT /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpp6whwgjl.novoalign.sam -OUTPUT /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpk9ouvu5j.HBDFG.2.bam -SORT_ORDER coordinate -CREATE_INDEX true -VALIDATION_STRINGENCY SILENT
+**********
+
+
+19:37:35.396 INFO  NativeLibraryLoader - Loading libgkl_compression.so from jar:file:/opt/miniconda/envs/viral-ngs-env/share/picard-2.25.6-0/picard.jar!/com/intel/gkl/native/libgkl_compression.so
+[Mon Nov 03 19:37:35 UTC 2025] SortSam INPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpp6whwgjl.novoalign.sam OUTPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpk9ouvu5j.HBDFG.2.bam SORT_ORDER=coordinate VALIDATION_STRINGENCY=SILENT CREATE_INDEX=true    VERBOSITY=INFO QUIET=false COMPRESSION_LEVEL=5 MAX_RECORDS_IN_RAM=500000 CREATE_MD5_FILE=false GA4GH_CLIENT_SECRETS=client_secrets.json USE_JDK_DEFLATER=false USE_JDK_INFLATER=false
+[Mon Nov 03 19:37:35 UTC 2025] Executing as root@d89b99e72e29 on Linux 6.10.14-linuxkit amd64; OpenJDK 64-Bit Server VM 1.8.0_412-b08; Deflater: Intel; Inflater: Intel; Provider GCS is not available; Picard version: 2.25.6
+INFO	2025-11-03 19:37:35	SortSam	Finished reading inputs, merging and writing to output now.
+[Mon Nov 03 19:37:35 UTC 2025] picard.sam.SortSam done. Elapsed time: 0.00 minutes.
+Runtime.totalMemory()=124780544
+2025-11-03 19:37:35,484 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools view -b -r HBDJG.1 -o /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp36yv5bg5.onebam.bam /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.bam
+2025-11-03 19:37:35,538 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools view -H -o /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpoxutqjtm.txt /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.bam
+2025-11-03 19:37:35,558 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools reheader /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp75u1ejzg.HBDJG.1.header.txt /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp36yv5bg5.onebam.bam
+2025-11-03 19:37:35,578 - novoalign:171:align_one_rg_bam - INFO - novoalign on /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpm6it9m48.HBDJG.1.in.bam (110375B), read group HBDJG.1
+2025-11-03 19:37:35,578 - novoalign:175:align_one_rg_bam - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/novoalign -f /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpm6it9m48.HBDJG.1.in.bam -r Random -l 40 -g 40 -x 20 -t 501 -k -F BAM -d /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.nix -o SAM
+2025-11-03 19:37:35,875 - picard:50:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/picard -Xmx3g -Djava.io.tmpdir=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy SortSam INPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpblf2sex3.novoalign.sam OUTPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpq6bx0_e8.HBDJG.1.bam SORT_ORDER=coordinate CREATE_INDEX=true VALIDATION_STRINGENCY=SILENT
+INFO	2025-11-03 19:37:36	SortSam	
+
+********** NOTE: Picard's command line syntax is changing.
+**********
+********** For more information, please see:
+********** https://github.com/broadinstitute/picard/wiki/Command-Line-Syntax-Transition-For-Users-(Pre-Transition)
+**********
+********** The command line looks like this in the new syntax:
+**********
+**********    SortSam -INPUT /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpblf2sex3.novoalign.sam -OUTPUT /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpq6bx0_e8.HBDJG.1.bam -SORT_ORDER coordinate -CREATE_INDEX true -VALIDATION_STRINGENCY SILENT
+**********
+
+
+19:37:37.067 INFO  NativeLibraryLoader - Loading libgkl_compression.so from jar:file:/opt/miniconda/envs/viral-ngs-env/share/picard-2.25.6-0/picard.jar!/com/intel/gkl/native/libgkl_compression.so
+[Mon Nov 03 19:37:37 UTC 2025] SortSam INPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpblf2sex3.novoalign.sam OUTPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpq6bx0_e8.HBDJG.1.bam SORT_ORDER=coordinate VALIDATION_STRINGENCY=SILENT CREATE_INDEX=true    VERBOSITY=INFO QUIET=false COMPRESSION_LEVEL=5 MAX_RECORDS_IN_RAM=500000 CREATE_MD5_FILE=false GA4GH_CLIENT_SECRETS=client_secrets.json USE_JDK_DEFLATER=false USE_JDK_INFLATER=false
+[Mon Nov 03 19:37:37 UTC 2025] Executing as root@d89b99e72e29 on Linux 6.10.14-linuxkit amd64; OpenJDK 64-Bit Server VM 1.8.0_412-b08; Deflater: Intel; Inflater: Intel; Provider GCS is not available; Picard version: 2.25.6
+INFO	2025-11-03 19:37:37	SortSam	Finished reading inputs, merging and writing to output now.
+[Mon Nov 03 19:37:37 UTC 2025] picard.sam.SortSam done. Elapsed time: 0.00 minutes.
+Runtime.totalMemory()=124780544
+2025-11-03 19:37:37,304 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools view -b -r HBDJG.2 -o /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpqbxk1jvs.onebam.bam /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.bam
+2025-11-03 19:37:37,410 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools view -H -o /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp72oit_1d.txt /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.bam
+2025-11-03 19:37:37,436 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools reheader /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpp8wd5g8g.HBDJG.2.header.txt /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpqbxk1jvs.onebam.bam
+2025-11-03 19:37:37,462 - novoalign:171:align_one_rg_bam - INFO - novoalign on /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmph6jdyej_.HBDJG.2.in.bam (1097518B), read group HBDJG.2
+2025-11-03 19:37:37,462 - novoalign:175:align_one_rg_bam - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/novoalign -f /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmph6jdyej_.HBDJG.2.in.bam -r Random -l 40 -g 40 -x 20 -t 501 -k -F BAM -d /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.nix -o SAM
+2025-11-03 19:37:39,571 - picard:50:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/picard -Xmx3g -Djava.io.tmpdir=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy SortSam INPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpxl5yf3zi.novoalign.sam OUTPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpkyure9jo.HBDJG.2.bam SORT_ORDER=coordinate CREATE_INDEX=true VALIDATION_STRINGENCY=SILENT
+INFO	2025-11-03 19:37:40	SortSam	
+
+********** NOTE: Picard's command line syntax is changing.
+**********
+********** For more information, please see:
+********** https://github.com/broadinstitute/picard/wiki/Command-Line-Syntax-Transition-For-Users-(Pre-Transition)
+**********
+********** The command line looks like this in the new syntax:
+**********
+**********    SortSam -INPUT /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpxl5yf3zi.novoalign.sam -OUTPUT /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpkyure9jo.HBDJG.2.bam -SORT_ORDER coordinate -CREATE_INDEX true -VALIDATION_STRINGENCY SILENT
+**********
+
+
+19:37:40.816 INFO  NativeLibraryLoader - Loading libgkl_compression.so from jar:file:/opt/miniconda/envs/viral-ngs-env/share/picard-2.25.6-0/picard.jar!/com/intel/gkl/native/libgkl_compression.so
+[Mon Nov 03 19:37:40 UTC 2025] SortSam INPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpxl5yf3zi.novoalign.sam OUTPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpkyure9jo.HBDJG.2.bam SORT_ORDER=coordinate VALIDATION_STRINGENCY=SILENT CREATE_INDEX=true    VERBOSITY=INFO QUIET=false COMPRESSION_LEVEL=5 MAX_RECORDS_IN_RAM=500000 CREATE_MD5_FILE=false GA4GH_CLIENT_SECRETS=client_secrets.json USE_JDK_DEFLATER=false USE_JDK_INFLATER=false
+[Mon Nov 03 19:37:40 UTC 2025] Executing as root@d89b99e72e29 on Linux 6.10.14-linuxkit amd64; OpenJDK 64-Bit Server VM 1.8.0_412-b08; Deflater: Intel; Inflater: Intel; Provider GCS is not available; Picard version: 2.25.6
+INFO	2025-11-03 19:37:40	SortSam	Seen many non-increasing record positions. Printing Read-names as well.
+INFO	2025-11-03 19:37:41	SortSam	Finished reading inputs, merging and writing to output now.
+[Mon Nov 03 19:37:41 UTC 2025] picard.sam.SortSam done. Elapsed time: 0.01 minutes.
+Runtime.totalMemory()=157286400
+2025-11-03 19:37:41,409 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools view -b -r HBDJL.1 -o /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpufexlb47.onebam.bam /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.bam
+2025-11-03 19:37:41,465 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools view -H -o /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp6scivkgq.txt /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.bam
+2025-11-03 19:37:41,485 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools reheader /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpogyk33hr.HBDJL.1.header.txt /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpufexlb47.onebam.bam
+2025-11-03 19:37:41,506 - novoalign:171:align_one_rg_bam - INFO - novoalign on /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp3pdkz5sn.HBDJL.1.in.bam (722B), read group HBDJL.1
+2025-11-03 19:37:41,506 - novoalign:175:align_one_rg_bam - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/novoalign -f /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp3pdkz5sn.HBDJL.1.in.bam -r Random -l 40 -g 40 -x 20 -t 501 -k -F BAM -d /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.nix -o SAM
+2025-11-03 19:37:41,572 - picard:50:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/picard -Xmx3g -Djava.io.tmpdir=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy SortSam INPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmppquz0ux7.novoalign.sam OUTPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp_s4kintc.HBDJL.1.bam SORT_ORDER=coordinate CREATE_INDEX=true VALIDATION_STRINGENCY=SILENT
+INFO	2025-11-03 19:37:42	SortSam	
+
+********** NOTE: Picard's command line syntax is changing.
+**********
+********** For more information, please see:
+********** https://github.com/broadinstitute/picard/wiki/Command-Line-Syntax-Transition-For-Users-(Pre-Transition)
+**********
+********** The command line looks like this in the new syntax:
+**********
+**********    SortSam -INPUT /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmppquz0ux7.novoalign.sam -OUTPUT /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp_s4kintc.HBDJL.1.bam -SORT_ORDER coordinate -CREATE_INDEX true -VALIDATION_STRINGENCY SILENT
+**********
+
+
+19:37:42.783 INFO  NativeLibraryLoader - Loading libgkl_compression.so from jar:file:/opt/miniconda/envs/viral-ngs-env/share/picard-2.25.6-0/picard.jar!/com/intel/gkl/native/libgkl_compression.so
+[Mon Nov 03 19:37:42 UTC 2025] SortSam INPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmppquz0ux7.novoalign.sam OUTPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp_s4kintc.HBDJL.1.bam SORT_ORDER=coordinate VALIDATION_STRINGENCY=SILENT CREATE_INDEX=true    VERBOSITY=INFO QUIET=false COMPRESSION_LEVEL=5 MAX_RECORDS_IN_RAM=500000 CREATE_MD5_FILE=false GA4GH_CLIENT_SECRETS=client_secrets.json USE_JDK_DEFLATER=false USE_JDK_INFLATER=false
+[Mon Nov 03 19:37:42 UTC 2025] Executing as root@d89b99e72e29 on Linux 6.10.14-linuxkit amd64; OpenJDK 64-Bit Server VM 1.8.0_412-b08; Deflater: Intel; Inflater: Intel; Provider GCS is not available; Picard version: 2.25.6
+INFO	2025-11-03 19:37:42	SortSam	Finished reading inputs, merging and writing to output now.
+[Mon Nov 03 19:37:42 UTC 2025] picard.sam.SortSam done. Elapsed time: 0.00 minutes.
+Runtime.totalMemory()=124780544
+2025-11-03 19:37:42,898 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools view -b -r HBDJL.2 -o /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp0a5kvkpt.onebam.bam /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.bam
+2025-11-03 19:37:42,945 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools view -H -o /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpdtd52ipd.txt /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.bam
+2025-11-03 19:37:42,965 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools reheader /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpyg11j05m.HBDJL.2.header.txt /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp0a5kvkpt.onebam.bam
+2025-11-03 19:37:42,986 - novoalign:171:align_one_rg_bam - INFO - novoalign on /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpk2nt7lnq.HBDJL.2.in.bam (869B), read group HBDJL.2
+2025-11-03 19:37:42,986 - novoalign:175:align_one_rg_bam - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/novoalign -f /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpk2nt7lnq.HBDJL.2.in.bam -r Random -l 40 -g 40 -x 20 -t 501 -k -F BAM -d /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.nix -o SAM
+2025-11-03 19:37:43,053 - picard:50:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/picard -Xmx3g -Djava.io.tmpdir=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy SortSam INPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp24qyxjgo.novoalign.sam OUTPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp7zef85vq.HBDJL.2.bam SORT_ORDER=coordinate CREATE_INDEX=true VALIDATION_STRINGENCY=SILENT
+INFO	2025-11-03 19:37:43	SortSam	
+
+********** NOTE: Picard's command line syntax is changing.
+**********
+********** For more information, please see:
+********** https://github.com/broadinstitute/picard/wiki/Command-Line-Syntax-Transition-For-Users-(Pre-Transition)
+**********
+********** The command line looks like this in the new syntax:
+**********
+**********    SortSam -INPUT /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp24qyxjgo.novoalign.sam -OUTPUT /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp7zef85vq.HBDJL.2.bam -SORT_ORDER coordinate -CREATE_INDEX true -VALIDATION_STRINGENCY SILENT
+**********
+
+
+19:37:44.285 INFO  NativeLibraryLoader - Loading libgkl_compression.so from jar:file:/opt/miniconda/envs/viral-ngs-env/share/picard-2.25.6-0/picard.jar!/com/intel/gkl/native/libgkl_compression.so
+[Mon Nov 03 19:37:44 UTC 2025] SortSam INPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp24qyxjgo.novoalign.sam OUTPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp7zef85vq.HBDJL.2.bam SORT_ORDER=coordinate VALIDATION_STRINGENCY=SILENT CREATE_INDEX=true    VERBOSITY=INFO QUIET=false COMPRESSION_LEVEL=5 MAX_RECORDS_IN_RAM=500000 CREATE_MD5_FILE=false GA4GH_CLIENT_SECRETS=client_secrets.json USE_JDK_DEFLATER=false USE_JDK_INFLATER=false
+[Mon Nov 03 19:37:44 UTC 2025] Executing as root@d89b99e72e29 on Linux 6.10.14-linuxkit amd64; OpenJDK 64-Bit Server VM 1.8.0_412-b08; Deflater: Intel; Inflater: Intel; Provider GCS is not available; Picard version: 2.25.6
+INFO	2025-11-03 19:37:44	SortSam	Finished reading inputs, merging and writing to output now.
+[Mon Nov 03 19:37:44 UTC 2025] picard.sam.SortSam done. Elapsed time: 0.00 minutes.
+Runtime.totalMemory()=124780544
+2025-11-03 19:37:44,386 - picard:50:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/picard -Xmx3g -Djava.io.tmpdir=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy MergeSamFiles INPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpydb67otf.HAVA0.1.bam INPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp1g264ssh.HAVA0.2.bam INPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpxsw3tbf5.HBDBR.1.bam INPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpk9ouvu5j.HBDFG.2.bam INPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpq6bx0_e8.HBDJG.1.bam INPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpkyure9jo.HBDJG.2.bam INPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp_s4kintc.HBDJL.1.bam INPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp7zef85vq.HBDJL.2.bam OUTPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpy3pctvos.aligned.bam SORT_ORDER=coordinate USE_THREADING=true CREATE_INDEX=true
+INFO	2025-11-03 19:37:45	MergeSamFiles	
+
+********** NOTE: Picard's command line syntax is changing.
+**********
+********** For more information, please see:
+********** https://github.com/broadinstitute/picard/wiki/Command-Line-Syntax-Transition-For-Users-(Pre-Transition)
+**********
+********** The command line looks like this in the new syntax:
+**********
+**********    MergeSamFiles -INPUT /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpydb67otf.HAVA0.1.bam -INPUT /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp1g264ssh.HAVA0.2.bam -INPUT /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpxsw3tbf5.HBDBR.1.bam -INPUT /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpk9ouvu5j.HBDFG.2.bam -INPUT /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpq6bx0_e8.HBDJG.1.bam -INPUT /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpkyure9jo.HBDJG.2.bam -INPUT /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp_s4kintc.HBDJL.1.bam -INPUT /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp7zef85vq.HBDJL.2.bam -OUTPUT /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpy3pctvos.aligned.bam -SORT_ORDER coordinate -USE_THREADING true -CREATE_INDEX true
+**********
+
+
+19:37:45.596 INFO  NativeLibraryLoader - Loading libgkl_compression.so from jar:file:/opt/miniconda/envs/viral-ngs-env/share/picard-2.25.6-0/picard.jar!/com/intel/gkl/native/libgkl_compression.so
+[Mon Nov 03 19:37:45 UTC 2025] MergeSamFiles INPUT=[/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpydb67otf.HAVA0.1.bam, /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp1g264ssh.HAVA0.2.bam, /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpxsw3tbf5.HBDBR.1.bam, /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpk9ouvu5j.HBDFG.2.bam, /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpq6bx0_e8.HBDJG.1.bam, /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpkyure9jo.HBDJG.2.bam, /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp_s4kintc.HBDJL.1.bam, /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp7zef85vq.HBDJL.2.bam] OUTPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpy3pctvos.aligned.bam SORT_ORDER=coordinate USE_THREADING=true CREATE_INDEX=true    ASSUME_SORTED=false MERGE_SEQUENCE_DICTIONARIES=false VERBOSITY=INFO QUIET=false VALIDATION_STRINGENCY=STRICT COMPRESSION_LEVEL=5 MAX_RECORDS_IN_RAM=500000 CREATE_MD5_FILE=false GA4GH_CLIENT_SECRETS=client_secrets.json USE_JDK_DEFLATER=false USE_JDK_INFLATER=false
+[Mon Nov 03 19:37:45 UTC 2025] Executing as root@d89b99e72e29 on Linux 6.10.14-linuxkit amd64; OpenJDK 64-Bit Server VM 1.8.0_412-b08; Deflater: Intel; Inflater: Intel; Provider GCS is not available; Picard version: 2.25.6
+INFO	2025-11-03 19:37:45	MergeSamFiles	Input files are in same order as output so sorting to temp directory is not needed.
+INFO	2025-11-03 19:37:46	MergeSamFiles	Finished reading inputs.
+[Mon Nov 03 19:37:46 UTC 2025] picard.sam.MergeSamFiles done. Elapsed time: 0.01 minutes.
+Runtime.totalMemory()=157286400
+2025-11-03 19:37:46,167 - picard:50:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/picard -Xmx3g -Djava.io.tmpdir=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy MarkDuplicates INPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpy3pctvos.aligned.bam OUTPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpjj_7cfe3.mkdup.bam METRICS_FILE=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp2y9i3fzb.metrics CREATE_INDEX=true
+INFO	2025-11-03 19:37:47	MarkDuplicates	
+
+********** NOTE: Picard's command line syntax is changing.
+**********
+********** For more information, please see:
+********** https://github.com/broadinstitute/picard/wiki/Command-Line-Syntax-Transition-For-Users-(Pre-Transition)
+**********
+********** The command line looks like this in the new syntax:
+**********
+**********    MarkDuplicates -INPUT /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpy3pctvos.aligned.bam -OUTPUT /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpjj_7cfe3.mkdup.bam -METRICS_FILE /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp2y9i3fzb.metrics -CREATE_INDEX true
+**********
+
+
+19:37:47.382 INFO  NativeLibraryLoader - Loading libgkl_compression.so from jar:file:/opt/miniconda/envs/viral-ngs-env/share/picard-2.25.6-0/picard.jar!/com/intel/gkl/native/libgkl_compression.so
+[Mon Nov 03 19:37:47 UTC 2025] MarkDuplicates INPUT=[/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpy3pctvos.aligned.bam] OUTPUT=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpjj_7cfe3.mkdup.bam METRICS_FILE=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp2y9i3fzb.metrics CREATE_INDEX=true    MAX_SEQUENCES_FOR_DISK_READ_ENDS_MAP=50000 MAX_FILE_HANDLES_FOR_READ_ENDS_MAP=8000 SORTING_COLLECTION_SIZE_RATIO=0.25 TAG_DUPLICATE_SET_MEMBERS=false REMOVE_SEQUENCING_DUPLICATES=false TAGGING_POLICY=DontTag CLEAR_DT=true DUPLEX_UMI=false ADD_PG_TAG_TO_READS=true REMOVE_DUPLICATES=false ASSUME_SORTED=false DUPLICATE_SCORING_STRATEGY=SUM_OF_BASE_QUALITIES PROGRAM_RECORD_ID=MarkDuplicates PROGRAM_GROUP_NAME=MarkDuplicates READ_NAME_REGEX=<optimized capture of last three ':' separated fields as numeric values> OPTICAL_DUPLICATE_PIXEL_DISTANCE=100 MAX_OPTICAL_DUPLICATE_SET_SIZE=300000 VERBOSITY=INFO QUIET=false VALIDATION_STRINGENCY=STRICT COMPRESSION_LEVEL=5 MAX_RECORDS_IN_RAM=500000 CREATE_MD5_FILE=false GA4GH_CLIENT_SECRETS=client_secrets.json USE_JDK_DEFLATER=false USE_JDK_INFLATER=false
+[Mon Nov 03 19:37:47 UTC 2025] Executing as root@d89b99e72e29 on Linux 6.10.14-linuxkit amd64; OpenJDK 64-Bit Server VM 1.8.0_412-b08; Deflater: Intel; Inflater: Intel; Provider GCS is not available; Picard version: 2.25.6
+INFO	2025-11-03 19:37:47	MarkDuplicates	Start of doWork freeMemory: 151409544; totalMemory: 157286400; maxMemory: 2863661056
+INFO	2025-11-03 19:37:47	MarkDuplicates	Reading input file and constructing read end information.
+INFO	2025-11-03 19:37:47	MarkDuplicates	Will retain up to 10375583 data points before spilling to disk.
+INFO	2025-11-03 19:37:47	MarkDuplicates	Read 18710 records. 0 pairs never matched.
+INFO	2025-11-03 19:37:47	MarkDuplicates	After buildSortedReadEndLists freeMemory: 190324352; totalMemory: 281018368; maxMemory: 2863661056
+INFO	2025-11-03 19:37:47	MarkDuplicates	Will retain up to 89489408 duplicate indices before spilling to disk.
+INFO	2025-11-03 19:37:48	MarkDuplicates	Traversing read pair information and detecting duplicates.
+INFO	2025-11-03 19:37:48	MarkDuplicates	Traversing fragment information and detecting duplicates.
+INFO	2025-11-03 19:37:48	MarkDuplicates	Sorting list of duplicate records.
+INFO	2025-11-03 19:37:48	MarkDuplicates	After generateDuplicateIndexes freeMemory: 274337176; totalMemory: 996147200; maxMemory: 2863661056
+INFO	2025-11-03 19:37:48	MarkDuplicates	Marking 205 records as duplicates.
+INFO	2025-11-03 19:37:48	MarkDuplicates	Found 0 optical duplicate clusters.
+INFO	2025-11-03 19:37:48	MarkDuplicates	Reads are assumed to be ordered by: coordinate
+INFO	2025-11-03 19:37:48	MarkDuplicates	Writing complete. Closing input iterator.
+INFO	2025-11-03 19:37:48	MarkDuplicates	Duplicate Index cleanup.
+INFO	2025-11-03 19:37:48	MarkDuplicates	Getting Memory Stats.
+INFO	2025-11-03 19:37:48	MarkDuplicates	Before output close freeMemory: 990323352; totalMemory: 997195776; maxMemory: 2863661056
+INFO	2025-11-03 19:37:48	MarkDuplicates	Closed outputs. Getting more Memory Stats.
+INFO	2025-11-03 19:37:48	MarkDuplicates	After output close freeMemory: 989446272; totalMemory: 996147200; maxMemory: 2863661056
+[Mon Nov 03 19:37:48 UTC 2025] picard.sam.markduplicates.MarkDuplicates done. Elapsed time: 0.03 minutes.
+Runtime.totalMemory()=996147200
+2025-11-03 19:37:48,960 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools index /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpjj_7cfe3.mkdup.bam
+2025-11-03 19:37:49,014 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools view -H -o /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpxp9ej019.txt /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpjj_7cfe3.mkdup.bam
+2025-11-03 19:37:49,036 - misc:348:available_cpu_count - DEBUG - cgroup v2 detected
+2025-11-03 19:37:49,036 - misc:361:available_cpu_count - DEBUG - cfs_quota_us 800000, cfs_period_us 100000
+2025-11-03 19:37:49,037 - misc:377:available_cpu_count - DEBUG - cgroup_cpus 8, proc_cpus 8, multiprocessing cpus 8
+2025-11-03 19:37:49,037 - gatk:97:local_realign - DEBUG - Running local realign with 8 threads
+2025-11-03 19:37:49,037 - gatk:64:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/gatk3 -Xmx3g -Djava.io.tmpdir=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy -T RealignerTargetCreator -I /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpjj_7cfe3.mkdup.bam -R /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.fasta -o /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp4ty5w5ge.intervals --num_threads 8
+INFO  19:37:50,863 HelpFormatter - ------------------------------------------------------------------------------------ 
+INFO  19:37:50,865 HelpFormatter - The Genome Analysis Toolkit (GATK) v3.8-1-0-gf15c1c3ef, Compiled 2018/02/19 05:43:50 
+INFO  19:37:50,865 HelpFormatter - Copyright (c) 2010-2016 The Broad Institute 
+INFO  19:37:50,865 HelpFormatter - For support and documentation go to https://software.broadinstitute.org/gatk 
+INFO  19:37:50,865 HelpFormatter - [Mon Nov 03 19:37:50 UTC 2025] Executing on Linux 6.10.14-linuxkit amd64 
+INFO  19:37:50,866 HelpFormatter - OpenJDK 64-Bit Server VM 1.8.0_412-b08 
+INFO  19:37:50,868 HelpFormatter - Program Args: -T RealignerTargetCreator -I /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpjj_7cfe3.mkdup.bam -R /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.fasta -o /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp4ty5w5ge.intervals --num_threads 8 
+INFO  19:37:50,880 HelpFormatter - Executing as root@d89b99e72e29 on Linux 6.10.14-linuxkit amd64; OpenJDK 64-Bit Server VM 1.8.0_412-b08. 
+INFO  19:37:50,880 HelpFormatter - Date/Time: 2025/11/03 19:37:50 
+INFO  19:37:50,883 HelpFormatter - ------------------------------------------------------------------------------------ 
+INFO  19:37:50,884 HelpFormatter - ------------------------------------------------------------------------------------ 
+INFO  19:37:50,894 NativeLibraryLoader - Loading libgkl_compression.so from jar:file:/opt/miniconda/envs/viral-ngs-env/opt/gatk-3.8/GenomeAnalysisTK.jar!/com/intel/gkl/native/libgkl_compression.so 
+INFO  19:37:50,916 GenomeAnalysisEngine - Deflater: IntelDeflater 
+INFO  19:37:50,917 GenomeAnalysisEngine - Inflater: IntelInflater 
+INFO  19:37:50,918 GenomeAnalysisEngine - Strictness is SILENT 
+INFO  19:37:51,035 GenomeAnalysisEngine - Downsampling Settings: Method: BY_SAMPLE, Target Coverage: 1000 
+INFO  19:37:51,039 SAMDataSource$SAMReaders - Initializing SAMRecords in serial 
+INFO  19:37:51,064 SAMDataSource$SAMReaders - Done initializing BAM readers: total time 0.02 
+INFO  19:37:51,080 MicroScheduler - Running the GATK in parallel mode with 8 total threads, 1 CPU thread(s) for each of 8 data thread(s), of 8 processors available on this machine 
+INFO  19:37:51,156 GenomeAnalysisEngine - Preparing for traversal over 1 BAM files 
+INFO  19:37:51,164 GenomeAnalysisEngine - Done preparing for traversal 
+INFO  19:37:51,165 ProgressMeter - [INITIALIZATION COMPLETE; STARTING PROCESSING] 
+INFO  19:37:51,165 ProgressMeter -                 | processed |    time |    per 1M |           |   total | remaining 
+INFO  19:37:51,166 ProgressMeter -        Location |     sites | elapsed |     sites | completed | runtime |   runtime 
+INFO  19:37:51,169 SAMDataSource$SAMReaders - Initializing SAMRecords in serial 
+INFO  19:37:51,172 SAMDataSource$SAMReaders - Done initializing BAM readers: total time 0.00 
+INFO  19:37:52,137 ProgressMeter -            done     18959.0     0.0 s      51.0 s       99.6%     0.0 s       0.0 s 
+INFO  19:37:52,140 ProgressMeter - Total runtime 0.97 secs, 0.02 min, 0.00 hours 
+INFO  19:37:52,143 MicroScheduler - 473 reads were filtered out during the traversal out of approximately 18821 total reads (2.51%) 
+INFO  19:37:52,144 MicroScheduler -   -> 0 reads (0.00% of total) failing BadCigarFilter 
+INFO  19:37:52,144 MicroScheduler -   -> 0 reads (0.00% of total) failing BadMateFilter 
+INFO  19:37:52,144 MicroScheduler -   -> 205 reads (1.09% of total) failing DuplicateReadFilter 
+INFO  19:37:52,145 MicroScheduler -   -> 0 reads (0.00% of total) failing FailsVendorQualityCheckFilter 
+INFO  19:37:52,145 MicroScheduler -   -> 0 reads (0.00% of total) failing MalformedReadFilter 
+INFO  19:37:52,145 MicroScheduler -   -> 0 reads (0.00% of total) failing MappingQualityUnavailableFilter 
+INFO  19:37:52,146 MicroScheduler -   -> 268 reads (1.42% of total) failing MappingQualityZeroFilter 
+INFO  19:37:52,146 MicroScheduler -   -> 0 reads (0.00% of total) failing NotPrimaryAlignmentFilter 
+INFO  19:37:52,147 MicroScheduler -   -> 0 reads (0.00% of total) failing Platform454Filter 
+INFO  19:37:52,147 MicroScheduler -   -> 0 reads (0.00% of total) failing UnmappedReadFilter 
+------------------------------------------------------------------------------------------
+Done. ------------------------------------------------------------------------------------------
+2025-11-03 19:37:52,213 - gatk:64:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/gatk3 -Xmx3g -Djava.io.tmpdir=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy -T IndelRealigner -I /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpjj_7cfe3.mkdup.bam -R /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.fasta -targetIntervals /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp4ty5w5ge.intervals -o /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpbg286xie.realigned.bam
+INFO  19:37:54,033 HelpFormatter - ------------------------------------------------------------------------------------ 
+INFO  19:37:54,035 HelpFormatter - The Genome Analysis Toolkit (GATK) v3.8-1-0-gf15c1c3ef, Compiled 2018/02/19 05:43:50 
+INFO  19:37:54,036 HelpFormatter - Copyright (c) 2010-2016 The Broad Institute 
+INFO  19:37:54,036 HelpFormatter - For support and documentation go to https://software.broadinstitute.org/gatk 
+INFO  19:37:54,036 HelpFormatter - [Mon Nov 03 19:37:54 UTC 2025] Executing on Linux 6.10.14-linuxkit amd64 
+INFO  19:37:54,036 HelpFormatter - OpenJDK 64-Bit Server VM 1.8.0_412-b08 
+INFO  19:37:54,039 HelpFormatter - Program Args: -T IndelRealigner -I /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpjj_7cfe3.mkdup.bam -R /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmps41dib98.ref_copy.fasta -targetIntervals /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp4ty5w5ge.intervals -o /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmpbg286xie.realigned.bam 
+INFO  19:37:54,049 HelpFormatter - Executing as root@d89b99e72e29 on Linux 6.10.14-linuxkit amd64; OpenJDK 64-Bit Server VM 1.8.0_412-b08. 
+INFO  19:37:54,050 HelpFormatter - Date/Time: 2025/11/03 19:37:54 
+INFO  19:37:54,050 HelpFormatter - ------------------------------------------------------------------------------------ 
+INFO  19:37:54,050 HelpFormatter - ------------------------------------------------------------------------------------ 
+INFO  19:37:54,093 NativeLibraryLoader - Loading libgkl_compression.so from jar:file:/opt/miniconda/envs/viral-ngs-env/opt/gatk-3.8/GenomeAnalysisTK.jar!/com/intel/gkl/native/libgkl_compression.so 
+INFO  19:37:54,113 GenomeAnalysisEngine - Deflater: IntelDeflater 
+INFO  19:37:54,114 GenomeAnalysisEngine - Inflater: IntelInflater 
+INFO  19:37:54,115 GenomeAnalysisEngine - Strictness is SILENT 
+INFO  19:37:54,262 GenomeAnalysisEngine - Downsampling Settings: No downsampling 
+INFO  19:37:54,268 SAMDataSource$SAMReaders - Initializing SAMRecords in serial 
+INFO  19:37:54,290 SAMDataSource$SAMReaders - Done initializing BAM readers: total time 0.02 
+INFO  19:37:54,394 GenomeAnalysisEngine - Preparing for traversal over 1 BAM files 
+INFO  19:37:54,397 GenomeAnalysisEngine - Done preparing for traversal 
+INFO  19:37:54,398 ProgressMeter - [INITIALIZATION COMPLETE; STARTING PROCESSING] 
+INFO  19:37:54,398 ProgressMeter -                 | processed |    time |    per 1M |           |   total | remaining 
+INFO  19:37:54,398 ProgressMeter -        Location |     reads | elapsed |     reads | completed | runtime |   runtime 
+INFO  19:37:54,406 ReadShardBalancer$1 - Loading BAM index data 
+INFO  19:37:54,408 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  19:37:55,195 ProgressMeter -            done     18710.0     0.0 s      42.0 s       99.8%     0.0 s       0.0 s 
+INFO  19:37:55,198 ProgressMeter - Total runtime 0.80 secs, 0.01 min, 0.00 hours 
+INFO  19:37:55,202 MicroScheduler - 0 reads were filtered out during the traversal out of approximately 18710 total reads (0.00%) 
+INFO  19:37:55,203 MicroScheduler -   -> 0 reads (0.00% of total) failing BadCigarFilter 
+INFO  19:37:55,203 MicroScheduler -   -> 0 reads (0.00% of total) failing MalformedReadFilter 
+------------------------------------------------------------------------------------------
+Done. ------------------------------------------------------------------------------------------
+2025-11-03 19:37:55,247 - picard:50:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/picard -Xmx3g -Djava.io.tmpdir=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy BuildBamIndex INPUT=G5012.3.testreads.all.bam
+INFO	2025-11-03 19:37:56	BuildBamIndex	
+
+********** NOTE: Picard's command line syntax is changing.
+**********
+********** For more information, please see:
+********** https://github.com/broadinstitute/picard/wiki/Command-Line-Syntax-Transition-For-Users-(Pre-Transition)
+**********
+********** The command line looks like this in the new syntax:
+**********
+**********    BuildBamIndex -INPUT G5012.3.testreads.all.bam
+**********
+
+
+19:37:56.470 INFO  NativeLibraryLoader - Loading libgkl_compression.so from jar:file:/opt/miniconda/envs/viral-ngs-env/share/picard-2.25.6-0/picard.jar!/com/intel/gkl/native/libgkl_compression.so
+[Mon Nov 03 19:37:56 UTC 2025] BuildBamIndex INPUT=G5012.3.testreads.all.bam    VERBOSITY=INFO QUIET=false VALIDATION_STRINGENCY=STRICT COMPRESSION_LEVEL=5 MAX_RECORDS_IN_RAM=500000 CREATE_INDEX=false CREATE_MD5_FILE=false GA4GH_CLIENT_SECRETS=client_secrets.json USE_JDK_DEFLATER=false USE_JDK_INFLATER=false
+[Mon Nov 03 19:37:56 UTC 2025] Executing as root@d89b99e72e29 on Linux 6.10.14-linuxkit amd64; OpenJDK 64-Bit Server VM 1.8.0_412-b08; Deflater: Intel; Inflater: Intel; Provider GCS is not available; Picard version: 2.25.6
+INFO	2025-11-03 19:37:56	BuildBamIndex	Successfully wrote bam index file /mnt/miniwdl_task_container/work/G5012.3.testreads.all.bai
+[Mon Nov 03 19:37:56 UTC 2025] picard.sam.BuildBamIndex done. Elapsed time: 0.00 minutes.
+Runtime.totalMemory()=157286400
+2025-11-03 19:37:56,956 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools view -b -q 1 -o G5012.3.testreads.mapped.bam /tmp/tmp-read_utils-align_and_fix-6ngl2xmy/tmp4v4r5s70.filtered_any_mapq.bam
+2025-11-03 19:37:57,075 - picard:50:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/picard -Xmx3g -Djava.io.tmpdir=/tmp/tmp-read_utils-align_and_fix-6ngl2xmy BuildBamIndex INPUT=G5012.3.testreads.mapped.bam
+INFO	2025-11-03 19:37:57	BuildBamIndex	
+
+********** NOTE: Picard's command line syntax is changing.
+**********
+********** For more information, please see:
+********** https://github.com/broadinstitute/picard/wiki/Command-Line-Syntax-Transition-For-Users-(Pre-Transition)
+**********
+********** The command line looks like this in the new syntax:
+**********
+**********    BuildBamIndex -INPUT G5012.3.testreads.mapped.bam
+**********
+
+
+19:37:58.260 INFO  NativeLibraryLoader - Loading libgkl_compression.so from jar:file:/opt/miniconda/envs/viral-ngs-env/share/picard-2.25.6-0/picard.jar!/com/intel/gkl/native/libgkl_compression.so
+[Mon Nov 03 19:37:58 UTC 2025] BuildBamIndex INPUT=G5012.3.testreads.mapped.bam    VERBOSITY=INFO QUIET=false VALIDATION_STRINGENCY=STRICT COMPRESSION_LEVEL=5 MAX_RECORDS_IN_RAM=500000 CREATE_INDEX=false CREATE_MD5_FILE=false GA4GH_CLIENT_SECRETS=client_secrets.json USE_JDK_DEFLATER=false USE_JDK_INFLATER=false
+[Mon Nov 03 19:37:58 UTC 2025] Executing as root@d89b99e72e29 on Linux 6.10.14-linuxkit amd64; OpenJDK 64-Bit Server VM 1.8.0_412-b08; Deflater: Intel; Inflater: Intel; Provider GCS is not available; Picard version: 2.25.6
+INFO	2025-11-03 19:37:58	BuildBamIndex	Successfully wrote bam index file /mnt/miniwdl_task_container/work/G5012.3.testreads.mapped.bai
+[Mon Nov 03 19:37:58 UTC 2025] picard.sam.BuildBamIndex done. Elapsed time: 0.00 minutes.
+Runtime.totalMemory()=157286400
++ wc -c
++ grep -v '^>' assembly.fasta
++ tr -d '\nNn'
++ tee assembly_length_unambiguous
++ samtools view -c /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.bam
++ tee reads_provided
++ samtools view -c G5012.3.testreads.mapped.bam
++ tee reads_aligned
++ samtools view -h -F 260 G5012.3.testreads.all.bam
++ samtools flagstat -
++ tee G5012.3.testreads.all.bam.flagstat.txt
++ grep properly G5012.3.testreads.all.bam.flagstat.txt
++ tee read_pairs_aligned
++ cut -f 1 -d ' '
++ samtools view G5012.3.testreads.mapped.bam
++ cut -f10
++ wc -c
++ tr -d '\n'
++ tee bases_aligned
+++ cat bases_aligned
+++ cat assembly_length_unambiguous
+++ cat assembly_length_unambiguous
++ python -c 'print (float(1782044)/18959) if 18959>0 else print(0)'
++ reports.py fastqc G5012.3.testreads.mapped.bam G5012.3.testreads.mapped_fastqc.html --out_zip G5012.3.testreads.mapped_fastqc.zip
+2025-11-03 19:38:00,942 - cmd:196:main_argparse - INFO - software version: v2.4.3-3-gd3ad25d5, python version: 3.12.11 | packaged by conda-forge | (main, Jun  4 2025, 14:45:31) [GCC 13.3.0]
+2025-11-03 19:38:00,943 - cmd:197:main_argparse - INFO - command: /opt/viral-ngs/source/reports.py fastqc inBam=G5012.3.testreads.mapped.bam out_html=G5012.3.testreads.mapped_fastqc.html out_zip=G5012.3.testreads.mapped_fastqc.zip threads=None
+2025-11-03 19:38:00,943 - misc:348:available_cpu_count - DEBUG - cgroup v2 detected
+2025-11-03 19:38:00,944 - misc:361:available_cpu_count - DEBUG - cfs_quota_us 800000, cfs_period_us 100000
+2025-11-03 19:38:00,944 - misc:377:available_cpu_count - DEBUG - cgroup_cpus 8, proc_cpus 8, multiprocessing cpus 8
+2025-11-03 19:38:00,945 - samtools:51:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/samtools view -H -o /tmp/tmp5vqp0a7f.txt G5012.3.testreads.mapped.bam
+2025-11-03 19:38:00,966 - fastqc:50:execute - DEBUG - /opt/miniconda/envs/viral-ngs-env/bin/fastqc -t 8 -o /tmp/tmpreut4k_y G5012.3.testreads.mapped.bam
+Started analysis of G5012.3.testreads.mapped.bam
+Approx 5% complete for G5012.3.testreads.mapped.bam
+Approx 15% complete for G5012.3.testreads.mapped.bam
+Approx 25% complete for G5012.3.testreads.mapped.bam
+Approx 35% complete for G5012.3.testreads.mapped.bam
+Approx 45% complete for G5012.3.testreads.mapped.bam
+Approx 55% complete for G5012.3.testreads.mapped.bam
+Approx 65% complete for G5012.3.testreads.mapped.bam
+Approx 70% complete for G5012.3.testreads.mapped.bam
+Approx 80% complete for G5012.3.testreads.mapped.bam
+Approx 90% complete for G5012.3.testreads.mapped.bam
+Approx 100% complete for G5012.3.testreads.mapped.bam
+Analysis complete for G5012.3.testreads.mapped.bam
+2025-11-03 19:38:03,693 - fastqc:57:execute - DEBUG - complete

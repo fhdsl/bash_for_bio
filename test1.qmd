@@ -1,0 +1,8 @@
+---
+title: "Untitled"
+format:
+    revealjs:
+        theme: [default, styles.scss]
+---
+
+# Testing The Theme

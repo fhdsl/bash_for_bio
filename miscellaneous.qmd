@@ -541,3 +541,149 @@ Workflow Runners such as Cromwell and Nextflow will output into certain file str
 
 :::
 
+
+
+
+
+### Let's start with WDL Tasks
+
+We will start with the lower level of abstraction in WDL: The *task*. 
+
+### Anatomy of a Task
+
+```bash
+task build_star_index {
+  meta {
+      ...
+  }
+
+  parameter_meta {
+    reference_fasta: "Reference genome FASTA file"
+    reference_gtf: "Reference genome GTF annotation file"
+    sjdb_overhang: "Length of the genomic sequence around the annotated junction to be used in constructing the splice junctions database"
+    genome_sa_index_nbases: "Length (bases) of the SA pre-indexing string, typically between 10-15 (scales with genome size)"
+    memory_gb: "Memory allocated for the task in GB"
+    cpu_cores: "Number of CPU cores allocated for the task"
+  }
+
+  input {                 #<1>
+    File reference_fasta
+    File reference_gtf
+    Int sjdb_overhang = 100
+    Int genome_sa_index_nbases = 14
+    Int memory_gb = 64
+    Int cpu_cores = 8
+  }
+
+  command <<<            #<2>
+    set -eo pipefail
+    
+    mkdir star_index
+
+    echo "Building STAR index..."
+    STAR \
+      --runMode genomeGenerate \
+      --runThreadN ~{cpu_cores} \
+      --genomeDir star_index \
+      --genomeFastaFiles "~{reference_fasta}" \
+      --sjdbGTFfile "~{reference_gtf}" \
+      --sjdbOverhang ~{sjdb_overhang} \
+      --genomeSAindexNbases ~{genome_sa_index_nbases}
+
+    tar -czf star_index.tar.gz star_index/
+  >>>
+
+  output {                               #<3>
+    File star_index_tar = "star_index.tar.gz"
+  }
+
+  runtime {                              #<4>
+    docker: "getwilds/star:2.7.6a"
+    memory: "~{memory_gb} GB"
+    cpu: cpu_cores
+  }
+}
+```
+1. Input for our task.
+2. Bash commands to execute in task
+3. Description of output
+4. Runtime requirements for execution. This is a lot like the `#SBATCH` directives.
+
+Everything between the `<<<` and `>>>` is essentially a bash script. WDL has its own variables
+
+
+### Architecture of a WDL file
+
+The best way to read WDL files is to read them top down. We'll focus on the basic sections of a WDL file before we see how they work together.
+
+The code below is from the [WILDs WDL Repo](https://github.com/getwilds/ww-star-deseq2/blob/main/ww-star-deseq2.wdl).  
+
+```bash
+workflow SRA_STAR2Pass {
+   meta{
+   ...
+   }
+
+   parameter_meta{
+   ...
+   }
+
+  input {                        #<1>
+    ...
+  }
+
+  if (!defined(reference_genome)) {  #<2>
+    call download_reference {}
+  }
+
+  RefGenome ref_genome_final = select_first([reference_genome, download_reference.genome])
+
+  call build_star_index {     #<3>
+    ...
+  }
+
+  # Outputs that will be retained when execution is complete
+  output {                           #<4>
+    ...
+  }
+
+} 
+```
+1. Inputs for workflow
+2. If/then statement of workflow
+3. call a task 
+4. Outputs of workflow
+
+Let's go through each of these in detail (we'll get back to the `meta` and `parameters-meta` sections) 
+
+The structure of the workflow
+
+
+```bash
+workflow SRA_STAR2Pass {
+  input {                        #<1>
+    Array[SampleInfo] samples
+    RefGenome? reference_genome
+    String reference_level = ""
+    String contrast = ""
+  }
+
+  if (!defined(reference_genome)) {  #<2>
+    call download_reference {}
+  }
+
+  RefGenome ref_genome_final = select_first([reference_genome, download_reference.genome])
+
+  call build_star_index { input:     #<3>
+      reference_fasta = ref_genome_final.fasta,
+      reference_gtf = ref_genome_final.gtf
+  }
+
+  # Outputs that will be retained when execution is complete
+  output {                           #<4>
+    ...
+  }
+
+} 
+```
+

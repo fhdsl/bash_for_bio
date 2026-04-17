@@ -1,0 +1,192 @@
+---
+title: "Week 4 Reading: Pipes/JSON"
+format: html
+---
+
+## Using pipes: STDIN, STDOUT, STDERR {#sec-std}
+
+We will need to use pipes to chain our commands together. Specifically, we need to take a command that generates a list of files on the cluster shared filesystem, and then spawns individual jobs to process each file. For this reason, understanding a little bit more about how pipes (`|`) work in Bash is helpful.
+
+If we want to understand how to chain our scripts together into a pipeline, it is helpful to know about the different streams that are available to the utilities.
+
+:::{#fig-std}
+```{mermaid}
+graph LR
+  A(STDIN) --> E[run_samtools.sh]
+  E --> B(STDOUT)
+  E --> C(STDERR)
+```
+Inputs/outputs to a script
+:::
+
+Every script has three streams available to it: Standard In (STDIN), Standard Out (STDOUT), and Standard Error (STDERR) (@fig-std).
+
+STDIN contains information that is directed to the input of a script (usually text output via STDOUT from another script). This includes arguments we pass onto the script.
+
+Why do these matter? To work in a Unix pipeline, a script must be able to utilize STDIN, and generate STDOUT, and STDERR.
+
+Specifically, in pipelines, STDOUT of a script (here it's `run_bwa.sh`) is directed into STDIN of another command (here `wc`, or word count)
+
+:::{#fig-pipe}
+```{mermaid}
+graph LR
+  E[run_bwa.sh] --> B(STDOUT)
+  B --> F{"|"}
+  E --> C(STDERR)
+  F --> D("STDIN (wc)")
+  D --> G[wc]
+```
+Piping a script `run_samtools.sh` into another command (`wc`)
+:::
+
+We will mostly use STDOUT in our bash scripts, but STDERR can be really helpful in debugging what's going wrong. 
+
+### `>` (redirects) {#sec-redirects}
+
+Sometimes you want to direct the output of a script (STDOUT) to a text file. A lot of bioinformatics tools output to STDOUT, and we need a way to save the results, or pass the results onto another program. 
+
+Enter `>`, a redirect. We can put `>` after our command followed by a file path to save the output.
+
+```bash
+samtools view -c my_bam_file.bam > counts.txt
+```
+
+Here we are redirecting the output of `samtools view` into the `counts.txt` file. Note that everytime that we run the script, we will overwrite the current contents of the `counts.txt` file. Sometimes that is not what you want.
+
+There is another kind of redirect, `>>`, that will append (that is, add to the end of a file). If the file does not exist, it will be created. But if it does exist, the output will be added to the end of the file. I rarely use this, however.
+
+Much more information about redirects can be found here: <https://www.geeksforgeeks.org/linux-unix/input-output-redirection-in-linux/> and in Bite Sized Bash (page 13).
+
+:::{.callout-note}
+## Why this is important on the Cluster
+
+We'll use pipes and pipelines not only in starting a bunch of jobs using batch scripting on our home computer, but also when we are processing files within a job.
+
+Pipes are at the heart of multi-stage workflows. They allow us to specify multiple steps in processing a file. 
+:::
+
+### For more info about pipes and pipelines
+
+- Bite Size Bash Page 13 for more about redirects
+- Bite Size Bash Page 20 for more about pipes
+- <https://swcarpentry.github.io/shell-novice/04-pipefilter/index.html>
+- <https://datascienceatthecommandline.com/2e/chapter-2-getting-started.html?q=stdin#combining-command-line-tools>
+
+
+
+## What is JSON? {#sec-json}
+
+One requirement for running workflows is basic knowledge of JSON.
+
+JSON is short for **J**ava**S**cript **O**bject **N**otation. It is a format used for storing information on the web and for interacting with {{<glossary "Application Program Interfaces">}} (APIs).  
+
+### How is JSON used?
+
+JSON is used in multiple ways:
+
+- Submitting Jobs with complex parameters/inputs
+
+So having basic knowledge of JSON can be really helpful. JSON is the common language of the internet.
+
+### Elements of a JSON file
+
+Here are the main elements of a JSON file:
+
+- **Key:Value Pair**. Example: `"name": "Ted Laderas"`. In this example, our key is "name" and our value is "Ted Laderas"
+- **List `[]`** - a collection of values. All values have to be the same data type. Example: `["mom", "dad"]`
+- **Object** `{}` - A collection of key/value pairs, enclosed with curly brackets (`{}`). 
+
+:::{.callout-note}
+## Check Yourself
+
+What does the `names` value contain in the following JSON? Is it a list, object or key:value pair?
+
+```
+{
+  "names": ["Ted", "Lisa", "George"]
+}
+```
+:::
+
+:::{.callout-note collapse="true"}
+## Answer
+
+It is a list. We know this because the value contains a `[]`.
+
+```
+{
+  "names": ["Ted", "Lisa", "George"]
+}
+```
+:::
+
+### JSON Input Files
+
+When you are working with WDL, it is easiest to manage files using JSON files. Here's the example we're going to use from the [ww-fastq-to-cram workflow](https://github.com/getwilds/ww-fastq-to-cram). 
+
+```bash
+#| eval: false
+#| filename: "json_data/example.json"
+{
+  "PairedFastqsToUnmappedCram.batch_info": [
+    {
+      "dataset_id": "TESTFASTQ1",
+      "sample_name": "HG02635",
+      "library_name": "SRR581005",
+      "sequencing_center": "1000-Genomes",
+      "filepaths": [{
+        "flowcell_name": "20121211",
+        "fastq_r1_locations": ["tests/data/SRR581005_1.ds.fastq.gz"],
+        "fastq_r2_locations": ["tests/data/SRR581005_2.ds.fastq.gz"]
+      }]
+    },
+    {
+      "dataset_id": "TESTFASTQ2",
+      "sample_name": "HG02642",
+      "library_name": "SRR580946",
+      "sequencing_center": "1000-Genomes",
+      "filepaths": [{
+        "flowcell_name": "20121211",
+        "fastq_r1_locations": ["tests/data/SRR580946_1.ds.fastq.gz"],
+        "fastq_r2_locations": ["tests/data/SRR580946_2.ds.fastq.gz"]
+      }]
+    }
+  ]
+}
+```
+
+This might seem overwhelming, but let's look at the top-level structures first:
+
+```bash
+{                                               #<1>
+  "PairedFastqsToUnmappedCram.batch_info": [    #<2>
+   ...   
+  ]
+}
+```
+1. The top level of the file is a JSON object
+2. The next level down ("PairedFastqsToUnmappedCram.batch_info") is a list.
+
+This workflow specifies the file inputs using the `PairedFastqsToUnmappedCram.batch_info` object, which is a *list*. 
+
+Each sample in the `PairedFastqsToUnmappedCram.batch_info` list is its own object:
+
+```bash
+  "PairedFastqsToUnmappedCram.batch_info": [
+    {
+      "dataset_id": "TESTFASTQ1",
+      "sample_name": "HG02635",
+      "library_name": "SRR581005",
+      "sequencing_center": "1000-Genomes",
+      "filepaths": [{
+        "flowcell_name": "20121211",
+        "fastq_r1_locations": ["tests/data/SRR581005_1.ds.fastq.gz"],
+        "fastq_r2_locations": ["tests/data/SRR581005_2.ds.fastq.gz"]
+      }]
+    },
+    ....
+```
+
+Because we are aligned paired-end data, notice there are two keys, `fastq_r1_locations` and `fastq_r2_locations`. 
+
+

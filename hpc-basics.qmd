@@ -1,4 +1,4 @@
-# Reading: HPC Basics {#sec-HPC} 
+# Week 2 Reading: HPC Basics {#sec-HPC} 
 
 We all need to start somewhere when we work with High Performance Computing (HPC). 
 

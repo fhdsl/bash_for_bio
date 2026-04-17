@@ -1,114 +1,68 @@
 ---
 title: "Week 2 Exercises"
 format: 
-    docx: default
     html: default
+    docx: default
 ---
+ 
+## In-class
 
-## In-class exercises
-
-1. We can run the script on a file (assuming we are in `bash_for_bio/`):
-
-```bash
-./scripts/week2/sam_count.sh ./data/my_file.bam
-```
-
-Try out the above script on `./data/CALU1_combined_final.sam`.
-
-Make sure you are in the top folder (`bash_for_bio`) when you do it.
-
-2. Run `run_bwa.sh` using:
+1. Try it out:
 
 ```bash
-./scripts/week2/run_bwa.sh ./data/CALU1_combined_final.fasta
+./scripts/week3/batch_on_rhino.sh
 ```
 
-3. Run `process_data.R`:
+2. Try it out:
 
 ```bash
-module load fhR
-Rscript process_data.R input_file="LUSC_clinical.csv"
-module purge
+#| eval: false
+sbatch sbatch_test.sh
 ```
 
-4. Run `process_data.py`:
+and examine the following output files:
+
+3. Try it out:
 
 ```bash
-module load fhPython
-python3 process_file.py lusc_file.csv
-module purge
+
 ```
 
-## Homework Exercises
 
-All exercises are required for the badge.
+## Homework exercises
 
-1. Copy the below script into a file called `samtools_count.sh`. What does the script do?
+Exercises 1, 2, 3 are required for the badge.
+
+1. In the `data/` folder, there is a list of `.csv` files. Modify the code below to process each file.
 
 ```bash
 #!/bin/bash
+for file in ------
+do
+  head ------
+done
+```
+
+2. Modify the code in 1) to write a `for` loop in a script to count the number of lines for each `.csv` file. The output should be:
+
+```
+echo "${file}\t(wc -l $file)\n"
+```
+
+Run the script and redirect your output to `files_out.txt`. Put your bash command you used below:
+
+
+```bash
+```
+
+3. Modify the below script to process the `.sam` files in `./data/`. Save it as `sbatch_sam.sh` and run it. How many files were generated?
+
+```bash
+#!/bin/bash
+#SBATCH --array=1-________  
 module load SAMtools
-samtools view -c $1 
-```
-
-How would we modify the above script to redirect the output to `${1}.counts.txt`?
-
-```bash
-
-```
-
-2. Make sure you can get `scripts/week2/run_bwa.sh` to run on `rhino`. 
-
-3. Modify `scripts/week2/run_bwa.sh` to 
-    a. Take an additional argument, a folder path
-    b. Save the SAM file to this folder path
-
-Hint 1: I recommend that you copy `run_bwa.sh` into a new script and work from there. Put your code into the codeblock below:
-
-```bash
-
-```
-
-Write an example to run your new version of the script below and run it:
-
-```bash
-
-```
-
-
-For question 4, pick one language to answer.
-
-4R. (R) Modify the below R script and save it to a file called `scripts/week2/r_csv_script.R`. It should also take an argument called $FILEPATH for `read.csv()`:
-
-```r
-library(tidyverse)
-csv_file <- read_csv("myfile.csv")
-summary(csv_file)
-```
-
-How would you run this on the command line?
-
-```bash
-module load fhR
------
-module purge
-```
-
-How would you redirect the output of your script to a file? 
-
-4Py. (py) Modify the below Python script to be runnable and save it to `scripts/week2/py_csv_script.py`. Your new version should also take the first position argument (a file path) and process the file:
-
-```python
-#| eval: false
-import pandas as pd
-csv_file = pd.read_csv("my_file.csv")
-csv_file.describe()
-```
-
-How would you run this on the command line?
-
-```bash
-module load fhPython
------
-module purge
+file_array=(./data/*.sam) 
+ind=$((SLURM_ARRAY_TASK_ID-1)) 
+current_file=${file_array[$ind]} 
+samtools view -c $current_file > ${current_file}.counts.out
 ```

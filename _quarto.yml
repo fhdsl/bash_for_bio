@@ -10,15 +10,19 @@ book:
   repo-url: https://github.com/fhdsl/bash_for_bio
   chapters:
     - index.qmd
+    - 00_prework.qmd
     - 01_basics.qmd
+    - 01_scripting.qmd
     - 01_assignment.qmd
-    - 02_scripting.qmd
-    - 02_assignment.qmd
     - hpc-basics.qmd
-    - 03_batch.qmd
+    - 02_batch.qmd
+    - 02_assignment.qmd
+    - containers_reading.qmd
+    - 03_containers.qmd
     - 03_assignment.qmd
-    - container-basics.qmd
+    - pipes_json_reading.qmd
     - 04_containers_workflows.qmd
+    - 04_assignment.qmd
     - testing.qmd
     - configuring.qmd
     - miscellaneous.qmd
@@ -33,5 +37,8 @@ format:
     theme:
       - cosmo
       - brand
-
+  pdf: 
+    toc: true
+    number-sections: true
+    colorlinks: true
 

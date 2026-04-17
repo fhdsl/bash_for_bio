@@ -7,6 +7,7 @@ format:
 
 ## In class code examples
 
+### Navigation and Running Scripts
 
 1. Clone the `bash_for_bio` repository into your home directory:
 
@@ -59,17 +60,48 @@ Use CTRL-X to exit, and make sure to select "Yes" to save.
 chmod -R 700 scripts/
 ```
 
+### Scripting
+
+1. We can run the script on a file (assuming we are in `bash_for_bio/`):
+
+```bash
+./scripts/week1/sam_count.sh ./data/my_file.bam
+```
+
+Try out the above script on `./data/CALU1_combined_final.sam`.
+
+Make sure you are in the top folder (`bash_for_bio`) when you do it.
+
+2. Run `run_bwa.sh` using:
+
+```bash
+./scripts/week1/run_bwa.sh ./data/CALU1_combined_final.fasta
+```
+
+3. Run `process_data.R`:
+
+```bash
+module load fhR
+Rscript process_data.R input_file="LUSC_clinical.csv"
+module purge
+```
+
+4. Run `process_data.py`:
+
+```bash
+module load fhPython
+python3 process_file.py lusc_file.csv
+module purge
+```
+
+
 ## Homework Exercises
+
+### Navigation and Running Scripts
 
 All exercises are required for the badge.
 
-1. Use `du` to check the disk usage of two folders in your `/bash_for_bio` directory. Set the depth (`-d`) option to 1. Put your code in the box below
-
-```bash
-du -d 1 -h -------
-```
-
-2. Copy a file from the `scripts/week1/` directory in `bash_for_bio/` to your own home directory.
+1. Copy a file from the `scripts/week1/` directory in `bash_for_bio/` to your own home directory.
 
 `/home/tladera2/bash_for_bio/scripts/week1/run_this.sh`
 
@@ -81,7 +113,7 @@ Try running it in your home directory - did it work?
 
 `./run_this.sh`
 
-3. (pick python or R) Take a look at `scripts/week1/rnorm.R` or `scripts/week1/random_num.py`. Load up the `fhR` or `fhPython` modules on `rhino` using `module load`. Run it on the command line with `Rscript` or `python3`. 
+2. (pick python or R) Take a look at `scripts/week1/rnorm.R` or `scripts/week1/random_num.py`. Load up the `fhR` or `fhPython` modules on `rhino` using `module load`. Run it on the command line with `Rscript` or `python3`. 
 
 Did you need to make this script executable before you ran it?
 
@@ -90,3 +122,89 @@ module load _____
 --------
 module purge
 ```
+
+### Scripting Exercises
+
+All exercises are required for the badge. Where possible, please paste your code in the grey boxes and output below that. (If the output is long, then just the first few lines is fine.) Make sure to answer the questions.
+
+3. Copy the below script into a file called `samtools_count.sh`. What does the script do?
+
+```bash
+#!/bin/bash
+module load SAMtools
+samtools view -c $1 
+```
+
+How would we modify the above script to redirect the output to `${1}.counts.txt`?
+
+```bash
+
+```
+
+4. Make sure you can get `scripts/week1/run_bwa.sh` to run on `rhino`. Run it on `data/MOLM13_combined_final.fastq`.
+
+```bash
+
+```
+
+When it's successful, run `head` on the `MOLM113_combined_final.fastq` output, and paste your command and the output below.
+
+```bash
+
+```
+
+5. Modify `scripts/week1/run_bwa.sh` to 
+    a. Take an additional argument, a folder path
+    b. Save the SAM file to this folder path
+
+Hint 1: I recommend that you copy `run_bwa.sh` into a new script and work from there. Put your code into the codeblock below:
+
+```bash
+
+```
+
+Write an example to run your new version of the script below and run it:
+
+```bash
+
+```
+
+
+For question 6, pick one language to answer.
+
+6R. (R) Modify the below R script and save it to a file called `scripts/week2/r_csv_script.R`. It should also take an argument called $FILEPATH for `read.csv()`:
+
+```r
+library(tidyverse)
+csv_file <- read_csv("myfile.csv")
+summary(csv_file)
+```
+
+How would you run this on the command line?
+
+```bash
+module load fhR
+-----
+module purge
+```
+
+How would you redirect the output of your script to a file? 
+
+6Py. (py) Modify the below Python script to be runnable and save it to `scripts/week2/py_csv_script.py`. Your new version should also take the first position argument (a file path) and process the file:
+
+```python
+#| eval: false
+import pandas as pd
+csv_file = pd.read_csv("my_file.csv")
+csv_file.describe()
+```
+
+How would you run this on the command line?
+
+```bash
+module load fhPython
+-----
+module purge
+```
+
+How would you redirect the output of your script to a file?

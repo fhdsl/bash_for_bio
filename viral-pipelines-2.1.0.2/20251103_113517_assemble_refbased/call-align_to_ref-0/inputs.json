@@ -1,0 +1,7 @@
+{
+  "aligner_options": "-r Random -l 40 -g 40 -x 20 -t 501 -k",
+  "novocraft_license": null,
+  "reads_unmapped_bam": "/Users/tladera2/Code/bash_for_bio/viral-pipelines-2.1.0.2/test/input/G5012.3.testreads.bam",
+  "reference_fasta": "/Users/tladera2/Code/bash_for_bio/viral-pipelines-2.1.0.2/test/input/ebov-makona.fasta",
+  "skip_mark_dupes": false
+}

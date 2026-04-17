@@ -1,0 +1,20 @@
+{
+  "demux_plus.spikein_db":
+    "dx://file-FZY2v7Q0xf5VBy5FFY3z5fz7",
+
+  "demux_plus.bwaDbs": [
+    "dx://file-Fg2p9b00xf5zx8VB8BYyJj0g"
+  ],
+  "demux_plus.blastDbs": [
+    "dx://file-Fg2p9Zj0xf5VyJ380GxkBg0k",
+    "dx://file-F8BjgXj09y3gkfZGPPQZbZkK"
+  ],
+
+  "demux_plus.trim_clip_db":
+    "dx://file-BXF0vYQ0QyBF509G9J12g927",
+
+  "demux_plus.krakenuniq.krakenuniq_db_tar_lz4":
+    "dx://file-FVzQ11806zFK7f5Z90KYy14z",
+  "demux_plus.krakenuniq.krona_taxonomy_db_tgz":
+    "dx://file-Fpp14j00xf5Xjq665v8v93z8"
+}

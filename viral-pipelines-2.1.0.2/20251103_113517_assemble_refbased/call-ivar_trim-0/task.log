@@ -1,0 +1,13 @@
+2025-11-03 11:38:08.183 wdl.w:assemble_refbased.t:call-ivar_trim-0 NOTICE task setup :: name: "ivar_trim", source: "../tasks/tasks_assembly.wdl", line: 191, column: 1, dir: "/Users/tladera2/Code/bash_for_bio/viral-pipelines-2.1.0.2/20251103_113517_assemble_refbased/call-ivar_trim-0", thread: 6161084416
+2025-11-03 11:38:08.201 wdl.w:assemble_refbased.t:call-ivar_trim-0 INFO input :: name: "trim_coords_bed", value: null
+2025-11-03 11:38:08.201 wdl.w:assemble_refbased.t:call-ivar_trim-0 INFO input :: name: "aligned_bam", value: "/mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.mapped.bam"
+2025-11-03 11:38:08.202 wdl.w:assemble_refbased.t:call-ivar_trim-0 INFO eval :: name: "bam_basename", value: "G5012.3.testreads.mapped"
+2025-11-03 11:38:08.202 wdl.w:assemble_refbased.t:call-ivar_trim-0 INFO eval :: name: "min_keep_length", value: null
+2025-11-03 11:38:08.202 wdl.w:assemble_refbased.t:call-ivar_trim-0 INFO eval :: name: "min_quality", value: null
+2025-11-03 11:38:08.202 wdl.w:assemble_refbased.t:call-ivar_trim-0 INFO eval :: name: "docker", value: "andersenlabapps/ivar"
+2025-11-03 11:38:08.203 wdl.w:assemble_refbased.t:call-ivar_trim-0 INFO eval :: name: "sliding_window", value: null
+2025-11-03 11:38:08.203 wdl.w:assemble_refbased.t:call-ivar_trim-0 INFO eval :: name: "machine_mem_gb", value: null
+2025-11-03 11:38:08.204 wdl.w:assemble_refbased.t:call-ivar_trim-0 INFO effective runtime :: docker: "andersenlabapps/ivar", cpu: 4, memory_reservation: 7000000000
+2025-11-03 11:38:08.204 wdl.w:assemble_refbased.t:call-ivar_trim-0 WARNING ignored runtime settings :: keys: ["disks", "dx_instance_type"]
+2025-11-03 11:38:08.217 wdl.w:assemble_refbased.t:call-ivar_trim-0 INFO docker pull :: tag: "andersenlabapps/ivar:latest"
+2025-11-03 11:38:11.844 wdl.w:assemble_refbased.t:call-ivar_trim-0 ERROR task ivar_trim (../tasks/tasks_assembly.wdl Ln 191 Col 1) failed :: dir: "/Users/tladera2/Code/bash_for_bio/viral-pipelines-2.1.0.2/20251103_113517_assemble_refbased/call-ivar_trim-0", error: "RuntimeError", message: "docker image not found: andersenlabapps/ivar:latest"

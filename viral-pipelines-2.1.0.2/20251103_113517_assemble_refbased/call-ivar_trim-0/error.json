@@ -1,0 +1,22 @@
+{
+  "error": "RunFailed",
+  "task": "ivar_trim",
+  "run": "call-ivar_trim-0",
+  "dir": "/Users/tladera2/Code/bash_for_bio/viral-pipelines-2.1.0.2/20251103_113517_assemble_refbased/call-ivar_trim-0",
+  "cause": {
+    "error": "RuntimeError",
+    "message": "docker image not found: andersenlabapps/ivar:latest",
+    "run": "call-ivar_trim-0",
+    "dir": "/Users/tladera2/Code/bash_for_bio/viral-pipelines-2.1.0.2/20251103_113517_assemble_refbased/call-ivar_trim-0",
+    "pos": {
+      "source": "/Users/tladera2/Code/bash_for_bio/viral-pipelines-2.1.0.2/pipes/WDL/tasks/tasks_assembly.wdl",
+      "line": 191,
+      "column": 1
+    }
+  },
+  "pos": {
+    "source": "/Users/tladera2/Code/bash_for_bio/viral-pipelines-2.1.0.2/pipes/WDL/tasks/tasks_assembly.wdl",
+    "line": 191,
+    "column": 1
+  }
+}

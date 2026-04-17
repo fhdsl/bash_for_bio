@@ -1,0 +1,2 @@
+Module	Section	Sample Name	Source
+FastQC	all_sections	mnt | miniwdl_task_container | work | _miniwdl_inputs | 0 | G5012.3.testreads.mapped	/mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.mapped_fastqc.zip

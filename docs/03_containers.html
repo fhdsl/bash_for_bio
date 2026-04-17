@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>9&nbsp; Week 3: Containers – Bash for Bioinformatics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./03_assignment.html" rel="next">
+<link href="./containers_reading.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/quarto-contrib/glossary/glossary.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_containers.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Week 3: Containers</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Bash for Bioinformatics</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/fhdsl/bash_for_bio" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bash for Bio</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00_prework.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Prework</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Week 1: Navigating</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_scripting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Week 1: Introduction to Scripting</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_assignment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Week 1 Exercises</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hpc-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Week 2 Reading: HPC Basics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_batch.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Week 2: Batch Processing and Submitting Jobs</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_assignment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Week 2 Exercises</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./containers_reading.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Week 3 Reading: Containers</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_containers.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Week 3: Containers</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_assignment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Week 3: Assignment</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pipes_json_reading.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Week 4 Reading: Pipes/JSON</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_containers_workflows.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Week 4: Workflows</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_assignment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Week 4 Exercises</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Testing Scripts</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./configuring.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Appendix: Configuring your Shell</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./miscellaneous.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Miscellaneous</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-containers" id="toc-sec-containers" class="nav-link active" data-scroll-target="#sec-containers"><span class="header-section-number">9.1</span> Containers</a>
+  <ul class="collapse">
+  <li><a href="#what-is-a-container" id="toc-what-is-a-container" class="nav-link" data-scroll-target="#what-is-a-container"><span class="header-section-number">9.1.1</span> What is a Container?</a></li>
+  <li><a href="#docker-vs.-apptainer" id="toc-docker-vs.-apptainer" class="nav-link" data-scroll-target="#docker-vs.-apptainer"><span class="header-section-number">9.1.2</span> Docker vs.&nbsp;Apptainer</a></li>
+  </ul></li>
+  <li><a href="#pulling-a-docker-container-and-running-it" id="toc-pulling-a-docker-container-and-running-it" class="nav-link" data-scroll-target="#pulling-a-docker-container-and-running-it"><span class="header-section-number">9.2</span> Pulling a Docker Container and Running It</a>
+  <ul class="collapse">
+  <li><a href="#using-a-container" id="toc-using-a-container" class="nav-link" data-scroll-target="#using-a-container"><span class="header-section-number">9.2.1</span> Using a Container</a></li>
+  <li><a href="#bind-paths" id="toc-bind-paths" class="nav-link" data-scroll-target="#bind-paths"><span class="header-section-number">9.2.2</span> Bind Paths</a></li>
+  </ul></li>
+  <li><a href="#sec-open-container" id="toc-sec-open-container" class="nav-link" data-scroll-target="#sec-open-container"><span class="header-section-number">9.3</span> Testing code in a container</a>
+  <ul class="collapse">
+  <li><a href="#pulling-a-docker-container" id="toc-pulling-a-docker-container" class="nav-link" data-scroll-target="#pulling-a-docker-container"><span class="header-section-number">9.3.1</span> Pulling a Docker Container</a></li>
+  <li><a href="#opening-a-shell-in-a-container-with-apptainer-shell" id="toc-opening-a-shell-in-a-container-with-apptainer-shell" class="nav-link" data-scroll-target="#opening-a-shell-in-a-container-with-apptainer-shell"><span class="header-section-number">9.3.2</span> Opening a Shell in a Container with <code>apptainer shell</code></a></li>
+  <li><a href="#sec-bindpaths" id="toc-sec-bindpaths" class="nav-link" data-scroll-target="#sec-bindpaths"><span class="header-section-number">9.3.3</span> Using bind paths in containers</a></li>
+  <li><a href="#executing-in-the-apptainer-shell" id="toc-executing-in-the-apptainer-shell" class="nav-link" data-scroll-target="#executing-in-the-apptainer-shell"><span class="header-section-number">9.3.4</span> Executing in the Apptainer Shell</a></li>
+  <li><a href="#exiting-the-container-when-youre-done" id="toc-exiting-the-container-when-youre-done" class="nav-link" data-scroll-target="#exiting-the-container-when-youre-done"><span class="header-section-number">9.3.5</span> Exiting the container when you’re done</a></li>
+  <li><a href="#testing-outside-of-the-container" id="toc-testing-outside-of-the-container" class="nav-link" data-scroll-target="#testing-outside-of-the-container"><span class="header-section-number">9.3.6</span> Testing outside of the container</a></li>
+  <li><a href="#the-wilds-docker-library" id="toc-the-wilds-docker-library" class="nav-link" data-scroll-target="#the-wilds-docker-library"><span class="header-section-number">9.3.7</span> The WILDS Docker Library</a></li>
+  </ul></li>
+  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next"><span class="header-section-number">9.4</span> What’s Next?</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Week 3: Containers</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="sec-containers" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="sec-containers"><span class="header-section-number">9.1</span> Containers</h2>
+<p>We already learned about software modules (<a href="01_scripting.html#sec-modules" class="quarto-xref"><span>Section 3.5</span></a>) on the <code>gizmo</code> cluster. There is an alternative way to use software: pulling and running a software <button class="glossary"><span class="def"></span>container</button>.</p>
+<section id="what-is-a-container" class="level3" data-number="9.1.1">
+<h3 data-number="9.1.1" class="anchored" data-anchor-id="what-is-a-container"><span class="header-section-number">9.1.1</span> What is a Container?</h3>
+<p>A container is a self-contained unit of software. It contains everything needed to run the software on a variety of machines. If you have the container software installed on your machine, it doesn’t matter whether it is MacOS, Linux, or Windows - the container will behave consistently across different operating systems and architectures.</p>
+<p>The container has the following contents:</p>
+<ul>
+<li><strong>Software</strong> - The software we want to run in a container. For bioinformatics work, this is usually something like an aligner like <code>bwa</code>, or utilities such as <code>samtools</code></li>
+<li><strong>Software Dependencies</strong> - various software packages needed to run the software. For example, if we wanted to run <code>tidyverse</code> in a container, we need to have <code>R</code> installed in the container as well.</li>
+<li><strong>Filesystem</strong> - containers have their own isolated filesystem that can be connected to the “outside world” - everything outside of the container. We’ll learn more about customizing these with bind paths (<a href="#sec-bindpaths" class="quarto-xref"><span>Section 9.3.3</span></a>).</li>
+</ul>
+<p>In short, the container has everything needed to run the software. It is not a full operating system, but a smaller mini-version that cuts out a lot of cruft.</p>
+<p>Containers are <button class="glossary"><span class="def">When you are finished with Docker containers, everything that you created in them will disappear when you finish running scripts in the container.</span>ephemeral</button>. They leverage the the file system of their host to manage files. These are called both <em>Volumes</em> (the Docker term) and <em>Bind Paths</em> (the apptainer term).</p>
+</section>
+<section id="docker-vs.-apptainer" class="level3" data-number="9.1.2">
+<h3 data-number="9.1.2" class="anchored" data-anchor-id="docker-vs.-apptainer"><span class="header-section-number">9.1.2</span> Docker vs.&nbsp;Apptainer</h3>
+<p>There are two basic ways to run Docker containers:</p>
+<ol type="1">
+<li>Using the Docker software</li>
+<li>Using the Apptainer software (for HPC systems)</li>
+</ol>
+<p>In general, Docker is used on systems where you have a high level of access to the system. This is because <code>docker</code> uses a special user group called <code>docker</code> that has essentially root level privileges. This is not something to be taken lightly.</p>
+<p>This is not the case for HPC systems, which are shared and granting this level of access to many people is not practical. This is when we use <button class="glossary"><span class="def"></span>Apptainer</button> (which used to be called Singularity), which requires a much lower level of user privileges to execute tasks. For more info, see <a href="#sec-open-container" class="quarto-xref"><span>Section 9.3</span></a> .</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Be Secure
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Before we get started, security is always a concern when running containers. The <code>docker</code> group has elevated status on a system, so we need to be careful that when we’re running them, these containers aren’t introducing any system vulnerabilities. Note that on HPC systems, the main mechanism for running containers is <code>apptainer</code>, which is designed to be more secure.</p>
+<p>These are mostly important when running containers that are web-servers or part of a web stack, but it is also important to think about when running jobs on HPC.</p>
+<p>Here are some guidelines to think about when you are working with a container.</p>
+<ul>
+<li><strong>Use vendor-specific Docker Images when possible</strong>.</li>
+<li><strong>Use container scanners to spot potential vulnerabilities</strong>. DockerHub has a vulnerability scanner that scans your Docker images for potential vulnerabilities. For example, the WILDS Docker library employs a vulnerability scanner and the containers are regularly patched to prevent vulnerabilities.</li>
+<li><strong>Avoid kitchen-sink images</strong>. One issue is when an image is built on top of many other images. It makes it really difficult to plug vulnerabilities. When in doubt, use images from trusted people and organizations. At the very least, look at the Dockerfile to see that suspicious software isn’t being installed.</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="pulling-a-docker-container-and-running-it" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="pulling-a-docker-container-and-running-it"><span class="header-section-number">9.2</span> Pulling a Docker Container and Running It</h2>
+<p>Let’s pull a docker container from the Docker registry. Note we have to specify <code>docker://</code> when we pull the container, because Apptainer has its own internal format called SIF.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-1"><pre class="sourceCode bash code-annotation-code code-with-copy"><code class="sourceCode bash"><span id="annotated-cell-1-1"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span>
+<span id="annotated-cell-1-2"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> pull docker://biocontainers/samtools:v1.9-4-deb_cv1</span>
+<span id="annotated-cell-1-3"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> exec <span class="dt">\</span></span>
+<span id="annotated-cell-1-4"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--bind</span> /path/to/data:/data <span class="dt">\</span></span>
+<span id="annotated-cell-1-5"><a href="#annotated-cell-1-5" aria-hidden="true" tabindex="-1"></a>    docker://biocontainers/samtools:v1.9-4-deb_cv1 <span class="dt">\ </span></span>
+<span id="annotated-cell-1-6"><a href="#annotated-cell-1-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">samtools</span> view <span class="at">-c</span> /mydata/<span class="va">$1</span> <span class="op">&gt;</span> /mydata/<span class="va">$1</span>.counts.txt </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="using-a-container" class="level3" data-number="9.2.1">
+<h3 data-number="9.2.1" class="anchored" data-anchor-id="using-a-container"><span class="header-section-number">9.2.1</span> Using a Container</h3>
+<p>In <a href="#sec-containers" class="quarto-xref"><span>Section 9.1</span></a>, we learned a little bit about using Apptainer to run a Docker container. Let’s try to pull a common container, the Genome Analysis Toolkit (GATK) and run things inside the container.</p>
+<p>The first thing we need to do is load Apptainer:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then we can pull the docker container:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> pull docker://biocontainers/samtools:v1.9-4-deb_cv1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>We can check if we have pulled the docker image by using</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> cache list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Okay, now we have confirmed that we downloaded the apptainer image. Now we can try to execute things with it.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-5"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-5-1"><a href="#annotated-cell-5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> exec <span class="dt">\</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-5-2" class="code-annotation-target"><a href="#annotated-cell-5-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--bind</span> /path/to/data:/data <span class="dt">\</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-5-3" class="code-annotation-target"><a href="#annotated-cell-5-3" aria-hidden="true" tabindex="-1"></a>    docker://biocontainers/samtools:v1.9-4-deb_cv1 <span class="dt">\</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-5-4" class="code-annotation-target"><a href="#annotated-cell-5-4" aria-hidden="true" tabindex="-1"></a>    samtools view <span class="at">-c</span> /mydata/<span class="va">$1</span> <span class="op">&gt;</span> /mydata/<span class="va">$1</span>.counts.txt</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-5" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-5" data-code-lines="2" data-code-annotation="1">Bind path (see <a href="#sec-bindpaths" class="quarto-xref"><span>Section 9.3.3</span></a>)</span>
+</dd>
+<dt data-target-cell="annotated-cell-5" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-5" data-code-lines="3" data-code-annotation="2">Docker image we have downloaded</span>
+</dd>
+<dt data-target-cell="annotated-cell-5" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-5" data-code-lines="4" data-code-annotation="3"><code>samtools</code> command to run.</span>
+</dd>
+</dl>
+<p>It’s worth trying this once to make sure you understand how all of the pieces are connected. In general, I do recommend using a workflow runner (<a href="04_containers_workflows.html#sec-workflows" class="quarto-xref"><span>Section 12.3</span></a>) instead, because it helps manage all of these details, and it makes reading files easier.</p>
+</section>
+<section id="bind-paths" class="level3" data-number="9.2.2">
+<h3 data-number="9.2.2" class="anchored" data-anchor-id="bind-paths"><span class="header-section-number">9.2.2</span> Bind Paths</h3>
+<p>One thing to keep in mind is that containers have their own filesystem. They can only read and write to folders in the external filesystem that you give them access to with <em>bind paths</em>. The one exception is the current working directory.</p>
+<p>For more info about bind paths see <a href="#sec-bindpaths" class="quarto-xref"><span>Section 9.3.3</span></a>.</p>
+</section>
+</section>
+<section id="sec-open-container" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="sec-open-container"><span class="header-section-number">9.3</span> Testing code in a container</h2>
+<p>I think the hardest thing about working with containers is wrapping your head around the indirectness of them. You are running software with its own internal filesystem and the challenges are getting the container to read files in folders/paths outside of its own filesytem, as well as outputting files into those outside folders.</p>
+<p>The best way to understand containers is to open a shell in a container. Remember, containers are self-contained mini operating systems, and the most important thing to understand what they isolate from the rest of the system, and how to get files into and out of the container.</p>
+<p>In this section, we talk about testing scripts in a container using <code>apptainer</code>. We use <code>apptainer</code> (formerly Singularity) in order to run Docker containers on a shared HPC system. This is because Docker itself requires root-level privileges, which is not secure on shared systems.</p>
+<p>In order to do our testing, we’ll first pull the Docker container, map our bind point (so our container can access files outside of its file system), and then run scripts in the container.</p>
+<p>Even if you aren’t going to frequently use Apptainer in your work, I recommend trying an interactive shell in a container at least once or twice to learn about the container filesystem and conceptually understand how you connect it to the external filesystem.</p>
+<section id="pulling-a-docker-container" class="level3" data-number="9.3.1">
+<h3 data-number="9.3.1" class="anchored" data-anchor-id="pulling-a-docker-container"><span class="header-section-number">9.3.1</span> Pulling a Docker Container</h3>
+<p>Let’s pull a docker container from the Docker registry. Note we have to specify <code>docker://</code> when we pull the container, because Apptainer has its own internal format called SIF.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> pull docker://biocontainers/samtools:v1.9-4-deb_cv1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="opening-a-shell-in-a-container-with-apptainer-shell" class="level3" data-number="9.3.2">
+<h3 data-number="9.3.2" class="anchored" data-anchor-id="opening-a-shell-in-a-container-with-apptainer-shell"><span class="header-section-number">9.3.2</span> Opening a Shell in a Container with <code>apptainer shell</code></h3>
+<p>When you’re getting started, opening a shell using Apptainer can help you test out things like filepaths and how they’re accessed in the container. It’s hard to get an intuition for how file I/O works with containers until you can see the limited view from the container.</p>
+<p>By default, apptainers can see your current directory and navigate to the files in it.</p>
+<p>You can open an Apptainer shell in a container using <code>apptainer shell</code>. Remember to use <code>docker://</code> before the container name. For example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> shell docker://biocontainers/samtools:v1.9-4-deb_cv1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This will load the <code>apptainer</code> module, and then open a Bash shell in the container using <code>apptainer shell</code>. Once you’re in the container, you can test code, especially seeing whether your files can be seen by the container (see <a href="#sec-bindpaths" class="quarto-xref"><span>Section 9.3.3</span></a>). 90% of the issues with using Docker containers has to do with bind paths, so we’ll talk about that next.</p>
+<p>Once you’re in the shell, you can take a look at where <code>samtools</code> is installed:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> samtools</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Note that the container filesystem is isolated, and we need to explicitly build connections to it (called bind paths) to get files in and out. We’ll talk more about this in the next section.</p>
+<p>Once we’re done testing scripts in our containers, we can exit the shell and get back into the node.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">exit</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="sec-bindpaths" class="level3" data-number="9.3.3">
+<h3 data-number="9.3.3" class="anchored" data-anchor-id="sec-bindpaths"><span class="header-section-number">9.3.3</span> Using bind paths in containers</h3>
+<p>One thing to keep in mind is that every container has its own filesystem. One of the hardest things to wrap your head around for containers is how their filesystems work, and how to access files that are outside of the container filesystem. We’ll call any filesystems outside of the container <em>external filesystems</em> to make the discussion a little easier.</p>
+<p>By default, the containers have access to your current working directory. We could make this where our scripts live (such as <code>/home/tladera2/</code>), but because our data is elsewhere, we’ll need to specify that location (<code>/fh/fast/mylab/</code>) as well.</p>
+<p>The main mechanism we have in Apptainer to access the external filesystem are <em>bind paths</em>. Much like mounting a drive, we can bind directories from the external filesystem using these bind paths.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+   B["External Directory - /fh/fast/mydata/"] 
+   B --read--&gt; C
+   C --write--&gt; B
+   A["Container Filesystem - /mydata/"]--write--&gt;C("--bind /fh/fast/mydata/:/mydata/")
+   C --read--&gt; A
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>I think of bind paths as “tunnels” that give access to particular folders in the external filesystem. Once the tunnel is open, we can access data files, process them, and save them using the bind path.</p>
+<p>Say my data lives in <code>/fh/fast/mydata/</code>. Then I can specify a bind point called <code>mydata/</code> in my <code>apptainer shell</code> and <code>apptainer run</code> commands so my container can access the files in that directory. Then in the container, we can access the files through the <code>mydata/</code> bind path.</p>
+<p>We can do this with the <code>--bind</code> option:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> shell <span class="at">--bind</span> /fh/fast/mydata:/mydata docker://biocontainers/samtools:v1.9-4-deb_cv1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Note that the bind syntax doesn’t have the trailing slash (<code>/</code>). That is, note that it is:</p>
+<pre><code>--bind /fh/fast/mydata: ....</code></pre>
+<p>Rather than</p>
+<pre><code>--bind /fh/fast/mydata/: ....</code></pre>
+<p>Now our <code>/fh/fast/mydata/</code> folder will be available as <code>/mydata/</code> in my container. We can read and write files to this bind point. For example while in the container’s shell, I’d refer to the <code>.bam</code> file <code>/fh/fast/mydata/my_bam_file.bam</code> as:</p>
+<pre><code>samtools view -c /mydata/my_bam_file.bam</code></pre>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Opening a Shell in a Docker Container with Docker
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For the most part, due to security reasons, we don’t use <code>docker</code> on HPC systems. In short, the <code>docker</code> group essentially has root-level access to the machine, and it’s not a good for security on a shared resource like an HPC.</p>
+<p>However, if you have admin level access (for example, on your own laptop), you can open up an interactive shell with <code>docker run -it</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-it</span> biocontainers/samtools:v1.9-4-deb_cv1 /bin/bash</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This will open a bash shell much like <code>apptainer shell</code>. Note that volumes (the docker equivalent of bind paths) are specified differently in Docker compared to Apptainer.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>WDL makes this way easier
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A major point of failure with Apptainer scripting is when our scripts aren’t using the right bind paths. It becomes even more complicated when you are running multiple steps.</p>
+<p>This is one reason we recommend writing WDL Workflows and a <button class="glossary"><span class="def">A system that works with the cluster manager to orchestrate processing data through a workflow</span>workflow manager</button> (such as <button class="glossary"><span class="def"></span>Cromwell</button> or Sprocket) to run your workflows. You don’t have to worry that your bind points are setup correctly, because they are handled by the workflow manager.</p>
+</div>
+</div>
+</section>
+<section id="executing-in-the-apptainer-shell" class="level3" data-number="9.3.4">
+<h3 data-number="9.3.4" class="anchored" data-anchor-id="executing-in-the-apptainer-shell"><span class="header-section-number">9.3.4</span> Executing in the Apptainer Shell</h3>
+<p>Ok, now we have a bind point, so now we can test our script in the shell. For example, we can see if we are invoking <code>samtools</code> in the correct way and that our bind points work.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-c</span> /mydata/my_bam_file.bam <span class="op">&gt;</span> /mydata/bam_counts.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Again, trying out scripts in the container is the best way to understand what the container can and can’t see.</p>
+</section>
+<section id="exiting-the-container-when-youre-done" class="level3" data-number="9.3.5">
+<h3 data-number="9.3.5" class="anchored" data-anchor-id="exiting-the-container-when-youre-done"><span class="header-section-number">9.3.5</span> Exiting the container when you’re done</h3>
+<p>You can <code>exit</code>, like any shell you open. You should be out of the container. Confirm by using <code>hostname</code> to make sure you’re out of the container.</p>
+</section>
+<section id="testing-outside-of-the-container" class="level3" data-number="9.3.6">
+<h3 data-number="9.3.6" class="anchored" data-anchor-id="testing-outside-of-the-container"><span class="header-section-number">9.3.6</span> Testing outside of the container</h3>
+<p>Let’s take everything that we learned and put it in a script that we can run on the HPC:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Script to samtools view -c an input file:</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Usage: ./run_sam.sh &lt;my_bam_file.bam&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Outputs a count file: my_bam_file.bam.counts.txt</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> run <span class="at">--bind</span> /fh/fast/mydata:/mydata <span class="dt">\ </span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">docker://biocontainers/samtools:v1.9-4-deb_cv1</span> <span class="dt">\ </span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">samtools</span> view <span class="at">-c</span> /mydata/<span class="va">$1</span> <span class="op">&gt;</span> /mydata/<span class="va">$1</span>.counts.txt</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co">#apptainer cache clean</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>We can use this script by the following command:</p>
+<pre><code>./run_sam.sh chr1.bam </code></pre>
+<p>And it will output a file called <code>chr1.bam.counts.txt</code>.</p>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">None</span>Apptainer Cache
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="https://apptainer.org/docs/user/1.0/build_env.html">The apptainer cache</a> is where your docker images live. They are translated to the native apptainer <code>.sif</code> format.</p>
+<p>You can see what’s in your cache by using</p>
+<pre><code>apptainer cache list</code></pre>
+<p>By default the cache lives at <code>~/.apptainer/cache</code>.</p>
+<p>If you need to clear out the cache, you can run</p>
+<pre><code>apptainer cache clean</code></pre>
+<p>to clear out the cache.</p>
+<p>There are a number of environment variables (<a href="configuring.html#sec-environment" class="quarto-xref"><span>Section 15.3</span></a>) that can be set, including login tokens for pulling from a private registry. <a href="https://apptainer.org/docs/user/1.0/build_env.html#environment-variables">More information is here</a>.</p>
+</div>
+</div>
+</section>
+<section id="the-wilds-docker-library" class="level3" data-number="9.3.7">
+<h3 data-number="9.3.7" class="anchored" data-anchor-id="the-wilds-docker-library"><span class="header-section-number">9.3.7</span> The WILDS Docker Library</h3>
+<p>The Data Science Lab has a set of Docker containers for common Bioinformatics tasks available in the <a href="https://hub.docker.com/u/getwilds">WILDS Docker Library</a>. These include:</p>
+<ul>
+<li><code>bwa mem</code></li>
+<li><code>samtools</code></li>
+<li><code>gatk</code></li>
+<li><code>bcftools</code></li>
+<li><code>manta</code></li>
+<li><code>cnvkit</code></li>
+<li><code>deseq2</code></li>
+</ul>
+<p>Among many others. Be sure to check it out before you start building your own containers.</p>
+</section>
+</section>
+<section id="whats-next" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="whats-next"><span class="header-section-number">9.4</span> What’s Next?</h2>
+<p>Next week we will discuss using <code>MiniWDL</code> (a workflow manager) to process files through multi-step workflows in <button class="glossary"><span class="def"></span>WDL</button> and run WDL files using PROOF.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./containers_reading.html" class="pagination-link" aria-label="Week 3 Reading: Containers">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Week 3 Reading: Containers</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./03_assignment.html" class="pagination-link" aria-label="Week 3: Assignment">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Week 3: Assignment</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

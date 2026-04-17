@@ -1,0 +1,45 @@
+---
+title: "Week 4 Exercises"
+format: 
+    html: default
+    docx: default
+---
+
+## In class exercises:
+
+1. Setup `miniwdl` to run:
+
+```
+module load cirro
+module load Apptainer/1.1.6
+export MINIWDL__SCHEDULER__CONTAINER_BACKEND=singularity
+```
+
+2. Examine `scripts/week4/input.json`. Run `scripts/week4/ww-bwa-samtools.wdl` using `scripts/week4/input.json` (run in `bash_for_bio`):
+
+```
+miniwdl run -i scripts/week4/input.json scripts/week4/ww-bwa-samtools.wdl
+```
+
+Examine the output directory:
+
+```
+ls -l _LAST/
+```
+
+Look at the outputs:
+
+```
+ls -l _LAST/out
+```
+
+3. Examine `scripts/week4/scatter.json`. Run `scripts/week4/ww-bwa-samtools-scatter.wdl` using `scripts/week4/scatter.json` 
+
+```
+miniwdl run -i scripts/week4/scatter.json scripts/week4/ww-bwa-samtools-scatter.wdl
+```
+
+## Homework Exercises
+
+- No follow up homework - I suggest you take a look at the [WILDS WDL library](https://getwilds.org/wilds-wdl-library/) and identify any tasks you might want to use in your work.
+- Keep an eye out for the Workflows Data Deep Dive next Winter Quarter for more hands-on WDL experience.

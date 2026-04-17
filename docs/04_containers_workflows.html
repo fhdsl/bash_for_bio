@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.24">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>9&nbsp; Workflows – Bash for Bioinformatics</title>
+<title>12&nbsp; Week 4: Workflows – Bash for Bioinformatics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./testing.html" rel="next">
-<link href="./container-basics.html" rel="prev">
+<link href="./04_assignment.html" rel="next">
+<link href="./pipes_json_reading.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -118,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04_containers_workflows.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Workflows</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04_containers_workflows.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Week 4: Workflows</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -156,74 +156,98 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./00_prework.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Prework</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./01_basics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Navigating the Bash Filesystem</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Week 1: Navigating</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_scripting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Week 1: Introduction to Scripting</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01_assignment.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Week 1 Exercises</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./02_scripting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to Scripting</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./02_assignment.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Week 2 Exercises</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Week 1 Exercises</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./hpc-basics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reading: HPC Basics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Week 2 Reading: HPC Basics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03_batch.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Batch Processing and Submitting Jobs</span></span></a>
+  <a href="./02_batch.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Week 2: Batch Processing and Submitting Jobs</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_assignment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Week 2 Exercises</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./containers_reading.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Week 3 Reading: Containers</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_containers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Week 3: Containers</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./03_assignment.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Week 3 Exercises</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Week 3: Assignment</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./container-basics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Reading: JSON/Container Basics</span></span></a>
+  <a href="./pipes_json_reading.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Week 4 Reading: Pipes/JSON</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04_containers_workflows.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Workflows</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Week 4: Workflows</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_assignment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Week 4 Exercises</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Testing Scripts</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Testing Scripts</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./configuring.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Appendix: Configuring your Shell</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Appendix: Configuring your Shell</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./miscellaneous.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Miscellaneous</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Miscellaneous</span></span></a>
   </div>
 </li>
     </ul>
@@ -236,19 +260,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">9.1</span> Learning Objectives</a></li>
-  <li><a href="#using-a-container" id="toc-using-a-container" class="nav-link" data-scroll-target="#using-a-container"><span class="header-section-number">9.2</span> Using a Container</a></li>
-  <li><a href="#sec-workflows" id="toc-sec-workflows" class="nav-link" data-scroll-target="#sec-workflows"><span class="header-section-number">9.3</span> Running Workflows</a>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">12.1</span> Learning Objectives</a></li>
+  <li><a href="#getting-todays-exercises" id="toc-getting-todays-exercises" class="nav-link" data-scroll-target="#getting-todays-exercises"><span class="header-section-number">12.2</span> Getting today’s exercises</a></li>
+  <li><a href="#sec-workflows" id="toc-sec-workflows" class="nav-link" data-scroll-target="#sec-workflows"><span class="header-section-number">12.3</span> Running Workflows</a>
   <ul class="collapse">
-  <li><a href="#grabbing-a-wdl-workflow-from-getwilds" id="toc-grabbing-a-wdl-workflow-from-getwilds" class="nav-link" data-scroll-target="#grabbing-a-wdl-workflow-from-getwilds"><span class="header-section-number">9.3.1</span> Grabbing a WDL workflow from GETWILDS</a></li>
-  <li><a href="#executing-a-wdl-workflow" id="toc-executing-a-wdl-workflow" class="nav-link" data-scroll-target="#executing-a-wdl-workflow"><span class="header-section-number">9.3.2</span> Executing a WDL workflow</a></li>
-  <li><a href="#input-files-as-json" id="toc-input-files-as-json" class="nav-link" data-scroll-target="#input-files-as-json"><span class="header-section-number">9.3.3</span> Input Files as JSON</a></li>
-  <li><a href="#working-with-file-manifests-in-wdl" id="toc-working-with-file-manifests-in-wdl" class="nav-link" data-scroll-target="#working-with-file-manifests-in-wdl"><span class="header-section-number">9.3.4</span> Working with file manifests in WDL</a></li>
-  <li><a href="#lets-start-with-wdl-tasks" id="toc-lets-start-with-wdl-tasks" class="nav-link" data-scroll-target="#lets-start-with-wdl-tasks"><span class="header-section-number">9.3.5</span> Let’s start with WDL Tasks</a></li>
-  <li><a href="#anatomy-of-a-task" id="toc-anatomy-of-a-task" class="nav-link" data-scroll-target="#anatomy-of-a-task"><span class="header-section-number">9.3.6</span> Anatomy of a Task</a></li>
-  <li><a href="#architecture-of-a-wdl-file" id="toc-architecture-of-a-wdl-file" class="nav-link" data-scroll-target="#architecture-of-a-wdl-file"><span class="header-section-number">9.3.7</span> Architecture of a WDL file</a></li>
+  <li><a href="#specifying-file-inputs" id="toc-specifying-file-inputs" class="nav-link" data-scroll-target="#specifying-file-inputs"><span class="header-section-number">12.3.1</span> Specifying File Inputs</a></li>
+  <li><a href="#setting-up-for-running-a-wdl-workflow" id="toc-setting-up-for-running-a-wdl-workflow" class="nav-link" data-scroll-target="#setting-up-for-running-a-wdl-workflow"><span class="header-section-number">12.3.2</span> Setting up for running a WDL workflow</a></li>
+  <li><a href="#running-a-wdl-workflow" id="toc-running-a-wdl-workflow" class="nav-link" data-scroll-target="#running-a-wdl-workflow"><span class="header-section-number">12.3.3</span> Running a WDL workflow</a></li>
+  <li><a href="#exploring-the-wdl-output" id="toc-exploring-the-wdl-output" class="nav-link" data-scroll-target="#exploring-the-wdl-output"><span class="header-section-number">12.3.4</span> Exploring the WDL output</a></li>
   </ul></li>
-  <li><a href="#where-next" id="toc-where-next" class="nav-link" data-scroll-target="#where-next"><span class="header-section-number">9.4</span> Where Next?</a></li>
+  <li><a href="#looking-at-a-wdl-workflow" id="toc-looking-at-a-wdl-workflow" class="nav-link" data-scroll-target="#looking-at-a-wdl-workflow"><span class="header-section-number">12.4</span> Looking at a WDL workflow</a>
+  <ul class="collapse">
+  <li><a href="#how-does-this-connect-to-shell-scripting" id="toc-how-does-this-connect-to-shell-scripting" class="nav-link" data-scroll-target="#how-does-this-connect-to-shell-scripting"><span class="header-section-number">12.4.1</span> How does this connect to shell scripting?</a></li>
+  </ul></li>
+  <li><a href="#scatter-how-we-divide-up-tasks." id="toc-scatter-how-we-divide-up-tasks." class="nav-link" data-scroll-target="#scatter-how-we-divide-up-tasks."><span class="header-section-number">12.5</span> <code>scatter()</code>: how we divide up tasks.</a>
+  <ul class="collapse">
+  <li><a href="#more-about-scatter" id="toc-more-about-scatter" class="nav-link" data-scroll-target="#more-about-scatter"><span class="header-section-number">12.5.1</span> More about <code>scatter</code></a></li>
+  <li><a href="#for-more-information" id="toc-for-more-information" class="nav-link" data-scroll-target="#for-more-information"><span class="header-section-number">12.5.2</span> For more information</a></li>
+  </ul></li>
+  <li><a href="#working-with-file-manifests-in-wdl" id="toc-working-with-file-manifests-in-wdl" class="nav-link" data-scroll-target="#working-with-file-manifests-in-wdl"><span class="header-section-number">12.6</span> Working with file manifests in WDL</a></li>
+  <li><a href="#where-next" id="toc-where-next" class="nav-link" data-scroll-target="#where-next"><span class="header-section-number">12.7</span> Where Next?</a></li>
   </ul>
 </nav>
     </div>
@@ -257,7 +288,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Workflows</span></h1>
+<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Week 4: Workflows</span></h1>
 </div>
 
 
@@ -274,48 +305,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="learning-objectives" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">9.1</span> Learning Objectives</h2>
+<section id="learning-objectives" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">12.1</span> Learning Objectives</h2>
 <ul>
 <li><strong>Execute</strong> a workflow on the Fred Hutch Cluster</li>
 <li><strong>Modify</strong> a workflow and <strong>test</strong> it on a compute node</li>
 <li><strong>Utilize</strong> a container and <strong>test</strong> inside it on a compute node</li>
 </ul>
 </section>
-<section id="using-a-container" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="using-a-container"><span class="header-section-number">9.2</span> Using a Container</h2>
-<p>In <a href="container-basics.html#sec-containers" class="quarto-xref"><span>Section 8.2</span></a>, we learned a little bit about using Apptainer to run a Docker container. Let’s try to pull a common container, the Genome Analysis Toolkit (GATK) and run things inside the container.</p>
-<p>The first thing we need to do is load Apptainer:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Then we can pull the docker container:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> pull docker://biocontainers/samtools:v1.9-4-deb_cv1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>We can check if we have pulled the docker image by using</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> cache list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Okay, now we have confirmed that we downloaded the apptainer image. Now we can try to execute things with it.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-4"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-4-1"><a href="#annotated-cell-4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> run <span class="dt">\</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-4-2" class="code-annotation-target"><a href="#annotated-cell-4-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--bind</span> <span class="at">--bind</span> /path/to/data:/data <span class="dt">\</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-4-3" class="code-annotation-target"><a href="#annotated-cell-4-3" aria-hidden="true" tabindex="-1"></a>    docker://biocontainers/samtools:v1.9-4-deb_cv1 <span class="dt">\</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-4-4" class="code-annotation-target"><a href="#annotated-cell-4-4" aria-hidden="true" tabindex="-1"></a>    samtools view <span class="at">-c</span> /mydata/<span class="va">$1</span> <span class="op">&gt;</span> /mydata/<span class="va">$1</span>.counts.txt</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
-<dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="2" data-code-annotation="1">Bind path</span>
-</dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="2">2</dt>
-<dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="3" data-code-annotation="2">Docker image we have downloaded</span>
-</dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="3">3</dt>
-<dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="4" data-code-annotation="3"><code>samtools</code> command to run.</span>
-</dd>
-</dl>
-<p>It’s worth trying this once to make sure you understand how all of the pieces are connected. In general, I do recommend using a workflow runner (<a href="#sec-workflows" class="quarto-xref"><span>Section 9.3</span></a>) instead, because it helps manage all of these details</p>
+<section id="getting-todays-exercises" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="getting-todays-exercises"><span class="header-section-number">12.2</span> Getting today’s exercises</h2>
+<p>In your <code>bash_for_bio/</code> folder try doing a <code>git pull</code>. Or</p>
+<p>copy these files into your own <code>bash_for_bio</code> directory:</p>
+<pre><code>cp /home/tladera2/bash_for_bio/scripts/week4/* ~/bash_for_bio/scripts/week4/</code></pre>
 </section>
-<section id="sec-workflows" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="sec-workflows"><span class="header-section-number">9.3</span> Running Workflows</h2>
+<section id="sec-workflows" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="sec-workflows"><span class="header-section-number">12.3</span> Running Workflows</h2>
 <p>So far, we’ve been batch processing using job arrays in SLURM. However, when you graduate to processing in multiple steps, you should consider using a <em>workflow manager</em> for processing files.</p>
-<p>A workflow manager will take a workflow, which can consist of multiple steps and allow you to batch process files.</p>
+<p>A workflow manager will take a workflow, which can consist of multiple tasks and allow you to batch process files.</p>
 <p>A good workflow manager will allow you to:</p>
 <ul>
 <li>Restart failed subjobs in the workflow</li>
@@ -324,7 +331,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Adapt to different computing architectures (HPC/cloud/etc)</li>
 </ul>
 <p>Many bioinformaticists have used workflow managers to process and manage hundreds or thousands of files at a time. They are well worth the extra effort it takes to learn.</p>
-<p>Here is an overview of some of the common bioinformatics workflow managers. We will be using <code>miniWDL</code>, which runs WDL files.</p>
+<p>Here is an overview of some of the common bioinformatics workflow managers. We will be using <code>miniWDL</code>, which runs on WDL files.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -366,39 +373,388 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<section id="grabbing-a-wdl-workflow-from-getwilds" class="level3" data-number="9.3.1">
-<h3 data-number="9.3.1" class="anchored" data-anchor-id="grabbing-a-wdl-workflow-from-getwilds"><span class="header-section-number">9.3.1</span> Grabbing a WDL workflow from GETWILDS</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/getwilds/ww-star-deseq2/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="executing-a-wdl-workflow" class="level3" data-number="9.3.2">
-<h3 data-number="9.3.2" class="anchored" data-anchor-id="executing-a-wdl-workflow"><span class="header-section-number">9.3.2</span> Executing a WDL workflow</h3>
-<p>Say someone has given us a WDL file - how do we set it up to run on our own data?</p>
-<p>In order to test this out on a batch of files, we’ll first request a node using <code>grabnode</code> (<a href="testing.html#sec-grabnode" class="quarto-xref"><span>Section 10.1.1</span></a>).</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">grabnode</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>In our node, we’ll use <code>miniWDL</code> to run our WDL workflow. It is accessible via the <code>cirro</code> module.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load cirro</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> miniwdl</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>We will get the repsonse:</p>
-<pre><code>/app/software/cirro/1.7.0-foss-2024a/bin/miniwdl</code></pre>
-<p>We’ll investigate using <code>miniwdl run</code> as an initial way to interact with <code>miniwdl</code>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-9"><pre class="sourceCode bash code-annotation-code code-with-copy"><code class="sourceCode bash"><span id="annotated-cell-9-1"><a href="#annotated-cell-9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">miniwdl</span> run </span>
-<span id="annotated-cell-9-2"><a href="#annotated-cell-9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">java</span> <span class="at">-jar</span> <span class="va">$EBROOTCROMWELL</span>/cromwell.jar run ww-star2-deseq2.wdl <span class="dt">\</span></span>
-<span id="annotated-cell-9-3"><a href="#annotated-cell-9-3" aria-hidden="true" tabindex="-1"></a>   <span class="at">--inputs</span> input_file.json</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="input-files-as-json" class="level3" data-number="9.3.3">
-<h3 data-number="9.3.3" class="anchored" data-anchor-id="input-files-as-json"><span class="header-section-number">9.3.3</span> Input Files as JSON</h3>
-<p>If you want to work with the JSON format (<a href="container-basics.html#sec-json" class="quarto-xref"><span>Section 8.1</span></a>), there is a trick to generating a template <code>.json</code> file for a workflow. There is an additional utility called <code>womtools</code> that will generate a template file from a workflow file.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">miniwdl</span> input-template ww-star2-deseq2.wdl <span class="op">&gt;</span> ww-star2-deseq2-inputs.json</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This will generate a file called <code>ww-star2-deseq2-inputs.json</code> that contains all of the inputs:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>MiniWDL is mostly for demonstration
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>MiniWDL is written to run locally on your own computer for testing. We don’t recommend that you run it on <code>rhino</code> for work in general. For one, it is not set up to take advantage of SLURM.</p>
+<p>Cromwell is the suggested way to run workflows on <code>rhino</code>. We have been working on a web app called <a href="https://proof.fredhutch.org/">PROOF, that will let you manage your workflows, look at individual jobs, and launches a Cromwell server</a>.</p>
+</div>
+</div>
+<section id="specifying-file-inputs" class="level3" data-number="12.3.1">
+<h3 data-number="12.3.1" class="anchored" data-anchor-id="specifying-file-inputs"><span class="header-section-number">12.3.1</span> Specifying File Inputs</h3>
+<p>To run a WDL workflow, you will need to specify the <em>inputs</em> for that workflow. These inputs can be reference genomes, the files we want to process, and any other information the workflow requires.</p>
+<p>Our WDL workflow specifies the following inputs:</p>
+<pre><code>input {
+    File ref_fasta
+    File ref_bwt
+    File ref_pac
+    File ref_amb
+    File ref_ann
+    File ref_sa
+    File fastq_r1
+    String name
+  }</code></pre>
+<p>Note that most of the entries in this input have to do with the reference, including the files that are generated by <code>bwa index</code>. This is because <code>bwa mem</code> needs to have these files accessible, even though our <code>bwa mem</code> script only runs with the <code>ref_fasta</code> input.</p>
+<p>Here is an example of inputs for our workflow of interest.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| filename: scripts/week4/input.json</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">{</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"bwa_samtools_workflow.ref_fasta"</span><span class="ex">:</span> <span class="st">"/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"bwa_samtools_workflow.ref_bwt"</span><span class="ex">:</span> <span class="st">"/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa.bwt"</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"bwa_samtools_workflow.ref_pac"</span><span class="ex">:</span> <span class="st">"/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa.pac"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"bwa_samtools_workflow.ref_amb"</span><span class="ex">:</span> <span class="st">"/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa.amb"</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"bwa_samtools_workflow.ref_ann"</span><span class="ex">:</span> <span class="st">"/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa.ann"</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"bwa_samtools_workflow.ref_sa"</span><span class="ex">:</span> <span class="st">"/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa.sa"</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"bwa_samtools_workflow.fastq_r1"</span><span class="ex">:</span> <span class="st">"./data/CALU1_combined_final.fastq"</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"bwa_samtools_workflow.name"</span><span class="ex">:</span> <span class="st">"CALU1_combined_final"</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">None</span>Input Files as JSON
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you want to work with the JSON format (<a href="pipes_json_reading.html#sec-json" class="quarto-xref"><span>Section 11.2</span></a>), there is a trick to generating a template <code>.json</code> file for a workflow.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">miniwdl</span> input-template scripts/week4/ww-bwa-samtools.wdl <span class="op">&gt;</span> ww-bwa-inputs.json</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This will generate a file called <code>ww-bwa-inputs.json</code> that contains all of the inputs:</p>
 <pre><code>{
-  "star_deseq2.samples": "Array[WomCompositeType {\n name -&gt; String\nr1 -&gt; File\nr2 -&gt; File\ncondition -&gt; String \n}]",
-  "star_deseq2.rnaseqc_cov.cpu_cores": "Int (optional, default = 2)",
-  ...
+  "bwa_samtools_workflow.ref_fasta": "File",
+  "bwa_samtools_workflow.ref_bwt": "File",
+  "bwa_samtools_workflow.ref_pac": "File",
+  "bwa_samtools_workflow.ref_amb": "File",
+  "bwa_samtools_workflow.ref_ann": "File",
+  "bwa_samtools_workflow.ref_sa": "File",
+  "bwa_samtools_workflow.fastq_r1": "File",
+  "bwa_samtools_workflow.name": "String"
 }</code></pre>
 <p>This can be a good head start to making your <code>.json</code> files.</p>
+<p>For Cromwell, there is an additional utility called <code>womtools</code> that will generate a template file from a workflow file.</p>
+</div>
+</div>
 </section>
-<section id="working-with-file-manifests-in-wdl" class="level3" data-number="9.3.4">
-<h3 data-number="9.3.4" class="anchored" data-anchor-id="working-with-file-manifests-in-wdl"><span class="header-section-number">9.3.4</span> Working with file manifests in WDL</h3>
+<section id="setting-up-for-running-a-wdl-workflow" class="level3" data-number="12.3.2">
+<h3 data-number="12.3.2" class="anchored" data-anchor-id="setting-up-for-running-a-wdl-workflow"><span class="header-section-number">12.3.2</span> Setting up for running a WDL workflow</h3>
+<p>Say someone has given us a WDL file - how do we set it up to run on our own data?</p>
+<p>We’ll use <code>miniWDL</code> to run our WDL workflow. It is accessible via the <code>cirro</code> module.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load cirro</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load Apptainer/1.1.6</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">MINIWDL__SCHEDULER__CONTAINER_BACKEND</span><span class="op">=</span>singularity</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Because Docker is not available on <code>rhino</code>, we need to set the container backend to be <code>singularity</code> (the original name for Apptainer). This will enable MiniWDL to launch Docker containers.</p>
+<p>If we run</p>
+<pre><code>which miniwdl</code></pre>
+<p>We will get the repsonse:</p>
+<pre><code>/app/software/cirro/1.7.0-foss-2024a/bin/miniwdl</code></pre>
+<p>Now we’re set up to run our WDL workflow.</p>
+</section>
+<section id="running-a-wdl-workflow" class="level3" data-number="12.3.3">
+<h3 data-number="12.3.3" class="anchored" data-anchor-id="running-a-wdl-workflow"><span class="header-section-number">12.3.3</span> Running a WDL workflow</h3>
+<p>We’ll use <code>miniwdl run</code> to execute our workflow. Again, in our <code>bash_for_bio</code> directory:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">miniwdl</span> run <span class="at">-i</span> scripts/week4/input.json scripts/week4/ww-bwa-samtools.wdl</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>2025-11-03 12:40:35.106 miniwdl-run no configuration file found
+2025-11-03 12:40:35.998 wdl.w:bwa_samtools_workflow workflow start :: name: "bwa_samtools_workflow", source: "scripts/week4/ww-bwa-samtools.wdl", line: 2, column: 1, dir: "/home/tladera2/bash_for_bio/20251103_124035_bwa_samtools_workflow"
+2025-11-03 12:40:36.015 wdl.w:bwa_samtools_workflow miniwdl :: version: "v1.13.0", uname: "Linux rhino02 4.15.0-213-generic #224-Ubuntu SMP Mon Jun 19 13:30:12 UTC 2023 x86_64"
+2025-11-03 12:40:36.015 wdl.w:bwa_samtools_workflow task thread pool initialized :: task_concurrency: 72
+2025-11-03 12:40:36.049 wdl.w:bwa_samtools_workflow visit :: node: "decl-fastq_r1", values: {"fastq_r1": "/home/tladera2/bash_for_bio/data/CALU1_combined_final.fastq"}
+2025-11-03 12:40:36.049 wdl.w:bwa_samtools_workflow visit :: node: "decl-name", values: {"name": "CALU-test"}
+
+[....]
+
+2025-11-03 12:40:57.915 wdl.w:bwa_samtools_workflow finish :: job: "call-samtools_process"
+2025-11-03 12:40:57.916 wdl.w:bwa_samtools_workflow output :: job: "call-samtools_process", values: {"sorted_bai": "/home/tladera2/bash_for_bio/20251103_124035_bwa_samtools_workflow/call-samtools_process/out/sorted_bai/CALU-test_sorted.bam.bai", "sorted_bam": "/home/tladera2/bash_for_bio/20251103_124035_bwa_samtools_workflow/call-samtools_process/out/sorted_bam/CALU-test_sorted.bam"}
+2025-11-03 12:40:57.916 wdl.w:bwa_samtools_workflow visit :: node: "output-sorted_bai", values: {"sorted_bai": "/home/tladera2/bash_for_bio/20251103_124035_bwa_samtools_workflow/call-samtools_process/out/sorted_bai/CALU-test_sorted.bam.bai"}
+2025-11-03 12:40:57.916 wdl.w:bwa_samtools_workflow visit :: node: "output-sorted_bam", values: {"sorted_bam": "/home/tladera2/bash_for_bio/20251103_124035_bwa_samtools_workflow/call-samtools_process/out/sorted_bam/CALU-test_sorted.bam"}
+2025-11-03 12:40:57.916 wdl.w:bwa_samtools_workflow visit :: node: "outputs", values: {"sorted_bai": "/home/tladera2/bash_for_bio/20251103_124035_bwa_samtools_workflow/call-samtools_process/out/sorted_bai/CALU-test_sorted.bam.bai", "sorted_bam": "/home/tladera2/bash_for_bio/20251103_124035_bwa_samtools_workflow/call-samtools_process/out/sorted_bam/CALU-test_sorted.bam"}
+2025-11-03 12:40:57.942 wdl.w:bwa_samtools_workflow done</code></pre>
+<p>Success! We got our WDL to run. Let’s look at the output.</p>
+</section>
+<section id="exploring-the-wdl-output" class="level3" data-number="12.3.4">
+<h3 data-number="12.3.4" class="anchored" data-anchor-id="exploring-the-wdl-output"><span class="header-section-number">12.3.4</span> Exploring the WDL output</h3>
+<p>The output of our WDL workflow is as follows:</p>
+<pre><code>  output {
+    File sorted_bam = samtools_process.sorted_bam
+    File sorted_bai = samtools_process.sorted_bai
+  }</code></pre>
+<p>So we should expect a <code>sorted_bam</code> and a <code>sorted_bai</code> file as outputs. So where are they?</p>
+<p>MiniWDL will generate a folder per workflow run. You can always see the latest workflow run by referencing <code>_LAST/</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> _LAST/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>total 248
+drwxrwx--- 4 tladera2 g_tladera2   325 Nov  3 12:40 call-bwa_align
+drwxrwx--- 4 tladera2 g_tladera2   325 Nov  3 12:40 call-samtools_process
+-rw-rw---- 1 tladera2 g_tladera2   911 Nov  3 12:40 inputs.json
+drwxrwx--- 4 tladera2 g_tladera2    56 Nov  3 12:40 out
+-rw-rw---- 1 tladera2 g_tladera2   293 Nov  3 12:40 outputs.json
+-rw-rw---- 1 tladera2 g_tladera2   127 Nov  3 12:40 rerun
+drwxrwx--- 2 tladera2 g_tladera2    37 Nov  3 12:40 wdl
+-rw-rw---- 1 tladera2 g_tladera2 14348 Nov  3 12:40 workflow.log</code></pre>
+<p>In the <code>_LAST/out/</code> folder we have:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> _LAST/out</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>drwxrwx--- 2 tladera2 g_tladera2 42 Nov  3 12:40 sorted_bai
+drwxrwx--- 2 tladera2 g_tladera2 38 Nov  3 12:40 sorted_bam</code></pre>
+<p>Which will contain our output files symbolically linked.</p>
+</section>
+</section>
+<section id="looking-at-a-wdl-workflow" class="level2" data-number="12.4">
+<h2 data-number="12.4" class="anchored" data-anchor-id="looking-at-a-wdl-workflow"><span class="header-section-number">12.4</span> Looking at a WDL workflow</h2>
+<p>Workflows are divided up into <em>workflows</em> and individual <em>tasks</em>. There are two tasks in our workflow, which we can tell by the two <code>call</code>s in the workflow: <code>bwa_align</code> (2) and <code>samtools_process</code> (3).</p>
+<p>Each workflow and task requires an <code>input</code> and <code>output</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-14"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-14-1"><a href="#annotated-cell-14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="annotated-cell-14-2"><a href="#annotated-cell-14-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| filename: scripts/week4/ww-bwa-samtools.wdl</span></span>
+<span id="annotated-cell-14-3"><a href="#annotated-cell-14-3" aria-hidden="true" tabindex="-1"></a><span class="ex">version</span> 1.0</span>
+<span id="annotated-cell-14-4"><a href="#annotated-cell-14-4" aria-hidden="true" tabindex="-1"></a><span class="ex">workflow</span> bwa_samtools_workflow {</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-14" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-14-5" class="code-annotation-target"><a href="#annotated-cell-14-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">input</span> {</span>
+<span id="annotated-cell-14-6"><a href="#annotated-cell-14-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> ref_fasta</span>
+<span id="annotated-cell-14-7"><a href="#annotated-cell-14-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> ref_bwt</span>
+<span id="annotated-cell-14-8"><a href="#annotated-cell-14-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> ref_pac</span>
+<span id="annotated-cell-14-9"><a href="#annotated-cell-14-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> ref_amb</span>
+<span id="annotated-cell-14-10"><a href="#annotated-cell-14-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> ref_ann</span>
+<span id="annotated-cell-14-11"><a href="#annotated-cell-14-11" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> ref_sa</span>
+<span id="annotated-cell-14-12"><a href="#annotated-cell-14-12" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> fastq_r1</span>
+<span id="annotated-cell-14-13"><a href="#annotated-cell-14-13" aria-hidden="true" tabindex="-1"></a>    <span class="ex">String</span> name</span>
+<span id="annotated-cell-14-14"><a href="#annotated-cell-14-14" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-14" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-14-15" class="code-annotation-target"><a href="#annotated-cell-14-15" aria-hidden="true" tabindex="-1"></a>  <span class="ex">call</span> bwa_align {</span>
+<span id="annotated-cell-14-16"><a href="#annotated-cell-14-16" aria-hidden="true" tabindex="-1"></a>    <span class="ex">input:</span></span>
+<span id="annotated-cell-14-17"><a href="#annotated-cell-14-17" aria-hidden="true" tabindex="-1"></a>      <span class="ex">reference_bwt</span> = ref_bwt,</span>
+<span id="annotated-cell-14-18"><a href="#annotated-cell-14-18" aria-hidden="true" tabindex="-1"></a>      <span class="ex">reference_ann</span> = ref_ann,</span>
+<span id="annotated-cell-14-19"><a href="#annotated-cell-14-19" aria-hidden="true" tabindex="-1"></a>      <span class="ex">reference_pac</span> = ref_pac,</span>
+<span id="annotated-cell-14-20"><a href="#annotated-cell-14-20" aria-hidden="true" tabindex="-1"></a>      <span class="ex">reference_amb</span> = ref_amb,</span>
+<span id="annotated-cell-14-21"><a href="#annotated-cell-14-21" aria-hidden="true" tabindex="-1"></a>      <span class="ex">reference_sa</span> = ref_sa,</span>
+<span id="annotated-cell-14-22"><a href="#annotated-cell-14-22" aria-hidden="true" tabindex="-1"></a>      <span class="ex">reference_fasta</span> = ref_fasta,</span>
+<span id="annotated-cell-14-23"><a href="#annotated-cell-14-23" aria-hidden="true" tabindex="-1"></a>      <span class="ex">reads</span> = fastq_r1,</span>
+<span id="annotated-cell-14-24"><a href="#annotated-cell-14-24" aria-hidden="true" tabindex="-1"></a>      <span class="ex">name</span> = name</span>
+<span id="annotated-cell-14-25"><a href="#annotated-cell-14-25" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-14-26"><a href="#annotated-cell-14-26" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-14" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-14-27" class="code-annotation-target"><a href="#annotated-cell-14-27" aria-hidden="true" tabindex="-1"></a>  <span class="ex">call</span> samtools_process {</span>
+<span id="annotated-cell-14-28"><a href="#annotated-cell-14-28" aria-hidden="true" tabindex="-1"></a>    <span class="ex">input:</span></span>
+<span id="annotated-cell-14-29"><a href="#annotated-cell-14-29" aria-hidden="true" tabindex="-1"></a>      <span class="ex">sam_file</span> = bwa_align.bwa_output,</span>
+<span id="annotated-cell-14-30"><a href="#annotated-cell-14-30" aria-hidden="true" tabindex="-1"></a>      <span class="ex">name</span> = name</span>
+<span id="annotated-cell-14-31"><a href="#annotated-cell-14-31" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-14" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-14-32" class="code-annotation-target"><a href="#annotated-cell-14-32" aria-hidden="true" tabindex="-1"></a>  <span class="ex">output</span> {</span>
+<span id="annotated-cell-14-33"><a href="#annotated-cell-14-33" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> sorted_bam = samtools_process.sorted_bam</span>
+<span id="annotated-cell-14-34"><a href="#annotated-cell-14-34" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> sorted_bai = samtools_process.sorted_bai</span>
+<span id="annotated-cell-14-35"><a href="#annotated-cell-14-35" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-14-36"><a href="#annotated-cell-14-36" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-14" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-14-37" class="code-annotation-target"><a href="#annotated-cell-14-37" aria-hidden="true" tabindex="-1"></a><span class="ex">task</span> bwa_align {</span>
+<span id="annotated-cell-14-38"><a href="#annotated-cell-14-38" aria-hidden="true" tabindex="-1"></a>  <span class="ex">...</span></span>
+<span id="annotated-cell-14-39"><a href="#annotated-cell-14-39" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-14" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-14-40" class="code-annotation-target"><a href="#annotated-cell-14-40" aria-hidden="true" tabindex="-1"></a><span class="ex">task</span> samtools_process {</span>
+<span id="annotated-cell-14-41"><a href="#annotated-cell-14-41" aria-hidden="true" tabindex="-1"></a>  <span class="ex">...</span></span>
+<span id="annotated-cell-14-42"><a href="#annotated-cell-14-42" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-14" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-14" data-code-lines="5" data-code-annotation="1">Inputs to workflow</span>
+</dd>
+<dt data-target-cell="annotated-cell-14" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-14" data-code-lines="15" data-code-annotation="2">Call <code>bwa_align</code> task using inputs</span>
+</dd>
+<dt data-target-cell="annotated-cell-14" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-14" data-code-lines="27" data-code-annotation="3">Take outputs of <code>bwa_align</code> task and process them with <code>samtools_process</code></span>
+</dd>
+<dt data-target-cell="annotated-cell-14" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-14" data-code-lines="32" data-code-annotation="4">Outputs of workflow</span>
+</dd>
+<dt data-target-cell="annotated-cell-14" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-14" data-code-lines="37" data-code-annotation="5"><code>bwa_align</code> task definition</span>
+</dd>
+<dt data-target-cell="annotated-cell-14" data-target-annotation="6">6</dt>
+<dd>
+<span data-code-cell="annotated-cell-14" data-code-lines="40" data-code-annotation="6"><code>samtools_process</code> task definition.</span>
+</dd>
+</dl>
+<p>You can see that the structure of the WDL file is a lot like a shell script. The inputs have particular expected formats, and it calls <code>bwa_align</code> first. Once the outputs have been generated from the <code>bwa_align</code> task, they are then used as inputs to the <code>samtools_process</code> task, which outputs the final outputs of the workflow.</p>
+<p>If we look at the <em>task</em> definition called <code>bwa_align</code> it looks like this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-15"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-15-1"><a href="#annotated-cell-15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">task</span> bwa_align {</span>
+<span id="annotated-cell-15-2"><a href="#annotated-cell-15-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">meta</span> {</span>
+<span id="annotated-cell-15-3"><a href="#annotated-cell-15-3" aria-hidden="true" tabindex="-1"></a>    <span class="ex">description:</span> <span class="st">"Aligns paired-end reads to a reference using BWA-MEM"</span></span>
+<span id="annotated-cell-15-4"><a href="#annotated-cell-15-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">outputs:</span> {</span>
+<span id="annotated-cell-15-5"><a href="#annotated-cell-15-5" aria-hidden="true" tabindex="-1"></a>      <span class="ex">bwa_output:</span> <span class="st">"Output SAM file containing aligned reads"</span></span>
+<span id="annotated-cell-15-6"><a href="#annotated-cell-15-6" aria-hidden="true" tabindex="-1"></a>    <span class="er">}</span></span>
+<span id="annotated-cell-15-7"><a href="#annotated-cell-15-7" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-15-8"><a href="#annotated-cell-15-8" aria-hidden="true" tabindex="-1"></a>  <span class="ex">parameter_meta</span> {</span>
+<span id="annotated-cell-15-9"><a href="#annotated-cell-15-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">reference_fasta:</span> <span class="st">"Reference genome FASTA file"</span></span>
+<span id="annotated-cell-15-10"><a href="#annotated-cell-15-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">reads:</span> <span class="st">"FASTQ of forward (R1) reads"</span></span>
+<span id="annotated-cell-15-11"><a href="#annotated-cell-15-11" aria-hidden="true" tabindex="-1"></a>    <span class="ex">name:</span> <span class="st">"Sample name for output SAM file"</span></span>
+<span id="annotated-cell-15-12"><a href="#annotated-cell-15-12" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-15-13"><a href="#annotated-cell-15-13" aria-hidden="true" tabindex="-1"></a>  <span class="ex">input</span> {</span>
+<span id="annotated-cell-15-14"><a href="#annotated-cell-15-14" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> reference_fasta</span>
+<span id="annotated-cell-15-15"><a href="#annotated-cell-15-15" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> reference_bwt</span>
+<span id="annotated-cell-15-16"><a href="#annotated-cell-15-16" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> reference_ann</span>
+<span id="annotated-cell-15-17"><a href="#annotated-cell-15-17" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> reference_pac</span>
+<span id="annotated-cell-15-18"><a href="#annotated-cell-15-18" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> reference_amb</span>
+<span id="annotated-cell-15-19"><a href="#annotated-cell-15-19" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> reference_sa</span>
+<span id="annotated-cell-15-20"><a href="#annotated-cell-15-20" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> reads</span>
+<span id="annotated-cell-15-21"><a href="#annotated-cell-15-21" aria-hidden="true" tabindex="-1"></a>    <span class="ex">String</span> name</span>
+<span id="annotated-cell-15-22"><a href="#annotated-cell-15-22" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-15-23"><a href="#annotated-cell-15-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get name of reference fasta file within 'bwa_index' folder</span></span>
+<span id="annotated-cell-15-24"><a href="#annotated-cell-15-24" aria-hidden="true" tabindex="-1"></a>  <span class="ex">String</span> ref_name = reference_fasta</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-15" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-15-25" class="code-annotation-target"><a href="#annotated-cell-15-25" aria-hidden="true" tabindex="-1"></a>  <span class="bu">command</span> <span class="op">&lt;&lt;&lt;</span></span>
+<span id="annotated-cell-15-26"><a href="#annotated-cell-15-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># BWA alignment using 8 threads</span></span>
+<span id="annotated-cell-15-27"><a href="#annotated-cell-15-27" aria-hidden="true" tabindex="-1"></a>    <span class="ex">bwa</span> mem <span class="at">-t</span> 8 <span class="st">"~{ref_name}"</span> <span class="st">"~{reads}"</span> <span class="op">&gt;</span> <span class="st">"~{name}.sam"</span></span>
+<span id="annotated-cell-15-28"><a href="#annotated-cell-15-28" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;&gt;&gt;</span></span>
+<span id="annotated-cell-15-29"><a href="#annotated-cell-15-29" aria-hidden="true" tabindex="-1"></a>  <span class="ex">output</span> {</span>
+<span id="annotated-cell-15-30"><a href="#annotated-cell-15-30" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> bwa_output = <span class="st">"~{name}.sam"</span></span>
+<span id="annotated-cell-15-31"><a href="#annotated-cell-15-31" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-15-32"><a href="#annotated-cell-15-32" aria-hidden="true" tabindex="-1"></a>  <span class="ex">runtime</span> {</span>
+<span id="annotated-cell-15-33"><a href="#annotated-cell-15-33" aria-hidden="true" tabindex="-1"></a>    <span class="ex">docker:</span> <span class="st">"getwilds/bwa:0.7.17"</span></span>
+<span id="annotated-cell-15-34"><a href="#annotated-cell-15-34" aria-hidden="true" tabindex="-1"></a>    <span class="ex">cpu:</span> 8</span>
+<span id="annotated-cell-15-35"><a href="#annotated-cell-15-35" aria-hidden="true" tabindex="-1"></a>    <span class="ex">memory:</span> <span class="st">"16 GB"</span></span>
+<span id="annotated-cell-15-36"><a href="#annotated-cell-15-36" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="annotated-cell-15-37"><a href="#annotated-cell-15-37" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-15" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-15" data-code-lines="25" data-code-annotation="1">Contains the bash code.</span>
+</dd>
+</dl>
+<section id="how-does-this-connect-to-shell-scripting" class="level3" data-number="12.4.1">
+<h3 data-number="12.4.1" class="anchored" data-anchor-id="how-does-this-connect-to-shell-scripting"><span class="header-section-number">12.4.1</span> How does this connect to shell scripting?</h3>
+<p>You’ll notice that everything between the:</p>
+<pre><code>command &lt;&lt;&lt;
+
+&gt;&gt;&gt;</code></pre>
+<p>Is essentially a shell script, but adapted to work with the WDL inputs.</p>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">None</span><code>miniwdl check</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Miniwdl has a <code>check</code> built in that makes sure that your WDL has correct syntax (in fact it does use <code>shellcheck</code> to check your bash script portions). You can run it by using:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">miniwdl</span> check scripts/week4/ww-bwa-samtools.wdl</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The output of it is:</p>
+<pre><code>ww-bwa-samtools.wdl
+    workflow bwa_samtools_workflow
+        call bwa_align
+        call samtools_process
+    task bwa_align
+        (Ln 60, Col 5) UnusedDeclaration, nothing references File reference_bwt
+        (Ln 61, Col 5) UnusedDeclaration, nothing references File reference_ann
+        (Ln 62, Col 5) UnusedDeclaration, nothing references File reference_pac
+        (Ln 63, Col 5) UnusedDeclaration, nothing references File reference_amb
+        (Ln 64, Col 5) UnusedDeclaration, nothing references File reference_sa
+    task samtools_process</code></pre>
+<p>In our case, you can see that it is complaining that we aren’t “using” the <code>.bwt</code> and other index files. This is ok, because we just need to have the files present to run <code>bwa</code> even if we aren’t directly using them in our script.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="scatter-how-we-divide-up-tasks." class="level2" data-number="12.5">
+<h2 data-number="12.5" class="anchored" data-anchor-id="scatter-how-we-divide-up-tasks."><span class="header-section-number">12.5</span> <code>scatter()</code>: how we divide up tasks.</h2>
+<p>We can batch process our <code>fastq</code> files in <code>data/</code> by using the <code>scatter</code> function in WDL. There are two things we need to do to modify our workflow:</p>
+<ol type="1">
+<li>Accept an <code>Array</code> of <code>File</code>s called</li>
+<li>Use <code>scatter</code> to iterate over the files by wrapping our two tasks, <code>bwa_align</code> and <code>samtools_process</code>.</li>
+</ol>
+<p>Our <code>input</code> definition for the workflow looks like this:</p>
+<pre><code>  input {
+    File ref_fasta
+    File ref_bwt
+    File ref_pac
+    File ref_amb
+    File ref_ann
+    File ref_sa
+    Array[File] fastq_r1
+  }</code></pre>
+<p>Which is identical to our other WDL, but it has a <code>Array[File]</code> as an input. The corresponding input in our JSON file looks like this:</p>
+<pre><code>  "bwa_samtools_workflow.fastq_r1": [
+    "data/CALU1_combined_final.fastq",
+    "data/HCC4006_final.fastq",
+    "data/MOLM13_combined_final.fastq"
+  ]</code></pre>
+<p>Which is a JSON list of the files we want to process.</p>
+<p>When we run</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">miniwdl</span> run <span class="at">-i</span> scripts/week4/scatter.json scripts/week4/ww-bwa-samtools-scatter.wdl</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>We get the following output:</p>
+<pre><code>{
+  "dir": "/home/tladera2/bash_for_bio/20251104_101700_bwa_samtools_workflow",
+  "outputs": {
+    "bwa_samtools_workflow.sorted_bai": [
+      "/home/tladera2/bash_for_bio/20251104_101700_bwa_samtools_workflow/out/sorted_bai/0/CALU1_combined_final.fastq.sam_sorted.bam.bai",
+      "/home/tladera2/bash_for_bio/20251104_101700_bwa_samtools_workflow/out/sorted_bai/1/HCC4006_final.fastq.sam_sorted.bam.bai",
+      "/home/tladera2/bash_for_bio/20251104_101700_bwa_samtools_workflow/out/sorted_bai/2/MOLM13_combined_final.fastq.sam_sorted.bam.bai"
+    ],
+    "bwa_samtools_workflow.sorted_bam": [
+      "/home/tladera2/bash_for_bio/20251104_101700_bwa_samtools_workflow/out/sorted_bam/0/CALU1_combined_final.fastq.sam_sorted.bam",
+      "/home/tladera2/bash_for_bio/20251104_101700_bwa_samtools_workflow/out/sorted_bam/1/HCC4006_final.fastq.sam_sorted.bam",
+      "/home/tladera2/bash_for_bio/20251104_101700_bwa_samtools_workflow/out/sorted_bam/2/MOLM13_combined_final.fastq.sam_sorted.bam"
+    ]
+  }
+}</code></pre>
+<p>Examining the last workflow run directory,</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> _LAST/out/sorted_bam/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>We see that our output has 3 subdirectories:</p>
+<pre><code>total 120
+drwxrwx--- 2 tladera2 g_tladera2 59 Nov  4 10:17 0
+drwxrwx--- 2 tladera2 g_tladera2 52 Nov  4 10:17 1
+drwxrwx--- 2 tladera2 g_tladera2 60 Nov  4 10:17 2</code></pre>
+<p>Each of these directories contains a symbolic link to the output files.</p>
+<section id="more-about-scatter" class="level3" data-number="12.5.1">
+<h3 data-number="12.5.1" class="anchored" data-anchor-id="more-about-scatter"><span class="header-section-number">12.5.1</span> More about <code>scatter</code></h3>
+<p>Here is the <code>scatter</code> block in the workflow:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-23"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><a class="code-annotation-anchor" data-target-cell="annotated-cell-23" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-23-1" class="code-annotation-target"><a href="#annotated-cell-23-1" aria-hidden="true" tabindex="-1"></a>  <span class="ex">scatter</span> <span class="er">(</span><span class="ex">fq</span> in fastq_r1<span class="kw">){</span></span>
+<span id="annotated-cell-23-2"><a href="#annotated-cell-23-2" aria-hidden="true" tabindex="-1"></a>    <span class="ex">call</span> bwa_align {</span>
+<span id="annotated-cell-23-3"><a href="#annotated-cell-23-3" aria-hidden="true" tabindex="-1"></a>        <span class="ex">input:</span></span>
+<span id="annotated-cell-23-4"><a href="#annotated-cell-23-4" aria-hidden="true" tabindex="-1"></a>            <span class="ex">reference_bwt</span> = ref_bwt,</span>
+<span id="annotated-cell-23-5"><a href="#annotated-cell-23-5" aria-hidden="true" tabindex="-1"></a>            <span class="ex">reference_ann</span> = ref_ann,</span>
+<span id="annotated-cell-23-6"><a href="#annotated-cell-23-6" aria-hidden="true" tabindex="-1"></a>            <span class="ex">reference_pac</span> = ref_pac,</span>
+<span id="annotated-cell-23-7"><a href="#annotated-cell-23-7" aria-hidden="true" tabindex="-1"></a>            <span class="ex">reference_amb</span> = ref_amb,</span>
+<span id="annotated-cell-23-8"><a href="#annotated-cell-23-8" aria-hidden="true" tabindex="-1"></a>            <span class="ex">reference_sa</span> = ref_sa,</span>
+<span id="annotated-cell-23-9"><a href="#annotated-cell-23-9" aria-hidden="true" tabindex="-1"></a>            <span class="ex">reference_fasta</span> = ref_fasta,</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-23" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-23-10" class="code-annotation-target"><a href="#annotated-cell-23-10" aria-hidden="true" tabindex="-1"></a>            <span class="ex">reads</span> = fq</span>
+<span id="annotated-cell-23-11"><a href="#annotated-cell-23-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">}</span></span>
+<span id="annotated-cell-23-12"><a href="#annotated-cell-23-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-23-13"><a href="#annotated-cell-23-13" aria-hidden="true" tabindex="-1"></a>   <span class="ex">call</span> samtools_process {</span>
+<span id="annotated-cell-23-14"><a href="#annotated-cell-23-14" aria-hidden="true" tabindex="-1"></a>    <span class="ex">input:</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-23" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-23-15" class="code-annotation-target"><a href="#annotated-cell-23-15" aria-hidden="true" tabindex="-1"></a>      <span class="ex">sam_file</span> = bwa_align.bwa_output</span>
+<span id="annotated-cell-23-16"><a href="#annotated-cell-23-16" aria-hidden="true" tabindex="-1"></a>        <span class="er">}</span></span>
+<span id="annotated-cell-23-17"><a href="#annotated-cell-23-17" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-23" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-23" data-code-lines="1" data-code-annotation="1"><code>scatter</code> over our <code>Array[File]</code> <code>fastq_r1</code>. We use similar syntax as for loops to iterate over each file with a placeholder <code>fq</code>.</span>
+</dd>
+<dt data-target-cell="annotated-cell-23" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-23" data-code-lines="10" data-code-annotation="2">Utilize <code>fq</code> placeholder in the <code>call bwa_align</code> task.</span>
+</dd>
+<dt data-target-cell="annotated-cell-23" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-23" data-code-lines="15" data-code-annotation="3">The rest of the workflow works as usual.</span>
+</dd>
+</dl>
+<p>The output section of the workflow looks like this:</p>
+<pre><code>output {
+    Array[File] sorted_bam = samtools_process.sorted_bam
+    Array[File] sorted_bai = samtools_process.sorted_bai
+  }</code></pre>
+<p>Note that the <code>scatter</code> generates an <code>Array</code> of files as well.</p>
+</section>
+<section id="for-more-information" class="level3" data-number="12.5.2">
+<h3 data-number="12.5.2" class="anchored" data-anchor-id="for-more-information"><span class="header-section-number">12.5.2</span> For more information</h3>
+<p>I recommend that you read the <a href="https://hutchdatascience.org/Developing_WDL_Workflows/index.html">Developing WDL Workflows</a> book that we have written for much more information about building your own workflows.</p>
+<p>You don’t have to start from scratch, either. There is the <a href="https://getwilds.org/wilds-wdl-library/">WILDS WDL library</a> that has a number of different bioinformatics tasks that are already built for use in your workflows.</p>
+</section>
+</section>
+<section id="working-with-file-manifests-in-wdl" class="level2" data-number="12.6">
+<h2 data-number="12.6" class="anchored" data-anchor-id="working-with-file-manifests-in-wdl"><span class="header-section-number">12.6</span> Working with file manifests in WDL</h2>
 <p>Another strategy you can use to cycle through a list of files is to use a file manifest to process a list of files.</p>
 <p>There is an <a href="https://github.com/getwilds/ww-demo-workflows/tree/main/parseBatchFile">example workflow that shows how to work with a file manifest</a>. This can be helpful for those who aren’t necessarily good at working with JSON.</p>
 <p>This workflow has a single input, which is the location of the file manifest. It will then cycle through the manifest, line by line.</p>
@@ -429,225 +785,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p>Here’s the workflow part of the file:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-12"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-12-1"><a href="#annotated-cell-12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">version</span> 1.0</span>
-<span id="annotated-cell-12-2"><a href="#annotated-cell-12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#### WORKFLOW DEFINITION</span></span>
-<span id="annotated-cell-12-3"><a href="#annotated-cell-12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-12-4"><a href="#annotated-cell-12-4" aria-hidden="true" tabindex="-1"></a><span class="ex">workflow</span> ParseBatchFile {</span>
-<span id="annotated-cell-12-5"><a href="#annotated-cell-12-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">input</span> {</span>
-<span id="annotated-cell-12-6"><a href="#annotated-cell-12-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> batch_file</span>
-<span id="annotated-cell-12-7"><a href="#annotated-cell-12-7" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
-<span id="annotated-cell-12-8"><a href="#annotated-cell-12-8" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-12-9" class="code-annotation-target"><a href="#annotated-cell-12-9" aria-hidden="true" tabindex="-1"></a>  <span class="va">Array</span><span class="op">[</span>Object<span class="op">]</span> <span class="ex">batch_info</span> = read_objects<span class="er">(</span><span class="ex">batch_file</span><span class="kw">)</span></span>
-<span id="annotated-cell-12-10"><a href="#annotated-cell-12-10" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-12-11" class="code-annotation-target"><a href="#annotated-cell-12-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">scatter</span> <span class="er">(</span><span class="ex">job</span> in batch_info<span class="kw">){</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-12-12" class="code-annotation-target"><a href="#annotated-cell-12-12" aria-hidden="true" tabindex="-1"></a>    <span class="ex">String</span> sample_name = job.sampleName</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-12-13" class="code-annotation-target"><a href="#annotated-cell-12-13" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> bam_file = job.bamLocation</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-12-14" class="code-annotation-target"><a href="#annotated-cell-12-14" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> bed_file = job.bedLocation</span>
-<span id="annotated-cell-12-15"><a href="#annotated-cell-12-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-12-16"><a href="#annotated-cell-12-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">## INSERT YOUR WORKFLOW TO RUN PER LINE IN YOUR BATCH FILE HERE!!!!</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-12-17" class="code-annotation-target"><a href="#annotated-cell-12-17" aria-hidden="true" tabindex="-1"></a>    <span class="ex">call</span> Test {</span>
-<span id="annotated-cell-12-18"><a href="#annotated-cell-12-18" aria-hidden="true" tabindex="-1"></a>      <span class="ex">input:</span> in1=sample_name, in2=bam_file, in3=bed_file</span>
-<span id="annotated-cell-12-19"><a href="#annotated-cell-12-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">}</span></span>
-<span id="annotated-cell-12-20"><a href="#annotated-cell-12-20" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span>  <span class="co"># End Scatter over the batch file</span></span>
-<span id="annotated-cell-12-21"><a href="#annotated-cell-12-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-12-22"><a href="#annotated-cell-12-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Outputs that will be retained when execution is complete</span></span>
-<span id="annotated-cell-12-23"><a href="#annotated-cell-12-23" aria-hidden="true" tabindex="-1"></a>  <span class="ex">output</span> {</span>
-<span id="annotated-cell-12-24"><a href="#annotated-cell-12-24" aria-hidden="true" tabindex="-1"></a>    <span class="va">Array</span><span class="op">[</span>File<span class="op">]</span> <span class="ex">output_array</span> = Test.item_out</span>
-<span id="annotated-cell-12-25"><a href="#annotated-cell-12-25" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
-<span id="annotated-cell-12-26"><a href="#annotated-cell-12-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-12-27"><a href="#annotated-cell-12-27" aria-hidden="true" tabindex="-1"></a>  <span class="ex">parameter_meta</span> {</span>
-<span id="annotated-cell-12-28"><a href="#annotated-cell-12-28" aria-hidden="true" tabindex="-1"></a>    <span class="ex">batch_file:</span> <span class="st">"input tsv containing details about each sample in the batch"</span></span>
-<span id="annotated-cell-12-29"><a href="#annotated-cell-12-29" aria-hidden="true" tabindex="-1"></a>    <span class="ex">output_array:</span> <span class="st">"array containing details about each samples in the batch"</span></span>
-<span id="annotated-cell-12-30"><a href="#annotated-cell-12-30" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
-<span id="annotated-cell-12-31"><a href="#annotated-cell-12-31" aria-hidden="true" tabindex="-1"></a><span class="er">}</span> <span class="co"># End workflow</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-12" data-target-annotation="1">1</dt>
-<dd>
-<span data-code-cell="annotated-cell-12" data-code-lines="9" data-code-annotation="1">Read in file manifest line by line, and store in the array called <code>batch_info</code>.</span>
-</dd>
-<dt data-target-cell="annotated-cell-12" data-target-annotation="2">2</dt>
-<dd>
-<span data-code-cell="annotated-cell-12" data-code-lines="11" data-code-annotation="2">Cycle through the manifest line by line, <code>scatter</code>ing to multiple nodes</span>
-</dd>
-<dt data-target-cell="annotated-cell-12" data-target-annotation="3">3</dt>
-<dd>
-<span data-code-cell="annotated-cell-12" data-code-lines="12" data-code-annotation="3">Get <code>sample_name</code> input from <code>job.sample_name</code></span>
-</dd>
-<dt data-target-cell="annotated-cell-12" data-target-annotation="4">4</dt>
-<dd>
-<span data-code-cell="annotated-cell-12" data-code-lines="13" data-code-annotation="4">Get <code>bam_file</code> input from <code>job.bam_file</code></span>
-</dd>
-<dt data-target-cell="annotated-cell-12" data-target-annotation="5">5</dt>
-<dd>
-<span data-code-cell="annotated-cell-12" data-code-lines="14" data-code-annotation="5">Get <code>bed_file</code> input from <code>job.bed_file</code></span>
-</dd>
-<dt data-target-cell="annotated-cell-12" data-target-annotation="6">6</dt>
-<dd>
-<span data-code-cell="annotated-cell-12" data-code-lines="17" data-code-annotation="6">Do something with the inputs.</span>
-</dd>
-</dl>
 </section>
-<section id="lets-start-with-wdl-tasks" class="level3" data-number="9.3.5">
-<h3 data-number="9.3.5" class="anchored" data-anchor-id="lets-start-with-wdl-tasks"><span class="header-section-number">9.3.5</span> Let’s start with WDL Tasks</h3>
-<p>We will start with the lower level of abstraction in WDL: The <em>task</em>.</p>
-</section>
-<section id="anatomy-of-a-task" class="level3" data-number="9.3.6">
-<h3 data-number="9.3.6" class="anchored" data-anchor-id="anatomy-of-a-task"><span class="header-section-number">9.3.6</span> Anatomy of a Task</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-13"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-13-1"><a href="#annotated-cell-13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">task</span> build_star_index {</span>
-<span id="annotated-cell-13-2"><a href="#annotated-cell-13-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">meta</span> {</span>
-<span id="annotated-cell-13-3"><a href="#annotated-cell-13-3" aria-hidden="true" tabindex="-1"></a>      <span class="ex">...</span></span>
-<span id="annotated-cell-13-4"><a href="#annotated-cell-13-4" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
-<span id="annotated-cell-13-5"><a href="#annotated-cell-13-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-13-6"><a href="#annotated-cell-13-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">parameter_meta</span> {</span>
-<span id="annotated-cell-13-7"><a href="#annotated-cell-13-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">reference_fasta:</span> <span class="st">"Reference genome FASTA file"</span></span>
-<span id="annotated-cell-13-8"><a href="#annotated-cell-13-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">reference_gtf:</span> <span class="st">"Reference genome GTF annotation file"</span></span>
-<span id="annotated-cell-13-9"><a href="#annotated-cell-13-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">sjdb_overhang:</span> <span class="st">"Length of the genomic sequence around the annotated junction to be used in constructing the splice junctions database"</span></span>
-<span id="annotated-cell-13-10"><a href="#annotated-cell-13-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">genome_sa_index_nbases:</span> <span class="st">"Length (bases) of the SA pre-indexing string, typically between 10-15 (scales with genome size)"</span></span>
-<span id="annotated-cell-13-11"><a href="#annotated-cell-13-11" aria-hidden="true" tabindex="-1"></a>    <span class="ex">memory_gb:</span> <span class="st">"Memory allocated for the task in GB"</span></span>
-<span id="annotated-cell-13-12"><a href="#annotated-cell-13-12" aria-hidden="true" tabindex="-1"></a>    <span class="ex">cpu_cores:</span> <span class="st">"Number of CPU cores allocated for the task"</span></span>
-<span id="annotated-cell-13-13"><a href="#annotated-cell-13-13" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
-<span id="annotated-cell-13-14"><a href="#annotated-cell-13-14" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-13-15" class="code-annotation-target"><a href="#annotated-cell-13-15" aria-hidden="true" tabindex="-1"></a>  <span class="ex">input</span> {</span>
-<span id="annotated-cell-13-16"><a href="#annotated-cell-13-16" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> reference_fasta</span>
-<span id="annotated-cell-13-17"><a href="#annotated-cell-13-17" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> reference_gtf</span>
-<span id="annotated-cell-13-18"><a href="#annotated-cell-13-18" aria-hidden="true" tabindex="-1"></a>    <span class="ex">Int</span> sjdb_overhang = 100</span>
-<span id="annotated-cell-13-19"><a href="#annotated-cell-13-19" aria-hidden="true" tabindex="-1"></a>    <span class="ex">Int</span> genome_sa_index_nbases = 14</span>
-<span id="annotated-cell-13-20"><a href="#annotated-cell-13-20" aria-hidden="true" tabindex="-1"></a>    <span class="ex">Int</span> memory_gb = 64</span>
-<span id="annotated-cell-13-21"><a href="#annotated-cell-13-21" aria-hidden="true" tabindex="-1"></a>    <span class="ex">Int</span> cpu_cores = 8</span>
-<span id="annotated-cell-13-22"><a href="#annotated-cell-13-22" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
-<span id="annotated-cell-13-23"><a href="#annotated-cell-13-23" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-13-24" class="code-annotation-target"><a href="#annotated-cell-13-24" aria-hidden="true" tabindex="-1"></a>  <span class="bu">command</span> <span class="op">&lt;&lt;&lt;</span></span>
-<span id="annotated-cell-13-25"><a href="#annotated-cell-13-25" aria-hidden="true" tabindex="-1"></a>    <span class="bu">set</span> <span class="at">-eo</span> pipefail</span>
-<span id="annotated-cell-13-26"><a href="#annotated-cell-13-26" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="annotated-cell-13-27"><a href="#annotated-cell-13-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mkdir</span> star_index</span>
-<span id="annotated-cell-13-28"><a href="#annotated-cell-13-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-13-29"><a href="#annotated-cell-13-29" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Building STAR index..."</span></span>
-<span id="annotated-cell-13-30"><a href="#annotated-cell-13-30" aria-hidden="true" tabindex="-1"></a>    <span class="ex">STAR</span> <span class="dt">\</span></span>
-<span id="annotated-cell-13-31"><a href="#annotated-cell-13-31" aria-hidden="true" tabindex="-1"></a>      <span class="at">--runMode</span> genomeGenerate <span class="dt">\</span></span>
-<span id="annotated-cell-13-32"><a href="#annotated-cell-13-32" aria-hidden="true" tabindex="-1"></a>      <span class="at">--runThreadN</span> ~{cpu_cores} <span class="dt">\</span></span>
-<span id="annotated-cell-13-33"><a href="#annotated-cell-13-33" aria-hidden="true" tabindex="-1"></a>      <span class="at">--genomeDir</span> star_index <span class="dt">\</span></span>
-<span id="annotated-cell-13-34"><a href="#annotated-cell-13-34" aria-hidden="true" tabindex="-1"></a>      <span class="at">--genomeFastaFiles</span> <span class="st">"~{reference_fasta}"</span> <span class="dt">\</span></span>
-<span id="annotated-cell-13-35"><a href="#annotated-cell-13-35" aria-hidden="true" tabindex="-1"></a>      <span class="at">--sjdbGTFfile</span> <span class="st">"~{reference_gtf}"</span> <span class="dt">\</span></span>
-<span id="annotated-cell-13-36"><a href="#annotated-cell-13-36" aria-hidden="true" tabindex="-1"></a>      <span class="at">--sjdbOverhang</span> ~{sjdb_overhang} <span class="dt">\</span></span>
-<span id="annotated-cell-13-37"><a href="#annotated-cell-13-37" aria-hidden="true" tabindex="-1"></a>      <span class="at">--genomeSAindexNbases</span> ~{genome_sa_index_nbases}</span>
-<span id="annotated-cell-13-38"><a href="#annotated-cell-13-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-13-39"><a href="#annotated-cell-13-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tar</span> <span class="at">-czf</span> star_index.tar.gz star_index/</span>
-<span id="annotated-cell-13-40"><a href="#annotated-cell-13-40" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;&gt;&gt;</span></span>
-<span id="annotated-cell-13-41"><a href="#annotated-cell-13-41" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-13-42" class="code-annotation-target"><a href="#annotated-cell-13-42" aria-hidden="true" tabindex="-1"></a>  <span class="ex">output</span> {</span>
-<span id="annotated-cell-13-43"><a href="#annotated-cell-13-43" aria-hidden="true" tabindex="-1"></a>    <span class="ex">File</span> star_index_tar = <span class="st">"star_index.tar.gz"</span></span>
-<span id="annotated-cell-13-44"><a href="#annotated-cell-13-44" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
-<span id="annotated-cell-13-45"><a href="#annotated-cell-13-45" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-13-46" class="code-annotation-target"><a href="#annotated-cell-13-46" aria-hidden="true" tabindex="-1"></a>  <span class="ex">runtime</span> {</span>
-<span id="annotated-cell-13-47"><a href="#annotated-cell-13-47" aria-hidden="true" tabindex="-1"></a>    <span class="ex">docker:</span> <span class="st">"getwilds/star:2.7.6a"</span></span>
-<span id="annotated-cell-13-48"><a href="#annotated-cell-13-48" aria-hidden="true" tabindex="-1"></a>    <span class="ex">memory:</span> <span class="st">"~{memory_gb} GB"</span></span>
-<span id="annotated-cell-13-49"><a href="#annotated-cell-13-49" aria-hidden="true" tabindex="-1"></a>    <span class="ex">cpu:</span> cpu_cores</span>
-<span id="annotated-cell-13-50"><a href="#annotated-cell-13-50" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
-<span id="annotated-cell-13-51"><a href="#annotated-cell-13-51" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-13" data-target-annotation="1">1</dt>
-<dd>
-<span data-code-cell="annotated-cell-13" data-code-lines="15" data-code-annotation="1">Input for our task.</span>
-</dd>
-<dt data-target-cell="annotated-cell-13" data-target-annotation="2">2</dt>
-<dd>
-<span data-code-cell="annotated-cell-13" data-code-lines="24" data-code-annotation="2">Bash commands to execute in task</span>
-</dd>
-<dt data-target-cell="annotated-cell-13" data-target-annotation="3">3</dt>
-<dd>
-<span data-code-cell="annotated-cell-13" data-code-lines="42" data-code-annotation="3">Description of output</span>
-</dd>
-<dt data-target-cell="annotated-cell-13" data-target-annotation="4">4</dt>
-<dd>
-<span data-code-cell="annotated-cell-13" data-code-lines="46" data-code-annotation="4">Runtime requirements for execution. This is a lot like the <code>#SBATCH</code> directives.</span>
-</dd>
-</dl>
-<p>Everything between the <code>&lt;&lt;&lt;</code> and <code>&gt;&gt;&gt;</code> is essentially a bash script. WDL has its own variables</p>
-</section>
-<section id="architecture-of-a-wdl-file" class="level3" data-number="9.3.7">
-<h3 data-number="9.3.7" class="anchored" data-anchor-id="architecture-of-a-wdl-file"><span class="header-section-number">9.3.7</span> Architecture of a WDL file</h3>
-<p>The best way to read WDL files is to read them top down. We’ll focus on the basic sections of a WDL file before we see how they work together.</p>
-<p>The code below is from the <a href="https://github.com/getwilds/ww-star-deseq2/blob/main/ww-star-deseq2.wdl">WILDs WDL Repo</a>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-14"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-14-1"><a href="#annotated-cell-14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">workflow</span> SRA_STAR2Pass {</span>
-<span id="annotated-cell-14-2"><a href="#annotated-cell-14-2" aria-hidden="true" tabindex="-1"></a>   <span class="ex">meta{</span></span>
-<span id="annotated-cell-14-3"><a href="#annotated-cell-14-3" aria-hidden="true" tabindex="-1"></a>   <span class="ex">...</span></span>
-<span id="annotated-cell-14-4"><a href="#annotated-cell-14-4" aria-hidden="true" tabindex="-1"></a>   <span class="er">}</span></span>
-<span id="annotated-cell-14-5"><a href="#annotated-cell-14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-14-6"><a href="#annotated-cell-14-6" aria-hidden="true" tabindex="-1"></a>   <span class="ex">parameter_meta{</span></span>
-<span id="annotated-cell-14-7"><a href="#annotated-cell-14-7" aria-hidden="true" tabindex="-1"></a>   <span class="ex">...</span></span>
-<span id="annotated-cell-14-8"><a href="#annotated-cell-14-8" aria-hidden="true" tabindex="-1"></a>   <span class="er">}</span></span>
-<span id="annotated-cell-14-9"><a href="#annotated-cell-14-9" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-14" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-14-10" class="code-annotation-target"><a href="#annotated-cell-14-10" aria-hidden="true" tabindex="-1"></a>  <span class="ex">input</span> {</span>
-<span id="annotated-cell-14-11"><a href="#annotated-cell-14-11" aria-hidden="true" tabindex="-1"></a>    <span class="ex">...</span></span>
-<span id="annotated-cell-14-12"><a href="#annotated-cell-14-12" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
-<span id="annotated-cell-14-13"><a href="#annotated-cell-14-13" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-14" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-14-14" class="code-annotation-target"><a href="#annotated-cell-14-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="kw">(</span><span class="ex">!defined</span><span class="er">(</span><span class="ex">reference_genome</span><span class="kw">))</span> <span class="kw">{</span></span>
-<span id="annotated-cell-14-15"><a href="#annotated-cell-14-15" aria-hidden="true" tabindex="-1"></a>    <span class="ex">call</span> download_reference {}</span>
-<span id="annotated-cell-14-16"><a href="#annotated-cell-14-16" aria-hidden="true" tabindex="-1"></a>  <span class="kw">}</span></span>
-<span id="annotated-cell-14-17"><a href="#annotated-cell-14-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-14-18"><a href="#annotated-cell-14-18" aria-hidden="true" tabindex="-1"></a>  <span class="ex">RefGenome</span> ref_genome_final = select_first<span class="er">(</span><span class="ex">[reference_genome,</span> download_reference.genome]<span class="kw">)</span></span>
-<span id="annotated-cell-14-19"><a href="#annotated-cell-14-19" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-14" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-14-20" class="code-annotation-target"><a href="#annotated-cell-14-20" aria-hidden="true" tabindex="-1"></a>  <span class="ex">call</span> build_star_index {</span>
-<span id="annotated-cell-14-21"><a href="#annotated-cell-14-21" aria-hidden="true" tabindex="-1"></a>    <span class="ex">...</span></span>
-<span id="annotated-cell-14-22"><a href="#annotated-cell-14-22" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
-<span id="annotated-cell-14-23"><a href="#annotated-cell-14-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-14-24"><a href="#annotated-cell-14-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Outputs that will be retained when execution is complete</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-14" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-14-25" class="code-annotation-target"><a href="#annotated-cell-14-25" aria-hidden="true" tabindex="-1"></a>  <span class="ex">output</span> {</span>
-<span id="annotated-cell-14-26"><a href="#annotated-cell-14-26" aria-hidden="true" tabindex="-1"></a>    <span class="ex">...</span></span>
-<span id="annotated-cell-14-27"><a href="#annotated-cell-14-27" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
-<span id="annotated-cell-14-28"><a href="#annotated-cell-14-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-14-29"><a href="#annotated-cell-14-29" aria-hidden="true" tabindex="-1"></a><span class="er">}</span> </span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-14" data-target-annotation="1">1</dt>
-<dd>
-<span data-code-cell="annotated-cell-14" data-code-lines="10" data-code-annotation="1">Inputs for workflow</span>
-</dd>
-<dt data-target-cell="annotated-cell-14" data-target-annotation="2">2</dt>
-<dd>
-<span data-code-cell="annotated-cell-14" data-code-lines="14" data-code-annotation="2">If/then statement of workflow</span>
-</dd>
-<dt data-target-cell="annotated-cell-14" data-target-annotation="3">3</dt>
-<dd>
-<span data-code-cell="annotated-cell-14" data-code-lines="20" data-code-annotation="3">call a task</span>
-</dd>
-<dt data-target-cell="annotated-cell-14" data-target-annotation="4">4</dt>
-<dd>
-<span data-code-cell="annotated-cell-14" data-code-lines="25" data-code-annotation="4">Outputs of workflow</span>
-</dd>
-</dl>
-<p>Let’s go through each of these in detail (we’ll get back to the <code>meta</code> and <code>parameters-meta</code> sections)</p>
-<p>The structure of the workflow</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-15"><pre class="sourceCode bash code-annotation-code code-with-copy"><code class="sourceCode bash"><span id="annotated-cell-15-1"><a href="#annotated-cell-15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">workflow</span> SRA_STAR2Pass {</span>
-<span id="annotated-cell-15-2"><a href="#annotated-cell-15-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">input</span> {</span>
-<span id="annotated-cell-15-3"><a href="#annotated-cell-15-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">Array</span><span class="op">[</span>SampleInfo<span class="op">]</span> <span class="ex">samples</span></span>
-<span id="annotated-cell-15-4"><a href="#annotated-cell-15-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">RefGenome?</span> reference_genome</span>
-<span id="annotated-cell-15-5"><a href="#annotated-cell-15-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">String</span> reference_level = <span class="st">""</span></span>
-<span id="annotated-cell-15-6"><a href="#annotated-cell-15-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">String</span> contrast = <span class="st">""</span></span>
-<span id="annotated-cell-15-7"><a href="#annotated-cell-15-7" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
-<span id="annotated-cell-15-8"><a href="#annotated-cell-15-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-15-9"><a href="#annotated-cell-15-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="kw">(</span><span class="ex">!defined</span><span class="er">(</span><span class="ex">reference_genome</span><span class="kw">))</span> <span class="kw">{</span></span>
-<span id="annotated-cell-15-10"><a href="#annotated-cell-15-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">call</span> download_reference {}</span>
-<span id="annotated-cell-15-11"><a href="#annotated-cell-15-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">}</span></span>
-<span id="annotated-cell-15-12"><a href="#annotated-cell-15-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-15-13"><a href="#annotated-cell-15-13" aria-hidden="true" tabindex="-1"></a>  <span class="ex">RefGenome</span> ref_genome_final = select_first<span class="er">(</span><span class="ex">[reference_genome,</span> download_reference.genome]<span class="kw">)</span></span>
-<span id="annotated-cell-15-14"><a href="#annotated-cell-15-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-15-15"><a href="#annotated-cell-15-15" aria-hidden="true" tabindex="-1"></a>  <span class="ex">call</span> build_star_index { input:</span>
-<span id="annotated-cell-15-16"><a href="#annotated-cell-15-16" aria-hidden="true" tabindex="-1"></a>      <span class="ex">reference_fasta</span> = ref_genome_final.fasta,</span>
-<span id="annotated-cell-15-17"><a href="#annotated-cell-15-17" aria-hidden="true" tabindex="-1"></a>      <span class="ex">reference_gtf</span> = ref_genome_final.gtf</span>
-<span id="annotated-cell-15-18"><a href="#annotated-cell-15-18" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
-<span id="annotated-cell-15-19"><a href="#annotated-cell-15-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-15-20"><a href="#annotated-cell-15-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Outputs that will be retained when execution is complete</span></span>
-<span id="annotated-cell-15-21"><a href="#annotated-cell-15-21" aria-hidden="true" tabindex="-1"></a>  <span class="ex">output</span> {</span>
-<span id="annotated-cell-15-22"><a href="#annotated-cell-15-22" aria-hidden="true" tabindex="-1"></a>    <span class="ex">...</span></span>
-<span id="annotated-cell-15-23"><a href="#annotated-cell-15-23" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
-<span id="annotated-cell-15-24"><a href="#annotated-cell-15-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-15-25"><a href="#annotated-cell-15-25" aria-hidden="true" tabindex="-1"></a><span class="er">}</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-</section>
-<section id="where-next" class="level2" data-number="9.4">
-<h2 data-number="9.4" class="anchored" data-anchor-id="where-next"><span class="header-section-number">9.4</span> Where Next?</h2>
-<p>Now that you understand the basics of working with Bash and WDL, you are now ready to start working with WDL workflows.</p>
+<section id="where-next" class="level2" data-number="12.7">
+<h2 data-number="12.7" class="anchored" data-anchor-id="where-next"><span class="header-section-number">12.7</span> Where Next?</h2>
+<p>Now that you understand the basics of working with Bash and WDL, you are now ready to try testing and profiling your jobs.</p>
 
 
 </section>
@@ -1055,13 +1196,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./container-basics.html" class="pagination-link" aria-label="Reading: JSON/Container Basics">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Reading: JSON/Container Basics</span></span>
+      <a href="./pipes_json_reading.html" class="pagination-link" aria-label="Week 4 Reading: Pipes/JSON">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Week 4 Reading: Pipes/JSON</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./testing.html" class="pagination-link" aria-label="Testing Scripts">
-        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Testing Scripts</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./04_assignment.html" class="pagination-link" aria-label="Week 4 Exercises">
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Week 4 Exercises</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -1,68 +1,106 @@
 ---
-title: "Week 3 Exercises"
-format: 
-    html: default
-    docx: default
+title: "Week 3: Assignment"
+format: html
 ---
- 
+
 ## In-class
 
-1. Try it out:
+1. Pull the `samtools` Docker container:
 
 ```bash
-./scripts/week3/batch_on_rhino.sh
+module load Apptainer/1.1.6
+apptainer pull docker://biocontainers/samtools:v1.9-4-deb_cv1
 ```
 
-2. Try it out:
+2. Open a shell in the Docker container:
 
 ```bash
-#| eval: false
-sbatch sbatch_test.sh
+apptainer shell docker://biocontainers/samtools:v1.9-4-deb_cv1
 ```
 
-and examine the following output files:
-
-3. Try it out:
+Try accessing files in your `/home/username/` directory:
 
 ```bash
-
+ls -l /home/laderast/bash_for_bio/
 ```
 
+That didn't work - exit the shell:
 
-## Homework exercises
+```
+exit
+```
 
-Exercises 1, 2, 3 are required for the badge.
+3. Bind your directory so that the Docker container can see it:
 
-1. In the `data/` folder, there is a list of `.csv` files. Modify the code below to process each file.
+```bash
+apptainer shell --bind /user/tladera2/bash_for_bio:/bash_for_bio docker://biocontainers/samtools:v1.9-4-deb_cv1
+```
+
+Try accessing files in `bash_for_bio/`
+
+```bash
+samtools view -c bash_for_bio/data/MOLM13_combined_final.sam > bash_for_bio/MOLM13_counts.txt
+```
+
+```bash
+exit
+```
+
+4. Try running the command using `apptainer exec`:
+
+```bash
+apptainer exec \
+    --bind /users/tladera2/bash_for_bio:/bash_for_bio \ 
+    docker://biocontainers/samtools:v1.9-4-deb_cv1 \ 
+    samtools view -c bash_for_bio/data/MOLM13_combined_final.sam > \
+    /bash_for_bio/MOLM13_combined_final.counts.txt
+```
+
+## Homework
+
+1. Adapt the for loop in this script to use `apptainer exec`. You can use an ubuntu container for this. 
 
 ```bash
 #!/bin/bash
-for file in ------
+for file in ./data/*.fastq
 do
-  head ------
+  wc $file
 done
 ```
 
-2. Modify the code in 1) to write a `for` loop in a script to count the number of lines for each `.csv` file. The output should be:
-
-```
-echo "${file}\t(wc -l $file)\n"
-```
-
-Run the script and redirect your output to `files_out.txt`. Put your bash command you used below:
-
-
-```bash
-```
-
-3. Modify the below script to process the `.sam` files in `./data/`. Save it as `sbatch_sam.sh` and run it. How many files were generated?
+2. Modify `run_bwa.sh` in `week3/` to use apptainer for bwa. Hints: you will need to load Apptainer,  and use `apptainer exec`. To make things easier, pull the bwa container first. 
 
 ```bash
 #!/bin/bash
-#SBATCH --array=1-________  
-module load SAMtools
-file_array=(./data/*.sam) 
-ind=$((SLURM_ARRAY_TASK_ID-1)) 
-current_file=${file_array[$ind]} 
-samtools view -c $current_file > ${current_file}.counts.out
+module load BWA/0.7.17-GCCcore-11.2.0
+input_fastq=${1}
+# strip path and suffix
+base_file_name="${input_fastq%.fastq}"
+base_file_name=${base_file_name##*/}
+echo "running $input_fastq"
+sample_name="SM:${base_file_name}"
+read_group_id="ID:${base_file_name}"
+platform_info="PL:Illumina"
+ref_fasta_local="/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa"
+
+bwa mem \
+      -p -v 3 -M \
+      -R "@RG\t${read_group_id}\t${sample_name}\t${platform_info}" \
+      "${ref_fasta_local}" "${input_fastq}" > \
+      "${base_file_name}.sam"
+
+module purge
+```
+
+
+Run the `run_bwa.sh` script on one of the files to ensure that it works.
+
+```bash
+
+```
+
+Try using `week3/run_sbatch.sh` on the files in the `data/` directory. Were there any modifications you needed to make to `run_sbatch.sh`?
+
+```bash
+
 ```

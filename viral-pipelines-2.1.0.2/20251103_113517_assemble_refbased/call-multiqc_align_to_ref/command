@@ -1,0 +1,40 @@
+
+set -ex -o pipefail
+
+echo "/mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.mapped_fastqc.zip" > input-filenames.txt
+echo "" >> input-filenames.txt
+
+multiqc \
+--file-list input-filenames.txt \
+--dirs \
+--outdir "./multiqc-output" \
+ \
+ \
+ \
+ \
+ \
+ \
+ \
+ \
+ \
+ \
+ \
+ \
+ \
+ \
+ \
+ \
+ \
+ \
+--interactive \
+ \
+ \
+--no-megaqc-upload \
+ \
+
+
+if [ -z "" ]; then
+  mv "./multiqc-output/multiqc_report.html" "./multiqc-output/multiqc.html"
+fi
+
+tar -c "./multiqc-output/multiqc_data" | gzip -c > "multiqc_data.tar.gz"

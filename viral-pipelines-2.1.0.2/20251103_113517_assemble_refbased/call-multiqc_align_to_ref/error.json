@@ -1,0 +1,21 @@
+{
+  "error": "RunFailed",
+  "task": "MultiQC",
+  "run": "call-multiqc_align_to_ref",
+  "dir": "/Users/tladera2/Code/bash_for_bio/viral-pipelines-2.1.0.2/20251103_113517_assemble_refbased/call-multiqc_align_to_ref",
+  "cause": {
+    "error": "Terminated",
+    "run": "call-multiqc_align_to_ref",
+    "dir": "/Users/tladera2/Code/bash_for_bio/viral-pipelines-2.1.0.2/20251103_113517_assemble_refbased/call-multiqc_align_to_ref",
+    "pos": {
+      "source": "/Users/tladera2/Code/bash_for_bio/viral-pipelines-2.1.0.2/pipes/WDL/tasks/tasks_reports.wdl",
+      "line": 267,
+      "column": 1
+    }
+  },
+  "pos": {
+    "source": "/Users/tladera2/Code/bash_for_bio/viral-pipelines-2.1.0.2/pipes/WDL/tasks/tasks_reports.wdl",
+    "line": 267,
+    "column": 1
+  }
+}

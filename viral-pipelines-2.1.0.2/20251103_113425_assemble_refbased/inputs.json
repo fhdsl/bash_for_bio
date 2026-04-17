@@ -1,0 +1,7 @@
+{
+  "assemble_refbased.reads_unmapped_bams": [
+    "/Users/tladera2/Code/bash_for_bio/viral-pipelines-2.1.0.2/test/input/G5012.3.testreads.bam"
+  ],
+  "assemble_refbased.reference_fasta": "/Users/tladera2/Code/bash_for_bio/viral-pipelines-2.1.0.2/test/input/ebov-makona.fasta",
+  "assemble_refbased.sample_name": "G5012.3"
+}

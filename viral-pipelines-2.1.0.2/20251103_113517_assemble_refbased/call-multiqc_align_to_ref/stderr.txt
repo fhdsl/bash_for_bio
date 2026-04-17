@@ -1,0 +1,17 @@
++ echo /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.mapped_fastqc.zip
++ echo ''
++ multiqc --file-list input-filenames.txt --dirs --outdir ./multiqc-output --interactive --no-megaqc-upload
+[WARNING]         multiqc : MultiQC Version v1.32 now available!
+[INFO   ]         multiqc : This is MultiQC v1.8
+[INFO   ]         multiqc : Template    : default
+[INFO   ]         multiqc : Prepending directory to sample names
+[INFO   ]         multiqc : Searching   : /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.mapped_fastqc.zip
+[INFO   ]          fastqc : Found 1 reports
+[INFO   ]         multiqc : Compressing plot data
+[INFO   ]         multiqc : Report      : multiqc-output/multiqc_report.html
+[INFO   ]         multiqc : Data        : multiqc-output/multiqc_data
+[INFO   ]         multiqc : MultiQC complete
++ '[' -z '' ']'
++ mv ./multiqc-output/multiqc_report.html ./multiqc-output/multiqc.html
++ tar -c ./multiqc-output/multiqc_data
++ gzip -c

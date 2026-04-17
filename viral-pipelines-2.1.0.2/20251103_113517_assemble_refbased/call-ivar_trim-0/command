@@ -1,0 +1,10 @@
+
+set -ex -o pipefail
+ivar version | head -1 | tee VERSION
+ivar trim -e \
+   \
+   \
+   \
+   \
+  -i /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/G5012.3.testreads.mapped.bam -p trim
+samtools sort -@ $(nproc) -m 1000M -o G5012.3.testreads.mapped.trimmed.bam trim.bam

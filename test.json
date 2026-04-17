@@ -1,0 +1,5 @@
+{
+  "bwa_samtools_workflow.ref_fasta": "File",
+  "bwa_samtools_workflow.fastq_r1": "File",
+  "bwa_samtools_workflow.name": "String"
+}

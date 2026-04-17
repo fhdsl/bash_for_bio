@@ -1,0 +1,2 @@
+Sample	FastQC_mqc-generalstats-fastqc-percent_duplicates	FastQC_mqc-generalstats-fastqc-percent_gc	FastQC_mqc-generalstats-fastqc-avg_sequence_length	FastQC_mqc-generalstats-fastqc-percent_fails	FastQC_mqc-generalstats-fastqc-total_sequences
+mnt | miniwdl_task_container | work | _miniwdl_inputs | 0 | G5012.3.testreads.mapped	41.118793924280205	40.0	101.0	9.090909090909092	17644.0
