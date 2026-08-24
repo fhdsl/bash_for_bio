@@ -431,7 +431,7 @@ module purge
 We can run this script using:
 
 ```bash
-./scripts/week2/run_bwa.sh ./data/CALU1_combined_final.fasta
+./scripts/week2/run_bwa.sh ./data/CALU1_combined_final.fastq
 ```
 
 Where does the output file end up?
