@@ -1,0 +1,72 @@
+---
+title: "W1: Bash Scripting"
+format: 
+  revealjs:
+    smaller: true
+    scrollable: true
+    echo: true
+    embed-resources: true
+output-location: fragment
+---
+
+## Welcome!
+
+Please sign up for Google Classroom ([link](https://classroom.google.com/c/ODg1MjQ5MjAyOTc1?cjc=7xr7ulkb)) if you haven't already.
+
+## Introductions
+
+- Who am I?
+
+. . .
+
+- What is the [Fred Hutch Translational Data Accelerator](https://accelerator.fredhutch.org/)?
+
+. . .
+
+- Who are you?
+
+  - Name, pronouns, group you work in
+
+  - What you want to get out of the class
+
+  - Something that you forward to in the Fall season!
+
+. . .
+
+- Our wonderful TA!
+
+## Goals of the course
+
+- **Apply** bash scripting to execute bioinformatics software, and Python/R scripts
+
+- **Apply** bash scripting to **execute** batch jobs on a high performance cluster.
+
+- **Manage** software dependencies reproducibly using container-based technologies such as Docker/Apptainer containers or EasyBuild modules
+
+- **Utilize** workflow managers to process multiple files in a multi-step Workflow Development Langauge (WDL) workflow.
+
+## Background knowledge
+
+- You need to be able to connect to our computing cluster. If you have taken the [Intro to Fred Hutch Cluster Computing](#0) workshop, then you will be ready.
+
+- We highly recommend reviewing [Intro to Command Line](https://hutchdatascience.org/Intro_to_Command_Line/) and [Intro to Fred Hutch Cluster Computing](https://hutchdatascience.org/FH_Cluster_101/). A list of the concepts you need to know are in [the prework section](https://bashforbio.netlify.app/00_prework.html).
+
+## Badge of completion
+
+![](images/BASH.png){width="300"}
+
+We offer a [badge of completion](https://www.credly.com/org/fred-hutch/badge/intro-to-r) when you finish the course!
+
+What it is:
+
+- A display of what you accomplished in the course, shareable in your professional networks such as LinkedIn, similar to online education services such as Coursera.
+
+What it isn't:
+
+- Accreditation through an university or degree-granting program.
+
+. . .
+
+Requirements:
+
+- Complete badge-required sections of the exercises for 3 out of 4 assignments.
