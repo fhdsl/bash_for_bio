@@ -53,9 +53,9 @@ Please sign up for Google Classroom ([link](https://classroom.google.com/c/ODg1M
 
 ## Badge of completion
 
-![](images/BASH.png){width="300"}
+![](images/BASH.png){width="500"}
 
-We offer a [badge of completion](https://www.credly.com/org/fred-hutch/badge/intro-to-r) when you finish the course!
+We offer a [badge of completion](https://www.credly.com/org/fred-hutch/badge/intro-to-rhttps://www.credly.com/org/fred-hutch/badge/bash-for-bioinformatics) when you finish the course!
 
 What it is:
 
@@ -70,3 +70,310 @@ What it isn't:
 Requirements:
 
 - Complete badge-required sections of the exercises for 3 out of 4 assignments.
+
+## Today's content
+
+- Review: <https://bashforbio.netlify.app/00_prework.html>
+
+- Basics: <https://bashforbio.netlify.app/01_basics.html>
+
+- Scripting: <https://bashforbio.netlify.app/01_scripting.html>
+
+## **Grabbing Stuff from GitHub**
+
+For the rest of course, we’ll be grabbing the scripts from github using `git clone`.
+
+```         
+git clone https://github.com/fhdsl/bash_for_bio
+```
+
+This will create a folder called `bash_for_bio/` in our current directory. This directory has all of the course materials, including the scripts.
+
+. . .
+
+For today, go to:
+
+`cd bash_for_bio/scripts/week1`
+
+## Running scripts from R or Python
+
+Recall using `module load` to load in pre-installed software on the cluster:
+
+```         
+module load fhR
+module load fhPython
+```
+
+. . .
+
+For running a R script in the command line:
+
+```         
+Rscript rnorm.R
+```
+
+. . .
+
+For running a Python script in the command line:
+
+```         
+python3 random_num.py
+```
+
+## Executable Programs
+
+Bash scripts are "executable" programs, meaning they are independent programs that can run on their own without other software, such as `Rscript` or `python3`.
+
+. . .
+
+Other "executable" programs may include `bwa` for sequence alignment.
+
+. . .
+
+When we call an executable program, the system first looks into all the executable list of programs, defined by the variable `$PATH`. We can look at contents of `$PATH`, which shows all the folders it will consider to run an executable program.
+
+. . .
+
+```         
+clo2@rhino03:~/bash_for_bio/scripts/week1$ echo $PATH
+/app/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+```
+
+. . .
+
+The executable program `tell_the_time.sh` is located in the current directory, and not in `$PATH`. How do we run it?
+
+. . .
+
+```         
+clo2@rhino03:~/bash_for_bio/scripts/week1$ tell_the_time.sh
+tell_the_time.sh: command not found
+```
+
+. . .
+
+Rather, we need to run with `./` (why? see this [post](https://unix.stackexchange.com/questions/4430/why-do-we-use-dot-slash-to-execute-a-file-in-linux-unix).)
+
+```         
+clo2@rhino03:~/bash_for_bio/scripts/week1$ ./tell_the_time.sh
+-bash: ./tell_the_time.sh: Permission denied
+```
+
+## File permissions
+
+`ls -l tell_the_time.sh`
+
+What can you do with files?
+
+| Type | Description | Abbreviation | Example |
+|----|----|----|----|
+| Read | Level can only read contents of file | `r` | Reading the contents of a text file |
+| Write | Level can write to the file | `w` | Appending an entry to the end of a log |
+| Execute | Level can run the file as an executable | `x` | Running the software `samtools` |
+
+. . .
+
+These types of actions have varying levels of permissions that can be set.
+
+| Level       | Description           |
+|-------------|-----------------------|
+| Owner-level | The owner of the file |
+| Group-level | The group of the file |
+| Everyone    | The rest of the world |
+
+## File permissions
+
+```         
+folder everyone_else
+|      |     
+-rw-rw----
+ |  |
+ you group
+```
+
+The 2nd to 4th letters define your own access to the files. The
+
+```         
+rw-
+```
+
+Means that you have **r**ead and **w**rite access. If we had the following:
+
+```         
+rwx
+```
+
+That would mean we have read, write, and e**x**ecute access.
+
+[More info here](https://www.redhat.com/en/blog/linux-file-permissions-explained).
+
+## Changing Permissions
+
+Make the file executable:
+
+`chmod +x tell_the_time.sh`
+
+Then,
+
+`./tell_the_time.sh`
+
+## Writing your first bash script
+
+What's your text editor?
+
+- `nano`
+
+- `vim`, `emacs`
+
+- Mount from Mac or Windows file directory system: <https://sciwiki.fredhutch.org/scicomputing/store_posix/#how-to-access-fred-hutch-storage>
+
+## Writing your first bash script
+
+Take a look at `sam_count_basic.sh`
+
+```         
+#!/bin/bash                           
+module load SAMtools/1.19.2-GCC-13.2.0  
+samtools view -c CALU1_combined_final.sam > CALU1_combined_final.sam.counts.txt
+module purge
+```
+
+. . .
+
+`#!/bin/bash` denotes how this script is going to be executed.
+
+. . .
+
+`>` denotes the output file content of the command `samtools view`
+
+. . .
+
+`module purge` "unloads" any loaded software.
+
+. . .
+
+Run the script:
+
+`./sam_count_basic.sh`
+
+## Repeating this script for many files
+
+Suppose you have `sample1.sam`, `sample2.sam`, `sample3.sam`, etc. that you want to run `samtools view` on.
+
+. . .
+
+Can we give our script an input argument denoting what the input sample is? Such as:
+
+`./sam_count_basic.sh sample1.sam`
+
+## Variables in bash scripting
+
+In Bash, we can declare a variable by using `<variable_name>=<value>`. (No spaces!!!)
+
+. . .
+
+```         
+my_variable="ggplot2"
+
+echo "My favorite R package is ${my_variable}"
+```
+
+. . .
+
+Refer to variables using braces to be safe, ie:
+
+```         
+my_var="chr1"
+echo "${my_var}_1.vcf.gz"
+```
+
+. . .
+
+Example:
+
+```         
+#!/bin/bash                           
+module load SAMtools/1.19.2-GCC-13.2.0  
+input_file="CALU1_combined_final.sam"
+samtools view -c ${input_file} > ${input_file}.counts.txt
+module purge
+```
+
+## Input argument variables
+
+In Bash scripting, there are special pre-defined variables `$1`, `$2`, etc. that refer to the input arguments of a bash script.
+
+For instance,
+
+```         
+#!/bin/bash  
+echo "My favorite R package is ${1}"
+```
+
+And you run the script with
+
+```         
+./script.sh bioconductor
+```
+
+You will get the output:
+
+"My favorite R package is bioconductor".
+
+## Putting it together
+
+```         
+#!/bin/bash                           
+module load SAMtools/1.19.2-GCC-13.2.0  
+samtools view -c ${1} > ${1}.counts.txt
+module purge
+```
+
+```         
+./sam_count.sh CALU1_combined_final.sam
+```
+
+## Challenging example
+
+```         
+#!/bin/bash
+module load BWA/0.7.17-GCCcore-11.2.0
+input_fastq=${1}
+# strip path and suffix
+base_file_name="${input_fastq%.fastq}"
+base_file_name=${base_file_name##*/}
+echo "running $input_fastq"
+sample_name="SM:${base_file_name}"
+read_group_id="ID:${base_file_name}"
+platform_info="PL:Illumina"
+ref_fasta_local="/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa" 
+
+bwa mem \
+      -p -v 3 -M \
+      -R "@RG\t${read_group_id}\t${sample_name}\t${platform_info}" \
+      "${ref_fasta_local}" "${input_fastq}" > \
+      "${base_file_name}.sam"
+      
+module purge
+```
+
+. . .
+
+```         
+./run_bwa.sh CALU1_combined_final.fastq
+```
+
+## Input arguments for R and Python scripts
+
+Suppose that you want to run your bash script on a R script, which would require something like...
+
+```         
+#!/bin/bash
+module load fhR
+Rscript process_data.R ${1}
+module purge
+```
+
+How do we deal with input arguments for the *R script* `process_data.R`?
+
+<https://bashforbio.netlify.app/01_scripting.html#arguments-in-r-scripts>

@@ -1,5 +1,5 @@
 #!/bin/bash
-for file in ./data/*.fastq
+for file in ../../data/*.fastq
 do
   wc $file
 done
