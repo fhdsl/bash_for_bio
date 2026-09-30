@@ -45,6 +45,10 @@ Please sign up for Google Classroom ([link](https://classroom.google.com/c/ODg1M
 
 - **Utilize** workflow managers to process multiple files in a multi-step Workflow Development Langauge (WDL) workflow.
 
+. . .
+
+- This course *does not* teach best practice uses of specific bioinformatics software, such as the parameters for running `bwa mem` or `STAR`.
+
 ## Background knowledge
 
 - You need to be able to connect to our computing cluster. If you have taken the [Intro to Fred Hutch Cluster Computing](#0) workshop, then you will be ready.
@@ -166,7 +170,7 @@ clo2@rhino03:~/bash_for_bio/scripts/week1$ ./tell_the_time.sh
 What can you do with files?
 
 | Type | Description | Abbreviation | Example |
-|----|----|----|----|
+|------------------|------------------|------------------|------------------|
 | Read | Level can only read contents of file | `r` | Reading the contents of a text file |
 | Write | Level can write to the file | `w` | Appending an entry to the end of a log |
 | Execute | Level can run the file as an executable | `x` | Running the software `samtools` |
@@ -252,7 +256,7 @@ module purge
 
 . . .
 
-Run the script:
+Run the script (can you?):
 
 `./sam_count_basic.sh`
 
@@ -274,13 +278,17 @@ In Bash, we can declare a variable by using `<variable_name>=<value>`. (No space
 
 ```         
 my_variable="ggplot2"
+```
 
+Refer to a variable with `${my_variable}`
+
+```         
 echo "My favorite R package is ${my_variable}"
 ```
 
 . . .
 
-Refer to variables using braces to be safe, ie:
+Refer to variables using braces `{ }` to be safe, ie:
 
 ```         
 my_var="chr1"
@@ -339,18 +347,18 @@ module purge
 #!/bin/bash
 module load BWA/0.7.17-GCCcore-11.2.0
 input_fastq=${1}
+
 # strip path and suffix
 base_file_name="${input_fastq%.fastq}"
 base_file_name=${base_file_name##*/}
+
 echo "running $input_fastq"
-sample_name="SM:${base_file_name}"
-read_group_id="ID:${base_file_name}"
-platform_info="PL:Illumina"
+
 ref_fasta_local="/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa" 
 
 bwa mem \
       -p -v 3 -M \
-      -R "@RG\t${read_group_id}\t${sample_name}\t${platform_info}" \
+      -R "@RG\t test" \
       "${ref_fasta_local}" "${input_fastq}" > \
       "${base_file_name}.sam"
       
@@ -360,7 +368,7 @@ module purge
 . . .
 
 ```         
-./run_bwa.sh CALU1_combined_final.fastq
+./run_bwa_simple.sh CALU1_combined_final.fastq
 ```
 
 ## Input arguments for R and Python scripts
