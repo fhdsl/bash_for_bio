@@ -12,7 +12,9 @@ output-location: fragment
 ## Today's Content
 
 - Workflows: <https://bashforbio.netlify.app/04_containers_workflows.html>
-- Containers: <https://bashforbio.netlify.app/containers_reading.html>
+- Containers:
+  - <https://bashforbio.netlify.app/containers_reading.html>
+  - <https://bashforbio.netlify.app/03_containers.html>
 
 ## Why workflows?
 
@@ -264,3 +266,13 @@ We get an array of outputs also.
 - I recommend that you read the [Developing WDL Workflows](https://hutchdatascience.org/Developing_WDL_Workflows/index.html) book that we have written for much more information about building your own workflows.
 
 - You don’t have to start from scratch, either. There is the [WILDS WDL library](https://getwilds.org/wilds-wdl-library/) that has a number of different bioinformatics tasks that are already built for use in your workflows.
+
+## What's a Docker image / container?
+
+## Using a container
+
+```         
+module load Apptainer
+apptainer pull docker://biocontainers/samtools:v1.9-4-deb_cv1
+apptainer cache list
+```

@@ -1187,6 +1187,11 @@ margin-right: 0; }
 <li><p><strong>Manage</strong> software dependencies reproducibly using container-based technologies such as Docker/Apptainer containers or EasyBuild modules</p></li>
 <li><p><strong>Utilize</strong> workflow managers to process multiple files in a multi-step Workflow Development Langauge (WDL) workflow.</p></li>
 </ul>
+<div class="fragment">
+<ul>
+<li>This course <em>does not</em> teach best practice uses of specific bioinformatics software, such as the parameters for running <code>bwa mem</code> or <code>STAR</code>.</li>
+</ul>
+</div>
 </section>
 <section id="background-knowledge" class="slide level2">
 <h2>Background knowledge</h2>
@@ -1385,7 +1390,7 @@ module purge</code></pre>
 <p><code>module purge</code> “unloads” any loaded software.</p>
 </div>
 <div class="fragment">
-<p>Run the script:</p>
+<p>Run the script (can you?):</p>
 <p><code>./sam_count_basic.sh</code></p>
 </div>
 </section>
@@ -1401,12 +1406,12 @@ module purge</code></pre>
 <h2>Variables in bash scripting</h2>
 <p>In Bash, we can declare a variable by using <code>&lt;variable_name&gt;=&lt;value&gt;</code>. (No spaces!!!)</p>
 <div class="fragment">
-<pre><code>my_variable=&quot;ggplot2&quot;
-
-echo &quot;My favorite R package is ${my_variable}&quot;</code></pre>
+<pre><code>my_variable=&quot;ggplot2&quot;</code></pre>
+<p>Refer to a variable with <code>${my_variable}</code></p>
+<pre><code>echo &quot;My favorite R package is ${my_variable}&quot;</code></pre>
 </div>
 <div class="fragment">
-<p>Refer to variables using braces to be safe, ie:</p>
+<p>Refer to variables using braces <code>{ }</code> to be safe, ie:</p>
 <pre><code>my_var=&quot;chr1&quot;
 echo &quot;${my_var}_1.vcf.gz&quot;</code></pre>
 </div>
@@ -1443,24 +1448,24 @@ module purge</code></pre>
 <pre><code>#!/bin/bash
 module load BWA/0.7.17-GCCcore-11.2.0
 input_fastq=${1}
+
 # strip path and suffix
 base_file_name=&quot;${input_fastq%.fastq}&quot;
 base_file_name=${base_file_name##*/}
+
 echo &quot;running $input_fastq&quot;
-sample_name=&quot;SM:${base_file_name}&quot;
-read_group_id=&quot;ID:${base_file_name}&quot;
-platform_info=&quot;PL:Illumina&quot;
+
 ref_fasta_local=&quot;/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa&quot; 
 
 bwa mem \
       -p -v 3 -M \
-      -R &quot;@RG\t${read_group_id}\t${sample_name}\t${platform_info}&quot; \
+      -R &quot;@RG\t test&quot; \
       &quot;${ref_fasta_local}&quot; &quot;${input_fastq}&quot; &gt; \
       &quot;${base_file_name}.sam&quot;
       
 module purge</code></pre>
 <div class="fragment">
-<pre><code>./run_bwa.sh CALU1_combined_final.fastq</code></pre>
+<pre><code>./run_bwa_simple.sh CALU1_combined_final.fastq</code></pre>
 </div>
 </section>
 <section id="input-arguments-for-r-and-python-scripts" class="slide level2">

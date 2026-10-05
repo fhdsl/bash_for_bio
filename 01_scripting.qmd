@@ -448,26 +448,22 @@ Note that we have a named argument called `input_file` and it is done differentl
 
 We can pass arguments from our bash script to our R script by using `commandArgs()` - this will populate a list of named arguments (such as `input_file`) that are passed into the R Script. We assign the output of `commandArgs()` into the `args` object.
 
-We refer to our `input_file` argument as `args$input_file` in our script.
-
 ```r
 #| eval: false
-#| filename: "scripts/week2/process_data.R"
 library(tidyverse)
 
-args <- commandArgs()
+args <- commandArgs(trailingOnly = TRUE)
 
-# Use arg$CSVFILE in read.csv
-csv_file <- read.csv(file=args$input_file) #<1>
+# Use the first argument to read the file
+csv_file <- read.csv(file=args[1])
 
 # Do some work with csv_file
-csv_filtered <- csv_file |> janitor::clean_names()
+csv_filtered <- csv_file |>  count(tumor_stage)
 
-# Write output
-write.csv(csv_filtered, file = paste0(args$CSVFILE, "_cleaned.csv")) #<2>
+# Write output using the first argument
+write.csv(csv_filtered, file = paste0(args[1], "_summary.csv"))
 ```
-1. Use `args$input_file` as an input for `read.csv()`
-2. Use `args$input_file` to specify the output name. 
+
 
 ### Try it out: Running our R Script
 
@@ -476,7 +472,7 @@ Now that we've set it up, we can run the R script from the command line as follo
 ```bash
 #| eval: false
 module load fhR
-Rscript process_data.R input_file="LUSC_clinical.csv"
+Rscript process_data.R LUSC_clinical.csv
 module purge
 ```
 
@@ -485,30 +481,22 @@ module purge
 Say you have an R Script you need to run on the command line in combination with other unix commands. In our bash script, we can do the following:
 
 ```bash
-#| filename: "./scripts/week2/wrap_r_script.sh"
 #| eval: false
 #!/bin/bash
 module load fhR
-Rscript process_data.R input_file="${1}"
+Rscript process_data.R ${1}
 module purge
+
 ```
 
 Then we can run 
 
 ```bash
 #| eval: false
-bash wrap_r_script.sh .data/PRAD.csv 
+bash wrap_r_script.sh LUSC_clinical.csv
 ```
 
-In our bash script, `my_bash_script.sh`, we're using a positional argument (for simplicity) to specify our csvfile, and then passing the positional argument to named ones (`input_file`) for `my_r_script.R`.
 
-### Summary
-
-- R scripts will accept named arguments when called by `Rscript`:
-
-```bash
-Rscript process_csv.R input_file="my_csvfile.csv"
-```
 
 ## Arguments in Python Scripts
 
@@ -522,11 +510,13 @@ The `sys` module (built into Python) will let us access arguments by position:
 
 ```python
 #| eval: false
-#| filename: process_file.py
+#| filename: process_files.py
 import sys #<1>
 import pandas as pd
 file = sys.argv[1] #<2> 
 df = pd.read_csv(file)
+summary = df.tumor_stage.value_counts()
+summary.to_csv(file+".summary.csv")
 ```
 1. Import `sys` module
 2. Use `sys.argv` to access the first argument `sys.argv[1]`
@@ -542,7 +532,7 @@ Now we have set up our python script, we can run it on the command line on `rhin
 ```bash
 #| eval: false
 module load fhPython
-python3 process_file.py lusc_file.csv
+python3 process_files.py LUSC_clinical.csv
 module purge
 ```
 
@@ -550,7 +540,6 @@ And we could wrap it up in a bash script:
 
 ```bash
 #| eval: false
-#| filename: ./scripts/week2/wrap_py_script.sh
 #!/bin/bash
 module load fhPython
 python3 process_file.py ${1}
