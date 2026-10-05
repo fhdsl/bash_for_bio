@@ -12,7 +12,64 @@ output-location: fragment
 ## Today's Content
 
 - Review of job submission on the cluster: <https://bashforbio.netlify.app/hpc-basics.html>
+- Pipes: <https://bashforbio.netlify.app/pipes_json_reading.html>
 - Batch processing on the cluster: <https://bashforbio.netlify.app/02_batch.html>
+
+## Pipes
+
+Last week, you saw
+
+```         
+samtools view -c CALU1_combined_final.sam > CALU1_combined_final.sam.counts.txt
+```
+
+. . .
+
+```{mermaid}
+graph LR
+  A(STDIN) --> E[samtools view]
+  E --> B(STDOUT)
+  E --> C(STDERR)
+```
+
+. . .
+
+Every program has three streams available to it: Standard In (STDIN), Standard Out (STDOUT), and Standard Error (STDERR)
+
+. . .
+
+STDIN contains information that is directed to the input of a program (usually text output via STDOUT from another script). This includes arguments we pass onto the program.
+
+STDOUT contains information that is output of the script.
+
+STDERR contains any error messages that happened during the program run.
+
+. . .
+
+Getting the STDERR output:
+
+```         
+samtools view -c CALU1_combined_final.sam 2> CALU1_combined_final.sam.errors.txt
+```
+
+## Chaining pipes
+
+Taking the STDOUT of a program into the STDIN of another program:
+
+```{mermaid}
+graph LR
+  E[run_bwa.sh] --> B(STDOUT)
+  B --> F{"|"}
+  E --> C(STDERR)
+  F --> D("STDIN (wc)")
+  D --> G[wc]
+```
+
+```         
+./run_samtools.sh | wc 
+```
+
+More info here: <https://www.geeksforgeeks.org/linux-unix/input-output-redirection-in-linux/>
 
 ## **Using `for` loops to cycle through files**
 
@@ -64,7 +121,7 @@ done
 
 . . .
 
-Another example: `batch_on_rhino.sh`
+Example: `./batch_on_rhino.sh`
 
 ## Batching on the cluster
 
@@ -111,7 +168,7 @@ echo "$ind"
 current_file=${file_array[$ind]}
 echo "$current_file"
 # execute the `run_bwa.sh` script on $current_file
-./run_bwa.sh "$current_file"
+./run_bwa.sh $current_file
 ```
 
 . . .
@@ -129,6 +186,8 @@ max_index=$((num_files - 1))
 sbatch --array=0-${max_index} run_job.sh
 ```
 
+. . .
+
 ```         
 #!/bin/bash
 
@@ -140,7 +199,7 @@ echo "$ind"
 current_file=${file_array[$ind]}
 echo "$current_file"
 
-./run_bwa.sh "$current_file"
+./run_bwa.sh $current_file
 ```
 
 ## Appendix: bash symbols

@@ -5,6 +5,6 @@
   "bwa_samtools_workflow.ref_amb": "/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa.amb",
   "bwa_samtools_workflow.ref_ann": "/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa.ann",
   "bwa_samtools_workflow.ref_sa": "/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa.sa",
-  "bwa_samtools_workflow.fastq_r1": "./data/CALU1_combined_final.fastq",
+  "bwa_samtools_workflow.fastq_r1": "../../data/CALU1_combined_final.fastq",
   "bwa_samtools_workflow.name": "CALU-test"
 }

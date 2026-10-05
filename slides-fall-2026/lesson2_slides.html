@@ -3130,8 +3130,37 @@ z-index: 1000;
 <h2>Today’s Content</h2>
 <ul>
 <li>Review of job submission on the cluster: <a href="https://bashforbio.netlify.app/hpc-basics.html" class="uri">https://bashforbio.netlify.app/hpc-basics.html</a></li>
+<li>Pipes: <a href="https://bashforbio.netlify.app/pipes_json_reading.html" class="uri">https://bashforbio.netlify.app/pipes_json_reading.html</a></li>
 <li>Batch processing on the cluster: <a href="https://bashforbio.netlify.app/02_batch.html" class="uri">https://bashforbio.netlify.app/02_batch.html</a></li>
 </ul>
+</section>
+<section id="pipes" class="slide level2">
+<h2>Pipes</h2>
+<p>Last week, you saw</p>
+<pre><code>samtools view -c CALU1_combined_final.sam &gt; CALU1_combined_final.sam.counts.txt</code></pre>
+<div class="fragment">
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href></a>graph LR</span>
+<span id="cb2-2"><a href></a>  A(STDIN) --&gt; E[samtools view]</span>
+<span id="cb2-3"><a href></a>  E --&gt; B(STDOUT)</span>
+<span id="cb2-4"><a href></a>  E --&gt; C(STDERR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+  A(STDIN) --&gt; E[samtools view]
+  E --&gt; B(STDOUT)
+  E --&gt; C(STDERR)
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="using-for-loops-to-cycle-through-files" class="slide level2">
 <h2><strong>Using <code>for</code> loops to cycle through files</strong></h2>
@@ -3174,11 +3203,11 @@ do
 done</code></pre>
 </div>
 <div class="fragment">
-<p>Another example: <code>batch_on_rhino.sh</code></p>
+<p>Example: <code>./batch_on_rhino.sh</code></p>
 </div>
 </section>
-<section id="batching-files-on-the-cluster" class="slide level2">
-<h2>Batching files on the cluster</h2>
+<section id="batching-on-the-cluster" class="slide level2">
+<h2>Batching on the cluster</h2>
 <p>Can we take what we do in a loop to individual jobs on the cluster?</p>
 <pre><code>#!/bin/bash
 #SBATCH --nodes=3
@@ -3191,11 +3220,11 @@ echo &quot;${SLURM_ARRAY_TASK_ID} job&quot;</code></pre>
 </div>
 <div class="fragment">
 <div class="cell" data-reveal="true" data-layout-align="default">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb5-1"><a href></a>graph TD</span>
-<span id="cb5-2"><a href></a>  A[&quot;sbatch sbatch_test.sh&quot;] --&quot;1&quot;--&gt; B</span>
-<span id="cb5-3"><a href></a>  B[&quot;echo 1 job&quot;]</span>
-<span id="cb5-4"><a href></a>  A --&quot;2&quot;--&gt; C[&quot;echo 2 job&quot;]</span>
-<span id="cb5-5"><a href></a>  A --&quot;3&quot;--&gt; D[&quot;echo 3 job&quot;]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb7-1"><a href></a>graph TD</span>
+<span id="cb7-2"><a href></a>  A[&quot;sbatch sbatch_test.sh&quot;] --&quot;1&quot;--&gt; B</span>
+<span id="cb7-3"><a href></a>  B[&quot;echo 1 job&quot;]</span>
+<span id="cb7-4"><a href></a>  A --&quot;2&quot;--&gt; C[&quot;echo 2 job&quot;]</span>
+<span id="cb7-5"><a href></a>  A --&quot;3&quot;--&gt; D[&quot;echo 3 job&quot;]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment" data-reveal="true" data-layout-align="default">
 <div class="cell-output-display">
@@ -3213,10 +3242,62 @@ echo &quot;${SLURM_ARRAY_TASK_ID} job&quot;</code></pre>
 </div>
 </div>
 </div>
+</div>
+<div class="fragment">
+<p>Try running <code>sbatch sbatch_test.sh</code></p>
+</div>
+</section>
+<section id="batching-a-selection-of-files-on-the-cluster" class="slide level2">
+<h2>Batching a selection of files on the cluster</h2>
+<pre><code>#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --array=1-3
+
+file_array=(../../data/*.fastq)   
+ind=$((SLURM_ARRAY_TASK_ID-1))
+echo &quot;$ind&quot;
+current_file=${file_array[$ind]}
+echo &quot;$current_file&quot;
+# execute the `run_bwa.sh` script on $current_file
+./run_bwa.sh $current_file</code></pre>
+<div class="fragment">
+<p>This requires you knowing the number of fastq files in advance.</p>
+<p>Try it out: <code>sbatch run_sbatch.sh</code></p>
+</div>
+</section>
+<section id="advanced" class="slide level2">
+<h2>Advanced</h2>
+<pre><code>file_array=(../../data/*.fastq)   
+num_files=${#file_array[@]}
+max_index=$((num_files - 1))
+sbatch --array=0-${max_index} run_job.sh</code></pre>
+<div class="fragment">
+<pre><code>#!/bin/bash
+
+file_array=(../../data/*.fastq)   
+
+ind=$((SLURM_ARRAY_TASK_ID-1))
+echo &quot;$ind&quot;
+
+current_file=${file_array[$ind]}
+echo &quot;$current_file&quot;
+
+./run_bwa.sh $current_file</code></pre>
+</div>
+</section>
+<section id="appendix-bash-symbols" class="slide level2">
+<h2>Appendix: bash symbols</h2>
+<ul>
+<li><p><code>[ ]</code> accesses elements of an array</p></li>
+<li><p><code>${ }</code> references a variable</p></li>
+<li><p><code>( )</code> subshell execution to run a quick command</p></li>
+<li><p><code>$( )</code> subshell execution to run a quick command, with output to be stored in a variable</p></li>
+<li><p><code>(( ))</code> integer arithmetic</p></li>
+<li><p><code>$(( ))</code> integer arithmetic, with output to be stored in a variable</p></li>
+</ul>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
-</div>
 </div>
 </div>
 </section>

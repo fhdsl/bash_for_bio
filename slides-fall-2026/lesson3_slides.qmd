@@ -1,0 +1,266 @@
+---
+title: "W3: Workflows"
+format: 
+  revealjs:
+    smaller: true
+    scrollable: true
+    echo: true
+    embed-resources: true
+output-location: fragment
+---
+
+## Today's Content
+
+- Workflows: <https://bashforbio.netlify.app/04_containers_workflows.html>
+- Containers: <https://bashforbio.netlify.app/containers_reading.html>
+
+## Why workflows?
+
+So far, we've been batch processing using job arrays in SLURM. However, when you graduate to processing in multiple steps, you should consider using a *workflow manager* for processing files.
+
+A workflow manager will take a workflow, which can consist of multiple tasks and allow you to batch process files.
+
+A good workflow manager will allow you to:
+
+- Restart failed subjobs in the workflow
+- Allow you to customize where intermediate and final outputs go
+- Swap and customize modules in your workflow
+- Adapt to different computing architectures (HPC/cloud/etc)
+
+## Different flavors of workflows
+
+| Manager Software | Workflow Formats | Notes                               |
+|------------------|------------------|-------------------------------------|
+| Cromwell         | WDL/CWL          | Made for HPC Jobs                   |
+| Sprocket         | WDL              | Made for HPC Jobs                   |
+| MiniWDL          | WDL              | Used for local testing of workflows |
+| DNANexus         | WDL/CWL          | Used for systems such as AllOfUs    |
+| Nextflow         | `.nf` files      | Owned by seqera                     |
+| Snakemake        | snakemake files  |                                     |
+
+## Example: BWA aligner
+
+```         
+cd scripts/week4
+less ww-bwa-samtools.wdl
+```
+
+A WDL file consists of
+
+- Workflow - describes at a high level how the inputs and outputs connect for each step in the workflow. Similar to piping in which you specify the STDIN and STDOUT for each command.
+
+- Tasks - describes in detail what to do for each step in the workflow. The body of a task looks like a shell script.
+
+## Workflow part
+
+```         
+workflow bwa_samtools_workflow {
+  input {
+    File ref_fasta
+    File ref_bwt
+    File ref_pac
+    File ref_amb
+    File ref_ann
+    File ref_sa
+    File fastq_r1
+    String name
+  }
+  call bwa_align {
+    input:
+      reference_bwt = ref_bwt,
+      reference_ann = ref_ann,
+      reference_pac = ref_pac,
+      reference_amb = ref_amb,
+      reference_sa = ref_sa,
+      reference_fasta = ref_fasta,
+      reads = fastq_r1,
+      name = name
+  }
+
+  call samtools_process {
+    input:
+      sam_file = bwa_align.bwa_output,
+      name = name
+  }
+  output {
+    File sorted_bam = samtools_process.sorted_bam
+    File sorted_bai = samtools_process.sorted_bai
+  }
+}
+```
+
+## Input and output for the workflow
+
+```         
+  input {
+    File ref_fasta
+    File ref_bwt
+    File ref_pac
+    File ref_amb
+    File ref_ann
+    File ref_sa
+    File fastq_r1
+    String name
+  }
+```
+
+```         
+less input.json
+```
+
+. . .
+
+```         
+  output {
+    File sorted_bam = samtools_process.sorted_bam
+    File sorted_bai = samtools_process.sorted_bai
+  }
+```
+
+## Tasks
+
+```         
+task bwa_align {
+  meta {
+    description: "Aligns paired-end reads to a reference using BWA-MEM"
+    outputs: {
+      bwa_output: "Output SAM file containing aligned reads"
+    }
+  }
+  parameter_meta {
+    reference_fasta: "Reference genome FASTA file"
+    reads: "FASTQ of forward (R1) reads"
+    name: "Sample name for output SAM file"
+  }
+  input {
+    File reference_fasta
+    File reference_bwt
+    File reference_ann
+    File reference_pac
+    File reference_amb
+    File reference_sa
+    File reads
+    String name
+  }
+  # Get name of reference fasta file within 'bwa_index' folder
+  String ref_name = reference_fasta
+  command <<<
+    # BWA alignment using 8 threads
+    bwa mem -t 8 "~{ref_name}" "~{reads}" > "~{name}.sam"
+  >>>
+  output {
+    File bwa_output = "~{name}.sam"
+  }
+  runtime {
+    docker: "getwilds/bwa:0.7.17"
+    cpu: 8
+    memory: "16 GB"
+  }
+}
+```
+
+. . .
+
+You’ll notice that everything between the:
+
+```         
+command <<<
+
+>>>
+```
+
+Is essentially a shell script, but adapted to work with the WDL inputs.
+
+## Running this WDL
+
+```         
+module load cirro
+module load Apptainer/1.1.6
+export MINIWDL__SCHEDULER__CONTAINER_BACKEND=singularity
+```
+
+```         
+miniwdl run -i input.json ww-bwa-samtools.wdl
+```
+
+Output:
+
+```         
+ls -l _LAST/out
+```
+
+## Array of jobs
+
+We change the input:
+
+```         
+  input {
+    File ref_fasta
+    File ref_bwt
+    File ref_pac
+    File ref_amb
+    File ref_ann
+    File ref_sa
+    Array[File] fastq_r1
+  }
+```
+
+See: `less scatter.json`
+
+. . .
+
+We also change the WDL workflow:
+
+```         
+scatter (fq in fastq_r1){
+  call bwa_align {
+      input:
+          reference_bwt = ref_bwt,
+          reference_ann = ref_ann,
+          reference_pac = ref_pac,
+          reference_amb = ref_amb,
+          reference_sa = ref_sa,
+          reference_fasta = ref_fasta,
+          reads = fq
+      }
+
+ call samtools_process {
+  input:
+    sam_file = bwa_align.bwa_output
+      }
+}
+```
+
+. . .
+
+Which influences the output:
+
+```         
+output {
+    Array[File] sorted_bam = samtools_process.sorted_bam
+    Array[File] sorted_bai = samtools_process.sorted_bai
+  }
+}
+```
+
+## Running array of jobs
+
+```         
+miniwdl run -i scatter.json ww-bwa-samtools-scatter.wdl
+```
+
+We get an array of outputs also.
+
+## **For more information**
+
+- [This article in SciWiki](https://sciwiki.fredhutch.org/datascience/wdl_workflows/) is a good summary of WDL.
+
+- A point-and-click way to launch WDLs: [PROOF](https://proof.fredhutch.org/)
+
+- For more about WDL workflows, this Deep Dive material about [Building Computational Workflows](https://fredhutch.github.io/data-deep-dives/translational-data-science-series/building-computational-workflows/2026-winter/slides/) (including video and slides) is a good follow up.
+
+- You can use [EasyBuild Modules in your WDL](https://sciwiki.fredhutch.org/datascience/wdl_workflows/#environment-modules-hpc-specific) as well, although this reduces the portability of your workflow.
+
+- I recommend that you read the [Developing WDL Workflows](https://hutchdatascience.org/Developing_WDL_Workflows/index.html) book that we have written for much more information about building your own workflows.
+
+- You don’t have to start from scratch, either. There is the [WILDS WDL library](https://getwilds.org/wilds-wdl-library/) that has a number of different bioinformatics tasks that are already built for use in your workflows.
