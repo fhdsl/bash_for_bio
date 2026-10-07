@@ -1151,7 +1151,18 @@ margin-right: 0; }
 </section>
 <section id="welcome" class="slide level2">
 <h2>Welcome!</h2>
-<p>Please sign up for Google Classroom (<a href="https://classroom.google.com/c/ODg1MjQ5MjAyOTc1?cjc=7xr7ulkb">link</a>) if you haven’t already.</p>
+<ul>
+<li><p>Please sign up for Google Classroom (<a href="https://classroom.google.com/c/ODg1MjQ5MjAyOTc1?cjc=7xr7ulkb">link</a>) if you haven’t already.</p></li>
+<li><p>Logging into the cluster:</p>
+<ul>
+<li><p>Are you on the research wifi network?</p>
+<ul>
+<li><a href="https://centernet.fredhutch.org/u/it/help-desk/vpn-access.html">VPN if you are off campus</a></li>
+</ul></li>
+<li><p><a href="https://hutchdatascience.org/FH_Cluster_101/terminal.html">Open you Command Line</a></p></li>
+<li><p><a href="https://hutchdatascience.org/FH_Cluster_101/logging-in.html">Log in!</a></p></li>
+</ul></li>
+</ul>
 </section>
 <section id="introductions" class="slide level2">
 <h2>Introductions</h2>
@@ -1184,8 +1195,8 @@ margin-right: 0; }
 <ul>
 <li><p><strong>Apply</strong> bash scripting to execute bioinformatics software, and Python/R scripts</p></li>
 <li><p><strong>Apply</strong> bash scripting to <strong>execute</strong> batch jobs on a high performance cluster.</p></li>
-<li><p><strong>Manage</strong> software dependencies reproducibly using container-based technologies such as Docker/Apptainer containers or EasyBuild modules</p></li>
 <li><p><strong>Utilize</strong> workflow managers to process multiple files in a multi-step Workflow Development Langauge (WDL) workflow.</p></li>
+<li><p><strong>Manage</strong> software dependencies reproducibly using container-based technologies such as Docker/Apptainer containers or EasyBuild modules.</p></li>
 </ul>
 <div class="fragment">
 <ul>
@@ -1470,16 +1481,37 @@ module purge</code></pre>
 </section>
 <section id="input-arguments-for-r-and-python-scripts" class="slide level2">
 <h2>Input arguments for R and Python scripts</h2>
-<p>Suppose that you want to run your bash script on a R script, which would require something like…</p>
-<pre><code>#!/bin/bash
-module load fhR
-Rscript process_data.R ${1}
-module purge</code></pre>
-<p>How do we deal with input arguments for the <em>R script</em> <code>process_data.R</code>?</p>
-<p><a href="https://bashforbio.netlify.app/01_scripting.html#arguments-in-r-scripts" class="uri">https://bashforbio.netlify.app/01_scripting.html#arguments-in-r-scripts</a></p>
+<p>Suppose that you want to run your R script with a custom input, like this:</p>
+<pre><code>Rscript process_files.R READ.csv</code></pre>
+<div class="fragment">
+<p>For R:</p>
+<pre><code>
+library(tidyverse)
+
+args &lt;- commandArgs(trailingOnly = TRUE)
+
+# Use the first argument to read the file
+csv_file &lt;- read.csv(file=args[1])
+
+# Do some work with csv_file
+csv_filtered &lt;- csv_file |&gt;  count(tumor_stage)
+
+# Write output using the first argument
+write.csv(csv_filtered, file = paste0(args[1], &quot;_summary.csv&quot;))</code></pre>
+</div>
+<div class="fragment">
+<p>For Python:</p>
+<pre><code>python process_files.py READ.csv</code></pre>
+<pre><code>import sys 
+import pandas as pd
+file = sys.argv[1] 
+df = pd.read_csv(file)
+summary = df.tumor_stage.value_counts()
+summary.to_csv(file+&quot;.summary.csv&quot;)</code></pre>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
+</div>
 </div>
 </div>
 </section>

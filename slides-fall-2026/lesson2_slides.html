@@ -3161,6 +3161,49 @@ z-index: 1000;
 </div>
 </div>
 </div>
+<div class="fragment">
+<p>Every program has three streams available to it: Standard In (STDIN), Standard Out (STDOUT), and Standard Error (STDERR)</p>
+</div>
+<div class="fragment">
+<p>STDIN contains information that is directed to the input of a program (usually text output via STDOUT from another script). This includes arguments we pass onto the program.</p>
+<p>STDOUT contains information that is output of the script.</p>
+<p>STDERR contains any error messages that happened during the program run.</p>
+</div>
+<div class="fragment">
+<p>Getting the STDERR output:</p>
+<pre><code>samtools view -c CALU1_combined_final.sam 2&gt; CALU1_combined_final.sam.errors.txt</code></pre>
+</div>
+</section>
+<section id="chaining-pipes" class="slide level2">
+<h2>Chaining pipes</h2>
+<p>Taking the STDOUT of a program into the STDIN of another program:</p>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb4-1"><a href></a>graph LR</span>
+<span id="cb4-2"><a href></a>  E[run_bwa.sh] --&gt; B(STDOUT)</span>
+<span id="cb4-3"><a href></a>  B --&gt; F{&quot;|&quot;}</span>
+<span id="cb4-4"><a href></a>  E --&gt; C(STDERR)</span>
+<span id="cb4-5"><a href></a>  F --&gt; D(&quot;STDIN (wc)&quot;)</span>
+<span id="cb4-6"><a href></a>  D --&gt; G[wc]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+  E[run_bwa.sh] --&gt; B(STDOUT)
+  B --&gt; F{&quot;|&quot;}
+  E --&gt; C(STDERR)
+  F --&gt; D(&quot;STDIN (wc)&quot;)
+  D --&gt; G[wc]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<pre><code>./run_samtools.sh | wc </code></pre>
+<p>More info here: <a href="https://www.geeksforgeeks.org/linux-unix/input-output-redirection-in-linux/" class="uri">https://www.geeksforgeeks.org/linux-unix/input-output-redirection-in-linux/</a></p>
 </section>
 <section id="using-for-loops-to-cycle-through-files" class="slide level2">
 <h2><strong>Using <code>for</code> loops to cycle through files</strong></h2>
@@ -3220,11 +3263,11 @@ echo &quot;${SLURM_ARRAY_TASK_ID} job&quot;</code></pre>
 </div>
 <div class="fragment">
 <div class="cell" data-reveal="true" data-layout-align="default">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb7-1"><a href></a>graph TD</span>
-<span id="cb7-2"><a href></a>  A[&quot;sbatch sbatch_test.sh&quot;] --&quot;1&quot;--&gt; B</span>
-<span id="cb7-3"><a href></a>  B[&quot;echo 1 job&quot;]</span>
-<span id="cb7-4"><a href></a>  A --&quot;2&quot;--&gt; C[&quot;echo 2 job&quot;]</span>
-<span id="cb7-5"><a href></a>  A --&quot;3&quot;--&gt; D[&quot;echo 3 job&quot;]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb10-1"><a href></a>graph TD</span>
+<span id="cb10-2"><a href></a>  A[&quot;sbatch sbatch_test.sh&quot;] --&quot;1&quot;--&gt; B</span>
+<span id="cb10-3"><a href></a>  B[&quot;echo 1 job&quot;]</span>
+<span id="cb10-4"><a href></a>  A --&quot;2&quot;--&gt; C[&quot;echo 2 job&quot;]</span>
+<span id="cb10-5"><a href></a>  A --&quot;3&quot;--&gt; D[&quot;echo 3 job&quot;]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment" data-reveal="true" data-layout-align="default">
 <div class="cell-output-display">

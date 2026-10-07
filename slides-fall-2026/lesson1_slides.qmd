@@ -11,7 +11,17 @@ output-location: fragment
 
 ## Welcome!
 
-Please sign up for Google Classroom ([link](https://classroom.google.com/c/ODg1MjQ5MjAyOTc1?cjc=7xr7ulkb)) if you haven't already.
+- Please sign up for Google Classroom ([link](https://classroom.google.com/c/ODg1MjQ5MjAyOTc1?cjc=7xr7ulkb)) if you haven't already.
+
+- Logging into the cluster:
+
+  - Are you on the research wifi network?
+
+    - [VPN if you are off campus](https://centernet.fredhutch.org/u/it/help-desk/vpn-access.html)
+
+  - [Open you Command Line](https://hutchdatascience.org/FH_Cluster_101/terminal.html)
+
+  - [Log in!](https://hutchdatascience.org/FH_Cluster_101/logging-in.html)
 
 ## Introductions
 
@@ -41,9 +51,9 @@ Please sign up for Google Classroom ([link](https://classroom.google.com/c/ODg1M
 
 - **Apply** bash scripting to **execute** batch jobs on a high performance cluster.
 
-- **Manage** software dependencies reproducibly using container-based technologies such as Docker/Apptainer containers or EasyBuild modules
-
 - **Utilize** workflow managers to process multiple files in a multi-step Workflow Development Langauge (WDL) workflow.
+
+- **Manage** software dependencies reproducibly using container-based technologies such as Docker/Apptainer containers or EasyBuild modules.
 
 . . .
 
@@ -373,15 +383,45 @@ module purge
 
 ## Input arguments for R and Python scripts
 
-Suppose that you want to run your bash script on a R script, which would require something like...
+Suppose that you want to run your R script with a custom input, like this:
 
 ```         
-#!/bin/bash
-module load fhR
-Rscript process_data.R ${1}
-module purge
+Rscript process_files.R READ.csv
 ```
 
-How do we deal with input arguments for the *R script* `process_data.R`?
+. . .
 
-<https://bashforbio.netlify.app/01_scripting.html#arguments-in-r-scripts>
+For R:
+
+```         
+
+library(tidyverse)
+
+args <- commandArgs(trailingOnly = TRUE)
+
+# Use the first argument to read the file
+csv_file <- read.csv(file=args[1])
+
+# Do some work with csv_file
+csv_filtered <- csv_file |>  count(tumor_stage)
+
+# Write output using the first argument
+write.csv(csv_filtered, file = paste0(args[1], "_summary.csv"))
+```
+
+. . .
+
+For Python:
+
+```         
+python process_files.py READ.csv
+```
+
+```         
+import sys 
+import pandas as pd
+file = sys.argv[1] 
+df = pd.read_csv(file)
+summary = df.tumor_stage.value_counts()
+summary.to_csv(file+".summary.csv")
+```

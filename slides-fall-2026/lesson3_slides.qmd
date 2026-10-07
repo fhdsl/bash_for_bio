@@ -274,5 +274,4 @@ We get an array of outputs also.
 ```         
 module load Apptainer
 apptainer pull docker://biocontainers/samtools:v1.9-4-deb_cv1
-apptainer cache list
 ```
