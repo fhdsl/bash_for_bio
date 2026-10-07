@@ -1,11 +1,12 @@
 #!/bin/bash
-module load BWA/0.7.17-GCCcore-11.2.0
+module load BWA/
+module load SAMtools
 input_fastq=${1}
 
 # strip path and suffix
 base_file_name="${input_fastq%.fastq}"
 base_file_name=${base_file_name##*/}
-echo "running $input_fastq"
+#variables for bwa mem read group
 sample_name="SM:${base_file_name}"
 read_group_id="ID:${base_file_name}"
 platform_info="PL:Illumina"
@@ -17,8 +18,9 @@ bwa mem \
       -p -v 3 -M \
       -R "@RG\t${read_group_id}\t${sample_name}\t${platform_info}" \
       "${ref_fasta_local}" "${input_fastq}" | \
-samtools sort > ${base_file_name}.bam | \
-      samtools index
+samtools sort > ${base_file_name}.bam
+
+samtools index ${base_file_name}.bam
 
 samtools view -c ${base_file_name}.bam > \
       ${base_file_name}.bam.counts.txt
