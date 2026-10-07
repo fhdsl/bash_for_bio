@@ -3126,6 +3126,9 @@ z-index: 1000;
 </div>
 
 </section>
+<section id="that-bwa-example-from-exercises" class="slide level2">
+<h2>That <code>bwa</code> example from exercises…</h2>
+</section>
 <section id="todays-content" class="slide level2">
 <h2>Today’s Content</h2>
 <ul>
@@ -3165,25 +3168,35 @@ z-index: 1000;
 <p>Every program has three streams available to it: Standard In (STDIN), Standard Out (STDOUT), and Standard Error (STDERR)</p>
 </div>
 <div class="fragment">
-<p>STDIN contains information that is directed to the input of a program (usually text output via STDOUT from another script). This includes arguments we pass onto the program.</p>
-<p>STDOUT contains information that is output of the script.</p>
-<p>STDERR contains any error messages that happened during the program run.</p>
+<ul>
+<li><p><strong>STDIN</strong> contains information that is directed to the input of a program (usually text output via STDOUT from another script). This includes arguments we pass onto the program.</p></li>
+<li><p><strong>STDOUT</strong> contains information that is output of the script.</p></li>
+<li><p><strong>STDERR</strong> contains any error messages that happened during the program run.</p></li>
+</ul>
 </div>
-<div class="fragment">
-<p>Getting the STDERR output:</p>
+</section>
+<section id="accessing-standard-out-and-standard-error" class="slide level2">
+<h2>Accessing Standard Out and Standard Error</h2>
+<p>Getting STDOUT:</p>
+<pre><code>samtools view -c CALU1_combined_final.sam &gt; CALU1_combined_final.sam.txt</code></pre>
+<p>Getting the STDERR:</p>
 <pre><code>samtools view -c CALU1_combined_final.sam 2&gt; CALU1_combined_final.sam.errors.txt</code></pre>
+<div class="fragment">
+<p>Getting both STDOUT and STDERR:</p>
+<pre><code>samtools view -c CALU1_combined_final.sam &gt; CALU1_combined_final.sam.txt 2&gt; CALU1_combined_final.sam.errors.txt</code></pre>
+<p>More info here: <a href="https://www.geeksforgeeks.org/linux-unix/input-output-redirection-in-linux/" class="uri">https://www.geeksforgeeks.org/linux-unix/input-output-redirection-in-linux/</a></p>
 </div>
 </section>
 <section id="chaining-pipes" class="slide level2">
 <h2>Chaining pipes</h2>
 <p>Taking the STDOUT of a program into the STDIN of another program:</p>
 <div class="cell" data-reveal="true" data-layout-align="default">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb4-1"><a href></a>graph LR</span>
-<span id="cb4-2"><a href></a>  E[run_bwa.sh] --&gt; B(STDOUT)</span>
-<span id="cb4-3"><a href></a>  B --&gt; F{&quot;|&quot;}</span>
-<span id="cb4-4"><a href></a>  E --&gt; C(STDERR)</span>
-<span id="cb4-5"><a href></a>  F --&gt; D(&quot;STDIN (wc)&quot;)</span>
-<span id="cb4-6"><a href></a>  D --&gt; G[wc]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb6-1"><a href></a>graph LR</span>
+<span id="cb6-2"><a href></a>  E[cat READ.csv] --&gt; B(STDOUT)</span>
+<span id="cb6-3"><a href></a>  B --&gt; F{&quot;|&quot;}</span>
+<span id="cb6-4"><a href></a>  E --&gt; C(STDERR)</span>
+<span id="cb6-5"><a href></a>  F --&gt; D(&quot;grep dead &quot;)</span>
+<span id="cb6-6"><a href></a>  D --&gt; G[wc]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment" data-reveal="true" data-layout-align="default">
 <div class="cell-output-display">
@@ -3191,10 +3204,10 @@ z-index: 1000;
 <p></p><figure class><p></p>
 <div>
 <pre class="mermaid mermaid-js">graph LR
-  E[run_bwa.sh] --&gt; B(STDOUT)
+  E[cat READ.csv] --&gt; B(STDOUT)
   B --&gt; F{&quot;|&quot;}
   E --&gt; C(STDERR)
-  F --&gt; D(&quot;STDIN (wc)&quot;)
+  F --&gt; D(&quot;grep dead &quot;)
   D --&gt; G[wc]
 </pre>
 </div>
@@ -3202,8 +3215,47 @@ z-index: 1000;
 </div>
 </div>
 </div>
-<pre><code>./run_samtools.sh | wc </code></pre>
-<p>More info here: <a href="https://www.geeksforgeeks.org/linux-unix/input-output-redirection-in-linux/" class="uri">https://www.geeksforgeeks.org/linux-unix/input-output-redirection-in-linux/</a></p>
+<pre><code>cat READ.csv | grep dead</code></pre>
+<div class="fragment">
+<p>Other use cases:</p>
+<ul>
+<li><p><code>cat READ.csv | grep &quot;dead&quot; | wc</code></p></li>
+<li><p><code>cat READ.csv | uniq | sort</code></p></li>
+<li><p><code>history | grep &quot;sh&quot;</code></p></li>
+</ul>
+</div>
+</section>
+<section id="big-example" class="slide level2">
+<h2>Big example</h2>
+<p><code>run_bwa_and_sam_count.sh</code></p>
+<pre><code>#!/bin/bash
+module load BWA/
+module load SAMtools
+input_fastq=${1}
+
+# strip path and suffix
+base_file_name=&quot;${input_fastq%.fastq}&quot;
+base_file_name=${base_file_name##*/}
+#variables for bwa mem read group
+sample_name=&quot;SM:${base_file_name}&quot;
+read_group_id=&quot;ID:${base_file_name}&quot;
+platform_info=&quot;PL:Illumina&quot;
+ref_fasta_local=&quot;/shared/biodata/reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/BWAIndex/genome.fa&quot;
+
+echo &quot;running $input_fastq&quot;
+
+bwa mem \
+      -p -v 3 -M \
+      -R &quot;@RG\t${read_group_id}\t${sample_name}\t${platform_info}&quot; \
+      &quot;${ref_fasta_local}&quot; &quot;${input_fastq}&quot; | \
+samtools sort &gt; ${base_file_name}.bam
+
+samtools index ${base_file_name}.bam
+
+samtools view -c ${base_file_name}.bam &gt; \
+      ${base_file_name}.bam.counts.txt
+
+module purge</code></pre>
 </section>
 <section id="using-for-loops-to-cycle-through-files" class="slide level2">
 <h2><strong>Using <code>for</code> loops to cycle through files</strong></h2>
@@ -3249,25 +3301,50 @@ done</code></pre>
 <p>Example: <code>./batch_on_rhino.sh</code></p>
 </div>
 </section>
+<section id="launching-jobs-on-the-cluster" class="slide level2">
+<h2>Launching jobs on the cluster</h2>
+<pre><code>sbatch batch_on_rhino.sh</code></pre>
+<div class="fragment">
+<p>Options for <code>sbatch</code></p>
+<ul>
+<li><p><code>-c</code> request a number of processors per task (default 1)</p></li>
+<li><p><code>-p</code> change the partition</p></li>
+<li><p><code>-t</code> request a certain amount of time for the job.</p></li>
+<li><p><code>-J</code> name a job</p></li>
+</ul>
+<p><a href="https://sciwiki.fredhutch.org/scicomputing/compute_jobs/" class="uri">https://sciwiki.fredhutch.org/scicomputing/compute_jobs/</a></p>
+</div>
+<div class="fragment">
+<p>You can save these options within the bash script via <code>#SBATCH</code> header, such as:</p>
+<pre><code>#!/bin/bash
+#SBATCH -c 2
+for file in *.fastq
+do
+  wc $file
+done</code></pre>
+</div>
+<div class="fragment">
+<p>But how do we do across multiple compute nodes at once?</p>
+</div>
+</section>
 <section id="batching-on-the-cluster" class="slide level2">
 <h2>Batching on the cluster</h2>
-<p>Can we take what we do in a loop to individual jobs on the cluster?</p>
 <pre><code>#!/bin/bash
 #SBATCH --nodes=3
 #SBATCH --array=1-3
-sleep 60
+sleep 30
 echo &quot;${SLURM_ARRAY_TASK_ID} job&quot;</code></pre>
 <p>If we launch this job, it will run 3 instances on 3 different computing nodes.</p>
 <div class="fragment">
-<p>Each instance will <code>sleep 60</code> and then print out their array task ID, which will be 1, 2, and 3.</p>
+<p>Each instance will <code>sleep 30</code> and then print out their array task ID, which will be 1, 2, and 3.</p>
 </div>
 <div class="fragment">
 <div class="cell" data-reveal="true" data-layout-align="default">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb10-1"><a href></a>graph TD</span>
-<span id="cb10-2"><a href></a>  A[&quot;sbatch sbatch_test.sh&quot;] --&quot;1&quot;--&gt; B</span>
-<span id="cb10-3"><a href></a>  B[&quot;echo 1 job&quot;]</span>
-<span id="cb10-4"><a href></a>  A --&quot;2&quot;--&gt; C[&quot;echo 2 job&quot;]</span>
-<span id="cb10-5"><a href></a>  A --&quot;3&quot;--&gt; D[&quot;echo 3 job&quot;]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb15-1"><a href></a>graph TD</span>
+<span id="cb15-2"><a href></a>  A[&quot;sbatch sbatch_test.sh&quot;] --&quot;1&quot;--&gt; B</span>
+<span id="cb15-3"><a href></a>  B[&quot;echo 1 job&quot;]</span>
+<span id="cb15-4"><a href></a>  A --&quot;2&quot;--&gt; C[&quot;echo 2 job&quot;]</span>
+<span id="cb15-5"><a href></a>  A --&quot;3&quot;--&gt; D[&quot;echo 3 job&quot;]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment" data-reveal="true" data-layout-align="default">
 <div class="cell-output-display">
